@@ -1,4 +1,5 @@
 ﻿using Entities.Data;
+using RepositoryContracts;
 using RepositoryContracts.Base;
 using System;
 using System.Collections.Generic;
@@ -11,17 +12,16 @@ namespace Repositories.Base
     public class UnitOfWork : IUnitOfWork
     {
         private readonly ApplicationDbContext _db;
-        //private readonly ISurveyRepository SurveyRepository;
-        //private IPatientTypeRepository _patientTypeRepository;
+        
 
         public UnitOfWork(ApplicationDbContext db)
         {
             _db = db;
-           // SurveyRepository = new SurveyRepository(db);
+           CustomerRepository = new CustomerRepository(db);
             // ProvinceRepository = new ProvinceRepository(db);
         }
 
-       // public ISurveyRepository SurveyRepository { get; private set; }
+         public ICustomerRepository CustomerRepository { get; private set; }
 
         public async Task SaveChanges(CancellationToken cancellationToken)
         {
