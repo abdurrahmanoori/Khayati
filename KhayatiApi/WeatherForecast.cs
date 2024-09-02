@@ -1,4 +1,4 @@
-namespace TMS.Mvc
+namespace KhayatiApi
 {
     public class WeatherForecast
     {
