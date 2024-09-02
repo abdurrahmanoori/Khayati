@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35222.181
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "Entities\Entities.csproj", "{B36744B2-B3AF-49A0-92A8-E49B631CA758}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entities", "Entities\Entities.csproj", "{B36744B2-B3AF-49A0-92A8-E49B631CA758}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repositories", "Repository\Repositories.csproj", "{F4D2888B-D73B-418F-AF34-42057C0424FD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repositories", "Repository\Repositories.csproj", "{F4D2888B-D73B-418F-AF34-42057C0424FD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepositoryContracts", "RepositoryContracts\RepositoryContracts.csproj", "{2F0854F4-8041-4307-B159-90AEE08B502C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepositoryContracts", "RepositoryContracts\RepositoryContracts.csproj", "{2F0854F4-8041-4307-B159-90AEE08B502C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TMS.Mvc", "TMS.Mvc\TMS.Mvc.csproj", "{D345DE03-0CE8-49EF-9A98-B7379277E526}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KhayatiApi", "KhayatiApi\KhayatiApi.csproj", "{068D07A1-D5B0-4207-ADC5-0BF59F55BC25}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,10 @@ Global
 		{2F0854F4-8041-4307-B159-90AEE08B502C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2F0854F4-8041-4307-B159-90AEE08B502C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2F0854F4-8041-4307-B159-90AEE08B502C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D345DE03-0CE8-49EF-9A98-B7379277E526}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D345DE03-0CE8-49EF-9A98-B7379277E526}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D345DE03-0CE8-49EF-9A98-B7379277E526}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D345DE03-0CE8-49EF-9A98-B7379277E526}.Release|Any CPU.Build.0 = Release|Any CPU
+		{068D07A1-D5B0-4207-ADC5-0BF59F55BC25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{068D07A1-D5B0-4207-ADC5-0BF59F55BC25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{068D07A1-D5B0-4207-ADC5-0BF59F55BC25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{068D07A1-D5B0-4207-ADC5-0BF59F55BC25}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace TMS.Mvc.Controllers
+namespace KhayatiApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
