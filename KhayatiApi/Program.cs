@@ -1,10 +1,16 @@
 using Entities.Data;
 using Microsoft.EntityFrameworkCore;
+using Repositories.Base;
+using RepositoryContracts.Base;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+
 builder.Services.AddDbContext<ApplicationDbContext>(option =>
 {
     //    option.UseInMemoryDatabase("server=.;Database=SMSDb;Trusted_Connection=True;TrustServerCertificate=Yes;");
