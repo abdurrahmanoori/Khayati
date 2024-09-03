@@ -15,7 +15,7 @@ namespace KhayatiApi.Controllers
         {
             _unitOfWork = unitOfWork;
         }
-        [HttpPost]
+        [HttpPost("Api/Create")]
         public async Task<IActionResult> Create(Customer customer)
         {
           await  _unitOfWork.CustomerRepository.Add(customer);
@@ -25,11 +25,28 @@ namespace KhayatiApi.Controllers
 
         }
 
-        [HttpGet]
+        [HttpGet("Api/GetAll")]
         public async Task<IActionResult> GetCustomerList()
         {
             var result = await _unitOfWork.CustomerRepository.GetAll();
             return Ok(result);
+
+        }
+        
+        [HttpPost("Api/GetById")]
+        public async Task<IActionResult> Edit(int id )
+        {
+            var customer = await _unitOfWork.CustomerRepository.GetFirstOrDefault(x=>x.CustomerId==id);
+            if (customer == null)
+            {
+                return NotFound("There is no on by this Id.");
+            }
+            else
+                return Ok(customer);
+
+
+
+            
 
         }
 
