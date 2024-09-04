@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepositoryContracts", "Repo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KhayatiApi", "KhayatiApi\KhayatiApi.csproj", "{068D07A1-D5B0-4207-ADC5-0BF59F55BC25}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Khayati.Mvc", "Khayati.Mvc\Khayati.Mvc.csproj", "{32BA41F3-4162-40F8-9C1B-BD9AA7BD3262}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{068D07A1-D5B0-4207-ADC5-0BF59F55BC25}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{068D07A1-D5B0-4207-ADC5-0BF59F55BC25}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{068D07A1-D5B0-4207-ADC5-0BF59F55BC25}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32BA41F3-4162-40F8-9C1B-BD9AA7BD3262}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32BA41F3-4162-40F8-9C1B-BD9AA7BD3262}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32BA41F3-4162-40F8-9C1B-BD9AA7BD3262}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32BA41F3-4162-40F8-9C1B-BD9AA7BD3262}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
