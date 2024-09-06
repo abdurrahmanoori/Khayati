@@ -28,6 +28,7 @@ namespace Repositories.Base
          public IMeasurementRepository MeasurementRepository { get; private set; }
          public IEmblishRepository EmblishRepository { get; private set; }
          public IEmblishTypeRepository EmblishTypeRepository { get; private set; }
+         
 
         public async Task SaveChanges(CancellationToken cancellationToken)
         {

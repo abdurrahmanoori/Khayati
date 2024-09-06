@@ -11,7 +11,7 @@ namespace Entities
     {
 
         public int MeasurementID { get; set; }
-        public int CustomerID { get; set; }
+        public int CustomerId { get; set; }
         public DateTime DateTaken { get; set; }
         public double Height { get; set; }
         public double Chest { get; set; }
@@ -22,8 +22,8 @@ namespace Entities
         public double Inseam { get; set; }
 
 
-        [ForeignKey(nameof(CustomerID))]
-        public Customer Customer { get; set; }
+        [ForeignKey(nameof(CustomerId))]
+        public virtual Customer Customer { get; set; }
 
 
     }
