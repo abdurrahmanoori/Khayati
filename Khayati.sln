@@ -13,9 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KhayatiApi", "KhayatiApi\Kh
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Khayati.Mvc", "Khayati.Mvc\Khayati.Mvc.csproj", "{32BA41F3-4162-40F8-9C1B-BD9AA7BD3262}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Khayati.ServiceContracts", "Khayati.ServiceContracts\Khayati.ServiceContracts.csproj", "{79D88AB1-BA05-49E3-8EAC-91C1C3010F43}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Khayati.ServiceContracts", "Khayati.ServiceContracts\Khayati.ServiceContracts.csproj", "{79D88AB1-BA05-49E3-8EAC-91C1C3010F43}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Khayati.Service", "Khayati.Service\Khayati.Service.csproj", "{9CAF79D1-00CF-40D4-B590-92426EAA4F44}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Khayati.Service", "Khayati.Service\Khayati.Service.csproj", "{9CAF79D1-00CF-40D4-B590-92426EAA4F44}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
