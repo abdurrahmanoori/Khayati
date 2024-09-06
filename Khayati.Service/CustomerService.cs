@@ -27,6 +27,25 @@ namespace Khayati.Service
 
         }
 
+        public async Task<CustomerResponseDto> DeleteCustomer(int? customerId)
+        {
+            if (!customerId.HasValue)
+            {
+                return null;
+            }
+            Customer customer = await _unitOfWork.CustomerRepository.GetById((int)customerId);
+            if (customer == null)
+            {
+                return null;
+            }
+            await _unitOfWork.CustomerRepository.Remove(customer);
+            await _unitOfWork.SaveChanges(default);
+
+            return customer.ToCustomerResponseDto();
+
+        }
+
+
         public async Task<CustomerResponseDto> GetCustomerById(int? customerId)
         {
             if (customerId == null || customerId == 0)
@@ -41,6 +60,20 @@ namespace Khayati.Service
 
         }
 
-     
+        public async Task<IEnumerable<CustomerResponseDto>> GetCustomerList()
+        {
+            IEnumerable<Customer> customers = await _unitOfWork.CustomerRepository.GetAll();
+            if (customers is null)
+            {
+                return null;
+            }
+
+            IEnumerable<CustomerResponseDto> customerResponseDtos = customers
+                .Select(temp => temp.ToCustomerResponseDto());
+
+            return customerResponseDtos;
+
+        }
+
     }
 }

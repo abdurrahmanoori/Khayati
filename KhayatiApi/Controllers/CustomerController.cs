@@ -29,13 +29,13 @@ namespace KhayatiApi.Controllers
 
 
 
-        //[HttpGet("Api/GetAll")]
-        //public async Task<IActionResult> GetCustomerList()
-        //{
-        //    var result = await _unitOfWork.CustomerRepository.GetAll();
-        //    return Ok(result);
+        [HttpGet("Api/GetAll")]
+        public async Task<IActionResult> GetCustomerList()
+        {
+            IEnumerable<CustomerResponseDto> results =await _customerService.GetCustomerList();
+            return Ok(results);
 
-        //}
+        }
 
         [HttpPost("Api/GetById")]
         public async Task<IActionResult> GitById(int id)
@@ -44,6 +44,13 @@ namespace KhayatiApi.Controllers
 
             return Ok(customer);
 
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteCustomer(int customerId)
+        {
+            CustomerResponseDto customer = await _customerService.DeleteCustomer(customerId);
+            return Ok(customer);
         }
 
         //[HttpPost("Api/Edit")]

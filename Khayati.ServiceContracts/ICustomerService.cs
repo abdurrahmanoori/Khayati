@@ -7,5 +7,9 @@ namespace Khayati.ServiceContracts
         public Task<CustomerAddDto> AddCustomer(CustomerAddDto addCustomerDto);
         public Task<CustomerResponseDto> GetCustomerById(int? customerId);
 
+        public Task<IEnumerable<CustomerResponseDto>> GetCustomerList();
+
+        public Task<CustomerResponseDto> DeleteCustomer(int? customerId);
+
     }
 }
