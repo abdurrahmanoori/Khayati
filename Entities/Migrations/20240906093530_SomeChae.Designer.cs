@@ -3,6 +3,7 @@ using System;
 using Entities.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Entities.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240906093530_SomeChae")]
+    partial class SomeChae
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.0");
@@ -33,7 +35,7 @@ namespace Entities.Migrations
 
                     b.HasKey("CustomerId");
 
-                    b.ToTable("Customers", (string)null);
+                    b.ToTable("Customers");
                 });
 
             modelBuilder.Entity("Entities.Design", b =>
@@ -70,27 +72,27 @@ namespace Entities.Migrations
 
                     b.HasIndex("MeasurementID");
 
-                    b.ToTable("Designs", (string)null);
+                    b.ToTable("Designs");
                 });
 
             modelBuilder.Entity("Entities.Emblish", b =>
                 {
-                    b.Property<int>("EmblishId")
+                    b.Property<int>("EmbellishId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("EmblishName")
+                    b.Property<string>("EmbelishName")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("EmblishTypeId")
+                    b.Property<int?>("EmbellishTypeId")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("EmblishId");
+                    b.HasKey("EmbellishId");
 
-                    b.HasIndex("EmblishTypeId");
+                    b.HasIndex("EmbellishTypeId");
 
-                    b.ToTable("Embellish", (string)null);
+                    b.ToTable("Embellish");
                 });
 
             modelBuilder.Entity("Entities.EmblishType", b =>
@@ -108,7 +110,7 @@ namespace Entities.Migrations
 
                     b.HasKey("EmblishTypeId");
 
-                    b.ToTable("EmbellishTypes", (string)null);
+                    b.ToTable("EmbellishTypes");
                 });
 
             modelBuilder.Entity("Entities.Measurement", b =>
@@ -148,7 +150,7 @@ namespace Entities.Migrations
 
                     b.HasIndex("CustomerID");
 
-                    b.ToTable("Measurements", (string)null);
+                    b.ToTable("Measurements");
                 });
 
             modelBuilder.Entity("Entities.Orders", b =>
@@ -182,7 +184,7 @@ namespace Entities.Migrations
 
                     b.HasIndex("DesignID");
 
-                    b.ToTable("Orders", (string)null);
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("Entities.Design", b =>
@@ -206,11 +208,11 @@ namespace Entities.Migrations
 
             modelBuilder.Entity("Entities.Emblish", b =>
                 {
-                    b.HasOne("Entities.EmblishType", "EmblishType")
-                        .WithMany("Emblishes")
-                        .HasForeignKey("EmblishTypeId");
+                    b.HasOne("Entities.EmblishType", "EmbellishType")
+                        .WithMany("Embellishes")
+                        .HasForeignKey("EmbellishTypeId");
 
-                    b.Navigation("EmblishType");
+                    b.Navigation("EmbellishType");
                 });
 
             modelBuilder.Entity("Entities.Measurement", b =>
@@ -245,7 +247,7 @@ namespace Entities.Migrations
 
             modelBuilder.Entity("Entities.EmblishType", b =>
                 {
-                    b.Navigation("Emblishes");
+                    b.Navigation("Embellishes");
                 });
 #pragma warning restore 612, 618
         }

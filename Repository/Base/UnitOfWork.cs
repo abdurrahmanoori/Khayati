@@ -19,13 +19,14 @@ namespace Repositories.Base
             _db = db;
            CustomerRepository = new CustomerRepository(db);
             MeasurementRepository = new MeasurementRepository(db);
+            EmblishTypeRepository = new EmblishTypeRepository(db);
             // ProvinceRepository = new ProvinceRepository(db);
         }
         
          public ICustomerRepository CustomerRepository { get; private set; }
          public IMeasurementRepository MeasurementRepository { get; private set; }
-         public IEmbellishRepository EmbellishRepository { get; private set; }
-         public IEmbellishTypeRepository EmbellishTypeRepository { get; private set; }
+         public IEmblishRepository EmblishRepository { get; private set; }
+         public IEmblishTypeRepository EmblishTypeRepository { get; private set; }
 
         public async Task SaveChanges(CancellationToken cancellationToken)
         {

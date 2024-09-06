@@ -1,6 +1,7 @@
 ﻿using Entities;
 using Entities.Data;
 using Repositories.Base;
+using RepositoryContracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace Repositories
 {
-    public class EmbellishTypeRepository:GenericRepository<EmbellishType>
+    public class EmblishTypeRepository:GenericRepository<EmblishType>,IEmblishTypeRepository
     {
         private readonly ApplicationDbContext _dbcontext;
 
-        public EmbellishTypeRepository(ApplicationDbContext dbContext) : base(dbContext)  
+        public EmblishTypeRepository(ApplicationDbContext dbContext) : base(dbContext)  
             
         {
             _dbcontext = dbContext;
