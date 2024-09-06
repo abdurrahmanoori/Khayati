@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Repositories
 {
-    public class EmbellishRepository:GenericRepository<Embellish>
+    public class EmbellishRepository:GenericRepository<Emblish>
     {
         private readonly ApplicationDbContext _dbcontext;
 
