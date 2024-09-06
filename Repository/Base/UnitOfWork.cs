@@ -24,6 +24,8 @@ namespace Repositories.Base
         
          public ICustomerRepository CustomerRepository { get; private set; }
          public IMeasurementRepository MeasurementRepository { get; private set; }
+         public IEmbellishRepository EmbellishRepository { get; private set; }
+         public IEmbellishTypeRepository EmbellishTypeRepository { get; private set; }
 
         public async Task SaveChanges(CancellationToken cancellationToken)
         {

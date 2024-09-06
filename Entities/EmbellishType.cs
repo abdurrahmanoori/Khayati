@@ -2,9 +2,9 @@
 {
     public class EmbellishType
     {
-        public int  EmbelishTypeId { get; set; }
+        public int  EmbellishTypeId { get; set; }
 
-        public string EmbelishTypeName { get;set; }
+        public string EmbellishTypeName { get;set; }
 
 
         public virtual ICollection<Embellish>? Embellishes { get; set; }
