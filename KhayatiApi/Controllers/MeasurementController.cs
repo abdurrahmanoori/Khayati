@@ -7,45 +7,44 @@ namespace KhayatiApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CustomerController : ControllerBase
+    public class MeasurementController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public CustomerController(IUnitOfWork unitOfWork)
+        public MeasurementController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
         [HttpPost("Api/Create")]
-        public async Task<IActionResult> Create(Customer customer)
+        public async Task<IActionResult> Create(Measurement Measurement)
         {
-          await  _unitOfWork.CustomerRepository.Add(customer);
+            await _unitOfWork.MeasurementRepository.Add(Measurement);
 
-          await  _unitOfWork.SaveChanges(CancellationToken.None);
+            await _unitOfWork.SaveChanges(CancellationToken.None);
             return Ok("susclrrry stored");
 
         }
 
         [HttpGet("Api/GetAll")]
-        public async Task<IActionResult> GetCustomerList()
+        public async Task<IActionResult> GetMeasurementList()
         {
-            var result = await _unitOfWork.CustomerRepository.GetAll();
+            var result = await _unitOfWork.MeasurementRepository.GetAll();
             return Ok(result);
 
         }
-        
+
         [HttpPost("Api/GetById")]
-        public async Task<IActionResult> GitById(int id )
+        public async Task<IActionResult> GetById(int id)
         {
-            var customer = await _unitOfWork.CustomerRepository.GetFirstOrDefault(x=>x.CustomerId==id);
-            if (customer == null)
+            var Measurement = await _unitOfWork.MeasurementRepository.GetFirstOrDefault(x => x.MeasurementID == id);
+            if (Measurement == null)
             {
                 return NotFound("There is no on by this Id.");
             }
             else
-                return Ok(customer);
+                return Ok(Measurement);
 
         }
-
         [HttpPost("Api/Edit")]
         public async Task<IActionResult> Edit(int id)
         {
@@ -59,7 +58,6 @@ namespace KhayatiApi.Controllers
             return Ok(Measurement);
 
         }
-
 
 
 

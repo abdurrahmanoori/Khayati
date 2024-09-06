@@ -18,10 +18,12 @@ namespace Repositories.Base
         {
             _db = db;
            CustomerRepository = new CustomerRepository(db);
+            MeasurementRepository = new MeasurementRepository(db);
             // ProvinceRepository = new ProvinceRepository(db);
         }
-
+        
          public ICustomerRepository CustomerRepository { get; private set; }
+         public IMeasurementRepository MeasurementRepository { get; private set; }
 
         public async Task SaveChanges(CancellationToken cancellationToken)
         {
