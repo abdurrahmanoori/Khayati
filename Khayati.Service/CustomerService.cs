@@ -14,17 +14,33 @@ namespace Khayati.Service
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<AddCustomerDto> AddCustomer(AddCustomerDto addCustomerDto)
+        public async Task<CustomerAddDto> AddCustomer(CustomerAddDto customerAddDto)
         {
-            if (addCustomerDto == null)
+            if (customerAddDto == null)
             {
                 return null;
             }
-            Customer customer = addCustomerDto.ToCustomer();
+            Customer customer = customerAddDto.ToCustomer();
             await _unitOfWork.CustomerRepository.Add(customer);
             await _unitOfWork.SaveChanges(CancellationToken.None);
-            return addCustomerDto;
+            return customerAddDto;
 
         }
+
+        public async Task<CustomerResponseDto> GetCustomerById(int? customerId)
+        {
+            if (customerId == null || customerId == 0)
+            {
+                return null;
+            }
+            Customer customer = await _unitOfWork.CustomerRepository
+                .GetFirstOrDefault(x => x.CustomerId == customerId);
+
+            CustomerResponseDto CustomerResponseDto = customer.ToCustomerResponseDto();
+            return CustomerResponseDto;
+
+        }
+
+     
     }
 }

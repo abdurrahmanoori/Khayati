@@ -2,7 +2,7 @@
 
 namespace Khayati.ServiceContracts.DTO
 {
-    public class AddCustomerDto
+    public class CustomerAddDto
     {
         public string CustomerName { get; set; }
 

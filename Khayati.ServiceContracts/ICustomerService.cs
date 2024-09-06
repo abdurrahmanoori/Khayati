@@ -4,7 +4,8 @@ namespace Khayati.ServiceContracts
 {
     public interface ICustomerService
     {
-        public Task<AddCustomerDto> AddCustomer(AddCustomerDto addCustomerDto);
+        public Task<CustomerAddDto> AddCustomer(CustomerAddDto addCustomerDto);
+        public Task<CustomerResponseDto> GetCustomerById(int? customerId);
 
     }
 }

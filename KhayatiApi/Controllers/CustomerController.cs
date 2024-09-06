@@ -20,12 +20,14 @@ namespace KhayatiApi.Controllers
         }
 
         [HttpPost("Api/Create")]
-        public async Task<IActionResult> Create(AddCustomerDto addCustomerDto)
+        public async Task<IActionResult> Create(CustomerAddDto addCustomerDto)
         {
-         var result =    await _customerService.AddCustomer(addCustomerDto);
+            var result = await _customerService.AddCustomer(addCustomerDto);
             return Ok(result);
 
         }
+
+
 
         //[HttpGet("Api/GetAll")]
         //public async Task<IActionResult> GetCustomerList()
@@ -35,18 +37,14 @@ namespace KhayatiApi.Controllers
 
         //}
 
-        //[HttpPost("Api/GetById")]
-        //public async Task<IActionResult> GitById(int id)
-        //{
-        //    var customer = await _unitOfWork.CustomerRepository.GetFirstOrDefault(x => x.CustomerId == id);
-        //    if (customer == null)
-        //    {
-        //        return NotFound("There is no on by this Id.");
-        //    }
-        //    else
-        //        return Ok(customer);
+        [HttpPost("Api/GetById")]
+        public async Task<IActionResult> GitById(int id)
+        {
+            var customer = await _customerService.GetCustomerById(id);
 
-        //}
+            return Ok(customer);
+
+        }
 
         //[HttpPost("Api/Edit")]
         //public async Task<IActionResult> Edit(int id)
