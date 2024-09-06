@@ -1,4 +1,6 @@
 using Entities.Data;
+using Khayati.Service;
+using Khayati.ServiceContracts;
 using Microsoft.EntityFrameworkCore;
 using Repositories.Base;
 using RepositoryContracts.Base;
@@ -9,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-
+builder.Services.AddScoped<ICustomerService, CustomerService>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(option =>
 {

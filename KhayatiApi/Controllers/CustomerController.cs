@@ -1,4 +1,6 @@
 ﻿using Entities;
+using Khayati.ServiceContracts;
+using Khayati.ServiceContracts.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RepositoryContracts.Base;
@@ -9,56 +11,61 @@ namespace KhayatiApi.Controllers
     [ApiController]
     public class CustomerController : ControllerBase
     {
-        private readonly IUnitOfWork _unitOfWork;
+        //private readonly IUnitOfWork _unitOfWork;
+        private readonly ICustomerService _customerService;
 
-        public CustomerController(IUnitOfWork unitOfWork)
+        public CustomerController(ICustomerService customerService)
         {
-            _unitOfWork = unitOfWork;
+            _customerService = customerService;
         }
+
         [HttpPost("Api/Create")]
-        public async Task<IActionResult> Create(Customer customer)
+        public async Task<IActionResult> Create(CustomerAddDto addCustomerDto)
         {
-          await  _unitOfWork.CustomerRepository.Add(customer);
-
-          await  _unitOfWork.SaveChanges(CancellationToken.None);
-            return Ok("susclrrry stored");
+            var result = await _customerService.AddCustomer(addCustomerDto);
+            return Ok(result);
 
         }
+
+
 
         [HttpGet("Api/GetAll")]
         public async Task<IActionResult> GetCustomerList()
         {
-            var result = await _unitOfWork.CustomerRepository.GetAll();
-            return Ok(result);
+            IEnumerable<CustomerResponseDto> results =await _customerService.GetCustomerList();
+            return Ok(results);
 
         }
-        
+
         [HttpPost("Api/GetById")]
-        public async Task<IActionResult> GitById(int id )
+        public async Task<IActionResult> GitById(int id)
         {
-            var customer = await _unitOfWork.CustomerRepository.GetFirstOrDefault(x=>x.CustomerId==id);
-            if (customer == null)
-            {
-                return NotFound("There is no on by this Id.");
-            }
-            else
-                return Ok(customer);
+            var customer = await _customerService.GetCustomerById(id);
+
+            return Ok(customer);
 
         }
 
-        [HttpPost("Api/Edit")]
-        public async Task<IActionResult> Edit(int id)
+        [HttpDelete]
+        public async Task<IActionResult> DeleteCustomer(int customerId)
         {
-            var Measurement = await _unitOfWork.MeasurementRepository.GetFirstOrDefault(x => x.MeasurementID == id);
-            if (Measurement == null)
-            {
-                return NotFound("There is no on by this Id.");
-            }
-            await _unitOfWork.MeasurementRepository.Update(Measurement);
-
-            return Ok(Measurement);
-
+            CustomerResponseDto customer = await _customerService.DeleteCustomer(customerId);
+            return Ok(customer);
         }
+
+        //[HttpPost("Api/Edit")]
+        //public async Task<IActionResult> Edit(int id)
+        //{
+        //    var Measurement = await _unitOfWork.MeasurementRepository.GetFirstOrDefault(x => x.MeasurementID == id);
+        //    if (Measurement == null)
+        //    {
+        //        return NotFound("There is no on by this Id.");
+        //    }
+        //    await _unitOfWork.MeasurementRepository.Update(Measurement);
+
+        //    return Ok(Measurement);
+
+        //}
 
 
 
