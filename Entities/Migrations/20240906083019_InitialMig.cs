@@ -5,10 +5,83 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Entities.Migrations
 {
-    public partial class newdb : Migration
+    public partial class InitialMig : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Customers",
+                columns: table => new
+                {
+                    CustomerId = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    CustomerName = table.Column<string>(type: "TEXT", nullable: false),
+                    CustomerAddress = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Customers", x => x.CustomerId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EmbellishTypes",
+                columns: table => new
+                {
+                    EmbellishTypeId = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    EmbellishTypeName = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EmbellishTypes", x => x.EmbellishTypeId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Measurements",
+                columns: table => new
+                {
+                    MeasurementID = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    CustomerID = table.Column<int>(type: "INTEGER", nullable: false),
+                    DateTaken = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Height = table.Column<double>(type: "REAL", nullable: false),
+                    Chest = table.Column<double>(type: "REAL", nullable: false),
+                    Waist = table.Column<double>(type: "REAL", nullable: false),
+                    Hip = table.Column<double>(type: "REAL", nullable: false),
+                    ShoulderWidth = table.Column<double>(type: "REAL", nullable: false),
+                    ArmLength = table.Column<double>(type: "REAL", nullable: false),
+                    Inseam = table.Column<double>(type: "REAL", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Measurements", x => x.MeasurementID);
+                    table.ForeignKey(
+                        name: "FK_Measurements_Customers_CustomerID",
+                        column: x => x.CustomerID,
+                        principalTable: "Customers",
+                        principalColumn: "CustomerId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Embellish",
+                columns: table => new
+                {
+                    EmbellishId = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    EmbelishName = table.Column<string>(type: "TEXT", nullable: false),
+                    EmbellishTypeId = table.Column<int>(type: "INTEGER", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Embellish", x => x.EmbellishId);
+                    table.ForeignKey(
+                        name: "FK_Embellish_EmbellishTypes_EmbellishTypeId",
+                        column: x => x.EmbellishTypeId,
+                        principalTable: "EmbellishTypes",
+                        principalColumn: "EmbellishTypeId");
+                });
+
             migrationBuilder.CreateTable(
                 name: "Designs",
                 columns: table => new
@@ -37,19 +110,6 @@ namespace Entities.Migrations
                         principalTable: "Measurements",
                         principalColumn: "MeasurementID",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "EmbellishTypes",
-                columns: table => new
-                {
-                    EmbellishTypeId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    EmbellishTypeName = table.Column<string>(type: "TEXT", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_EmbellishTypes", x => x.EmbellishTypeId);
                 });
 
             migrationBuilder.CreateTable(
@@ -82,25 +142,6 @@ namespace Entities.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Embellish",
-                columns: table => new
-                {
-                    EmbellishId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    EmbelishName = table.Column<string>(type: "TEXT", nullable: false),
-                    EmbellishTypeId = table.Column<int>(type: "INTEGER", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Embellish", x => x.EmbellishId);
-                    table.ForeignKey(
-                        name: "FK_Embellish_EmbellishTypes_EmbellishTypeId",
-                        column: x => x.EmbellishTypeId,
-                        principalTable: "EmbellishTypes",
-                        principalColumn: "EmbellishTypeId");
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_Designs_CustomerID",
                 table: "Designs",
@@ -115,6 +156,11 @@ namespace Entities.Migrations
                 name: "IX_Embellish_EmbellishTypeId",
                 table: "Embellish",
                 column: "EmbellishTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Measurements_CustomerID",
+                table: "Measurements",
+                column: "CustomerID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_CustomerID",
@@ -140,6 +186,12 @@ namespace Entities.Migrations
 
             migrationBuilder.DropTable(
                 name: "Designs");
+
+            migrationBuilder.DropTable(
+                name: "Measurements");
+
+            migrationBuilder.DropTable(
+                name: "Customers");
         }
     }
 }

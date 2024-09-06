@@ -36,6 +36,78 @@ namespace Entities.Migrations
                     b.ToTable("Customers");
                 });
 
+            modelBuilder.Entity("Entities.Design", b =>
+                {
+                    b.Property<int>("DesignID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CustomerID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("DesignDescription")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("DesignName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("MeasurementID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Notes")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("DesignID");
+
+                    b.HasIndex("CustomerID");
+
+                    b.HasIndex("MeasurementID");
+
+                    b.ToTable("Designs");
+                });
+
+            modelBuilder.Entity("Entities.Embellish", b =>
+                {
+                    b.Property<int>("EmbellishId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("EmbelishName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("EmbellishTypeId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("EmbellishId");
+
+                    b.HasIndex("EmbellishTypeId");
+
+                    b.ToTable("Embellish");
+                });
+
+            modelBuilder.Entity("Entities.EmbellishType", b =>
+                {
+                    b.Property<int>("EmbellishTypeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("EmbellishTypeName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("EmbellishTypeId");
+
+                    b.ToTable("EmbellishTypes");
+                });
+
             modelBuilder.Entity("Entities.Measurement", b =>
                 {
                     b.Property<int>("MeasurementID")
@@ -76,6 +148,68 @@ namespace Entities.Migrations
                     b.ToTable("Measurements");
                 });
 
+            modelBuilder.Entity("Entities.Orders", b =>
+                {
+                    b.Property<int>("OrderID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CustomerID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("DesignID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("ExpectedCompletionDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("OrderDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("TotalCost")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("OrderID");
+
+                    b.HasIndex("CustomerID");
+
+                    b.HasIndex("DesignID");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("Entities.Design", b =>
+                {
+                    b.HasOne("Entities.Customer", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entities.Measurement", "Measurement")
+                        .WithMany()
+                        .HasForeignKey("MeasurementID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("Measurement");
+                });
+
+            modelBuilder.Entity("Entities.Embellish", b =>
+                {
+                    b.HasOne("Entities.EmbellishType", "EmbellishType")
+                        .WithMany("Embellishes")
+                        .HasForeignKey("EmbellishTypeId");
+
+                    b.Navigation("EmbellishType");
+                });
+
             modelBuilder.Entity("Entities.Measurement", b =>
                 {
                     b.HasOne("Entities.Customer", "Customer")
@@ -85,6 +219,30 @@ namespace Entities.Migrations
                         .IsRequired();
 
                     b.Navigation("Customer");
+                });
+
+            modelBuilder.Entity("Entities.Orders", b =>
+                {
+                    b.HasOne("Entities.Customer", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entities.Design", "Design")
+                        .WithMany()
+                        .HasForeignKey("DesignID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("Design");
+                });
+
+            modelBuilder.Entity("Entities.EmbellishType", b =>
+                {
+                    b.Navigation("Embellishes");
                 });
 #pragma warning restore 612, 618
         }
