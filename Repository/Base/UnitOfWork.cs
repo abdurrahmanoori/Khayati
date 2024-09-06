@@ -20,6 +20,7 @@ namespace Repositories.Base
            CustomerRepository = new CustomerRepository(db);
             MeasurementRepository = new MeasurementRepository(db);
             EmblishTypeRepository = new EmblishTypeRepository(db);
+            EmblishRepository = new EmblishRepository(db);
             // ProvinceRepository = new ProvinceRepository(db);
         }
         
