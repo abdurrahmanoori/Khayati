@@ -17,5 +17,10 @@ namespace Repositories
         {
             _dbContext = dbContext;
         }
+
+        public Task<Customer> GetByEmail(string email)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -10,6 +10,8 @@ namespace RepositoryContracts.Base
     {
         //IProvinceRepository ProvinceRepository { get; }
         ICustomerRepository CustomerRepository { get; }
+        IMeasurementRepository MeasurementRepository { get; }
+
         Task SaveChanges(CancellationToken cancellationToken);
 
     }
