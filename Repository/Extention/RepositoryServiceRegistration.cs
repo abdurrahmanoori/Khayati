@@ -12,7 +12,8 @@ namespace Repositories.Extention
            services.AddDbContext<ApplicationDbContext>(option =>
             {
                 //    option.UseInMemoryDatabase("server=.;Database=SMSDb;Trusted_Connection=True;TrustServerCertificate=Yes;");
-                option.UseSqlite("Data Source=Khayati.db");
+                //option.UseSqlite("Data Source=Khayati.db");
+                option.UseSqlite(configuration.GetConnectionString("SqlLiteCS"));
             });
 
 
