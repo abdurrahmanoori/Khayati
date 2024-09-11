@@ -13,6 +13,7 @@ namespace RepositoryContracts.Base
         IMeasurementRepository MeasurementRepository { get; }
         IEmblishRepository EmblishRepository { get; }
         IEmblishTypeRepository EmblishTypeRepository { get; }
+        IOrdersRepository OrdersRepository { get; }
 
         Task SaveChanges(CancellationToken cancellationToken);
 

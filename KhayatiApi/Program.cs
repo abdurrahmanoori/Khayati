@@ -13,7 +13,8 @@ builder.Services.AddControllers();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<IEmblishTypeService, EmblishTypeService>();
-//builder.Services.AddScoped<IEmblishService, EmblishService>();
+builder.Services.AddScoped<IMeasurementService, MeasurementService>();
+
 builder.Services.AddScoped<IEmblishService,EmblishService>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(option =>

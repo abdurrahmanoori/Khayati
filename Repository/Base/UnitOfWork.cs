@@ -21,13 +21,16 @@ namespace Repositories.Base
             MeasurementRepository = new MeasurementRepository(db);
             EmblishTypeRepository = new EmblishTypeRepository(db);
             EmblishRepository = new EmblishRepository(db);
-            // ProvinceRepository = new ProvinceRepository(db);
+            OrdersRepository = new OrdersRepository(db);
+            
         }
         
          public ICustomerRepository CustomerRepository { get; private set; }
          public IMeasurementRepository MeasurementRepository { get; private set; }
          public IEmblishRepository EmblishRepository { get; private set; }
          public IEmblishTypeRepository EmblishTypeRepository { get; private set; }
+         public IOrdersRepository OrdersRepository { get; private set; }
+         
 
         public async Task SaveChanges(CancellationToken cancellationToken)
         {
