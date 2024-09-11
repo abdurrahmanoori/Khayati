@@ -21,6 +21,11 @@ namespace Entities
         public double ArmLength { get; set; }
         public double Inseam { get; set; }
 
+        /// <summary>
+        ///If the same customer has multiple measurements, 
+        ///this will indicate the date when the last measurement was taken.
+        /// </summary>
+        public DateTime DateCreated { get; set; }
 
         [ForeignKey(nameof(CustomerId))]
         public virtual Customer Customer { get; set; }

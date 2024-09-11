@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Repositories
 {
-    class OrdersRepository : GenericRepository<Orders>, IOrdersRepository
+    class OrdersRepository : GenericRepository<Order>, IOrdersRepository
     {
         private readonly ApplicationDbContext _dbcontext;
 

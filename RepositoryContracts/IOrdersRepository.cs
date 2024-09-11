@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RepositoryContracts
 {
-    public interface IOrdersRepository : IGenericRepository<Orders>
+    public interface IOrdersRepository : IGenericRepository<Order>
     {
     }
 }

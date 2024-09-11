@@ -14,15 +14,15 @@ namespace Khayati.ServiceContracts.DTO
         public Customer Customer { get; set; }
 
 
-        public Orders ToOrders()
+        public Order ToOrders()
         {
-            return new Orders
+            return new Order
             {
               CustomerId=CustomerId,
               OrderDate=OrderDate,
               ExpectedCompletionDate=ExpectedCompletionDate,    
               TotalCost=TotalCost,  
-              Status=Status,
+              //Status=Status,
               Customer=Customer
               
             };

@@ -25,7 +25,7 @@ namespace Khayati.Service
             {
                 return null;
             }
-            Orders Orders = OrdersAddDto.ToOrders();
+            Order Orders = OrdersAddDto.ToOrders();
             await _unitOfWork.OrdersRepository.Add(Orders);
             await _unitOfWork.SaveChanges(CancellationToken.None);
             return OrdersAddDto;
@@ -38,7 +38,7 @@ namespace Khayati.Service
             {
                 return null;
             }
-            Orders Orders = await _unitOfWork.OrdersRepository.GetById((int)OrdersId);
+            Order Orders = await _unitOfWork.OrdersRepository.GetById((int)OrdersId);
             if (Orders == null)
             {
                 return null;
@@ -57,7 +57,7 @@ namespace Khayati.Service
             {
                 return null;
             }
-            Orders Orders = await _unitOfWork.OrdersRepository
+            Order Orders = await _unitOfWork.OrdersRepository
                 .GetFirstOrDefault(x => x.OrdersId == OrdersId);
 
             OrdersResponseDto OrdersResponseDto = Orders.ToOrdersResponseDto();
@@ -67,7 +67,7 @@ namespace Khayati.Service
 
         public async Task<IEnumerable<OrdersResponseDto>> GetOrdersList()
         {
-            IEnumerable<Orders> Orderss = await _unitOfWork.OrdersRepository.GetAll();
+            IEnumerable<Order> Orderss = await _unitOfWork.OrdersRepository.GetAll();
             if (Orderss is null)
             {
                 return null;

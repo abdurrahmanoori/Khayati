@@ -16,12 +16,12 @@ namespace Khayati.ServiceContracts.DTO
         public decimal TotalCost { get; set; }
         public string Status { get; set; }
 
-        public Orders Orders { get; set; }
+        public Order Orders { get; set; }
     }
 
     public static class OrdersExtention
     {
-        public static OrdersResponseDto ToOrdersResponseDto(this Orders Orders)
+        public static OrdersResponseDto ToOrdersResponseDto(this Order Orders)
         {
             return new OrdersResponseDto
             {
@@ -29,7 +29,7 @@ namespace Khayati.ServiceContracts.DTO
                 OrderDate = Orders.OrderDate,
                 ExpectedCompletionDate = Orders.ExpectedCompletionDate,
                 TotalCost = Orders.TotalCost,
-                Status = Orders.Status,
+                //Status = Orders.Status,
                 Orders = Orders
                 
             };

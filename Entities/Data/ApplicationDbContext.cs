@@ -11,8 +11,8 @@ namespace Entities.Data
         }
          public DbSet<Customer> Customers { get; set; } 
          public DbSet<Measurement> Measurements { get; set; } 
-         public DbSet<Design> Designs { get; set; } 
-         public DbSet<Orders> Orders { get; set; } 
+         public DbSet<OrderDesign> OrderDesigns { get; set; } 
+         public DbSet<Order> Orders { get; set; } 
          public DbSet<Emblish> Embellish { get; set; } 
          public DbSet<EmblishType> EmbellishTypes { get; set; } 
     }
