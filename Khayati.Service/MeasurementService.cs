@@ -59,7 +59,7 @@ namespace Khayati.Service
                 return null;
             }
             Measurement Measurement = await _unitOfWork.MeasurementRepository
-                .GetFirstOrDefault(x => x.MeasurementID == MeasurementId);
+                .GetFirstOrDefault(x => x.Measurementid == MeasurementId);
 
             MeasurementResponseDto MeasurementResponseDto = Measurement.ToMeasurementResponseDto();
             return MeasurementResponseDto;

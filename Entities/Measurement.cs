@@ -10,7 +10,7 @@ namespace Entities
     public class Measurement
     {
 
-        public int MeasurementID { get; set; }
+        public int Measurementid { get; set; }
         public int CustomerId { get; set; }
         public DateTime DateTaken { get; set; }
         public double Height { get; set; }

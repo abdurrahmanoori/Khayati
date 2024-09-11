@@ -27,7 +27,7 @@ namespace Khayati.ServiceContracts.DTO
         {
             return new MeasurementResponseDto
             {
-                MeasurementID = Measurement.MeasurementID,
+                MeasurementID = Measurement.Measurementid,
                 CustomerID = Measurement.CustomerId,
                 DateTaken = Measurement.DateTaken,  
                 Height = Measurement.Height,

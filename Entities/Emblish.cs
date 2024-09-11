@@ -10,7 +10,7 @@ namespace Entities
 
         public string EmblishName { get; set; }
         public string? EmblishDiscription { get; set; }
-         
+         public int Price { get; set; }
         public int? EmblishTypeId { get; set; }
 
         [ForeignKey(nameof(EmblishTypeId))]

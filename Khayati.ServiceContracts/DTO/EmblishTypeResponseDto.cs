@@ -17,13 +17,13 @@ namespace Khayati.ServiceContracts.DTO
 
     public static class EmblishTypeExtention
     {
-        public static EmblishTypeResponseDto ToEmblishTypeResponseDto(this EmblishType EmblishTyper)
+        public static EmblishTypeResponseDto ToEmblishTypeResponseDto(this EmblishType EmblishType)
         {
             return new EmblishTypeResponseDto
             {
-                EmblishTypeId = EmblishTyper.EmblishTypeId,
-                EmblishTypeName = EmblishTyper.EmblishTypeName,
-                EmblishTypeDiscription = EmblishTyper.EmblishTypeDiscription,
+                EmblishTypeId = EmblishType.EmblishTypeId,
+                EmblishTypeName = EmblishType.EmblishTypeName,
+                EmblishTypeDiscription = EmblishType.EmblishTypeDiscription,
             };
         }
     }
