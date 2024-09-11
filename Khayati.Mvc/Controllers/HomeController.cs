@@ -1,4 +1,5 @@
 ﻿using Khayati.Mvc.Models;
+using Khayati.ServiceContracts;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -7,15 +8,18 @@ namespace Khayati.Mvc.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly ICustomerService _customerService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, ICustomerService customerService)
         {
             _logger = logger;
+            _customerService = customerService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var result = await _customerService.GetCustomerList();
+            return View(result);
         }
 
         public IActionResult Privacy()
