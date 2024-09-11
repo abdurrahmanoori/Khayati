@@ -13,7 +13,7 @@ namespace Khayati.ServiceContracts.DTO
         //public int DesignId { get; set; }
         public DateTime OrderDate { get; set; }
         public DateTime ExpectedCompletionDate { get; set; }
-        public decimal TotalCost { get; set; }
+        public decimal TotalAmount { get; set; }
         public string Status { get; set; }
 
         public Order Orders { get; set; }
@@ -25,10 +25,10 @@ namespace Khayati.ServiceContracts.DTO
         {
             return new OrdersResponseDto
             {
-                OrdersId = Orders.OrdersId,
+                OrdersId = Orders.OrderId,
                 OrderDate = Orders.OrderDate,
                 ExpectedCompletionDate = Orders.ExpectedCompletionDate,
-                TotalCost = Orders.TotalCost,
+                TotalAmount = Orders.TotalAmount,
                 //Status = Orders.Status,
                 Orders = Orders
                 

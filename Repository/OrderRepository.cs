@@ -11,11 +11,11 @@ using System.Threading.Tasks;
 
 namespace Repositories
 {
-    class OrdersRepository : GenericRepository<Order>, IOrdersRepository
+    class OrderRepository : GenericRepository<Order>, IOrderRepository
     {
         private readonly ApplicationDbContext _dbcontext;
 
-        public OrdersRepository(ApplicationDbContext dbcontext) : base(dbcontext)
+        public OrderRepository(ApplicationDbContext dbcontext) : base(dbcontext)
         {
             _dbcontext = dbcontext;
         }

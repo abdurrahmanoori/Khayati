@@ -2,11 +2,6 @@
 using Khayati.ServiceContracts.DTO;
 using Khayati.ServiceContracts;
 using RepositoryContracts.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Khayati.Service
 {
@@ -26,7 +21,7 @@ namespace Khayati.Service
                 return null;
             }
             Order Orders = OrdersAddDto.ToOrders();
-            await _unitOfWork.OrdersRepository.Add(Orders);
+            await _unitOfWork.OrderRepository.Add(Orders);
             await _unitOfWork.SaveChanges(CancellationToken.None);
             return OrdersAddDto;
 
@@ -38,12 +33,12 @@ namespace Khayati.Service
             {
                 return null;
             }
-            Order Orders = await _unitOfWork.OrdersRepository.GetById((int)OrdersId);
+            Order Orders = await _unitOfWork.OrderRepository.GetById((int)OrdersId);
             if (Orders == null)
             {
                 return null;
             }
-            await _unitOfWork.OrdersRepository.Remove(Orders);
+            await _unitOfWork.OrderRepository.Remove(Orders);
             await _unitOfWork.SaveChanges(default);
 
             return Orders.ToOrdersResponseDto();
@@ -57,8 +52,8 @@ namespace Khayati.Service
             {
                 return null;
             }
-            Order Orders = await _unitOfWork.OrdersRepository
-                .GetFirstOrDefault(x => x.OrdersId == OrdersId);
+            Order Orders = await _unitOfWork.OrderRepository
+                .GetFirstOrDefault(x => x.OrderId == OrdersId);
 
             OrdersResponseDto OrdersResponseDto = Orders.ToOrdersResponseDto();
             return OrdersResponseDto;
@@ -67,7 +62,7 @@ namespace Khayati.Service
 
         public async Task<IEnumerable<OrdersResponseDto>> GetOrdersList()
         {
-            IEnumerable<Order> Orderss = await _unitOfWork.OrdersRepository.GetAll();
+            IEnumerable<Order> Orderss = await _unitOfWork.OrderRepository.GetAll();
             if (Orderss is null)
             {
                 return null;

@@ -1,7 +1,6 @@
 ﻿using Khayati.ServiceContracts;
 using Khayati.ServiceContracts.DTO;
 using Microsoft.AspNetCore.Mvc;
-using RepositoryContracts.Base;
 
 namespace KhayatiApi.Controllers
 {
@@ -53,12 +52,12 @@ namespace KhayatiApi.Controllers
         //[HttpPost("Api/Edit")]
         //public async Task<IActionResult> Edit(int id)
         //{
-        //    var Orders = await _unitOfWork.OrdersRepository.GetFirstOrDefault(x => x.OrdersId == id);
+        //    var Orders = await _unitOfWork.OrderRepository.GetFirstOrDefault(x => x.OrdersId == id);
         //    if (Orders == null)
         //    {
         //        return NotFound("There is no on by this Id.");
         //    }
-        //    await _unitOfWork.OrdersRepository.Update(Orders);
+        //    await _unitOfWork.OrderRepository.Update(Orders);
 
         //    return Ok(Orders);
 
