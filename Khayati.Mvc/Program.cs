@@ -1,7 +1,18 @@
+using Khayati.Mvc.Extenstion;
+using Khayati.Service.Extention;
+//using Khayati.Repositories.Extention;
+using Repositories.Extention;
+
+
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.ConfigurePresentionService();
+builder.Services.ConfigureRepositoryService(builder.Configuration);
+builder.Services.ConfigureServiceService();
 
 var app = builder.Build();
 
