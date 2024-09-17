@@ -14,16 +14,16 @@ namespace Repositories.Base
             _db = db;
            CustomerRepository = new CustomerRepository(db);
             MeasurementRepository = new MeasurementRepository(db);
-            EmblishTypeRepository = new EmblishTypeRepository(db);
-            EmblishRepository = new EmblishRepository(db);
+            EmbellishmentmentTypeRepository = new EmbellishmentmentTypeRepository(db);
+            EmbellishmentmentRepository = new EmbellishmentmentRepository(db);
             OrderRepository = new OrderRepository(db);
             
         }
         
          public ICustomerRepository CustomerRepository { get; private set; }
          public IMeasurementRepository MeasurementRepository { get; private set; }
-         public IEmblishRepository EmblishRepository { get; private set; }
-         public IEmblishTypeRepository EmblishTypeRepository { get; private set; }
+         public IEmbellishmentmentRepository EmbellishmentmentRepository { get; private set; }
+         public IEmbellishmentmentTypeRepository EmbellishmentmentTypeRepository { get; private set; }
          public IOrderRepository OrderRepository { get; private set; }
          
 

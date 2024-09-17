@@ -36,48 +36,48 @@ namespace Entities.Migrations
                     b.ToTable("Customers");
                 });
 
-            modelBuilder.Entity("Entities.Emblish", b =>
+            modelBuilder.Entity("Entities.Embellishmentment", b =>
                 {
-                    b.Property<int>("EmblishId")
+                    b.Property<int>("EmbellishmentmentId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
                     b.Property<int?>("Cost")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("EmblishDiscription")
+                    b.Property<string>("EmbellishmentmentDiscription")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("EmblishName")
+                    b.Property<string>("EmbellishmentmentName")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("EmblishTypeId")
+                    b.Property<int?>("EmbellishmentmentTypeId")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("EmblishId");
+                    b.HasKey("EmbellishmentmentId");
 
-                    b.HasIndex("EmblishTypeId");
+                    b.HasIndex("EmbellishmentmentTypeId");
 
-                    b.ToTable("Embellish");
+                    b.ToTable("Embellishment");
                 });
 
-            modelBuilder.Entity("Entities.EmblishType", b =>
+            modelBuilder.Entity("Entities.EmbellishmentmentType", b =>
                 {
-                    b.Property<int>("EmblishTypeId")
+                    b.Property<int>("EmbellishmentmentTypeId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("EmblishTypeDiscription")
+                    b.Property<string>("EmbellishmentmentTypeDiscription")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("EmblishTypeName")
+                    b.Property<string>("EmbellishmentmentTypeName")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.HasKey("EmblishTypeId");
+                    b.HasKey("EmbellishmentmentTypeId");
 
-                    b.ToTable("EmbellishTypes");
+                    b.ToTable("EmbellishmentTypes");
                 });
 
             modelBuilder.Entity("Entities.Measurement", b =>
@@ -96,9 +96,6 @@ namespace Entities.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("DateCreated")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("DateTaken")
                         .HasColumnType("TEXT");
 
                     b.Property<double>("Height")
@@ -160,11 +157,14 @@ namespace Entities.Migrations
                     b.Property<int>("CustomerId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("EmblishId")
+                    b.Property<int?>("EmbellishmentmentId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("ImageUrl")
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("MeasurementId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Notes")
                         .HasColumnType("TEXT");
@@ -176,7 +176,7 @@ namespace Entities.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.HasIndex("EmblishId");
+                    b.HasIndex("EmbellishmentmentId");
 
                     b.HasIndex("OrderId");
 
@@ -198,6 +198,9 @@ namespace Entities.Migrations
                     b.Property<DateTime>("PaymentDate")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("PaymentStatus")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("PaymentId");
 
                     b.HasIndex("OrderId");
@@ -205,19 +208,19 @@ namespace Entities.Migrations
                     b.ToTable("Payment");
                 });
 
-            modelBuilder.Entity("Entities.Emblish", b =>
+            modelBuilder.Entity("Entities.Embellishmentment", b =>
                 {
-                    b.HasOne("Entities.EmblishType", "EmblishType")
-                        .WithMany()
-                        .HasForeignKey("EmblishTypeId");
+                    b.HasOne("Entities.EmbellishmentmentType", "EmbellishmentmentType")
+                        .WithMany("Embellishmentmentes")
+                        .HasForeignKey("EmbellishmentmentTypeId");
 
-                    b.Navigation("EmblishType");
+                    b.Navigation("EmbellishmentmentType");
                 });
 
             modelBuilder.Entity("Entities.Measurement", b =>
                 {
                     b.HasOne("Entities.Customer", "Customer")
-                        .WithMany()
+                        .WithMany("Measurements")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -228,7 +231,7 @@ namespace Entities.Migrations
             modelBuilder.Entity("Entities.Order", b =>
                 {
                     b.HasOne("Entities.Customer", "Customer")
-                        .WithMany()
+                        .WithMany("Orders")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -244,11 +247,9 @@ namespace Entities.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Entities.Measurement", "Emblish")
+                    b.HasOne("Entities.Embellishmentment", "Embellishmentment")
                         .WithMany()
-                        .HasForeignKey("EmblishId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("EmbellishmentmentId");
 
                     b.HasOne("Entities.Order", "Order")
                         .WithMany()
@@ -258,7 +259,7 @@ namespace Entities.Migrations
 
                     b.Navigation("Customer");
 
-                    b.Navigation("Emblish");
+                    b.Navigation("Embellishmentment");
 
                     b.Navigation("Order");
                 });
@@ -270,6 +271,18 @@ namespace Entities.Migrations
                         .HasForeignKey("OrderId");
 
                     b.Navigation("Order");
+                });
+
+            modelBuilder.Entity("Entities.Customer", b =>
+                {
+                    b.Navigation("Measurements");
+
+                    b.Navigation("Orders");
+                });
+
+            modelBuilder.Entity("Entities.EmbellishmentmentType", b =>
+                {
+                    b.Navigation("Embellishmentmentes");
                 });
 
             modelBuilder.Entity("Entities.Order", b =>

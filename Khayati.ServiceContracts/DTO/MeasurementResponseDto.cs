@@ -11,7 +11,6 @@ namespace Khayati.ServiceContracts.DTO
     {
         public int MeasurementID { get; set; }
         public int CustomerID { get; set; }
-        public DateTime DateTaken { get; set; }
         public double Height { get; set; }
         public double Chest { get; set; }
         public double Waist { get; set; }
@@ -29,7 +28,6 @@ namespace Khayati.ServiceContracts.DTO
             {
                 MeasurementID = Measurement.Measurementid,
                 CustomerID = Measurement.CustomerId,
-                DateTaken = Measurement.DateTaken,  
                 Height = Measurement.Height,
                 Chest = Measurement.Chest,
                 ArmLength = Measurement.ArmLength,

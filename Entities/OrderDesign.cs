@@ -3,6 +3,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entities
 {
+    /// <summary>
+    /// This class connects Order, Customer, and Embellishmentment
+    /// </summary>
     public class OrderDesign
     {
         [Key]
@@ -10,8 +13,12 @@ namespace Entities
         public int CustomerId { get; set; }
 
         public int OrderId { get; set; }
-        //public int MeasurementId { get; set; }
-        public int EmblishId { get; set; }
+        /// <summary>
+        /// You could add a foreign key to MeasurementId if each design
+        /// is based on specific customer measurements.
+        /// </summary>
+        public int MeasurementId { get; set; }
+        public int? EmbellishmentmentId { get; set; }
                 
         public string? ImageUrl { get; set; }
         public string? Notes { get; set; }
@@ -20,8 +27,8 @@ namespace Entities
         [ForeignKey(nameof(CustomerId))]
         public virtual Customer? Customer { get; set; }
         //public Measurement Measurement { get; set; }
-        [ForeignKey(nameof(EmblishId))]
-        public virtual Measurement? Emblish { get; set; }
+        [ForeignKey(nameof(EmbellishmentmentId))]
+        public virtual Embellishmentment? Embellishmentment { get; set; }
 
         [ForeignKey(nameof(OrderId))]
         public virtual Order? Order { get; set; }

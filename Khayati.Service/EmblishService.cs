@@ -10,73 +10,73 @@ using System.Threading.Tasks;
 
 namespace Khayati.Service
 {
-    public class EmblishService : IEmblishService
+    public class EmbellishmentmentService : IEmbellishmentmentService
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public EmblishService(IUnitOfWork unitOfWork)
+        public EmbellishmentmentService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<EmblishAddDto> AddEmblish(EmblishAddDto EmblishAddDto)
+        public async Task<EmbellishmentmentAddDto> AddEmbellishmentment(EmbellishmentmentAddDto EmbellishmentmentAddDto)
         {
-            if (EmblishAddDto == null)
+            if (EmbellishmentmentAddDto == null)
             {
                 return null;
             }
-            Emblish Emblish = EmblishAddDto.ToEmblish();
-            await _unitOfWork.EmblishRepository.Add(Emblish);
+            Embellishmentment Embellishmentment = EmbellishmentmentAddDto.ToEmbellishmentment();
+            await _unitOfWork.EmbellishmentmentRepository.Add(Embellishmentment);
             await _unitOfWork.SaveChanges(CancellationToken.None);
-            return EmblishAddDto;
+            return EmbellishmentmentAddDto;
 
         }
 
-        public async Task<EmblishResponseDto> DeleteEmblish(int? EmblishId)
+        public async Task<EmbellishmentmentResponseDto> DeleteEmbellishmentment(int? EmbellishmentmentId)
         {
-            if (!EmblishId.HasValue)
+            if (!EmbellishmentmentId.HasValue)
             {
                 return null;
             }
-            Emblish Emblish = await _unitOfWork.EmblishRepository.GetById((int)EmblishId);
-            if (Emblish == null)
+            Embellishmentment Embellishmentment = await _unitOfWork.EmbellishmentmentRepository.GetById((int)EmbellishmentmentId);
+            if (Embellishmentment == null)
             {
                 return null;
             }
-            await _unitOfWork.EmblishRepository.Remove(Emblish);
+            await _unitOfWork.EmbellishmentmentRepository.Remove(Embellishmentment);
             await _unitOfWork.SaveChanges(default);
 
-            return Emblish.ToEmblishResponseDto();
+            return Embellishmentment.ToEmbellishmentmentResponseDto();
 
         }
 
 
-        public async Task<EmblishResponseDto> GetEmblishById(int? EmblishId)
+        public async Task<EmbellishmentmentResponseDto> GetEmbellishmentmentById(int? EmbellishmentmentId)
         {
-            if (EmblishId == null || EmblishId == 0)
+            if (EmbellishmentmentId == null || EmbellishmentmentId == 0)
             {
                 return null;
             }
-            Emblish Emblish = await _unitOfWork.EmblishRepository
-                .GetFirstOrDefault(x => x.EmblishId == EmblishId);
+            Embellishmentment Embellishmentment = await _unitOfWork.EmbellishmentmentRepository
+                .GetFirstOrDefault(x => x.EmbellishmentmentId == EmbellishmentmentId);
 
-            EmblishResponseDto EmblishResponseDto = Emblish.ToEmblishResponseDto();
-            return EmblishResponseDto;
+            EmbellishmentmentResponseDto EmbellishmentmentResponseDto = Embellishmentment.ToEmbellishmentmentResponseDto();
+            return EmbellishmentmentResponseDto;
 
         }
 
-        public async Task<IEnumerable<EmblishResponseDto>> GetEmblishList()
+        public async Task<IEnumerable<EmbellishmentmentResponseDto>> GetEmbellishmentmentList()
         {
-            IEnumerable<Emblish> Emblishs = await _unitOfWork.EmblishRepository.GetAll();
-            if (Emblishs is null)
+            IEnumerable<Embellishmentment> Embellishmentments = await _unitOfWork.EmbellishmentmentRepository.GetAll();
+            if (Embellishmentments is null)
             {
                 return null;
             }
 
-            IEnumerable<EmblishResponseDto> EmblishResponseDtos = Emblishs
-                .Select(temp => temp.ToEmblishResponseDto());
+            IEnumerable<EmbellishmentmentResponseDto> EmbellishmentmentResponseDtos = Embellishmentments
+                .Select(temp => temp.ToEmbellishmentmentResponseDto());
 
-            return EmblishResponseDtos;
+            return EmbellishmentmentResponseDtos;
 
         }
 

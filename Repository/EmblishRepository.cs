@@ -5,11 +5,11 @@ using RepositoryContracts;
 
 namespace Repositories
 {
-    public class EmblishRepository:GenericRepository<Emblish>,IEmblishRepository
+    public class EmbellishmentmentRepository:GenericRepository<Embellishmentment>,IEmbellishmentmentRepository
     {
         private readonly ApplicationDbContext _dbcontext;
 
-        public EmblishRepository(ApplicationDbContext dbContext) : base(dbContext)  
+        public EmbellishmentmentRepository(ApplicationDbContext dbContext) : base(dbContext)  
             
         {
             _dbcontext = dbContext;
