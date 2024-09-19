@@ -22,6 +22,7 @@ namespace Entities
         /// </summary>
         public int CustomerId { get; set; }
 
+
         /// <summary>
         /// The date when the measurement was taken.
         /// </summary>
@@ -30,6 +31,7 @@ namespace Entities
         /// <summary>
         /// Customer's height (قد) measurement.
         /// </summary>
+
         public double Height { get; set; }
         /// <summary>
         /// Customer's arm length (آستین) measurement.

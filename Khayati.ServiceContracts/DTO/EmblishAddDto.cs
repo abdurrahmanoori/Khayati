@@ -2,22 +2,22 @@
 
 namespace Khayati.ServiceContracts.DTO
 {
-    public class EmblishAddDto
+    public class EmbellishmentmentAddDto
     {
 
-        public int EmblishTypeId { get; set; }
-        public string EmblishName { get; set; }
+        public int EmbellishmentmentTypeId { get; set; }
+        public string EmbellishmentmentName { get; set; }
 
-        public string EmblishDescription { get; set; }
+        public string EmbellishmentmentDescription { get; set; }
 
 
-        public Emblish ToEmblish()
+        public Embellishmentment ToEmbellishmentment()
         {
-            return new Emblish
+            return new Embellishmentment
             {
-                EmblishName = EmblishName,
-                EmblishDiscription = EmblishDescription,
-                EmblishTypeId = EmblishTypeId
+                EmbellishmentmentName = EmbellishmentmentName,
+                EmbellishmentmentDiscription = EmbellishmentmentDescription,
+                EmbellishmentmentTypeId = EmbellishmentmentTypeId
             };
         }
 

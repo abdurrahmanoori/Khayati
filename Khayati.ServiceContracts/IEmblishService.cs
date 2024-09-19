@@ -1,21 +1,16 @@
 ﻿using Khayati.ServiceContracts.DTO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Khayati.ServiceContracts
 {
-    public interface IEmblishService
+    public interface IEmbellishmentmentService
     {
-        public Task<EmblishAddDto> AddEmblish(EmblishAddDto addEmblishDto);
-        public Task<EmblishResponseDto> GetEmblishById(int? EmblishId);
+        public Task<EmbellishmentmentAddDto> AddEmbellishmentment(EmbellishmentmentAddDto addEmbellishmentmentDto);
+        public Task<EmbellishmentmentResponseDto> GetEmbellishmentmentById(int? EmbellishmentmentId);
 
-        public Task<IEnumerable<EmblishResponseDto>> GetEmblishList();
+        public Task<IEnumerable<EmbellishmentmentResponseDto>> GetEmbellishmentmentList();
 
-        public Task<EmblishResponseDto> DeleteEmblish(int? EmblishId);
-        // public Task<EmblishResponseDto> UpdateEmblish(int? EmblishId);
+        public Task<EmbellishmentmentResponseDto> DeleteEmbellishmentment(int? EmbellishmentmentId);
+        // public Task<EmbellishmentmentResponseDto> UpdateEmbellishmentment(int? EmbellishmentmentId);
 
     }
 }

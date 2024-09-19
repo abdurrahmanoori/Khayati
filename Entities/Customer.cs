@@ -14,6 +14,12 @@
         //public bool IsActive { get; set; }
         public DateTime CustomerSince { get; set; }
         public string CustomerType { get; set; }
+
+        public virtual ICollection<Order> Orders { get; set; }
+        public virtual ICollection<Measurement> Measurements { get; set; }
+
+
+
     }
 
 }

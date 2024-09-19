@@ -7,23 +7,23 @@ using System.Threading.Tasks;
 
 namespace Khayati.ServiceContracts.DTO
 {
-    public class EmblishResponseDto
+    public class EmbellishmentmentResponseDto
     {
-        public int EmblishId { get; set; }
-        public string EmblishName { get; set; }
+        public int EmbellishmentmentId { get; set; }
+        public string EmbellishmentmentName { get; set; }
 
-        public string EmblishDiscription { get; set; }
+        public string EmbellishmentmentDiscription { get; set; }
     }
 
-    public static class EmblishExtention
+    public static class EmbellishmentmentExtention
     {
-        public static EmblishResponseDto ToEmblishResponseDto(this Emblish Emblishr)
+        public static EmbellishmentmentResponseDto ToEmbellishmentmentResponseDto(this Embellishmentment Embellishmentmentr)
         {
-            return new EmblishResponseDto
+            return new EmbellishmentmentResponseDto
             {
-                EmblishId = Emblishr.EmblishId,
-                EmblishName = Emblishr.EmblishName,
-                EmblishDiscription = Emblishr.EmblishDiscription,
+                EmbellishmentmentId = Embellishmentmentr.EmbellishmentmentId,
+                EmbellishmentmentName = Embellishmentmentr.EmbellishmentmentName,
+                EmbellishmentmentDiscription = Embellishmentmentr.EmbellishmentmentDiscription,
             };
         }
     }
