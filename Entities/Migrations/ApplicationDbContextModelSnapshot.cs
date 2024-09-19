@@ -36,44 +36,13 @@ namespace Entities.Migrations
                     b.ToTable("Customers");
                 });
 
-            modelBuilder.Entity("Entities.Design", b =>
-                {
-                    b.Property<int>("DesignId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("EmblishId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("MeasurementId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Notes")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("DesignId");
-
-                    b.HasIndex("CustomerId");
-
-                    b.HasIndex("EmblishId");
-
-                    b.HasIndex("MeasurementId");
-
-                    b.ToTable("Designs");
-                });
-
             modelBuilder.Entity("Entities.Emblish", b =>
                 {
                     b.Property<int>("EmblishId")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("Cost")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("EmblishDiscription")
@@ -84,9 +53,6 @@ namespace Entities.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<int?>("EmblishTypeId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Price")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("EmblishId");
@@ -129,6 +95,9 @@ namespace Entities.Migrations
                     b.Property<int>("CustomerId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTime>("DateTaken")
                         .HasColumnType("TEXT");
 
@@ -154,9 +123,9 @@ namespace Entities.Migrations
                     b.ToTable("Measurements");
                 });
 
-            modelBuilder.Entity("Entities.Orders", b =>
+            modelBuilder.Entity("Entities.Order", b =>
                 {
-                    b.Property<int>("OrdersId")
+                    b.Property<int>("OrderId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -169,45 +138,71 @@ namespace Entities.Migrations
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Status")
-                        .IsRequired()
+                    b.Property<int>("OrderStatus")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("TotalAmount")
                         .HasColumnType("TEXT");
 
-                    b.Property<decimal>("TotalCost")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("OrdersId");
+                    b.HasKey("OrderId");
 
                     b.HasIndex("CustomerId");
 
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("Entities.Design", b =>
+            modelBuilder.Entity("Entities.OrderDesign", b =>
                 {
-                    b.HasOne("Entities.Customer", "Customer")
-                        .WithMany()
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<int>("DesignId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
 
-                    b.HasOne("Entities.Measurement", "Emblish")
-                        .WithMany()
-                        .HasForeignKey("EmblishId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("INTEGER");
 
-                    b.HasOne("Entities.Measurement", "Measurement")
-                        .WithMany()
-                        .HasForeignKey("MeasurementId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<int>("EmblishId")
+                        .HasColumnType("INTEGER");
 
-                    b.Navigation("Customer");
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("TEXT");
 
-                    b.Navigation("Emblish");
+                    b.Property<string>("Notes")
+                        .HasColumnType("TEXT");
 
-                    b.Navigation("Measurement");
+                    b.Property<int>("OrderId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("DesignId");
+
+                    b.HasIndex("CustomerId");
+
+                    b.HasIndex("EmblishId");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("OrderDesigns");
+                });
+
+            modelBuilder.Entity("Entities.Payment", b =>
+                {
+                    b.Property<int>("PaymentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("OrderId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("PaymentDate")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("PaymentId");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("Payment");
                 });
 
             modelBuilder.Entity("Entities.Emblish", b =>
@@ -230,7 +225,7 @@ namespace Entities.Migrations
                     b.Navigation("Customer");
                 });
 
-            modelBuilder.Entity("Entities.Orders", b =>
+            modelBuilder.Entity("Entities.Order", b =>
                 {
                     b.HasOne("Entities.Customer", "Customer")
                         .WithMany()
@@ -239,6 +234,47 @@ namespace Entities.Migrations
                         .IsRequired();
 
                     b.Navigation("Customer");
+                });
+
+            modelBuilder.Entity("Entities.OrderDesign", b =>
+                {
+                    b.HasOne("Entities.Customer", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entities.Measurement", "Emblish")
+                        .WithMany()
+                        .HasForeignKey("EmblishId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entities.Order", "Order")
+                        .WithMany()
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("Emblish");
+
+                    b.Navigation("Order");
+                });
+
+            modelBuilder.Entity("Entities.Payment", b =>
+                {
+                    b.HasOne("Entities.Order", "Order")
+                        .WithMany("Payments")
+                        .HasForeignKey("OrderId");
+
+                    b.Navigation("Order");
+                });
+
+            modelBuilder.Entity("Entities.Order", b =>
+                {
+                    b.Navigation("Payments");
                 });
 #pragma warning restore 612, 618
         }

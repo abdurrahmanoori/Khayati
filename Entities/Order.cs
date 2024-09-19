@@ -1,5 +1,4 @@
-﻿using Entities;
-using Entities.Enum;
+﻿using Entities.Enum;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -10,10 +9,14 @@ namespace Entities
         [Key]
         public int OrderId { get; set; }
         public int CustomerId { get; set; }
+        /// <summary>
+        /// This property indicates when the tailor is expected to complete the sewing.
+        /// </summary>
+        public DateTime ExpectedCompletionDate { get; set; }
 
         public decimal TotalCost { get; set; }
         public DateTime OrderDate { get; set; }
-        public DateTime ExpectedCompletionDate { get; set; }
+       
         // Sum of all payments made for this order
         public decimal AmountPaid => Payments.Sum(p => p.Amount);
         public decimal RemainingAmount => TotalCost - Payments.Sum(p => p.Amount);

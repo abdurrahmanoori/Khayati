@@ -1,4 +1,5 @@
 ﻿using Entities;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Khayati.ServiceContracts.DTO
 {
@@ -11,20 +12,21 @@ namespace Khayati.ServiceContracts.DTO
         public decimal TotalCost { get; set; }
         public string Status { get; set; }
 
-        public Customer Customer { get; set; }
+        [ForeignKey(nameof(CustomerId))]
+        public Customer? Customer { get; set; }
 
-
+        
         public Order ToOrders()
         {
             return new Order
             {
-              CustomerId=CustomerId,
-              OrderDate=OrderDate,
-              ExpectedCompletionDate=ExpectedCompletionDate,    
-              TotalCost=TotalCost,  
-              //Status=Status,
-              Customer=Customer
-              
+                CustomerId = CustomerId,
+                OrderDate = OrderDate,
+                //ExpectedCompletionDate=ExpectedCompletionDate,    
+                TotalCost = TotalCost,
+                //Status=Status,
+                Customer = Customer
+
             };
         }
 

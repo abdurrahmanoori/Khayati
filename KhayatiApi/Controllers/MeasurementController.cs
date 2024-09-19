@@ -1,9 +1,6 @@
-﻿using Entities;
-using Khayati.ServiceContracts;
+﻿using Khayati.ServiceContracts;
 using Khayati.ServiceContracts.DTO;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using RepositoryContracts.Base;
 
 namespace KhayatiApi.Controllers
 {

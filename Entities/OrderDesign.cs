@@ -1,9 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entities
 {
     public class OrderDesign
     {
+        [Key]
         public int DesignId { get; set; }
         public int CustomerId { get; set; }
 

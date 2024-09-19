@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Entities.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240906175037_testdb")]
-    partial class testdb
+    [Migration("20240911174442_addCutomer")]
+    partial class addCutomer
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -38,47 +38,13 @@ namespace Entities.Migrations
                     b.ToTable("Customers");
                 });
 
-            modelBuilder.Entity("Entities.Design", b =>
-                {
-                    b.Property<int>("DesignID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("CustomerID")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("DesignDescription")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("DesignName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("MeasurementID")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Notes")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("DesignID");
-
-                    b.HasIndex("CustomerID");
-
-                    b.HasIndex("MeasurementID");
-
-                    b.ToTable("Designs");
-                });
-
             modelBuilder.Entity("Entities.Emblish", b =>
                 {
                     b.Property<int>("EmblishId")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("Cost")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("EmblishDiscription")
@@ -118,7 +84,7 @@ namespace Entities.Migrations
 
             modelBuilder.Entity("Entities.Measurement", b =>
                 {
-                    b.Property<int>("MeasurementID")
+                    b.Property<int>("Measurementid")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -130,6 +96,9 @@ namespace Entities.Migrations
 
                     b.Property<int>("CustomerId")
                         .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("DateTaken")
                         .HasColumnType("TEXT");
@@ -149,23 +118,20 @@ namespace Entities.Migrations
                     b.Property<double>("Waist")
                         .HasColumnType("REAL");
 
-                    b.HasKey("MeasurementID");
+                    b.HasKey("Measurementid");
 
                     b.HasIndex("CustomerId");
 
                     b.ToTable("Measurements");
                 });
 
-            modelBuilder.Entity("Entities.Orders", b =>
+            modelBuilder.Entity("Entities.Order", b =>
                 {
-                    b.Property<int>("OrderID")
+                    b.Property<int>("OrderId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("CustomerID")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("DesignID")
+                    b.Property<int>("CustomerId")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("ExpectedCompletionDate")
@@ -174,39 +140,71 @@ namespace Entities.Migrations
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Status")
-                        .IsRequired()
+                    b.Property<int>("OrderStatus")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("TotalAmount")
                         .HasColumnType("TEXT");
 
-                    b.Property<decimal>("TotalCost")
-                        .HasColumnType("TEXT");
+                    b.HasKey("OrderId");
 
-                    b.HasKey("OrderID");
-
-                    b.HasIndex("CustomerID");
-
-                    b.HasIndex("DesignID");
+                    b.HasIndex("CustomerId");
 
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("Entities.Design", b =>
+            modelBuilder.Entity("Entities.OrderDesign", b =>
                 {
-                    b.HasOne("Entities.Customer", "Customer")
-                        .WithMany()
-                        .HasForeignKey("CustomerID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<int>("DesignId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
 
-                    b.HasOne("Entities.Measurement", "Measurement")
-                        .WithMany()
-                        .HasForeignKey("MeasurementID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("INTEGER");
 
-                    b.Navigation("Customer");
+                    b.Property<int>("EmblishId")
+                        .HasColumnType("INTEGER");
 
-                    b.Navigation("Measurement");
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Notes")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("DesignId");
+
+                    b.HasIndex("CustomerId");
+
+                    b.HasIndex("EmblishId");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("OrderDesigns");
+                });
+
+            modelBuilder.Entity("Entities.Payment", b =>
+                {
+                    b.Property<int>("PaymentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("OrderId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("PaymentDate")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("PaymentId");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("Payment");
                 });
 
             modelBuilder.Entity("Entities.Emblish", b =>
@@ -229,23 +227,56 @@ namespace Entities.Migrations
                     b.Navigation("Customer");
                 });
 
-            modelBuilder.Entity("Entities.Orders", b =>
+            modelBuilder.Entity("Entities.Order", b =>
                 {
                     b.HasOne("Entities.Customer", "Customer")
                         .WithMany()
-                        .HasForeignKey("CustomerID")
+                        .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Entities.Design", "Design")
+                    b.Navigation("Customer");
+                });
+
+            modelBuilder.Entity("Entities.OrderDesign", b =>
+                {
+                    b.HasOne("Entities.Customer", "Customer")
                         .WithMany()
-                        .HasForeignKey("DesignID")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entities.Measurement", "Emblish")
+                        .WithMany()
+                        .HasForeignKey("EmblishId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entities.Order", "Order")
+                        .WithMany()
+                        .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Customer");
 
-                    b.Navigation("Design");
+                    b.Navigation("Emblish");
+
+                    b.Navigation("Order");
+                });
+
+            modelBuilder.Entity("Entities.Payment", b =>
+                {
+                    b.HasOne("Entities.Order", "Order")
+                        .WithMany("Payments")
+                        .HasForeignKey("OrderId");
+
+                    b.Navigation("Order");
+                });
+
+            modelBuilder.Entity("Entities.Order", b =>
+                {
+                    b.Navigation("Payments");
                 });
 #pragma warning restore 612, 618
         }

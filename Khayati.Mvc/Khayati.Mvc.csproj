@@ -7,8 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Khayati.ServiceContracts\Khayati.ServiceContracts.csproj" />
+    <ProjectReference Include="..\Khayati.Service\Khayati.Service.csproj" />
     <ProjectReference Include="..\KhayatiApi\KhayatiApi.csproj" />
+    <ProjectReference Include="..\RepositoryContracts\RepositoryContracts.csproj" />
+    <ProjectReference Include="..\Repository\Repositories.csproj" />
   </ItemGroup>
 
 </Project>
