@@ -58,7 +58,7 @@ namespace Khayati.Service
                 return null;
             }
             Order Orders = await _unitOfWork.OrdersRepository
-                .GetFirstOrDefault(x => x.OrdersId == OrdersId);
+                .GetFirstOrDefault(x => x.OrderId == OrdersId);
 
             OrdersResponseDto OrdersResponseDto = Orders.ToOrdersResponseDto();
             return OrdersResponseDto;

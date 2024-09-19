@@ -15,5 +15,6 @@ namespace Entities.Data
          public DbSet<Order> Orders { get; set; } 
          public DbSet<Emblish> Embellish { get; set; } 
          public DbSet<EmblishType> EmbellishTypes { get; set; } 
+         public DbSet<Payment> Payment { get; set; } 
     }
 }

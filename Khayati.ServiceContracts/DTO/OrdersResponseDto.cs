@@ -25,7 +25,7 @@ namespace Khayati.ServiceContracts.DTO
         {
             return new OrdersResponseDto
             {
-                OrdersId = Orders.OrdersId,
+                OrdersId = Orders.OrderId,
                 OrderDate = Orders.OrderDate,
                 ExpectedCompletionDate = Orders.ExpectedCompletionDate,
                 TotalCost = Orders.TotalCost,
