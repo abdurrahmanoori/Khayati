@@ -8,10 +8,14 @@ namespace Khayati.ServiceContracts.DTO
         public double Height { get; set; }
         public double Chest { get; set; }
         public double Waist { get; set; }
-        public double Hip { get; set; }
+        public double Leg { get; set; }
+        public double trousers { get; set; }
+        public double Neck { get; set; }
+        public double Sleeve { get; set; }
+       
         public double ShoulderWidth { get; set; }
         public double ArmLength { get; set; }
-        public double Inseam { get; set; }
+       
 
 
         public Measurement ToMeasurement()
@@ -22,11 +26,14 @@ namespace Khayati.ServiceContracts.DTO
                 CustomerId = CustomerId,
                 Height = Height,
                 Chest = Chest,
-                Waist = Waist,  
-                Hip = Hip,  
+                Waist = Waist,
+                Sleeve = Sleeve,
+                Neck = Neck,
+                trousers = trousers,
+                Leg = Leg,  
                 ShoulderWidth = ShoulderWidth,  
                 ArmLength = ArmLength,
-                Inseam = Inseam
+                
                 
             };
         }

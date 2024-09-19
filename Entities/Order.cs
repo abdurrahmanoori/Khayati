@@ -14,11 +14,12 @@ namespace Entities
         /// </summary>
         public DateTime ExpectedCompletionDate { get; set; }
 
-        public decimal TotalAmount { get; set; }
+        public decimal TotalCost { get; set; }
         public DateTime OrderDate { get; set; }
+       
         // Sum of all payments made for this order
         public decimal AmountPaid => Payments.Sum(p => p.Amount);
-        public decimal RemainingAmount => TotalAmount - Payments.Sum(p => p.Amount);
+        public decimal RemainingAmount => TotalCost - Payments.Sum(p => p.Amount);
 
         public OrderStatus OrderStatus { get; set; }
 
@@ -28,7 +29,7 @@ namespace Entities
             get
             {
                 if (AmountPaid == 0) return PaymentStatus.Pending;
-                if (AmountPaid >= TotalAmount) return PaymentStatus.Completed;
+                if (AmountPaid >= TotalCost) return PaymentStatus.Completed;
                 return PaymentStatus.PartialPayment;
             }
         }

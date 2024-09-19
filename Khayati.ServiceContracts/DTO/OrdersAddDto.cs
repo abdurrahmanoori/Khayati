@@ -23,7 +23,7 @@ namespace Khayati.ServiceContracts.DTO
                 CustomerId = CustomerId,
                 OrderDate = OrderDate,
                 //ExpectedCompletionDate=ExpectedCompletionDate,    
-                TotalAmount = TotalCost,
+                TotalCost = TotalCost,
                 //Status=Status,
                 Customer = Customer
 

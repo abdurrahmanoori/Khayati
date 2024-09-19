@@ -14,10 +14,14 @@ namespace Khayati.ServiceContracts.DTO
         public double Height { get; set; }
         public double Chest { get; set; }
         public double Waist { get; set; }
-        public double Hip { get; set; }
+        public double Sleeve { get; set; }
+        public double Neck { get; set; }
+        public double trousers { get; set; }
+        public double Leg { get; set; }
+        
         public double ShoulderWidth { get; set; }
         public double ArmLength { get; set; }
-        public double Inseam { get; set; }
+        
     }
 
     public static class MeasurementExtention
@@ -31,11 +35,13 @@ namespace Khayati.ServiceContracts.DTO
                 Height = Measurement.Height,
                 Chest = Measurement.Chest,
                 ArmLength = Measurement.ArmLength,
-                Hip = Measurement.Hip,
-                Inseam = Measurement.Inseam,
                 ShoulderWidth = Measurement.ShoulderWidth,
-                Waist = Measurement.Waist
-                
+                Waist = Measurement.Waist,
+                Sleeve = Measurement.Sleeve,
+                Neck = Measurement.Neck,
+                trousers = Measurement.trousers,
+                Leg = Measurement.Leg
+
             };
         }
     }

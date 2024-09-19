@@ -13,7 +13,7 @@ namespace Khayati.ServiceContracts.DTO
         //public int DesignId { get; set; }
         public DateTime OrderDate { get; set; }
         public DateTime ExpectedCompletionDate { get; set; }
-        public decimal TotalAmount { get; set; }
+        public decimal TotalCost { get; set; }
         public string Status { get; set; }
 
         public Order Orders { get; set; }
@@ -28,7 +28,7 @@ namespace Khayati.ServiceContracts.DTO
                 OrdersId = Orders.OrderId,
                 OrderDate = Orders.OrderDate,
                 ExpectedCompletionDate = Orders.ExpectedCompletionDate,
-                TotalAmount = Orders.TotalAmount,
+                TotalCost = Orders.TotalCost,
                 //Status = Orders.Status,
                 Orders = Orders
                 
