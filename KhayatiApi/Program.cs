@@ -12,10 +12,10 @@ builder.Services.AddControllers();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
-builder.Services.AddScoped<IEmbellishmentmentTypeService, EmbellishmentmentTypeService>();
+builder.Services.AddScoped<IEmbellishmentTypeService, EmbellishmentTypeService>();
 builder.Services.AddScoped<IMeasurementService, MeasurementService>();
 
-builder.Services.AddScoped<IEmbellishmentmentService,EmbellishmentmentService>();
+builder.Services.AddScoped<IEmbellishmentService,EmbellishmentService>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(option =>
 {

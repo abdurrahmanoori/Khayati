@@ -27,14 +27,14 @@ namespace Entities.Migrations
                 name: "EmbellishmentTypes",
                 columns: table => new
                 {
-                    EmbellishmentmentTypeId = table.Column<int>(type: "INTEGER", nullable: false)
+                    EmbellishmentTypeId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    EmbellishmentmentTypeName = table.Column<string>(type: "TEXT", nullable: false),
-                    EmbellishmentmentTypeDiscription = table.Column<string>(type: "TEXT", nullable: true)
+                    EmbellishmentTypeName = table.Column<string>(type: "TEXT", nullable: false),
+                    EmbellishmentTypeDiscription = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EmbellishmentTypes", x => x.EmbellishmentmentTypeId);
+                    table.PrimaryKey("PK_EmbellishmentTypes", x => x.EmbellishmentTypeId);
                 });
 
             migrationBuilder.CreateTable(
@@ -91,21 +91,21 @@ namespace Entities.Migrations
                 name: "Embellishment",
                 columns: table => new
                 {
-                    EmbellishmentmentId = table.Column<int>(type: "INTEGER", nullable: false)
+                    EmbellishmentId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    EmbellishmentmentName = table.Column<string>(type: "TEXT", nullable: false),
-                    EmbellishmentmentDiscription = table.Column<string>(type: "TEXT", nullable: true),
+                    EmbellishmentName = table.Column<string>(type: "TEXT", nullable: false),
+                    EmbellishmentDiscription = table.Column<string>(type: "TEXT", nullable: true),
                     Cost = table.Column<int>(type: "INTEGER", nullable: true),
-                    EmbellishmentmentTypeId = table.Column<int>(type: "INTEGER", nullable: true)
+                    EmbellishmentTypeId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Embellishment", x => x.EmbellishmentmentId);
+                    table.PrimaryKey("PK_Embellishment", x => x.EmbellishmentId);
                     table.ForeignKey(
-                        name: "FK_Embellishment_EmbellishmentTypes_EmbellishmentmentTypeId",
-                        column: x => x.EmbellishmentmentTypeId,
+                        name: "FK_Embellishment_EmbellishmentTypes_EmbellishmentTypeId",
+                        column: x => x.EmbellishmentTypeId,
                         principalTable: "EmbellishmentTypes",
-                        principalColumn: "EmbellishmentmentTypeId");
+                        principalColumn: "EmbellishmentTypeId");
                 });
 
             migrationBuilder.CreateTable(
@@ -138,7 +138,7 @@ namespace Entities.Migrations
                     CustomerId = table.Column<int>(type: "INTEGER", nullable: false),
                     OrderId = table.Column<int>(type: "INTEGER", nullable: false),
                     MeasurementId = table.Column<int>(type: "INTEGER", nullable: false),
-                    EmbellishmentmentId = table.Column<int>(type: "INTEGER", nullable: true),
+                    EmbellishmentId = table.Column<int>(type: "INTEGER", nullable: true),
                     ImageUrl = table.Column<string>(type: "TEXT", nullable: true),
                     Notes = table.Column<string>(type: "TEXT", nullable: true)
                 },
@@ -152,10 +152,10 @@ namespace Entities.Migrations
                         principalColumn: "CustomerId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_OrderDesigns_Embellishment_EmbellishmentmentId",
-                        column: x => x.EmbellishmentmentId,
+                        name: "FK_OrderDesigns_Embellishment_EmbellishmentId",
+                        column: x => x.EmbellishmentId,
                         principalTable: "Embellishment",
-                        principalColumn: "EmbellishmentmentId");
+                        principalColumn: "EmbellishmentId");
                     table.ForeignKey(
                         name: "FK_OrderDesigns_Orders_OrderId",
                         column: x => x.OrderId,
@@ -165,9 +165,9 @@ namespace Entities.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Embellishment_EmbellishmentmentTypeId",
+                name: "IX_Embellishment_EmbellishmentTypeId",
                 table: "Embellishment",
-                column: "EmbellishmentmentTypeId");
+                column: "EmbellishmentTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Measurements_CustomerId",
@@ -180,9 +180,9 @@ namespace Entities.Migrations
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrderDesigns_EmbellishmentmentId",
+                name: "IX_OrderDesigns_EmbellishmentId",
                 table: "OrderDesigns",
-                column: "EmbellishmentmentId");
+                column: "EmbellishmentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrderDesigns_OrderId",

@@ -7,20 +7,20 @@ namespace KhayatiApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EmbellishmentmentController : ControllerBase
+    public class EmbellishmentController : ControllerBase
     {
         //private readonly IUnitOfWork _unitOfWork;
-        private readonly IEmbellishmentmentService _EmbellishmentmentService;
+        private readonly IEmbellishmentService _EmbellishmentService;
 
-        public EmbellishmentmentController(IEmbellishmentmentService EmbellishmentmentService)
+        public EmbellishmentController(IEmbellishmentService EmbellishmentService)
         {
-            _EmbellishmentmentService = EmbellishmentmentService;
+            _EmbellishmentService = EmbellishmentService;
         }
 
         [HttpPost("Api/Create")]
-        public async Task<IActionResult> Create(EmbellishmentmentAddDto addEmbellishmentmentDto)
+        public async Task<IActionResult> Create(EmbellishmentAddDto addEmbellishmentDto)
         {
-            var result = await _EmbellishmentmentService.AddEmbellishmentment(addEmbellishmentmentDto);
+            var result = await _EmbellishmentService.AddEmbellishment(addEmbellishmentDto);
             return Ok(result);
 
         }
@@ -28,9 +28,9 @@ namespace KhayatiApi.Controllers
 
 
         [HttpGet("Api/GetAll")]
-        public async Task<IActionResult> GetEmbellishmentmentList()
+        public async Task<IActionResult> GetEmbellishmentList()
         {
-            IEnumerable<EmbellishmentmentResponseDto> results = await _EmbellishmentmentService.GetEmbellishmentmentList();
+            IEnumerable<EmbellishmentResponseDto> results = await _EmbellishmentService.GetEmbellishmentList();
             return Ok(results);
 
         }
@@ -38,17 +38,17 @@ namespace KhayatiApi.Controllers
         [HttpPost("Api/GetById")]
         public async Task<IActionResult> GitById(int id)
         {
-            var Embellishmentment = await _EmbellishmentmentService.GetEmbellishmentmentById(id);
+            var Embellishment = await _EmbellishmentService.GetEmbellishmentById(id);
 
-            return Ok(Embellishmentment);
+            return Ok(Embellishment);
 
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteEmbellishmentment(int EmbellishmentmentId)
+        public async Task<IActionResult> DeleteEmbellishment(int EmbellishmentId)
         {
-            EmbellishmentmentResponseDto Embellishmentment = await _EmbellishmentmentService.DeleteEmbellishmentment(EmbellishmentmentId);
-            return Ok(Embellishmentment);
+            EmbellishmentResponseDto Embellishment = await _EmbellishmentService.DeleteEmbellishment(EmbellishmentId);
+            return Ok(Embellishment);
         }
 
         //[HttpPost("Api/Edit")]

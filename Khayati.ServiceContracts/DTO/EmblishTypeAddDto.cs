@@ -2,19 +2,19 @@
 
 namespace Khayati.ServiceContracts.DTO
 {
-    public class EmbellishmentmentTypeAddDto
+    public class EmbellishmentTypeAddDto
     {
-        public string EmbellishmentmentTypeName { get; set; }
+        public string EmbellishmentTypeName { get; set; }
 
-        public string EmbellishmentmentTypeDescription { get; set; }
+        public string EmbellishmentTypeDescription { get; set; }
 
 
-        public EmbellishmentmentType ToEmbellishmentmentType()
+        public EmbellishmentType ToEmbellishmentType()
         {
-            return new EmbellishmentmentType
+            return new EmbellishmentType
             {
-                EmbellishmentmentTypeName = EmbellishmentmentTypeName,
-                EmbellishmentmentTypeDiscription = EmbellishmentmentTypeDescription
+                EmbellishmentTypeName = EmbellishmentTypeName,
+                EmbellishmentTypeDiscription = EmbellishmentTypeDescription
             };
         }
 
