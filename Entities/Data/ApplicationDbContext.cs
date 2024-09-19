@@ -13,7 +13,7 @@ namespace Entities.Data
          public DbSet<Measurement> Measurements { get; set; } 
          public DbSet<OrderDesign> OrderDesigns { get; set; } 
          public DbSet<Order> Orders { get; set; } 
-         public DbSet<Embellishmentment> Embellishment { get; set; } 
-         public DbSet<EmbellishmentmentType> EmbellishmentTypes { get; set; } 
+         public DbSet<Embellishment> Embellishment { get; set; } 
+         public DbSet<EmbellishmentType> EmbellishmentTypes { get; set; } 
     }
 }

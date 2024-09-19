@@ -1,12 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-
+ 
 namespace Entities
 {
     /// <summary>
-    /// This class connects Order, Customer, and Embellishmentment
+    /// This class connects Order, Customer, and Embellishment
     /// </summary>
-    public class OrderDesign
+    public class OrderDesign   
     {
         [Key]
         public int DesignId { get; set; }
@@ -18,7 +18,7 @@ namespace Entities
         /// is based on specific customer measurements.
         /// </summary>
         public int MeasurementId { get; set; }
-        public int? EmbellishmentmentId { get; set; }
+        public int? EmbellishmentId { get; set; }
                 
         public string? ImageUrl { get; set; }
         public string? Notes { get; set; }
@@ -27,8 +27,8 @@ namespace Entities
         [ForeignKey(nameof(CustomerId))]
         public virtual Customer? Customer { get; set; }
         //public Measurement Measurement { get; set; }
-        [ForeignKey(nameof(EmbellishmentmentId))]
-        public virtual Embellishmentment? Embellishmentment { get; set; }
+        [ForeignKey(nameof(EmbellishmentId))]
+        public virtual Embellishment? Embellishment { get; set; }
 
         [ForeignKey(nameof(OrderId))]
         public virtual Order? Order { get; set; }

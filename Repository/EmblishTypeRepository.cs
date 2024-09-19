@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace Repositories
 {
-    public class EmbellishmentmentTypeRepository:GenericRepository<EmbellishmentmentType>,IEmbellishmentmentTypeRepository
+    public class EmbellishmentTypeRepository:GenericRepository<EmbellishmentType>,IEmbellishmentTypeRepository
     {
         private readonly ApplicationDbContext _dbcontext;
 
-        public EmbellishmentmentTypeRepository(ApplicationDbContext dbContext) : base(dbContext)  
+        public EmbellishmentTypeRepository(ApplicationDbContext dbContext) : base(dbContext)  
             
         {
             _dbcontext = dbContext;

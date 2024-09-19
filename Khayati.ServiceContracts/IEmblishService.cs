@@ -2,15 +2,15 @@
 
 namespace Khayati.ServiceContracts
 {
-    public interface IEmbellishmentmentService
+    public interface IEmbellishmentService
     {
-        public Task<EmbellishmentmentAddDto> AddEmbellishmentment(EmbellishmentmentAddDto addEmbellishmentmentDto);
-        public Task<EmbellishmentmentResponseDto> GetEmbellishmentmentById(int? EmbellishmentmentId);
+        public Task<EmbellishmentAddDto> AddEmbellishment(EmbellishmentAddDto addEmbellishmentDto);
+        public Task<EmbellishmentResponseDto> GetEmbellishmentById(int? EmbellishmentId);
 
-        public Task<IEnumerable<EmbellishmentmentResponseDto>> GetEmbellishmentmentList();
+        public Task<IEnumerable<EmbellishmentResponseDto>> GetEmbellishmentList();
 
-        public Task<EmbellishmentmentResponseDto> DeleteEmbellishmentment(int? EmbellishmentmentId);
-        // public Task<EmbellishmentmentResponseDto> UpdateEmbellishmentment(int? EmbellishmentmentId);
+        public Task<EmbellishmentResponseDto> DeleteEmbellishment(int? EmbellishmentId);
+        // public Task<EmbellishmentResponseDto> UpdateEmbellishment(int? EmbellishmentId);
 
     }
 }

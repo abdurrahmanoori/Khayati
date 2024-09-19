@@ -5,73 +5,73 @@ using RepositoryContracts.Base;
 
 namespace Khayati.Service
 {
-    public class EmbellishmentmentTypeService : IEmbellishmentmentTypeService
+    public class EmbellishmentTypeService : IEmbellishmentTypeService
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public EmbellishmentmentTypeService(IUnitOfWork unitOfWork)
+        public EmbellishmentTypeService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<EmbellishmentmentTypeAddDto> AddEmbellishmentmentType(EmbellishmentmentTypeAddDto EmbellishmentmentTypeAddDto)
+        public async Task<EmbellishmentTypeAddDto> AddEmbellishmentType(EmbellishmentTypeAddDto EmbellishmentTypeAddDto)
         {
-            if (EmbellishmentmentTypeAddDto == null)
+            if (EmbellishmentTypeAddDto == null)
             {
                 return null;
             }
-            EmbellishmentmentType EmbellishmentmentType = EmbellishmentmentTypeAddDto.ToEmbellishmentmentType();
-            await _unitOfWork.EmbellishmentmentTypeRepository.Add(EmbellishmentmentType);
+            EmbellishmentType EmbellishmentType = EmbellishmentTypeAddDto.ToEmbellishmentType();
+            await _unitOfWork.EmbellishmentTypeRepository.Add(EmbellishmentType);
             await _unitOfWork.SaveChanges(CancellationToken.None);
-            return EmbellishmentmentTypeAddDto;
+            return EmbellishmentTypeAddDto;
 
         }
 
-        public async Task<EmbellishmentmentTypeResponseDto> DeleteEmbellishmentmentType(int? EmbellishmentmentTypeId)
+        public async Task<EmbellishmentTypeResponseDto> DeleteEmbellishmentType(int? EmbellishmentTypeId)
         {
-            if (!EmbellishmentmentTypeId.HasValue)
+            if (!EmbellishmentTypeId.HasValue)
             {
                 return null;
             }
-            EmbellishmentmentType EmbellishmentmentType = await _unitOfWork.EmbellishmentmentTypeRepository.GetById((int)EmbellishmentmentTypeId);
-            if (EmbellishmentmentType == null)
+            EmbellishmentType EmbellishmentType = await _unitOfWork.EmbellishmentTypeRepository.GetById((int)EmbellishmentTypeId);
+            if (EmbellishmentType == null)
             {
                 return null;
             }
-            await _unitOfWork.EmbellishmentmentTypeRepository.Remove(EmbellishmentmentType);
+            await _unitOfWork.EmbellishmentTypeRepository.Remove(EmbellishmentType);
             await _unitOfWork.SaveChanges(default);
 
-            return EmbellishmentmentType.ToEmbellishmentmentTypeResponseDto();
+            return EmbellishmentType.ToEmbellishmentTypeResponseDto();
 
         }
 
 
-        public async Task<EmbellishmentmentTypeResponseDto> GetEmbellishmentmentTypeById(int? EmbellishmentmentTypeId)
+        public async Task<EmbellishmentTypeResponseDto> GetEmbellishmentTypeById(int? EmbellishmentTypeId)
         {
-            if (EmbellishmentmentTypeId == null || EmbellishmentmentTypeId == 0)
+            if (EmbellishmentTypeId == null || EmbellishmentTypeId == 0)
             {
                 return null;
             }
-            EmbellishmentmentType EmbellishmentmentType = await _unitOfWork.EmbellishmentmentTypeRepository
-                .GetFirstOrDefault(x => x.EmbellishmentmentTypeId == EmbellishmentmentTypeId);
+            EmbellishmentType EmbellishmentType = await _unitOfWork.EmbellishmentTypeRepository
+                .GetFirstOrDefault(x => x.EmbellishmentTypeId == EmbellishmentTypeId);
 
-            EmbellishmentmentTypeResponseDto EmbellishmentmentTypeResponseDto = EmbellishmentmentType.ToEmbellishmentmentTypeResponseDto();
-            return EmbellishmentmentTypeResponseDto;
+            EmbellishmentTypeResponseDto EmbellishmentTypeResponseDto = EmbellishmentType.ToEmbellishmentTypeResponseDto();
+            return EmbellishmentTypeResponseDto;
 
         }
 
-        public async Task<IEnumerable<EmbellishmentmentTypeResponseDto>> GetEmbellishmentmentTypeList()
+        public async Task<IEnumerable<EmbellishmentTypeResponseDto>> GetEmbellishmentTypeList()
         {
-            IEnumerable<EmbellishmentmentType> EmbellishmentmentTypes = await _unitOfWork.EmbellishmentmentTypeRepository.GetAll();
-            if (EmbellishmentmentTypes is null)
+            IEnumerable<EmbellishmentType> EmbellishmentTypes = await _unitOfWork.EmbellishmentTypeRepository.GetAll();
+            if (EmbellishmentTypes is null)
             {
                 return null;
             }
 
-            IEnumerable<EmbellishmentmentTypeResponseDto> EmbellishmentmentTypeResponseDtos = EmbellishmentmentTypes
-                .Select(temp => temp.ToEmbellishmentmentTypeResponseDto());
+            IEnumerable<EmbellishmentTypeResponseDto> EmbellishmentTypeResponseDtos = EmbellishmentTypes
+                .Select(temp => temp.ToEmbellishmentTypeResponseDto());
 
-            return EmbellishmentmentTypeResponseDtos;
+            return EmbellishmentTypeResponseDtos;
 
         }
 

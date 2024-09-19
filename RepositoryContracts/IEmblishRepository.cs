@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RepositoryContracts
 {
-    public interface IEmbellishmentmentRepository:IGenericRepository<Embellishmentment>
+    public interface IEmbellishmentRepository:IGenericRepository<Embellishment>
     {
     }
 }
