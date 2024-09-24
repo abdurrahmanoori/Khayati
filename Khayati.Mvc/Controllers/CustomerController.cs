@@ -14,10 +14,10 @@ namespace Khayati.Mvc.Controllers
 
         public async Task<IActionResult> Index()
         {
-            
+            var customer =await _customerService.GetCustomerList();
 
-            var result = await _customerService.GetCustomerList();
-            return View(result);
+           // var result = await _customerService.GetCustomerList();
+            return View(customer);
         }
     }
 }

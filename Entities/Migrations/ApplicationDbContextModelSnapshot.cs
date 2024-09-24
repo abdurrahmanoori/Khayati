@@ -31,6 +31,28 @@ namespace Entities.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<DateTime>("CustomerSince")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CustomerType")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("EmailAddress")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NationalID")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.HasKey("CustomerId");
 
                     b.ToTable("Customers");
@@ -98,19 +120,28 @@ namespace Entities.Migrations
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("TEXT");
 
+                    b.Property<DateTime>("DateTaken")
+                        .HasColumnType("TEXT");
+
                     b.Property<double>("Height")
                         .HasColumnType("REAL");
 
-                    b.Property<double>("Hip")
+                    b.Property<double>("Leg")
                         .HasColumnType("REAL");
 
-                    b.Property<double>("Inseam")
+                    b.Property<double>("Neck")
                         .HasColumnType("REAL");
 
                     b.Property<double>("ShoulderWidth")
                         .HasColumnType("REAL");
 
+                    b.Property<double>("Sleeve")
+                        .HasColumnType("REAL");
+
                     b.Property<double>("Waist")
+                        .HasColumnType("REAL");
+
+                    b.Property<double>("trousers")
                         .HasColumnType("REAL");
 
                     b.HasKey("Measurementid");
@@ -138,7 +169,7 @@ namespace Entities.Migrations
                     b.Property<int>("OrderStatus")
                         .HasColumnType("INTEGER");
 
-                    b.Property<decimal>("TotalAmount")
+                    b.Property<decimal>("TotalCost")
                         .HasColumnType("TEXT");
 
                     b.HasKey("OrderId");
