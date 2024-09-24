@@ -11,13 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Entities.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-<<<<<<<< HEAD:Entities/Migrations/20240924180224_InitalMig.Designer.cs
-    [Migration("20240924180224_InitalMig")]
-    partial class InitalMig
-========
-    [Migration("20240924015609_Inetialdb")]
-    partial class Inetialdb
->>>>>>>> master:Entities/Migrations/20240924015609_Inetialdb.Designer.cs
+    [Migration("20240924181553_INitaMig")]
+    partial class INitaMig
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

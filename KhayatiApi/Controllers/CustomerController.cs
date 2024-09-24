@@ -16,7 +16,7 @@ namespace KhayatiApi.Controllers
             _customerService = customerService;
         }
 
-        [HttpPost("Api/Create")]
+        [HttpPost("Create")]
         public async Task<IActionResult> Create(CustomerAddDto addCustomerDto)
         {
             var result = await _customerService.AddCustomer(addCustomerDto);
@@ -26,7 +26,7 @@ namespace KhayatiApi.Controllers
 
 
 
-        [HttpGet("Api/GetAll")]
+        [HttpGet("GetAll")]
         public async Task<IActionResult> GetCustomerList()
         {
             IEnumerable<CustomerResponseDto> results =await _customerService.GetCustomerList();
@@ -34,7 +34,7 @@ namespace KhayatiApi.Controllers
 
         }
 
-        [HttpPost("Api/GetById")]
+        [HttpPost("GetById")]
         public async Task<IActionResult> GitById(int id)
         {
             var customer = await _customerService.GetCustomerById(id);
@@ -50,7 +50,7 @@ namespace KhayatiApi.Controllers
             return Ok(customer);
         }
 
-        //[HttpPost("Api/Edit")]
+        //[HttpPost("Edit")]
         //public async Task<IActionResult> Edit(int id)
         //{
         //    var Measurement = await _unitOfWork.MeasurementRepository.GetFirstOrDefault(x => x.MeasurementID == id);

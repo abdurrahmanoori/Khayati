@@ -5,11 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Entities.Migrations
 {
-<<<<<<<< HEAD:Entities/Migrations/20240924180224_InitalMig.cs
-    public partial class InitalMig : Migration
-========
-    public partial class Inetialdb : Migration
->>>>>>>> master:Entities/Migrations/20240924015609_Inetialdb.cs
+    public partial class INitaMig : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
