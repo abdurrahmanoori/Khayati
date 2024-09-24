@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Entities.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240917184902_initalMIg")]
-    partial class initalMIg
+    [Migration("20240924180224_InitalMig")]
+    partial class InitalMig
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -30,6 +30,28 @@ namespace Entities.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("CustomerName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CustomerSince")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CustomerType")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("EmailAddress")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NationalID")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PhoneNumber")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -100,19 +122,28 @@ namespace Entities.Migrations
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("TEXT");
 
+                    b.Property<DateTime>("DateTaken")
+                        .HasColumnType("TEXT");
+
                     b.Property<double>("Height")
                         .HasColumnType("REAL");
 
-                    b.Property<double>("Hip")
+                    b.Property<double>("Leg")
                         .HasColumnType("REAL");
 
-                    b.Property<double>("Inseam")
+                    b.Property<double>("Neck")
                         .HasColumnType("REAL");
 
                     b.Property<double>("ShoulderWidth")
                         .HasColumnType("REAL");
 
+                    b.Property<double>("Sleeve")
+                        .HasColumnType("REAL");
+
                     b.Property<double>("Waist")
+                        .HasColumnType("REAL");
+
+                    b.Property<double>("trousers")
                         .HasColumnType("REAL");
 
                     b.HasKey("Measurementid");
@@ -140,7 +171,7 @@ namespace Entities.Migrations
                     b.Property<int>("OrderStatus")
                         .HasColumnType("INTEGER");
 
-                    b.Property<decimal>("TotalAmount")
+                    b.Property<decimal>("TotalCost")
                         .HasColumnType("TEXT");
 
                     b.HasKey("OrderId");
