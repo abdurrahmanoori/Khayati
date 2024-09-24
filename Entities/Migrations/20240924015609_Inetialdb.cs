@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Entities.Migrations
 {
-    public partial class initalMIg : Migration
+    public partial class Inetialdb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -16,7 +16,13 @@ namespace Entities.Migrations
                     CustomerId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     CustomerName = table.Column<string>(type: "TEXT", nullable: false),
-                    CustomerAddress = table.Column<string>(type: "TEXT", nullable: false)
+                    CustomerAddress = table.Column<string>(type: "TEXT", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "TEXT", nullable: false),
+                    EmailAddress = table.Column<string>(type: "TEXT", nullable: false),
+                    NationalID = table.Column<string>(type: "TEXT", nullable: false),
+                    DateOfBirth = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    CustomerSince = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    CustomerType = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -44,13 +50,16 @@ namespace Entities.Migrations
                     Measurementid = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     CustomerId = table.Column<int>(type: "INTEGER", nullable: false),
+                    DateTaken = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Height = table.Column<double>(type: "REAL", nullable: false),
+                    ArmLength = table.Column<double>(type: "REAL", nullable: false),
+                    Sleeve = table.Column<double>(type: "REAL", nullable: false),
+                    ShoulderWidth = table.Column<double>(type: "REAL", nullable: false),
+                    Neck = table.Column<double>(type: "REAL", nullable: false),
                     Chest = table.Column<double>(type: "REAL", nullable: false),
                     Waist = table.Column<double>(type: "REAL", nullable: false),
-                    Hip = table.Column<double>(type: "REAL", nullable: false),
-                    ShoulderWidth = table.Column<double>(type: "REAL", nullable: false),
-                    ArmLength = table.Column<double>(type: "REAL", nullable: false),
-                    Inseam = table.Column<double>(type: "REAL", nullable: false),
+                    trousers = table.Column<double>(type: "REAL", nullable: false),
+                    Leg = table.Column<double>(type: "REAL", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
@@ -72,7 +81,7 @@ namespace Entities.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     CustomerId = table.Column<int>(type: "INTEGER", nullable: false),
                     ExpectedCompletionDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    TotalAmount = table.Column<decimal>(type: "TEXT", nullable: false),
+                    TotalCost = table.Column<decimal>(type: "TEXT", nullable: false),
                     OrderDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     OrderStatus = table.Column<int>(type: "INTEGER", nullable: false)
                 },
