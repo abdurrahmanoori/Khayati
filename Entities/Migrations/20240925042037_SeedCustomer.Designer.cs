@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Entities.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240924181553_INitaMig")]
-    partial class INitaMig
+    [Migration("20240925042037_SeedCustomer")]
+    partial class SeedCustomer
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -58,6 +58,68 @@ namespace Entities.Migrations
                     b.HasKey("CustomerId");
 
                     b.ToTable("Customers");
+
+                    b.HasData(
+                        new
+                        {
+                            CustomerId = 1,
+                            CustomerAddress = "123 Main St, Springfield",
+                            CustomerName = "John Doe",
+                            CustomerSince = new DateTime(2010, 5, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CustomerType = "Regular",
+                            DateOfBirth = new DateTime(1985, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EmailAddress = "johndoe@example.com",
+                            NationalID = "1234567890",
+                            PhoneNumber = "123-456-7890"
+                        },
+                        new
+                        {
+                            CustomerId = 2,
+                            CustomerAddress = "456 Elm St, Springfield",
+                            CustomerName = "Jane Smith",
+                            CustomerSince = new DateTime(2015, 7, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CustomerType = "VIP",
+                            DateOfBirth = new DateTime(1990, 3, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EmailAddress = "janesmith@example.com",
+                            NationalID = "0987654321",
+                            PhoneNumber = "987-654-3210"
+                        },
+                        new
+                        {
+                            CustomerId = 3,
+                            CustomerAddress = "789 Oak St, Metropolis",
+                            CustomerName = "Robert Brown",
+                            CustomerSince = new DateTime(2008, 3, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CustomerType = "Corporate",
+                            DateOfBirth = new DateTime(1975, 9, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EmailAddress = "robertbrown@example.com",
+                            NationalID = "4567890123",
+                            PhoneNumber = "555-123-4567"
+                        },
+                        new
+                        {
+                            CustomerId = 4,
+                            CustomerAddress = "321 Pine St, Gotham",
+                            CustomerName = "Emily Davis",
+                            CustomerSince = new DateTime(2017, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CustomerType = "Regular",
+                            DateOfBirth = new DateTime(1992, 11, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EmailAddress = "emilydavis@example.com",
+                            NationalID = "3216549870",
+                            PhoneNumber = "321-654-9870"
+                        },
+                        new
+                        {
+                            CustomerId = 5,
+                            CustomerAddress = "654 Maple St, Star City",
+                            CustomerName = "Michael Johnson",
+                            CustomerSince = new DateTime(2005, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CustomerType = "VIP",
+                            DateOfBirth = new DateTime(1980, 7, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EmailAddress = "michaeljohnson@example.com",
+                            NationalID = "9876543210",
+                            PhoneNumber = "777-888-9999"
+                        });
                 });
 
             modelBuilder.Entity("Entities.Embellishment", b =>

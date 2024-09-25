@@ -1,18 +1,12 @@
-using Khayati.Mvc.Extenstion;
-using Khayati.Service.Extention;
 //using Khayati.Repositories.Extention;
-using Repositories.Extension;
-
-
-
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.ConfigurePresentionService();
-builder.Services.ConfigureRepositoryService(builder.Configuration);
-builder.Services.ConfigureServiceService();
+//builder.Services.ConfigurePresentionService();
+//builder.Services.ConfigureRepositoryService(builder.Configuration);
+//builder.Services.ConfigureServiceService();
 
 var app = builder.Build();
 
@@ -32,15 +26,15 @@ app.UseRouting();
 app.UseAuthorization();
 
 //Areas Configuration filed...
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllerRoute(
-        name: "areas",
-        pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
-    endpoints.MapControllerRoute(
-        name: "default",
-        pattern: "{controller=Home}/{action=Index}/{id?}");
-});
+//app.UseEndpoints(endpoints =>
+//{
+//    endpoints.MapControllerRoute(
+//        name: "areas",
+//        pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+//    endpoints.MapControllerRoute(
+//        name: "default",
+//        pattern: "{controller=Home}/{action=Index}/{id?}");
+//});
 
 app.MapControllerRoute(
     name: "default",

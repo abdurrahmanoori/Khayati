@@ -8,17 +8,17 @@ namespace Khayati.Mvc.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly ICustomerService _customerService;
+       // private readonly ICustomerService _customerService;
 
-        public HomeController(ILogger<HomeController> logger, ICustomerService customerService)
+        public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-            _customerService = customerService;
+          //  _customerService = customerService;
         }
 
         public async Task<IActionResult> Index()
         {
-            var result = await _customerService.GetCustomerList();
+            object result = null;// await _customerService.GetCustomerList();
             return View(result);
         }
 

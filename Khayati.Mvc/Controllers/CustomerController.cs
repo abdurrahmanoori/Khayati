@@ -7,11 +7,11 @@ namespace Khayati.Mvc.Controllers
 {
     public class CustomerController : Controller
     {
-        private readonly ICustomerService _customerService;
+        //private readonly ICustomerService _customerService;
 
-        public CustomerController(ICustomerService customerService)
+        public CustomerController()
         {
-            _customerService = customerService;
+            //_customerService = customerService;
         }
 
         public async Task<IActionResult> Index()
