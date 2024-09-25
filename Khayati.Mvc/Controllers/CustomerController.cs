@@ -1,5 +1,7 @@
 ﻿using Khayati.ServiceContracts;
+using Khayati.ServiceContracts.DTO;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace Khayati.Mvc.Controllers
 {
@@ -14,10 +16,20 @@ namespace Khayati.Mvc.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var customer =await _customerService.GetCustomerList();
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri("https://localhost:7235/");
+            HttpResponseMessage res = await client.GetAsync("api/Customer/GetAll");
+            if (!res.IsSuccessStatusCode)
+            {
+                return NotFound();
+            }
 
-           // var result = await _customerService.GetCustomerList();
-            return View(customer);
+          var result =  res.Content.ReadAsStringAsync().Result;
+           var studentList =  JsonConvert.DeserializeObject<IEnumerable<CustomerResponseDto>>(result);
+
+
+            // var result = await _customerService.GetCustomerList();
+            return View(studentList);
         }
     }
 }
