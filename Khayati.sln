@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repositories", "Repository\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepositoryContracts", "RepositoryContracts\RepositoryContracts.csproj", "{2F0854F4-8041-4307-B159-90AEE08B502C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KhayatiApi", "KhayatiApi\KhayatiApi.csproj", "{068D07A1-D5B0-4207-ADC5-0BF59F55BC25}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Khayati.Mvc", "Khayati.Mvc\Khayati.Mvc.csproj", "{32BA41F3-4162-40F8-9C1B-BD9AA7BD3262}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Khayati.ServiceContracts", "Khayati.ServiceContracts\Khayati.ServiceContracts.csproj", "{79D88AB1-BA05-49E3-8EAC-91C1C3010F43}"
@@ -35,10 +33,6 @@ Global
 		{2F0854F4-8041-4307-B159-90AEE08B502C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2F0854F4-8041-4307-B159-90AEE08B502C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2F0854F4-8041-4307-B159-90AEE08B502C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{068D07A1-D5B0-4207-ADC5-0BF59F55BC25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{068D07A1-D5B0-4207-ADC5-0BF59F55BC25}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{068D07A1-D5B0-4207-ADC5-0BF59F55BC25}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{068D07A1-D5B0-4207-ADC5-0BF59F55BC25}.Release|Any CPU.Build.0 = Release|Any CPU
 		{32BA41F3-4162-40F8-9C1B-BD9AA7BD3262}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{32BA41F3-4162-40F8-9C1B-BD9AA7BD3262}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32BA41F3-4162-40F8-9C1B-BD9AA7BD3262}.Release|Any CPU.ActiveCfg = Release|Any CPU

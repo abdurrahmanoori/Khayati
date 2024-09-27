@@ -1,0 +1,227 @@
+﻿@model Khayati.ServiceContracts.DTO.CustomerAddDto
+
+@{
+    ViewData["Title"] = "Add Customer and customer measurments Page";
+}
+
+<!--
+
+
+<div class="container p-0">
+    <div class="row">
+
+        <div class="col-md-12 container-fluid">
+
+            <div class="card card-primary">
+                <div class="card-header text-center">
+                    <h4>مــعــلـــومــات    مــــشــتــری</h4>
+                </div>
+
+
+                <form class="container-fluid p-4">
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Full Name:</label>
+                                <input asp-for="CustomerName" type="text" class="form-control" id="name" placeholder="Enter your full name" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="address" class="form-label">Address:</label>
+                                <input asp-for="CustomerAddress" type="text" class="form-control" id="address" placeholder="Enter your address" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email Address:</label>
+                                <input asp-for="EmailAddress" type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="nationalID" class="form-label">National ID:</label>
+                                <input asp-for="NationalID" type="text" class="form-control" id="nationalID" placeholder="Enter your national ID" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="dob" class="form-label">Date of Birth:</label>
+                                <input asp-for="DateOfBirth" type="date" class="form-control" id="dob" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="phone" class="form-label">Phone Number:</label>
+                                <input asp-for="PhoneNumber" type="tel" class="form-control" id="phone" placeholder="Enter your phone number" required>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>-->
+@*//////////////////////////////*@
+
+<!--<form class="col-md-6 border-primary border-3 fw-bold p-5">
+    <div class="card card-primary">
+        <div class="card-header text-center p-1">
+            <h4 class="bg-primary">قــــد انــــدام</h4>
+        </div>
+    </div>
+    <div class="row pt-2">
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label for="Height" class="form-label">Height:</label>
+                <input asp-for="Height" type="number" class="form-control" id="Height" placeholder="Enter your full name" required>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label for="ArmLength" class="form-label">ArmLength:</label>
+                <input asp-for="ArmLength" type="number" class="form-control" id="ArmLength" placeholder="Enter your address" required>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label for="Sleeve" class="form-label">Sleeve:</label>
+                <input asp-for="Sleeve" type="number" class="form-control" id="Sleeve" placeholder="Enter your email" required>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label for="ShoulderWidth" class="form-label">ShoulderWidth:</label>
+                <input asp-for="ShoulderWidth" type="number" class="form-control" id="ShoulderWidth" placeholder="Enter your national ID" required>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label for="Neck" class="form-label">Neck:</label>
+                <input asp-for="Neck" type="number" class="form-control" id="Neck" placeholder="Enter your email" required>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label for="Chest" class="form-label">Chest:</label>
+                <input asp-for="Chest" type="number" class="form-control" id="Chest" placeholder="Enter your national ID" required>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label for="Waist" class="form-label">Waist:</label>
+                <input asp-for="Waist" type="number" class="form-control" id="Waist" placeholder="Enter your email" required>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label for="trousers" class="form-label">trousers:</label>
+                <input asp-for="trousers" type="number" class="form-control" id="trousers" placeholder="Enter your national ID" required>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label for="Leg" class="form-label">Leg:</label>
+                <input asp-for="Leg" type="number" class="form-control" id="Leg" placeholder="Enter your email" required>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label for="DateTaken" class="form-label">DateTaken:</label>
+                <input asp-for="DateTaken" type="date" class="form-control" id="DateTaken" placeholder="Enter your national ID" required>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label for="DateCreated" class="form-label">DateCreated:</label>
+                <input asp-for="DateCreated" type="date" class="form-control" id="DateCreated" placeholder="Enter your email" required>
+            </div>
+        </div>-->
+@*<div class="col-md-6">
+        <div class="mb-3">
+            <label for="nationalID" class="form-label">National ID:</label>
+            <input asp-for="" type="text" class="form-control" id="nationalID" placeholder="Enter your national ID" required>
+        </div>
+    </div>*@
+<!--</div>
+
+</form>-->
+@*//////////////////////////////*@
+<!--<div class="row">
+                    <div class="col-md-12 text-end">
+                        <button type="submit" class="btn btn-primary btn-sm rounded-pill px-5">Submit</button>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>-->
+@*<div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow">
+                    <div class="card-header text-center">
+                        <h4>Customer Details Form</h4>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Full Name:</label>
+                                <input type="text" class="form-control" id="name" placeholder="Enter your full name" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="address" class="form-label">Address:</label>
+                                <input type="text" class="form-control" id="address" placeholder="Enter your address" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email Address:</label>
+                                <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="nationalID" class="form-label">National ID:</label>
+                                <input type="text" class="form-control" id="nationalID" placeholder="Enter your national ID" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="dob" class="form-label">Date of Birth:</label>
+                                <input type="date" class="form-control" id="dob" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="phone" class="form-label">Phone Number:</label>
+                                <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number" required>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary w-100">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+
