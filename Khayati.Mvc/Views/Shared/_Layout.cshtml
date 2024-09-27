@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Khayati.Mvc</title>
     @*     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Khayati.Mvc.styles.css" asp-append-version="true" /> *@
+        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/Khayati.Mvc.styles.css" asp-append-version="true" /> *@
 
 
 
@@ -162,15 +162,15 @@
                             <a href="#" class="nav-link">
                                 <i class="nav-icon bi bi-speedometer"></i>
                                 <p>
-                                    Dashboard
+                                    Admin
                                     <i class="nav-arrow bi bi-chevron-right"></i>
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="../index.html" class="nav-link">
+                                    <a asp-controller="Customer" asp-action="Index" class="nav-link">
                                         <i class="nav-icon bi bi-circle"></i>
-                                        <p>Dashboard v1</p>
+                                        <p>Customer</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -598,10 +598,10 @@
         </footer> <!--end::Footer-->
         <!--begin::Sidebar Brand-->
         @* <div class="container">
-        <main role="main" class="pb-3">
+            <main role="main" class="pb-3">
         *@
         @*  </main>
-        </div>
+            </div>
         *@
     </div>
 
@@ -641,7 +641,7 @@
         });
     </script> <!--end::OverlayScrollbars Configure--> <!--end::Script-->
     @* <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script> *@
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script> *@
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
