@@ -32,21 +32,21 @@ namespace Khayati.Service
 
         }
 
-        public async Task<EmbellishmentResponseDto> DeleteEmbellishment(int? EmbellishmentId)
+        public async Task<EmbellishmentResponseDto> DeleteEmbellishment(int? embellishmentId)
         {
-            if (!EmbellishmentId.HasValue)
+            if (!embellishmentId.HasValue)
             {
                 return null;
             }
-            Embellishment Embellishment = await _unitOfWork.EmbellishmentRepository.GetById((int)EmbellishmentId);
-            if (Embellishment == null)
+            Embellishment embellishment = await _unitOfWork.EmbellishmentRepository.GetById((int)embellishmentId);
+            if (embellishment == null)
             {
                 return null;
             }
-            await _unitOfWork.EmbellishmentRepository.Remove(Embellishment);
+            await _unitOfWork.EmbellishmentRepository.Remove(embellishment);
             await _unitOfWork.SaveChanges(default);
 
-            return Embellishment.ToEmbellishmentResponseDto();
+            return embellishment.ToEmbellishmentResponseDto();
 
         }
 
@@ -63,6 +63,22 @@ namespace Khayati.Service
             EmbellishmentResponseDto EmbellishmentResponseDto = Embellishment.ToEmbellishmentResponseDto();
             return EmbellishmentResponseDto;
 
+        }
+
+        public async Task<EmbellishmentDetailDto> GetEmbellishmentDetails(int? EmbellishmentId)
+        {
+            var query = (
+                from e in await _unitOfWork.EmbellishmentRepository.GetAll()
+                join et in await _unitOfWork.EmbellishmentTypeRepository.GetAll() on e.EmbellishmentTypeId equals et.EmbellishmentTypeId
+                select new EmbellishmentDetailDto
+                {
+                    EmbellishmentId = e.EmbellishmentId,
+                    EmbellishmentName = e.EmbellishmentName,
+                    EmbellishmentTypeId = et.EmbellishmentTypeId,
+                    EmbellishmentTypeName = et.EmbellishmentTypeName
+                }
+                ).FirstOrDefault();
+            return query;
         }
 
         public async Task<IEnumerable<EmbellishmentResponseDto>> GetEmbellishmentList()
