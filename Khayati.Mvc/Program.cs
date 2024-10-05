@@ -1,29 +1,22 @@
 //using Khayati.Repositories.Extention;
 
-using Entities.Data;
-using Khayati.Service;
-using Khayati.ServiceContracts;
-using Microsoft.EntityFrameworkCore;
-using Repositories.Base;
-using RepositoryContracts.Base;
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
 
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-builder.Services.AddScoped<ICustomerService, CustomerService>();
-builder.Services.AddScoped<IEmbellishmentTypeService, EmbellishmentTypeService>();
-builder.Services.AddScoped<IMeasurementService, MeasurementService>();
+//builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+//builder.Services.AddScoped<ICustomerService, CustomerService>();
+//builder.Services.AddScoped<IEmbellishmentTypeService, EmbellishmentTypeService>();
+//builder.Services.AddScoped<IMeasurementService, MeasurementService>();
 
-builder.Services.AddScoped<IEmbellishmentService, EmbellishmentService>();
+//builder.Services.AddScoped<IEmbellishmentService, EmbellishmentService>();
 
-builder.Services.AddDbContext<ApplicationDbContext>(option =>
-{
-    //    option.UseInMemoryDatabase("server=.;Database=SMSDb;Trusted_Connection=True;TrustServerCertificate=Yes;");
-    option.UseSqlite("Data Source=Khayati.db");
-});
+//builder.Services.AddDbContext<ApplicationDbContext>(option =>
+//{
+//    //    option.UseInMemoryDatabase("server=.;Database=SMSDb;Trusted_Connection=True;TrustServerCertificate=Yes;");
+//    option.UseSqlite("Data Source=Khayati.db");
+//});
 
 
 
