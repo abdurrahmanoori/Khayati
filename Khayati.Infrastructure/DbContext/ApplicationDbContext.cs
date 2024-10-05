@@ -1,4 +1,4 @@
-﻿using Entities.DatabaseSeeders;
+﻿using Khayati.Infrastructure.DatabaseSeeders;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure.Internal;
 

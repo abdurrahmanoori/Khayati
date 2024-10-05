@@ -1,6 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Entities;
+using Microsoft.EntityFrameworkCore;
 
-namespace Entities.DatabaseSeeders
+namespace Khayati.Infrastructure.DatabaseSeeders
 {
     public static class CustomerSeed
     {

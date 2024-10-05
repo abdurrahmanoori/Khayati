@@ -1,8 +1,6 @@
 ﻿using Khayati.ServiceContracts;
 using Khayati.ServiceContracts.DTO;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 
 namespace Khayati.Mvc.Controllers
 {
