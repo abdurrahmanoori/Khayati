@@ -19,11 +19,10 @@ namespace Khayati.Mvc.Controllers
 
         public async Task<IActionResult> Get()
         {
-            //var r =await _embellishment.GetEmbellishmentList();
-            var cusotmer = _customerService.GetCustomerList();
-            //await _embellishment.GetEmbellishmentDetails();
+           // var cusotmer = _customerService.GetCustomerList();
+           var e = await _embellishment.GetEmbellishmentDetails(1);
 
-            return Ok(cusotmer);
+            return Ok(e);
         }
     }
 }

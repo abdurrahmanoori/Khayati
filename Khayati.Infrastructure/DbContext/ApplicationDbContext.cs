@@ -18,6 +18,8 @@ namespace Entities.Data
 
             #region Seed Database
             CustomerSeed.DataSeed(modelBuilder);
+            EmbellishmentTypeSeed.DataSeed(modelBuilder);
+            EmbellishmentSeed.DataSeed(modelBuilder);
             #endregion
         }
 
