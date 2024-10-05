@@ -1,4 +1,5 @@
-﻿using Entities;
+﻿using AutoMapper;
+using Entities;
 using Khayati.ServiceContracts;
 using Khayati.ServiceContracts.DTO;
 using RepositoryContracts.Base;
@@ -8,10 +9,12 @@ namespace Khayati.Service
     public class CustomerService : ICustomerService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public CustomerService(IUnitOfWork unitOfWork)
+        public CustomerService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         public async Task<CustomerAddDto> AddCustomer(CustomerAddDto customerAddDto)
@@ -68,8 +71,10 @@ namespace Khayati.Service
                 return null;
             }
 
-            IEnumerable<CustomerResponseDto> customerResponseDtos = customers
-                .Select(temp => temp.ToCustomerResponseDto());
+            var customerResponseDtos = _mapper.Map<IEnumerable<CustomerResponseDto>>(customers);
+
+            //IEnumerable<CustomerResponseDto> customerResponseDtos = customers
+            //    .Select(temp => temp.ToCustomerResponseDto());
 
             return customerResponseDtos;
 

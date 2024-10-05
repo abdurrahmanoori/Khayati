@@ -2,6 +2,7 @@
 using Khayati.ServiceContracts;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 
 namespace Khayati.Core.Extention
 {
@@ -13,7 +14,7 @@ namespace Khayati.Core.Extention
             services.AddScoped<IEmbellishmentService, EmbellishmentService>();
             // Optionally, you could use a connection string from configuration:
             // options.UseSqlite(configuration.GetConnectionString("SqlLiteCS"));
-
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
             return services;
         }
     }

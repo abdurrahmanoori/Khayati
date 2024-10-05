@@ -9,19 +9,21 @@ namespace Khayati.Mvc.Controllers
     public class TestController : ControllerBase
     {
         private readonly IEmbellishmentService _embellishment;
+        private readonly ICustomerService _customerService;
 
-        public TestController(IEmbellishmentService embellishment)
+        public TestController(IEmbellishmentService embellishment, ICustomerService customerService)
         {
             _embellishment = embellishment;
+            _customerService = customerService;
         }
 
         public async Task<IActionResult> Get()
         {
-            var r =await _embellishment.GetEmbellishmentList();
-
+            //var r =await _embellishment.GetEmbellishmentList();
+            var cusotmer = _customerService.GetCustomerList();
             //await _embellishment.GetEmbellishmentDetails();
 
-            return Ok(r);
+            return Ok(cusotmer);
         }
     }
 }
