@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Entities.Migrations
+namespace Khayati.Infrastructure.Migrations
 {
-    public partial class InitialMig : Migration
+    public partial class intialMiration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

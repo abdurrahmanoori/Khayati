@@ -1,15 +1,16 @@
 ﻿using Entities.Data;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System.IO; // Ensure this namespace is included for Path and Directory
+using Repositories.Base;
+using RepositoryContracts.Base;
 
-namespace Repositories.Extension
+namespace Khayati.Infrastructure.Extension
 {
-    public static class RepositoryServiceRegistration
+    public static class InfrastructureServiceRegistration
     {
-        public static IServiceCollection ConfigureRepositoryService(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection ConfigureInfrastructureService(this IServiceCollection services)
         {
+
             services.AddDbContext<ApplicationDbContext>(options =>
             {
                 // Set your custom path for the SQLite database
@@ -25,10 +26,11 @@ namespace Repositories.Extension
                 options.UseSqlite($"Data Source={dbPath}");
             });
 
-            // Optionally, you could use a connection string from configuration:
-            // options.UseSqlite(configuration.GetConnectionString("SqlLiteCS"));
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
 
             return services;
+
         }
     }
 }

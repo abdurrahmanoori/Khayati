@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Entities.Migrations
+namespace Khayati.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240927173435_InitialMig")]
-    partial class InitialMig
+    [Migration("20241005150932_intialMiration")]
+    partial class intialMiration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
