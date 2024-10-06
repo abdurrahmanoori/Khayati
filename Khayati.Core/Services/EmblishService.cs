@@ -74,8 +74,8 @@ namespace Khayati.Service
                 {
                     EmbellishmentId = e.EmbellishmentId,
                     EmbellishmentName = e.EmbellishmentName,
+                    EmbellishmentTypeName = et.EmbellishmentTypeName,
                     EmbellishmentTypeId = et.EmbellishmentTypeId,
-                    EmbellishmentTypeName = et.EmbellishmentTypeName
                 }
                 ).FirstOrDefault();
             return query;
