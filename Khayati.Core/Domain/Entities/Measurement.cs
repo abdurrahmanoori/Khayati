@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Khayati.Core.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace Entities
     /// <summary>
     /// Represents the Measurement entity, responsible for storing and handling customer measurement details.
     /// </summary>
-    public class Measurement
+    public class Measurement: AuditableEntity
     {
         /// <summary>
         /// Unique identifier for the measurement.
@@ -26,7 +27,7 @@ namespace Entities
         /// <summary>
         /// The date when the measurement was taken.
         /// </summary>
-        public DateTime DateTaken { get; set; }
+       // public DateTime DateTaken { get; set; }
 
         /// <summary>
         /// Customer's height (قد) measurement.
@@ -77,7 +78,7 @@ namespace Entities
         /// <summary>
         /// Indicates the date when this measurement was created. Useful for tracking the most recent measurement of a customer.
         /// </summary>
-        public DateTime DateCreated { get; set; }
+       // public DateTime DateCreated { get; set; }
 
         /// <summary>
         /// Navigation property for the related Customer entity.

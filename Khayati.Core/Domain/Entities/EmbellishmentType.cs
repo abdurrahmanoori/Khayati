@@ -9,7 +9,7 @@ namespace Entities
 
         public string EmbellishmentTypeName { get;set; }
         public string? EmbellishmentTypeDiscription { get;set; }
-
+        public short? SortOrder { get; set; }
         public virtual ICollection<Embellishment>? Embellishmentes { get; set; }
 
     }

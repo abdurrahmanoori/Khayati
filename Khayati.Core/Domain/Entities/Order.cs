@@ -17,6 +17,8 @@ namespace Entities
         public decimal TotalCost { get; set; }
         public DateTime OrderDate { get; set; }
        
+        public bool IsPaid { get; set; }
+
         // Sum of all payments made for this order
         public decimal AmountPaid => Payments.Sum(p => p.Amount);
         public decimal RemainingAmount => TotalCost - Payments.Sum(p => p.Amount);

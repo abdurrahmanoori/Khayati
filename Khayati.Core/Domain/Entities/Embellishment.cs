@@ -13,6 +13,8 @@ namespace Entities
         public int? Cost { get; set; }
         public int? EmbellishmentTypeId { get; set; }
 
+        public bool? IsAcitve { get; set; }
+
         [ForeignKey(nameof(EmbellishmentTypeId))]
         public virtual EmbellishmentType? EmbellishmentType { get; set; }
 
