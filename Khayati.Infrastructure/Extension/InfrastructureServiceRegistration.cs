@@ -1,4 +1,6 @@
 ﻿using Entities.Data;
+using Khayati.Core.Domain.UserServiceContracts;
+using Khayati.Infrastructure.Repositories.UserServices;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Repositories.Base;
@@ -27,7 +29,7 @@ namespace Khayati.Infrastructure.Extension
             });
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-
+            services.AddScoped<ICurrentUser, CurrentUser>();
 
             return services;
 

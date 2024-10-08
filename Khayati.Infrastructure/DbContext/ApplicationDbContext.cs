@@ -1,4 +1,5 @@
 ﻿using Khayati.Core.Domain.Entities;
+using Khayati.Core.Domain.UserServiceContracts;
 using Khayati.Infrastructure.DatabaseSeeders;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -8,12 +9,13 @@ namespace Entities.Data
 {
     public class ApplicationDbContext : DbContext
     {
-        private readonly IHttpContextAccessor _httpContextAccessor;
+        //private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly ICurrentUser _currentUser;
 
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IHttpContextAccessor httpContextAccessor)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, ICurrentUser currentUser)
             : base(options)
         {
-            _httpContextAccessor = httpContextAccessor;
+            _currentUser = currentUser;
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
