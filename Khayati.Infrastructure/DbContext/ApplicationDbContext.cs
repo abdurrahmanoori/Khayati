@@ -71,5 +71,6 @@ namespace Entities.Data
         public DbSet<Order> Orders { get; set; }
         public DbSet<Embellishment> Embellishment { get; set; }
         public DbSet<EmbellishmentType> EmbellishmentTypes { get; set; }
+        public DbSet<Translation> Translations { get; set; }
     }
 }

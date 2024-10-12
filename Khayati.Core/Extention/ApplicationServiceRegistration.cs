@@ -12,6 +12,7 @@ namespace Khayati.Core.Extention
         {
 
             services.AddScoped<IEmbellishmentService, EmbellishmentService>();
+            services.AddScoped<ICustomerService, CustomerService>();
             // Optionally, you could use a connection string from configuration:
             // options.UseSqlite(configuration.GetConnectionString("SqlLiteCS"));
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
