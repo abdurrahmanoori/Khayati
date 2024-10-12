@@ -1,0 +1,27 @@
+﻿@model IEnumerable<Khayati.ServiceContracts.DTO.EmbellishmentTypeResponseDto>
+@{
+    ViewData["Title"] = "EmbellishmentType Page";
+}
+    <div class="container mt-5">
+        <form>
+            <!-- Name and Number Inputs -->
+            <div class="">
+                <div class="col-md-3">
+                    <label for="designName" class="form-label">Name khan</label>
+                    <input type="text" class="form-control" id="designName" placeholder="Enter design name">
+                </div>
+                <div class="col-md-3">
+                    <label for="designNumber" class="form-label">Number</label>
+                    <input type="number" class="form-control" id="designNumber" placeholder="Enter number for sorting">
+                </div>
+                <!-- Description Textarea -->
+                <div class="mb-3">
+                    <label for="designDescription" class="form-label">Description</label>
+                    <textarea class="form-control" id="designDescription" rows="5" placeholder="Enter description"></textarea>
+                </div>
+                <!-- Submit Button (Optional) -->
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+            
+        </form>
+    </div>
