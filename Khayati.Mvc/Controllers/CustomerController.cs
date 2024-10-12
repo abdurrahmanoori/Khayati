@@ -20,9 +20,14 @@ namespace Khayati.Mvc.Controllers
             IEnumerable<CustomerResponseDto> results = await _customerService.GetCustomerList();
             return View(results);
         }
+        [HttpGet]
+        public IActionResult Create( )
+        {
+            return View();  
+        }
 
 
-        [HttpPost("Create")]
+        [HttpPost]
         public async Task<IActionResult> Create(CustomerAddDto addCustomerDto)
         {
             var result = await _customerService.AddCustomer(addCustomerDto);
