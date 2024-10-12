@@ -10,8 +10,6 @@ namespace Khayati.Mvc.Extenstion
         {
             services.AddScoped<ICustomerService, CustomerService>();
 
-
-
             return services;
         }
     }

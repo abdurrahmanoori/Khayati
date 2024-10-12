@@ -7,6 +7,7 @@ namespace Khayati.Mvc.Areas.Admin.Controllers
     {
         public IActionResult Index()
         {
+            ValidateAntiForgeryTokenAttribute SSDF;
             return View();
         }
     }
