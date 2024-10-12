@@ -12,6 +12,8 @@ namespace Khayati.ServiceContracts.DTO
         public double trousers { get; set; }
         public double Neck { get; set; }
         public double Sleeve { get; set; }
+        public double DateCreated { get; set; }
+        public double DateTaken { get; set; }
        
         public double ShoulderWidth { get; set; }
         public double ArmLength { get; set; }
