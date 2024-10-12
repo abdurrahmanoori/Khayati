@@ -11,8 +11,6 @@ namespace Khayati.Mvc.Extenstion
             services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<IEmbellishmentTypeService, EmbellishmentTypeService>();
 
-
-
             return services;
         }
     }

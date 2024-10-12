@@ -1,9 +1,7 @@
 ﻿using Khayati.Core.Domain.Entities;
 using Khayati.Core.Domain.UserServiceContracts;
 using Khayati.Infrastructure.DatabaseSeeders;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Claims;
 
 namespace Entities.Data
 {
