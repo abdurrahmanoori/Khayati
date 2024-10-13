@@ -2,26 +2,84 @@
 @{
     ViewData["Title"] = "EmbellishmentType Page";
 }
-    <div class="container mt-5">
-        <form>
-            <!-- Name and Number Inputs -->
-            <div class="">
-                <div class="col-md-3">
-                    <label for="designName" class="form-label">Name khan</label>
-                    <input type="text" class="form-control" id="designName" placeholder="Enter design name">
+
+
+
+<div class="col-12">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Fixed Header Table</h3>
+            <div class="card-tools">
+                <div class="input-group input-group-sm" style="width: 150px;">
+                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-default">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
                 </div>
-                <div class="col-md-3">
-                    <label for="designNumber" class="form-label">Number</label>
-                    <input type="number" class="form-control" id="designNumber" placeholder="Enter number for sorting">
-                </div>
-                <!-- Description Textarea -->
-                <div class="mb-3">
-                    <label for="designDescription" class="form-label">Description</label>
-                    <textarea class="form-control" id="designDescription" rows="5" placeholder="Enter description"></textarea>
-                </div>
-                <!-- Submit Button (Optional) -->
-                <button type="submit" class="btn btn-primary">Submit</button>
             </div>
-            
-        </form>
+        </div>
+
+        <div class="card-body table-responsive p-0" style="height: 300px;">
+            <table class="table table-head-fixed text-nowrap">
+                <thead>
+                    <tr>
+                        <th>Number</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>183</td>
+                        <td>John Doe</td>
+                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                    </tr>
+                    <tr>
+                        <td>219</td>
+                        <td>Alexander Pierce</td>
+                        
+                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                    </tr>
+                    <tr>
+                        <td>657</td>
+                        <td>Bob Doe</td>
+                       
+                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                    </tr>
+                    <tr>
+                        <td>175</td>
+                        <td>Mike Doe</td>
+                        
+                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                    </tr>
+                    <tr>
+                        <td>134</td>
+                        <td>Jim Doe</td>
+                        
+                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                    </tr>
+                    <tr>
+                        <td>494</td>
+                        <td>Victoria Doe</td>
+                        
+                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                    </tr>
+                    <tr>
+                        <td>832</td>
+                        <td>Michael Doe</td>
+                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                    </tr>
+                    <tr>
+                        <td>982</td>
+                        <td>Rocky Doe</td>
+                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
     </div>
+
+</div>
