@@ -30,12 +30,12 @@ namespace Khayati.ServiceContracts.DTO
             return new CustomerResponseDto
             {
                 CustomerId = customer.CustomerId,
-                CustomerName = customer.CustomerName,
-                CustomerAddress = customer.CustomerAddress,
+                CustomerName = customer.Name,
+                CustomerAddress = customer.Address,
                 PhoneNumber = customer.PhoneNumber,
-                CustomerSince = customer.CustomerSince,
+                //CustomerSince = customer.CustomerSince,
                 DateOfBirth = customer.DateOfBirth,
-                CustomerType = customer.CustomerType,
+                //CustomerType = customer.CustomerType,
                 NationalID = customer.NationalID,
                 EmailAddress = customer.EmailAddress
             };
