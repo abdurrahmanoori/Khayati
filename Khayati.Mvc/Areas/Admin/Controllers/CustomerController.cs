@@ -2,8 +2,9 @@
 using Khayati.ServiceContracts.DTO;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Khayati.Mvc.Controllers
+namespace Khayati.Mvc.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class CustomerController : Controller
     {
         //private readonly ICustomerService _customerService;
@@ -21,9 +22,9 @@ namespace Khayati.Mvc.Controllers
             return View(results);
         }
         [HttpGet]
-        public IActionResult Create( )
+        public IActionResult Create()
         {
-            return View();  
+            return View();
         }
 
 

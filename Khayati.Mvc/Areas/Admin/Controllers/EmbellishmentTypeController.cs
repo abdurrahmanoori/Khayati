@@ -2,35 +2,36 @@
 using Khayati.ServiceContracts.DTO;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Khayati.Mvc.Controllers
+namespace Khayati.Mvc.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class EmbellishmentTypeController : Controller
     {
-        //private readonly IEmbellishmentTypeService _EmbellishmentTypeService;
-        private readonly IEmbellishmentTypeService _EmbellishmentTypeService;
+        //private readonly IEmbellishmentTypeService _embellishmentTypeService;
+        private readonly IEmbellishmentTypeService _embellishmentTypeService;
 
         public EmbellishmentTypeController(IEmbellishmentTypeService EmbellishmentTypeService)
         {
-            _EmbellishmentTypeService = EmbellishmentTypeService;
-            //_EmbellishmentTypeService = EmbellishmentTypeService;
+            _embellishmentTypeService = EmbellishmentTypeService;
+            //_embellishmentTypeService = EmbellishmentTypeService;
         }
 
         public async Task<IActionResult> Index()
         {
-            IEnumerable<EmbellishmentTypeResponseDto> results = await _EmbellishmentTypeService.GetEmbellishmentTypeList();
+            IEnumerable<EmbellishmentTypeResponseDto> results = await _embellishmentTypeService.GetEmbellishmentTypeList();
             return View(results);
         }
         [HttpGet]
-        public IActionResult Create( )
+        public IActionResult Create()
         {
-            return View();  
+            return View();
         }
 
 
         [HttpPost]
         public async Task<IActionResult> Create(EmbellishmentTypeAddDto addEmbellishmentTypeDto)
         {
-            var result = await _EmbellishmentTypeService.AddEmbellishmentType(addEmbellishmentTypeDto);
+            var result = await _embellishmentTypeService.AddEmbellishmentType(addEmbellishmentTypeDto);
             return Ok(result);
 
         }
@@ -50,7 +51,7 @@ namespace Khayati.Mvc.Controllers
         //    var studentList = JsonConvert.DeserializeObject<IEnumerable<EmbellishmentTypeResponseDto>>(result);
 
 
-        //    // var result = await _EmbellishmentTypeService.GetEmbellishmentTypeList();
+        //    // var result = await _embellishmentTypeService.GetEmbellishmentTypeList();
         //    return View(studentList);
         //}
     }

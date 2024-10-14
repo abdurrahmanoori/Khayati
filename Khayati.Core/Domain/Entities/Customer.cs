@@ -1,5 +1,4 @@
-﻿using Entities.Enum;
-using Khayati.Core.Domain.Entities;
+﻿using Khayati.Core.Domain.Entities;
 
 namespace Entities
 {
