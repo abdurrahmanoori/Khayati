@@ -1,5 +1,5 @@
 ﻿using Entities;
-using Khayati.ServiceContracts.DTO;
+using Khayati.Core.DTO;
 using Khayati.ServiceContracts;
 using RepositoryContracts.Base;
 

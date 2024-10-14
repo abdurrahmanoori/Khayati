@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Khayati.ServiceContracts.DTO
+namespace Khayati.Core.DTO
 {
     public class EmbellishmentTypeResponseDto
     {
@@ -22,8 +22,8 @@ namespace Khayati.ServiceContracts.DTO
             return new EmbellishmentTypeResponseDto
             {
                 EmbellishmentTypeId = EmbellishmentType.EmbellishmentTypeId,
-                EmbellishmentTypeName = EmbellishmentType.EmbellishmentTypeName,
-                EmbellishmentTypeDiscription = EmbellishmentType.EmbellishmentTypeDiscription,
+                EmbellishmentTypeName = EmbellishmentType.Name,
+                EmbellishmentTypeDiscription = EmbellishmentType.Discription,
             };
         }
     }

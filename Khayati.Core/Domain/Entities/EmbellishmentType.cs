@@ -7,8 +7,8 @@ namespace Entities
         [Key]
         public int EmbellishmentTypeId { get; set; }
 
-        public string EmbellishmentTypeName { get;set; }
-        public string? EmbellishmentTypeDiscription { get;set; }
+        public string Name { get;set; }
+        public string? Discription { get;set; }
         public short? SortOrder { get; set; }
         public virtual ICollection<Embellishment>? Embellishmentes { get; set; }
 

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Entities;
 using Khayati.ServiceContracts;
-using Khayati.ServiceContracts.DTO;
+using Khayati.Core.DTO;
 using RepositoryContracts.Base;
 
 namespace Khayati.Service

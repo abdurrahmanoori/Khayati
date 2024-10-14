@@ -28,7 +28,7 @@ namespace Entities.Data
 
             #region Fluent Configuration
             modelBuilder.Entity<EmbellishmentType>()
-                .HasIndex(e => e.EmbellishmentTypeName)
+                .HasIndex(e => e.Name)
                 .IsUnique();
                 
             #endregion

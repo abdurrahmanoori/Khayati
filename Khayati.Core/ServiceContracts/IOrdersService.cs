@@ -1,4 +1,4 @@
-﻿using Khayati.ServiceContracts.DTO;
+﻿using Khayati.Core.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;

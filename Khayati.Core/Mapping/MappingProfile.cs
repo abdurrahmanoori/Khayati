@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Entities;
-using Khayati.ServiceContracts.DTO;
+using Khayati.Core.DTO;
 
 namespace Khayati.Core.Mapping
 {

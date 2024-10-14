@@ -1,4 +1,4 @@
-﻿using Khayati.ServiceContracts.DTO;
+﻿using Khayati.Core.DTO;
 
 namespace Khayati.Mvc.ViewModel
 {

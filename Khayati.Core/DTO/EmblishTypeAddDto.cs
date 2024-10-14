@@ -1,20 +1,23 @@
 ﻿using Entities;
+using System.ComponentModel.DataAnnotations;
 
-namespace Khayati.ServiceContracts.DTO
+namespace Khayati.Core.DTO
 {
     public class EmbellishmentTypeAddDto
     {
-        public string EmbellishmentTypeName { get; set; }
+        [Required(ErrorMessage ="Name is required from annotation")]
+        public string Name { get; set; }
 
-        public string EmbellishmentTypeDescription { get; set; }
+        public string Description { get; set; }
+        public short? SortOrder { get; set; }
 
 
         public EmbellishmentType ToEmbellishmentType()
         {
             return new EmbellishmentType
             {
-                EmbellishmentTypeName = EmbellishmentTypeName,
-                EmbellishmentTypeDiscription = EmbellishmentTypeDescription
+                Name = Name,
+                Discription = Description
             };
         }
 

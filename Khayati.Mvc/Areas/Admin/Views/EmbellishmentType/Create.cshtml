@@ -1,23 +1,24 @@
-﻿@model IEnumerable<Khayati.ServiceContracts.DTO.EmbellishmentTypeAddDto>
+﻿@model EmbellishmentTypeAddDto
 @{
     ViewData["Title"] = "EmbellishmentType Page";
 }
 <div class="container mt-5 fw-bold">
-    <form id="myForm">
+    <form id="myForm" action="Create" method="post">
         <!-- Name and Number Inputs -->
         <div class="row">
             <div class="col-md-4">
                 <label for="designName" class="form-label">Name</label>
-                <input type="text" id="Name" class="form-control border-primary border-2" id="designName" placeholder="Enter design name">
+                <input asp-for="Name" class="form-control border-primary border-2" placeholder="Enter design name">
+                <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="col-md-4">
                 <label for="designNumber" class="form-label ">Number</label>
-                <input type="number" id="Number" class="form-control border-primary border-2" id="designNumber" placeholder="Enter number for sorting">
+                <input asp-for="SortOrder" class="form-control border-primary border-2" placeholder="Enter number for sorting">
             </div>
             <!-- Description Textarea -->
             <div class="mt-3 col-md-8">
                 <label for="designDescription" class="form-label ">Description</label>
-                <textarea class="form-control border-primary border-2" id="designDescription" rows="5" placeholder="Enter description"></textarea>
+                <textarea asp-for="Description" class="form-control border-primary border-2" id="designDescription" rows="5" placeholder="Enter description"></textarea>
                 <div class="col-12 text-center text mt-3">
                     <button type="button" class="btn btn-secondary m-2 w-25" onclick="goBack()">Back</button>
                     <button type="button" class="btn m-2 w-25" style="background-color: #ff7f50; color: white;" onclick="resetForm()">Reset</button>
@@ -31,8 +32,69 @@
     </form>
 </div>
 
+<!-- Include Parsley.js -->
+@* <script src="https://cdn.jsdelivr.net/npm/parsleyjs@2/dist/parsley.min.js"></script> *@
 
+<!-- Custom Mapping Script -->
 <script>
+
+// document.addEventListener('DOMContentLoaded', function () {
+//     // Mapping ASP.NET Core validation attributes to Parsley.js
+//     var inputs = document.querySelectorAll('input[data-val="true"], textarea[data-val="true"]');
+    
+//     inputs.forEach(function (input) {
+//         // Handle Required Field
+//         if (input.hasAttribute('data-val-required')) {
+//             input.setAttribute('data-parsley-required', 'true');
+//             input.setAttribute('data-parsley-required-message', input.getAttribute('data-val-required'));
+//         }
+        
+//         // Handle String Length (MaxLength)
+//         if (input.hasAttribute('data-val-length-max')) {
+//             input.setAttribute('data-parsley-maxlength', input.getAttribute('data-val-length-max'));
+//             input.setAttribute('data-parsley-maxlength-message', input.getAttribute('data-val-length'));
+//         }
+        
+//         // Handle Range Validation
+//         if (input.hasAttribute('data-val-range-max') && input.hasAttribute('data-val-range-min')) {
+//             input.setAttribute('data-parsley-range', '[' + input.getAttribute('data-val-range-min') + ',' + input.getAttribute('data-val-range-max') + ']');
+//             input.setAttribute('data-parsley-range-message', input.getAttribute('data-val-range'));
+//         }
+        
+//         // Add more mappings as necessary
+//     });
+
+//     // Initialize Parsley validation on the form
+//     var form = document.getElementById('myForm');
+//     Parsley.addMessages('en', {
+//         defaultMessage: "This value seems to be invalid.",
+//         type: {
+//             email:        "This value should be a valid email.",
+//             url:          "This value should be a valid url.",
+//             number:       "This value should be a valid number.",
+//             integer:      "This value should be a valid integer.",
+//             digits:       "This value should be digits.",
+//             alphanum:     "This value should be alphanumeric."
+//         },
+//         notblank:       "This value should not be blank.",
+//         required:       "This field is required.",
+//         pattern:        "This value seems to be invalid.",
+//         min:            "This value should be greater than or equal to %s.",
+//         max:            "This value should be lower than or equal to %s.",
+//         range:          "This value should be between %s and %s.",
+//         minlength:      "This value is too short. It should have %s characters or more.",
+//         maxlength:      "This value is too long. It should have %s characters or fewer.",
+//         length:         "This value length is invalid. It should be between %s and %s characters long.",
+//         mincheck:       "You must select at least %s choices.",
+//         maxcheck:       "You must select %s choices or fewer.",
+//         check:          "You must select between %s and %s choices.",
+//         equalto:        "This value should be the same."
+//     });
+
+//     Parsley.setLocale('en');
+//     form.parsley();
+// });
+
     // Back Button Fanction
     function goBack() {
         window.history.back();
@@ -45,3 +107,4 @@
 
 
 </script>
+

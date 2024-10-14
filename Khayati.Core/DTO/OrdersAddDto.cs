@@ -1,7 +1,7 @@
 ﻿using Entities;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Khayati.ServiceContracts.DTO
+namespace Khayati.Core.DTO
 {
     public class OrdersAddDto
     {

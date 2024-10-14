@@ -1,4 +1,4 @@
-﻿namespace Khayati.ServiceContracts.DTO
+﻿namespace Khayati.Core.DTO
 {
     public class EmbellishmentDetailDto
     {

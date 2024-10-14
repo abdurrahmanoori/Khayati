@@ -1,5 +1,5 @@
 ﻿using Entities;
-using Khayati.ServiceContracts.DTO;
+using Khayati.Core.DTO;
 using Khayati.ServiceContracts;
 using RepositoryContracts.Base;
 using System;
@@ -74,7 +74,7 @@ namespace Khayati.Service
                 {
                     EmbellishmentId = e.EmbellishmentId,
                     EmbellishmentName = e.EmbellishmentName,
-                    EmbellishmentTypeName = et.EmbellishmentTypeName,
+                    EmbellishmentTypeName = et.Name,
                     EmbellishmentTypeId = et.EmbellishmentTypeId,
                 }
                 ).FirstOrDefault();

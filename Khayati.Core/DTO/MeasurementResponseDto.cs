@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Khayati.ServiceContracts.DTO
+namespace Khayati.Core.DTO
 {
     public class MeasurementResponseDto
     {
