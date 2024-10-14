@@ -8,8 +8,8 @@ namespace Entities
         [Key]
         public int EmbellishmentId { get; set; }
 
-        public string EmbellishmentName { get; set; }
-        public string? EmbellishmentDiscription { get; set; }
+        public string Name { get; set; }
+        public string? Discription { get; set; }
         public int? Cost { get; set; }
         public int? EmbellishmentTypeId { get; set; }
 

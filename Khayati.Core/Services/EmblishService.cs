@@ -73,7 +73,7 @@ namespace Khayati.Service
                 select new EmbellishmentDetailDto
                 {
                     EmbellishmentId = e.EmbellishmentId,
-                    EmbellishmentName = e.EmbellishmentName,
+                    Name = e.Name,
                     EmbellishmentTypeName = et.Name,
                     EmbellishmentTypeId = et.EmbellishmentTypeId,
                 }

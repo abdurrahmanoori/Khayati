@@ -22,8 +22,8 @@ namespace Khayati.Core.DTO
             return new EmbellishmentResponseDto
             {
                 EmbellishmentId = Embellishmentr.EmbellishmentId,
-                EmbellishmentName = Embellishmentr.EmbellishmentName,
-                EmbellishmentDiscription = Embellishmentr.EmbellishmentDiscription,
+                EmbellishmentName = Embellishmentr.Name,
+                EmbellishmentDiscription = Embellishmentr.Discription,
             };
         }
     }

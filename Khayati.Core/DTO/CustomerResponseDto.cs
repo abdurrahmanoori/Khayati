@@ -11,9 +11,9 @@ namespace Khayati.Core.DTO
     public class CustomerResponseDto
     {
         public int CustomerId { get; set; }
-        public string CustomerName { get; set; }
+        public string Name { get; set; }
 
-        public string CustomerAddress { get; set; }
+        public string Address { get; set; }
         public string PhoneNumber { get; set; }
         public string EmailAddress { get; set; }
         public string NationalID { get; set; }
@@ -30,8 +30,8 @@ namespace Khayati.Core.DTO
             return new CustomerResponseDto
             {
                 CustomerId = customer.CustomerId,
-                CustomerName = customer.Name,
-                CustomerAddress = customer.Address,
+                Name = customer.Name,
+                Address = customer.Address,
                 PhoneNumber = customer.PhoneNumber,
                 //CustomerSince = customer.CustomerSince,
                 DateOfBirth = customer.DateOfBirth,
