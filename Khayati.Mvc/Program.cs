@@ -1,45 +1,53 @@
-//using Khayati.Repositories.Extention;
 using Khayati.Core.Extention;
 using Khayati.Infrastructure.Extension;
 using Khayati.Mvc.Extenstion;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation(); 
+// Add services to the container
+builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Version = "v1",
+        Title = "Khayati API",
+        Description = "API for Khayati Application"
+    });
+});
 
-
-//builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-//builder.Services.AddScoped<ICustomerService, CustomerService>();
-//builder.Services.AddScoped<IEmbellishmentTypeService, EmbellishmentTypeService>();
-//builder.Services.AddScoped<IMeasurementService, MeasurementService>();
-
-//builder.Services.AddScoped<IEmbellishmentService, EmbellishmentService>();
-
-//builder.Services.AddDbContext<ApplicationDbContext>(option =>
-//{
-//    //    option.UseInMemoryDatabase("server=.;Database=SMSDb;Trusted_Connection=True;TrustServerCertificate=Yes;");
-//    option.UseSqlite("Data Source=Khayati.db");
-//});
-
-
-
-
-
-//Add services to the container.
-
+// Custom services and configuration extensions
 builder.Services.ConfigureApplicationService(builder.Configuration);
 builder.Services.ConfigureInfrastructureService();
 builder.Services.ConfigurePresentionService();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+// Configure the HTTP request pipeline
+if (app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Khayati API V1");
+        c.RoutePrefix = string.Empty; // Serve Swagger UI at the app's root (e.g., https://localhost:44300)
+    });
+}
+else
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Khayati API V1");
+        c.RoutePrefix = string.Empty;
+    });
 }
+
 app.UseCors("AllowAll");
 app.UseHttpsRedirection();
 app.UseStaticFiles();
@@ -48,7 +56,7 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-//Areas Configuration filed...
+// Areas Configuration
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllerRoute(
@@ -58,12 +66,5 @@ app.UseEndpoints(endpoints =>
         name: "default",
         pattern: "{controller=Home}/{action=Index}/{id?}");
 });
-
-//app.MapControllerRoute(
-//    name: "default",
-//    pattern: "{controller=Home}/{action=Index}/{id?}");
-
-
-
 
 app.Run();
