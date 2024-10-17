@@ -1,6 +1,7 @@
 ﻿using Khayati.ServiceContracts;
 using Khayati.Core.DTO;
 using Microsoft.AspNetCore.Mvc;
+using Khayati.Core.DTO.EmbellishmentType;
 
 namespace Khayati.Mvc.Areas.Admin.Controllers
 {
@@ -24,6 +25,7 @@ namespace Khayati.Mvc.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+
             return View();
         }
 
@@ -33,6 +35,37 @@ namespace Khayati.Mvc.Areas.Admin.Controllers
         {
             var result = await _embellishmentTypeService.AddEmbellishmentType(addEmbellishmentTypeDto);
             return Ok(result);
+
+        }
+        
+        [HttpGet]
+        public async Task<IActionResult> Edit(int  id)
+        {
+
+            var result = await _embellishmentTypeService.GetEmbellishmentTypeById(id);
+            if (result == null)
+            {
+                return NotFound();
+            }
+            return View(result);
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(EmbellishmentTypeUpdateDto updateDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+
+            var result = await _embellishmentTypeService.(id);
+            if (result == null)
+            {
+                return NotFound();
+            }
+            return View(result);
 
         }
 

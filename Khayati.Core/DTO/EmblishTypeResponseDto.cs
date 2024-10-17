@@ -10,9 +10,9 @@ namespace Khayati.Core.DTO
     public class EmbellishmentTypeResponseDto
     {
         public int EmbellishmentTypeId { get; set; }
-        public string EmbellishmentTypeName { get; set; }
-
-        public string EmbellishmentTypeDiscription { get; set; }
+        public string Name { get; set; }
+        public short? SortOrder { get; set; }
+        public string Discription { get; set; }
     }
 
     public static class EmbellishmentTypeExtention
@@ -22,8 +22,9 @@ namespace Khayati.Core.DTO
             return new EmbellishmentTypeResponseDto
             {
                 EmbellishmentTypeId = EmbellishmentType.EmbellishmentTypeId,
-                EmbellishmentTypeName = EmbellishmentType.Name,
-                EmbellishmentTypeDiscription = EmbellishmentType.Discription,
+                Name = EmbellishmentType.Name,
+                SortOrder = EmbellishmentType.SortOrder,
+                Discription = EmbellishmentType.Discription,
             };
         }
     }
