@@ -12,10 +12,10 @@ namespace Khayati.Mvc.Areas.Admin.Controllers
         //private readonly IEmbellishmentTypeService _embellishmentTypeService;
         private readonly IEmbellishmentTypeService _embellishmentTypeService;
 
-        public EmbellishmentTypeController(IEmbellishmentTypeService EmbellishmentTypeService)
+        public EmbellishmentTypeController(IEmbellishmentTypeService embellishmentTypeService)
         {
-            _embellishmentTypeService = EmbellishmentTypeService;
-            //_embellishmentTypeService = EmbellishmentTypeService;
+            _embellishmentTypeService = embellishmentTypeService;
+            //_embellishmentTypeService = embellishmentTypeService;
         }
 
         public async Task<IActionResult> Index()
@@ -35,34 +35,31 @@ namespace Khayati.Mvc.Areas.Admin.Controllers
         public async Task<IActionResult> Create(EmbellishmentTypeAddDto addEmbellishmentTypeDto)
         {
             var result = await _embellishmentTypeService.AddEmbellishmentType(addEmbellishmentTypeDto);
-            return Ok(result);
-
+            return RedirectToAction(nameof(Index));
         }
-        
-        [HttpGet]
-        public async Task<IActionResult> Edit(int  id)
-        {
 
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
             var result = await _embellishmentTypeService.GetEmbellishmentTypeById(id);
             if (result == null)
             {
                 return NotFound();
             }
-            return View(new EmbellishmentTypeUpdateDto());
+            return View(result);
 
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(EmbellishmentTypeUpdateDto updateDto)
+        public async Task<IActionResult> Edit(EmbellishmentTypeResponseDto dto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
+            await _embellishmentTypeService.UpdateEmbellishmentType(dto);
 
-
-            return View();
-
+            return RedirectToAction(nameof(Index));
         }
 
         //public async Task<IActionResult> Index()

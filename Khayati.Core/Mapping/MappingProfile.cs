@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Entities;
 using Khayati.Core.DTO;
+using Khayati.Core.DTO.EmbellishmentTypeDto;
 
 namespace Khayati.Core.Mapping
 {
@@ -9,6 +10,7 @@ namespace Khayati.Core.Mapping
         public MappingProfile()
         {
             CreateMap<Customer, CustomerResponseDto>();
+            CreateMap<EmbellishmentType, EmbellishmentTypeResponseDto>();
         }
     }
 }

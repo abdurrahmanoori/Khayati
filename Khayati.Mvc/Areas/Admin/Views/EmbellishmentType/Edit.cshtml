@@ -1,9 +1,10 @@
-﻿@model Khayati.Core.DTO.EmbellishmentTypeDto.EmbellishmentTypeUpdateDto
+﻿@model Khayati.Core.DTO.EmbellishmentTypeDto.EmbellishmentTypeResponseDto
 @{
     ViewData["Title"] = "EmbellishmentTypeUpdate Page";
 }
 <div class="container mt-5 fw-bold">
     <form id="myForm" action="Create" method="post">
+        <input asp-for="EmbellishmentTypeId" hidden />
         <!-- Name and Number Inputs -->
         <div class="row">
             <div class="col-md-4">
