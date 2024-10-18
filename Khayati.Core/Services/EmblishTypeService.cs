@@ -89,6 +89,7 @@ namespace Khayati.Service
             var embellishmentType = _mapper.Map<EmbellishmentType>(embellishmentTypeResponseDto);
 
              await _unitOfWork.EmbellishmentTypeRepository.Update(embellishmentType);
+            await _unitOfWork.SaveChanges(CancellationToken.None);
             return embellishmentTypeResponseDto;
         }
     }

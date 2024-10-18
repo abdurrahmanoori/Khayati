@@ -10,7 +10,8 @@ namespace Khayati.Core.Mapping
         public MappingProfile()
         {
             CreateMap<Customer, CustomerResponseDto>();
-            CreateMap<EmbellishmentType, EmbellishmentTypeResponseDto>();
+            CreateMap<EmbellishmentType, EmbellishmentTypeResponseDto>().ReverseMap();
+           // CreateMap<EmbellishmentType, EmbellishmentTypeResponseDto>();
         }
     }
 }
