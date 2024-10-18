@@ -1,7 +1,8 @@
 ﻿using Khayati.ServiceContracts;
 using Khayati.Core.DTO;
 using Microsoft.AspNetCore.Mvc;
-using Khayati.Core.DTO.EmbellishmentType;
+
+using Khayati.Core.DTO.EmbellishmentTypeDto;
 
 namespace Khayati.Mvc.Areas.Admin.Controllers
 {
@@ -47,7 +48,7 @@ namespace Khayati.Mvc.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            return View(result);
+            return View(new EmbellishmentTypeUpdateDto());
 
         }
 
@@ -60,12 +61,7 @@ namespace Khayati.Mvc.Areas.Admin.Controllers
             }
 
 
-            var result = await _embellishmentTypeService.(id);
-            if (result == null)
-            {
-                return NotFound();
-            }
-            return View(result);
+            return View();
 
         }
 

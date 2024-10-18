@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Khayati.Core.DTO.EmbellishmentType
+namespace Khayati.Core.DTO.EmbellishmentTypeDto
 {
     public class EmbellishmentTypeUpdateDto: EmbellishmentTypeResponseDto
     {
