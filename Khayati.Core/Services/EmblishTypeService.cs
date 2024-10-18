@@ -2,16 +2,21 @@
 using Khayati.ServiceContracts;
 using Khayati.Core.DTO;
 using RepositoryContracts.Base;
+using Khayati.Core.DTO.EmbellishmentTypeDto;
+using Entities.Enum;
+using AutoMapper;
 
 namespace Khayati.Service
 {
     public class EmbellishmentTypeService : IEmbellishmentTypeService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public EmbellishmentTypeService(IUnitOfWork unitOfWork)
+        public EmbellishmentTypeService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         public async Task<EmbellishmentTypeAddDto> AddEmbellishmentType(EmbellishmentTypeAddDto EmbellishmentTypeAddDto)
@@ -75,5 +80,16 @@ namespace Khayati.Service
 
         }
 
+        public async Task<EmbellishmentTypeResponseDto> UpdateEmbellishmentType(EmbellishmentTypeResponseDto embellishmentTypeResponseDto)
+        {
+            if(embellishmentTypeResponseDto is null)
+            {
+                return null;
+            }
+            var embellishmentType = _mapper.Map<EmbellishmentType>(embellishmentTypeResponseDto);
+
+             await _unitOfWork.EmbellishmentTypeRepository.Update(embellishmentType);
+            return embellishmentTypeResponseDto;
+        }
     }
 }

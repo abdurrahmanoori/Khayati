@@ -1,7 +1,8 @@
 ﻿using Khayati.ServiceContracts;
 using Khayati.Core.DTO;
 using Microsoft.AspNetCore.Mvc;
-using Khayati.Core.DTO.EmbellishmentType;
+
+using Khayati.Core.DTO.EmbellishmentTypeDto;
 
 namespace Khayati.Mvc.Areas.Admin.Controllers
 {
@@ -11,10 +12,10 @@ namespace Khayati.Mvc.Areas.Admin.Controllers
         //private readonly IEmbellishmentTypeService _embellishmentTypeService;
         private readonly IEmbellishmentTypeService _embellishmentTypeService;
 
-        public EmbellishmentTypeController(IEmbellishmentTypeService EmbellishmentTypeService)
+        public EmbellishmentTypeController(IEmbellishmentTypeService embellishmentTypeService)
         {
-            _embellishmentTypeService = EmbellishmentTypeService;
-            //_embellishmentTypeService = EmbellishmentTypeService;
+            _embellishmentTypeService = embellishmentTypeService;
+            //_embellishmentTypeService = embellishmentTypeService;
         }
 
         public async Task<IActionResult> Index()
@@ -34,14 +35,12 @@ namespace Khayati.Mvc.Areas.Admin.Controllers
         public async Task<IActionResult> Create(EmbellishmentTypeAddDto addEmbellishmentTypeDto)
         {
             var result = await _embellishmentTypeService.AddEmbellishmentType(addEmbellishmentTypeDto);
-            return Ok(result);
-
+            return RedirectToAction(nameof(Index));
         }
-        
-        [HttpGet]
-        public async Task<IActionResult> Edit(int  id)
-        {
 
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
             var result = await _embellishmentTypeService.GetEmbellishmentTypeById(id);
             if (result == null)
             {
@@ -52,21 +51,15 @@ namespace Khayati.Mvc.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(EmbellishmentTypeUpdateDto updateDto)
+        public async Task<IActionResult> Edit(EmbellishmentTypeResponseDto dto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
+            await _embellishmentTypeService.UpdateEmbellishmentType(dto);
 
-
-            var result = await _embellishmentTypeService.(id);
-            if (result == null)
-            {
-                return NotFound();
-            }
-            return View(result);
-
+            return RedirectToAction(nameof(Index));
         }
 
         //public async Task<IActionResult> Index()
