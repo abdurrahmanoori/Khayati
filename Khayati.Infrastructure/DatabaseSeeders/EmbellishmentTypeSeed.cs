@@ -13,31 +13,31 @@ namespace Khayati.Infrastructure.DatabaseSeeders
                 {
                     EmbellishmentTypeId = 1,
                     Name = "Neck",
-                    Discription = "Various neck styles."
+                    Description = "Various neck styles."
                 },
     new EmbellishmentType
     {
         EmbellishmentTypeId = 2,
         Name = "Sleeve",
-        Discription = "Different sleeve styles."
+        Description = "Different sleeve styles."
     },
     new EmbellishmentType
     {
         EmbellishmentTypeId = 3,
         Name = "Hem",
-        Discription = "Different hem styles."
+        Description = "Different hem styles."
     },
     new EmbellishmentType
     {
         EmbellishmentTypeId = 4,
         Name = "Pocket",
-        Discription = "Various pocket styles."
+        Description = "Various pocket styles."
     },
     new EmbellishmentType
     {
         EmbellishmentTypeId = 5,
         Name = "Embroidery",
-        Discription = "Different embroidery styles."
+        Description = "Different embroidery styles."
     }
 
         );

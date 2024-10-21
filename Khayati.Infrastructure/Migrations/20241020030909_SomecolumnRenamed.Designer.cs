@@ -3,6 +3,7 @@ using System;
 using Entities.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Khayati.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241020030909_SomecolumnRenamed")]
+    partial class SomecolumnRenamed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.0");
@@ -222,7 +224,7 @@ namespace Khayati.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Description")
+                    b.Property<string>("Discription")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
@@ -243,31 +245,31 @@ namespace Khayati.Infrastructure.Migrations
                         new
                         {
                             EmbellishmentTypeId = 1,
-                            Description = "Various neck styles.",
+                            Discription = "Various neck styles.",
                             Name = "Neck"
                         },
                         new
                         {
                             EmbellishmentTypeId = 2,
-                            Description = "Different sleeve styles.",
+                            Discription = "Different sleeve styles.",
                             Name = "Sleeve"
                         },
                         new
                         {
                             EmbellishmentTypeId = 3,
-                            Description = "Different hem styles.",
+                            Discription = "Different hem styles.",
                             Name = "Hem"
                         },
                         new
                         {
                             EmbellishmentTypeId = 4,
-                            Description = "Various pocket styles.",
+                            Discription = "Various pocket styles.",
                             Name = "Pocket"
                         },
                         new
                         {
                             EmbellishmentTypeId = 5,
-                            Description = "Different embroidery styles.",
+                            Discription = "Different embroidery styles.",
                             Name = "Embroidery"
                         });
                 });
@@ -341,7 +343,7 @@ namespace Khayati.Infrastructure.Migrations
                             Measurementid = 1,
                             ArmLength = 62.0,
                             Chest = 100.0,
-                            CreatedAt = new DateTime(2024, 10, 21, 6, 51, 14, 853, DateTimeKind.Local).AddTicks(970),
+                            CreatedAt = new DateTime(2024, 10, 20, 7, 39, 8, 378, DateTimeKind.Local).AddTicks(3767),
                             CustomerId = 1,
                             Height = 175.5,
                             IsDeleted = false,
@@ -357,7 +359,7 @@ namespace Khayati.Infrastructure.Migrations
                             Measurementid = 2,
                             ArmLength = 63.0,
                             Chest = 101.0,
-                            CreatedAt = new DateTime(2024, 10, 21, 6, 51, 14, 853, DateTimeKind.Local).AddTicks(983),
+                            CreatedAt = new DateTime(2024, 10, 20, 7, 39, 8, 378, DateTimeKind.Local).AddTicks(3783),
                             CustomerId = 2,
                             Height = 176.0,
                             IsDeleted = false,
@@ -373,7 +375,7 @@ namespace Khayati.Infrastructure.Migrations
                             Measurementid = 3,
                             ArmLength = 62.5,
                             Chest = 99.0,
-                            CreatedAt = new DateTime(2024, 10, 21, 6, 51, 14, 853, DateTimeKind.Local).AddTicks(985),
+                            CreatedAt = new DateTime(2024, 10, 20, 7, 39, 8, 378, DateTimeKind.Local).AddTicks(3784),
                             CustomerId = 3,
                             Height = 175.5,
                             IsDeleted = false,
@@ -389,7 +391,7 @@ namespace Khayati.Infrastructure.Migrations
                             Measurementid = 4,
                             ArmLength = 64.0,
                             Chest = 102.0,
-                            CreatedAt = new DateTime(2024, 10, 21, 6, 51, 14, 853, DateTimeKind.Local).AddTicks(986),
+                            CreatedAt = new DateTime(2024, 10, 20, 7, 39, 8, 378, DateTimeKind.Local).AddTicks(3785),
                             CustomerId = 4,
                             Height = 177.0,
                             IsDeleted = false,

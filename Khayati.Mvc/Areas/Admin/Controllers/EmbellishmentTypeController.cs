@@ -2,7 +2,7 @@
 using Khayati.Core.DTO;
 using Microsoft.AspNetCore.Mvc;
 
-using Khayati.Core.DTO.EmbellishmentTypeDto;
+using Khayati.Core.DTO.EmbellishmentType;
 
 namespace Khayati.Mvc.Areas.Admin.Controllers
 {
@@ -61,6 +61,15 @@ namespace Khayati.Mvc.Areas.Admin.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+        [HttpGet("api/EmbellishmentType/Delete")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await _embellishmentTypeService.DeleteEmbellishmentType(id);
+            return Ok("deleted susscefully");
+        }
+
+
 
         //public async Task<IActionResult> Index()
         //{

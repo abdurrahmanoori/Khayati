@@ -2,7 +2,7 @@
 using Khayati.ServiceContracts;
 using Khayati.Core.DTO;
 using RepositoryContracts.Base;
-using Khayati.Core.DTO.EmbellishmentTypeDto;
+using Khayati.Core.DTO.EmbellishmentType;
 using Entities.Enum;
 using AutoMapper;
 

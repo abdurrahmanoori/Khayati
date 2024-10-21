@@ -12,12 +12,12 @@ namespace Khayati.Core.DTO
         public short? SortOrder { get; set; }
 
 
-        public EmbellishmentType ToEmbellishmentType()
+        public Entities.EmbellishmentType ToEmbellishmentType()
         {
-            return new EmbellishmentType
+            return new Entities.EmbellishmentType
             {
                 Name = Name,
-                Discription = Description
+                Description = Description
             };
         }
 

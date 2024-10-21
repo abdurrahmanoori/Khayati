@@ -5,7 +5,7 @@ using System.Linq;
 using Entities;
 using System.Threading.Tasks;
 
-namespace Khayati.Core.DTO.EmbellishmentTypeDto
+namespace Khayati.Core.DTO.EmbellishmentType
 {
     public class EmbellishmentTypeResponseDto
     {
@@ -17,14 +17,14 @@ namespace Khayati.Core.DTO.EmbellishmentTypeDto
 
     public static class EmbellishmentTypeExtention
     {
-        public static EmbellishmentTypeResponseDto ToEmbellishmentTypeResponseDto(this EmbellishmentType EmbellishmentType)
+        public static EmbellishmentTypeResponseDto ToEmbellishmentTypeResponseDto(this Entities.EmbellishmentType EmbellishmentType)
         {
             return new EmbellishmentTypeResponseDto
             {
                 EmbellishmentTypeId = EmbellishmentType.EmbellishmentTypeId,
                 Name = EmbellishmentType.Name,
                 SortOrder = EmbellishmentType.SortOrder,
-                Discription = EmbellishmentType.Discription,
+                Discription = EmbellishmentType.Description,
             };
         }
     }
