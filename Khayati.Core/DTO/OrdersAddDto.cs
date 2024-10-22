@@ -12,8 +12,8 @@ namespace Khayati.Core.DTO
         public decimal TotalCost { get; set; }
         public string Status { get; set; }
 
-        [ForeignKey(nameof(CustomerId))]
-        public Customer? Customer { get; set; }
+       // [ForeignKey(nameof(CustomerId))]
+        //public Customer? Customer { get; set; }
 
         
         public Order ToOrders()
@@ -25,7 +25,7 @@ namespace Khayati.Core.DTO
                 //ExpectedCompletionDate=ExpectedCompletionDate,    
                 TotalCost = TotalCost,
                 //Status=Status,
-                Customer = Customer
+              //  Customer = Customer
 
             };
         }

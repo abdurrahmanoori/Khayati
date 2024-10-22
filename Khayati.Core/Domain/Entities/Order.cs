@@ -23,7 +23,7 @@ namespace Entities
         public decimal AmountPaid => Payments.Sum(p => p.Amount);
         public decimal RemainingAmount => TotalCost - Payments.Sum(p => p.Amount);
 
-        public OrderStatus OrderStatus { get; set; }
+        public string OrderStatus { get; set; }
 
         // Status of the overall payment (Completed, Partial, etc.)
         public PaymentStatus PaymentStatus
