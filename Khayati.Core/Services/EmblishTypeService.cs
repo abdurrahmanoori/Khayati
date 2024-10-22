@@ -80,17 +80,43 @@ namespace Khayati.Service
 
         }
 
-        public async Task<EmbellishmentTypeResponseDto> UpdateEmbellishmentType(EmbellishmentTypeResponseDto embellishmentTypeResponseDto)
+        public async Task<EmbellishmentTypeResponseDto> UpdateEmbellishmentType(EmbellishmentTypeResponseDto embellishmentTypeDto)
         {
-            if(embellishmentTypeResponseDto is null)
+            if(embellishmentTypeDto is null)
             {
                 return null;
             }
-            var embellishmentType = _mapper.Map<EmbellishmentType>(embellishmentTypeResponseDto);
 
-             await _unitOfWork.EmbellishmentTypeRepository.Update(embellishmentType);
+            var dbEnttiy = await _unitOfWork.EmbellishmentTypeRepository.GetFirstOrDefault(c => c.EmbellishmentTypeId == 1);
+
+
+
+
+            _mapper.Map(embellishmentTypeDto, dbEnttiy);
+
+            //var entity = new EmbellishmentType
+            //{
+            //    EmbellishmentTypeId =1,
+            //    Description = "test",
+            //    Name ="testsdf",
+            //    SortOrder =32
+            //};
+
+            //var mappedEtti = new EmbellishmentType
+            //{
+            //    Description = "test new",
+            //    Name ="testsdf new",
+            //    SortOrder =32
+            //};
+
+
+
+
+            // dbEnttiy.Description = "new des";
+
+           // await _unitOfWork.EmbellishmentTypeRepository.Update(dbEnttiy);
             await _unitOfWork.SaveChanges(CancellationToken.None);
-            return embellishmentTypeResponseDto;
+            return embellishmentTypeDto;
         }
     }
 }

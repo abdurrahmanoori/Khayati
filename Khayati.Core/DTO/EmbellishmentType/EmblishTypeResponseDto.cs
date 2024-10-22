@@ -12,7 +12,7 @@ namespace Khayati.Core.DTO.EmbellishmentType
         public int EmbellishmentTypeId { get; set; }
         public string Name { get; set; }
         public short? SortOrder { get; set; }
-        public string Discription { get; set; }
+        public string Description { get; set; }
     }
 
     public static class EmbellishmentTypeExtention
@@ -24,7 +24,7 @@ namespace Khayati.Core.DTO.EmbellishmentType
                 EmbellishmentTypeId = EmbellishmentType.EmbellishmentTypeId,
                 Name = EmbellishmentType.Name,
                 SortOrder = EmbellishmentType.SortOrder,
-                Discription = EmbellishmentType.Description,
+                Description = EmbellishmentType.Description,
             };
         }
     }

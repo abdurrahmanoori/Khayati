@@ -1,4 +1,5 @@
 ﻿using Entities.Data;
+using Microsoft.EntityFrameworkCore;
 using RepositoryContracts;
 using RepositoryContracts.Base;
 
@@ -34,14 +35,17 @@ namespace Repositories.Base
 
             //var taxPayer = this.context.TAX_PAYER.Where(x => x.TIN_APPLICATION_NO == 1110001).FirstOrDefault();
             //taxPayer.FISCAL_YEAR.LastOrDefault().FISCAL_YEAR_TO = 21;
-
+            
             //// var taxP = this.context.Entry(test);
-            //var entities = this.context.ChangeTracker.Entries();
+            var entities = _db.ChangeTracker.Entries();
 
-            //var added = entities.Where(x => x.State == EntityState.Added).ToList();
-            //var modified = entities.Where(x => x.State == EntityState.Modified).ToList();
+            var added = entities.Where(x => x.State == EntityState.Added).ToList();
+            var modified = entities.Where(x => x.State == EntityState.Modified).ToList();
+            var removed = entities.Where(x => x.State == EntityState.Deleted).ToList();
+            var detached = entities.Where(x => x.State == EntityState.Detached).ToList();
+            var unchanged = entities.Where(x => x.State == EntityState.Unchanged).ToList();
 
-
+            int x = 12;
 
             //var entriesWithState = this.context.ChangeTracker.Entries()
             //         .Select(e => new
