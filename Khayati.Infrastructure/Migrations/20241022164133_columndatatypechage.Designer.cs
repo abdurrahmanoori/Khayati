@@ -3,6 +3,7 @@ using System;
 using Entities.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Khayati.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241022164133_columndatatypechage")]
+    partial class columndatatypechage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.0");
@@ -154,7 +156,7 @@ namespace Khayati.Infrastructure.Migrations
                     b.Property<int?>("Cost")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Description")
+                    b.Property<string>("Discription")
                         .HasColumnType("TEXT");
 
                     b.Property<int?>("EmbellishmentTypeId")
@@ -178,7 +180,7 @@ namespace Khayati.Infrastructure.Migrations
                         {
                             EmbellishmentId = 1,
                             Cost = 20,
-                            Description = "A circular neck style.",
+                            Discription = "A circular neck style.",
                             EmbellishmentTypeId = 1,
                             Name = "Circle Neck"
                         },
@@ -186,7 +188,7 @@ namespace Khayati.Infrastructure.Migrations
                         {
                             EmbellishmentId = 2,
                             Cost = 25,
-                            Description = "A V-shaped neck style.",
+                            Discription = "A V-shaped neck style.",
                             EmbellishmentTypeId = 1,
                             Name = "V-Neck"
                         },
@@ -194,7 +196,7 @@ namespace Khayati.Infrastructure.Migrations
                         {
                             EmbellishmentId = 3,
                             Cost = 15,
-                            Description = "A short sleeve style.",
+                            Discription = "A short sleeve style.",
                             EmbellishmentTypeId = 2,
                             Name = "Short Sleeve"
                         },
@@ -202,7 +204,7 @@ namespace Khayati.Infrastructure.Migrations
                         {
                             EmbellishmentId = 4,
                             Cost = 30,
-                            Description = "A long sleeve style.",
+                            Discription = "A long sleeve style.",
                             EmbellishmentTypeId = 2,
                             Name = "Long Sleeve"
                         },
@@ -210,7 +212,7 @@ namespace Khayati.Infrastructure.Migrations
                         {
                             EmbellishmentId = 5,
                             Cost = 10,
-                            Description = "A frayed hem style.",
+                            Discription = "A frayed hem style.",
                             EmbellishmentTypeId = 3,
                             Name = "Frayed Hem"
                         });
@@ -341,7 +343,7 @@ namespace Khayati.Infrastructure.Migrations
                             Measurementid = 1,
                             ArmLength = 62.0,
                             Chest = 100.0,
-                            CreatedAt = new DateTime(2024, 10, 24, 6, 17, 14, 248, DateTimeKind.Local).AddTicks(7046),
+                            CreatedAt = new DateTime(2024, 10, 22, 21, 11, 32, 727, DateTimeKind.Local).AddTicks(9983),
                             CustomerId = 1,
                             Height = 175.5,
                             IsDeleted = false,
@@ -357,7 +359,7 @@ namespace Khayati.Infrastructure.Migrations
                             Measurementid = 2,
                             ArmLength = 63.0,
                             Chest = 101.0,
-                            CreatedAt = new DateTime(2024, 10, 24, 6, 17, 14, 248, DateTimeKind.Local).AddTicks(7065),
+                            CreatedAt = new DateTime(2024, 10, 22, 21, 11, 32, 727, DateTimeKind.Local).AddTicks(9995),
                             CustomerId = 2,
                             Height = 176.0,
                             IsDeleted = false,
@@ -373,7 +375,7 @@ namespace Khayati.Infrastructure.Migrations
                             Measurementid = 3,
                             ArmLength = 62.5,
                             Chest = 99.0,
-                            CreatedAt = new DateTime(2024, 10, 24, 6, 17, 14, 248, DateTimeKind.Local).AddTicks(7067),
+                            CreatedAt = new DateTime(2024, 10, 22, 21, 11, 32, 727, DateTimeKind.Local).AddTicks(9997),
                             CustomerId = 3,
                             Height = 175.5,
                             IsDeleted = false,
@@ -389,7 +391,7 @@ namespace Khayati.Infrastructure.Migrations
                             Measurementid = 4,
                             ArmLength = 64.0,
                             Chest = 102.0,
-                            CreatedAt = new DateTime(2024, 10, 24, 6, 17, 14, 248, DateTimeKind.Local).AddTicks(7069),
+                            CreatedAt = new DateTime(2024, 10, 22, 21, 11, 32, 727, DateTimeKind.Local).AddTicks(9998),
                             CustomerId = 4,
                             Height = 177.0,
                             IsDeleted = false,
@@ -456,9 +458,6 @@ namespace Khayati.Infrastructure.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<int>("OrderId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<short>("Price")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("DesignId");
@@ -631,7 +630,7 @@ namespace Khayati.Infrastructure.Migrations
                         .HasForeignKey("EmbellishmentId");
 
                     b.HasOne("Entities.Order", "Order")
-                        .WithMany("OrderDesigns")
+                        .WithMany()
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -679,8 +678,6 @@ namespace Khayati.Infrastructure.Migrations
 
             modelBuilder.Entity("Entities.Order", b =>
                 {
-                    b.Navigation("OrderDesigns");
-
                     b.Navigation("Payments");
                 });
 #pragma warning restore 612, 618

@@ -12,7 +12,7 @@ namespace Khayati.Infrastructure.DatabaseSeeders
                {
                    EmbellishmentId = 1,
                    Name = "Circle Neck",
-                   Discription = "A circular neck style.",
+                   Description = "A circular neck style.",
                    Cost = 20,
                    EmbellishmentTypeId = 1 // Neck
                },
@@ -20,7 +20,7 @@ namespace Khayati.Infrastructure.DatabaseSeeders
     {
         EmbellishmentId = 2,
         Name = "V-Neck",
-        Discription = "A V-shaped neck style.",
+        Description = "A V-shaped neck style.",
         Cost = 25,
         EmbellishmentTypeId = 1 // Neck
     },
@@ -28,7 +28,7 @@ namespace Khayati.Infrastructure.DatabaseSeeders
     {
         EmbellishmentId = 3,
         Name = "Short Sleeve",
-        Discription = "A short sleeve style.",
+        Description = "A short sleeve style.",
         Cost = 15,
         EmbellishmentTypeId = 2 // Sleeve
     },
@@ -36,7 +36,7 @@ namespace Khayati.Infrastructure.DatabaseSeeders
     {
         EmbellishmentId = 4,
         Name = "Long Sleeve",
-        Discription = "A long sleeve style.",
+        Description = "A long sleeve style.",
         Cost = 30,
         EmbellishmentTypeId = 2 // Sleeve
     },
@@ -44,7 +44,7 @@ namespace Khayati.Infrastructure.DatabaseSeeders
     {
         EmbellishmentId = 5,
         Name = "Frayed Hem",
-        Discription = "A frayed hem style.",
+        Description = "A frayed hem style.",
         Cost = 10,
         EmbellishmentTypeId = 3 // Hem
     }

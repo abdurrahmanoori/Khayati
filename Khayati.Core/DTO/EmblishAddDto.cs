@@ -16,7 +16,7 @@ namespace Khayati.Core.DTO
             return new Embellishment
             {
                 Name = EmbellishmentName,
-                Discription = EmbellishmentDescription,
+                Description = EmbellishmentDescription,
                 EmbellishmentTypeId = EmbellishmentTypeId
             };
         }
