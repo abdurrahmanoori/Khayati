@@ -10,5 +10,6 @@ namespace RepositoryContracts
 {
     public interface IOrderRepository : IGenericRepository<Order>
     {
+        public  Task<Order> GetOrderWithDetailsAsync(int orderId);
     }
 }

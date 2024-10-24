@@ -21,7 +21,9 @@ namespace Khayati.ServiceContracts
 
         public Task<decimal> CalculateMeasurementCost(int customerId);
 
-        public  Task<decimal> CalculateEmbellishmentCost(int orderId);
+        public Task<decimal> CalculateEmbellishmentCost(int orderId);
+
+        public Task<decimal> CalculateDesignCost(int orderId);
         //public Task<decimal> CalculateTotalCost (Order order);
 
         //public Task<OrdersAddDto> AddOrders(OrdersAddDto addOrdersDto);

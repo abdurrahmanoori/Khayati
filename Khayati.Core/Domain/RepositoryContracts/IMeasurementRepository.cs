@@ -10,6 +10,6 @@ namespace RepositoryContracts
 {
     public interface IMeasurementRepository:IGenericRepository<Measurement>
     {
-        
+     public Task<Measurement> GetLatestMeasurementByCustomerIdAsync(int customerId);
     }
 }
