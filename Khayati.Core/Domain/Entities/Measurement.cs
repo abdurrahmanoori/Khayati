@@ -1,4 +1,4 @@
-﻿using Khayati.Core.Domain.Entities;
+﻿using Khayati.Core.Common;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;

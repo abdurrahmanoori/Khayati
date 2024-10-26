@@ -1,4 +1,5 @@
 ﻿using Entities;
+using Khayati.Core.Common;
 
 namespace Khayati.Core.Domain.Entities
 {

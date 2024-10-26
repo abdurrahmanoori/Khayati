@@ -1,4 +1,4 @@
-﻿namespace Khayati.Core.Domain.Entities
+﻿namespace Khayati.Core.Common
 {
     public abstract class AuditableEntity
     {

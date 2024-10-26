@@ -1,4 +1,5 @@
-﻿using Khayati.Core.Domain.Entities;
+﻿using Khayati.Core.Common;
+using Khayati.Core.Domain.Entities;
 using Khayati.Core.Domain.UserServiceContracts;
 using Khayati.Infrastructure.DatabaseSeeders;
 using Microsoft.EntityFrameworkCore;
