@@ -10,5 +10,6 @@ namespace RepositoryContracts
 {
     public interface IEmbellishmentRepository:IGenericRepository<Embellishment>
     {
+     public Task<IEnumerable<Embellishment>> GetEmbellishmentListByOrderIdAsync(int orderId);
     }
 }

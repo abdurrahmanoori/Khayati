@@ -12,18 +12,18 @@ namespace Khayati.ServiceContracts
     public interface IOrdersService
     {
 
-        Task<BaseCommandResponse<CustomerAddDto>> AddOrder(
+        Task<BaseCommandResponse<CustomerAddDto>> AddOrderWithDetails(
            CustomerAddDto customer,
            MeasurementAddDto measurement
            , OrdersAddDto order);
 
-        public Task<decimal> CalculateTotalCost(int orderId);
+        public Task<decimal?> CalculateTotalCost(int orderId);
 
-        public Task<decimal> CalculateMeasurementCost(int customerId);
+        public Task<decimal?> CalculateMeasurementCost(int customerId);
 
-        public Task<decimal> CalculateEmbellishmentCost(int orderId);
+        public Task<decimal?> CalculateEmbellishmentCost(int orderId);
 
-        public Task<decimal> CalculateDesignCost(int orderId);
+        public Task<decimal?> CalculateDesignCost(int orderId);
         //public Task<decimal> CalculateTotalCost (Order order);
 
         //public Task<OrdersAddDto> AddOrders(OrdersAddDto addOrdersDto);

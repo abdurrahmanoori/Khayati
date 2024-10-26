@@ -17,6 +17,10 @@ namespace Entities
         /// Unique identifier for the measurement.
         /// </summary>
         public int Measurementid { get; set; }
+        /// <summary>
+        /// The cost charged by the tailor for sewing the clothes.
+        /// </summary>
+        public decimal? Cost { get; set; }
 
         /// <summary>
         /// Foreign key reference to the customer who owns the measurement.

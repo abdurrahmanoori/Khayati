@@ -18,7 +18,7 @@ namespace Entities
         /// customizations applied, a Price field in the OrderDesigns table is useful. 
         /// This allows for flexibility in pricing models where designs might have additional costs.
         /// </summary>
-        public short Price { get; set; }
+        public decimal? Price { get; set; }
         /// <summary>
         /// You could add a foreign key to MeasurementId if each design
         /// is based on specific customer measurements.
