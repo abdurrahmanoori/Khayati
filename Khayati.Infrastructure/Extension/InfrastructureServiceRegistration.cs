@@ -1,12 +1,15 @@
 ﻿using Entities.Data;
 using Khayati.Core.Domain.UserServiceContracts;
+using Khayati.Infrastructure.Identity.Entity;
 using Khayati.Infrastructure.Interceptors;
 using Khayati.Infrastructure.Repositories.UserServices;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Repositories.Base;
 using RepositoryContracts.Base;
 using System;
+
 
 namespace Khayati.Infrastructure.Extension
 {
@@ -15,6 +18,8 @@ namespace Khayati.Infrastructure.Extension
         public static IServiceCollection ConfigureInfrastructureService(this IServiceCollection services)
         {
             services.AddScoped<AuditInterceptor>(); // Register the interceptor
+
+            services.AddIdentityCore<ApplicationUser>();
 
             services.AddDbContext<ApplicationDbContext>((serviceProvider, options) =>
             {
@@ -32,6 +37,18 @@ namespace Khayati.Infrastructure.Extension
                 options.UseSqlite($"Data Source={dbPath}")
                 .AddInterceptors(interceptor);
             });
+            //Enable Identity in this project
+            services.AddIdentity<ApplicationUser, ApplicationRole>();
+             //.AddEntityFrameworkStores<ApplicationDbContext>()
+
+             //.AddDefaultTokenProviders()
+
+             //.AddUserStore<UserStore<ApplicationUser, ApplicationRole, ApplicationDbContext, Guid>>()
+
+             //.AddRoleStore<RoleStore<ApplicationRole, ApplicationDbContext, Guid>>();
+
+
+
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<ICurrentUser, CurrentUser>();

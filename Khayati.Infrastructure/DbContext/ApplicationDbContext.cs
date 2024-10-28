@@ -2,11 +2,13 @@
 using Khayati.Core.Domain.Entities;
 using Khayati.Core.Domain.UserServiceContracts;
 using Khayati.Infrastructure.DatabaseSeeders;
+using Khayati.Infrastructure.Identity.Entity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Entities.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser,ApplicationRole,int> 
     {
         //private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ICurrentUser _currentUser;

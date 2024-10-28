@@ -27,7 +27,8 @@ namespace Repositories
           var embellishmentList = await (from od in _dbcontext.OrderDesigns
                                               join e in _dbcontext.Embellishment
                                               on od.EmbellishmentId equals e.EmbellishmentId
-                                              where od.OrderId == orderId
+                                              where od.OrderId == orderId && 
+                                              od.EmbellishmentId != null
                                               select e).ToListAsync();
 
             return embellishmentList;
