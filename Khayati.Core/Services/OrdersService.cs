@@ -21,7 +21,7 @@ namespace Khayati.Service
         }
 
 
-        public async Task<BaseCommandResponse<CustomerAddDto>> AddOrderWithDetails(
+        public async Task<Result<CustomerAddDto>> AddOrderWithDetails(
             CustomerAddDto customerDto,
             MeasurementAddDto measurementDto,
             OrdersAddDto orderDto)
@@ -82,7 +82,7 @@ namespace Khayati.Service
 
             return embellishments.Sum(e => e.Cost ?? 0); // Assume Cost is nullable
         }
-  
+
         // Helper method to calculate design cost
         public async Task<decimal?> CalculateDesignCost(int orderId)
         {

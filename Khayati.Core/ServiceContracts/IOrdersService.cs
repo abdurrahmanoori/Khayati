@@ -12,7 +12,7 @@ namespace Khayati.ServiceContracts
     public interface IOrdersService
     {
 
-        Task<BaseCommandResponse<CustomerAddDto>> AddOrderWithDetails(
+        Task<Result<CustomerAddDto>> AddOrderWithDetails(
            CustomerAddDto customer,
            MeasurementAddDto measurement
            , OrdersAddDto order);

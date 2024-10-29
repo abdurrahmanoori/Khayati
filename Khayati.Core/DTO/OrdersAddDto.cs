@@ -5,7 +5,7 @@ namespace Khayati.Core.DTO
 {
     public class OrdersAddDto
     {
-        public int CustomerId { get; set; }
+        //public int CustomerId { get; set; }
         //public int DesignId { get; set; }
         public DateTime OrderDate { get; set; }
         public DateTime ExpectedCompletionDate { get; set; }
@@ -20,7 +20,7 @@ namespace Khayati.Core.DTO
         {
             return new Order
             {
-                CustomerId = CustomerId,
+                //CustomerId = CustomerId,
                 OrderDate = OrderDate,
                 //ExpectedCompletionDate=ExpectedCompletionDate,    
                 TotalCost = TotalCost,

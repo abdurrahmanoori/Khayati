@@ -1,7 +1,7 @@
 ﻿namespace Khayati.Core.Common.Response
 {
 
-    public class BaseCommandResponse<T>
+    public class Result<T>
     {
         public bool Success { get; private set; }
         public string Message { get; private set; }
@@ -10,7 +10,7 @@
         public T Data { get; private set; }
 
         // Constructor for successful responses
-        private BaseCommandResponse(T data, string message)
+        private Result(T data, string message)
         {
             Success = true;
             Message = message ?? "Operation succeeded.";
@@ -20,7 +20,7 @@
         }
 
         // Constructor for failure responses
-        private BaseCommandResponse(string errorCode, string message, List<ValidationError> validationErrors = null)
+        private Result(string errorCode, string message, List<ValidationError> validationErrors = null)
         {
             Success = false;
             Message = message ?? "Operation failed.";
@@ -30,27 +30,27 @@
         }
 
         // Static method to return success result
-        public static BaseCommandResponse<T> SuccessResult(T data, string message = null)
+        public static Result<T> SuccessResult(T data, string message = null)
         {
-            return new BaseCommandResponse<T>(data, message);
+            return new Result<T>(data, message);
         }
 
         // Static method to return failure result with errors
-        public static BaseCommandResponse<T> FailureResult(string errorCode, string message = null, List<ValidationError> validationErrors = null)
+        public static Result<T> FailureResult(string errorCode, string message = null, List<ValidationError> validationErrors = null)
         {
-            return new BaseCommandResponse<T>(errorCode, message, validationErrors);
+            return new Result<T>(errorCode, message, validationErrors);
         }
 
         // Static method to return failure with default error message and code
-        public static BaseCommandResponse<T> DefaultError(string message = "An unexpected error occurred.")
+        public static Result<T> DefaultError(string message = "An unexpected error occurred.")
         {
-            return new BaseCommandResponse<T>("ERROR_UNKNOWN", message);
+            return new Result<T>("ERROR_UNKNOWN", message);
         }
 
         // Static method for validation failure
-        public static BaseCommandResponse<T> ValidationFailure(List<ValidationError> validationErrors)
+        public static Result<T> ValidationFailure(List<ValidationError> validationErrors)
         {
-            return new BaseCommandResponse<T>("VALIDATION_ERROR", "Validation failed.", validationErrors);
+            return new Result<T>("VALIDATION_ERROR", "Validation failed.", validationErrors);
         }
 
         // Check if it contains validation errors
