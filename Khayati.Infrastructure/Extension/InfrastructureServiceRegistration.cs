@@ -2,6 +2,7 @@
 using Khayati.Core.Domain.UserServiceContracts;
 using Khayati.Infrastructure.Common.Options;
 using Khayati.Infrastructure.Identity.Entity;
+using Khayati.Infrastructure.Identity.UserServices;
 using Khayati.Infrastructure.Interceptors;
 using Khayati.Infrastructure.Repositories.UserServices;
 using Microsoft.AspNetCore.Identity;
@@ -55,6 +56,7 @@ namespace Khayati.Infrastructure.Extension
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<ICurrentUser, CurrentUser>();
+            services.AddScoped<IUserService, UserService>();
 
             return services;
 

@@ -12,6 +12,7 @@
         public int? DeletedBy { get; set; }
 
         public bool IsDeleted { get; set; }
+
     }
 
 }
