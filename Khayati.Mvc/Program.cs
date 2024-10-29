@@ -27,8 +27,8 @@ builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
 //Add services to the container.
 
-builder.Services.ConfigureApplicationService(builder.Configuration);
 builder.Services.ConfigureInfrastructureService();
+builder.Services.ConfigureApplicationService(builder.Configuration);
 builder.Services.ConfigurePresentionService();
 
 var app = builder.Build();

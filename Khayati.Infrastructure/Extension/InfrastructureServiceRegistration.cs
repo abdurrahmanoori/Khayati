@@ -3,6 +3,7 @@ using Khayati.Core.Domain.UserServiceContracts;
 using Khayati.Infrastructure.Identity.Entity;
 using Khayati.Infrastructure.Interceptors;
 using Khayati.Infrastructure.Repositories.UserServices;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -38,14 +39,13 @@ namespace Khayati.Infrastructure.Extension
                 .AddInterceptors(interceptor);
             });
             //Enable Identity in this project
-            services.AddIdentity<ApplicationUser, ApplicationRole>();
-             //.AddEntityFrameworkStores<ApplicationDbContext>()
+            services.AddIdentity<ApplicationUser, ApplicationRole>()
+             .AddEntityFrameworkStores<ApplicationDbContext>()
+             .AddDefaultTokenProviders()
 
-             //.AddDefaultTokenProviders()
+             .AddUserStore<UserStore<ApplicationUser, ApplicationRole, ApplicationDbContext, int>>()
 
-             //.AddUserStore<UserStore<ApplicationUser, ApplicationRole, ApplicationDbContext, Guid>>()
-
-             //.AddRoleStore<RoleStore<ApplicationRole, ApplicationDbContext, Guid>>();
+             .AddRoleStore<RoleStore<ApplicationRole, ApplicationDbContext, int>>();
 
 
 
