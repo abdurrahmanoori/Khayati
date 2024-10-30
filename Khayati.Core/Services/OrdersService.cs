@@ -29,6 +29,8 @@ namespace Khayati.Service
             var customer = _mapper.Map<Customer>(customerDto);
             await _unitOfWork.CustomerRepository.Add(customer);
 
+            var custdto = _mapper.Map<CustomerAddDto>(customer);
+            
             var measurment = _mapper.Map<Measurement>(measurementDto);
             measurment.Customer = customer;
             await _unitOfWork.MeasurementRepository.Add(measurment);
@@ -39,7 +41,7 @@ namespace Khayati.Service
             order.Customer = customer;
             order.IsPaid = false;
 
-
+            await _unitOfWork.OrderRepository.Add(order);
 
             await _unitOfWork.SaveChanges(default);
             return null;

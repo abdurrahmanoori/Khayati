@@ -35,18 +35,20 @@ namespace Khayati.Mvc.Areas.Customer.Controllers
             var measurment = DataGenerator.GenerateMeasurement();
             var order = DataGenerator.GenerateOrder();
 
+           var result = await _ordersService.AddOrderWithDetails(customer, measurment, order);
 
-            // Create an anonymous object to hold all the data you want to return as JSON
-            var resultData = new
-            {
-                Customer = customer,
-                Measurement = measurment,
-                Order = order
-            };
+            return Ok(result);
+            //// Create an anonymous object to hold all the data you want to return as JSON
+            //var resultData = new
+            //{
+            //    Customer = customer,
+            //    Measurement = measurment,
+            //    Order = order
+            //};
             
 
             // Return as JSON, automatically serialized by .NET
-            return Ok(resultData); // or use `return Json(resultData);` if Ok() is not available
+           // return Ok(resultData); // or use `return Json(resultData);` if Ok() is not available
         }
     }
 }

@@ -9,8 +9,8 @@ namespace Khayati.Mvc.DataGenerators
         public static CustomerAddDto GenerateCustomer( )
         {
             var customerFaker = new Faker<CustomerAddDto>()
-                .RuleFor(c => c.CustomerName, f => f.Name.FullName())
-                .RuleFor(c => c.CustomerAddress, f => f.Address.FullAddress())
+                .RuleFor(c => c.Name, f => f.Name.FullName())
+                .RuleFor(c => c.Address, f => f.Address.FullAddress())
                 .RuleFor(c => c.PhoneNumber, f => f.Phone.PhoneNumber())
                 .RuleFor(c => c.EmailAddress, f => f.Internet.Email())
                 .RuleFor(c => c.NationalID, f => f.Random.Replace("#####-######-###"))
@@ -48,7 +48,7 @@ namespace Khayati.Mvc.DataGenerators
                 //.RuleFor(o => o.CustomerId, _ => customerId)
                 .RuleFor(o => o.OrderDate, f => f.Date.Past(1))
                 .RuleFor(o => o.ExpectedCompletionDate, f => f.Date.Future(1))
-                .RuleFor(o => o.TotalCost, f => f.Finance.Amount(100, 10000))
+                //.RuleFor(o => o.TotalCost, f => f.Finance.Amount(100, 10000))
                 .RuleFor(o => o.Status, f => f.PickRandom(new[] { "Pending"}));
                 //.RuleFor(o => o.Status, f => f.PickRandom(new[] { "Pending", "Processing", "Completed", "Cancelled" }));
 
