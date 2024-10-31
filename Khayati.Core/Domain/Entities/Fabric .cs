@@ -1,7 +1,4 @@
-﻿using Entities;
-using Khayati.Core.Common;
-
-namespace Khayati.Core.Domain.Entities
+﻿namespace Khayati.Core.Domain.Entities
 {
     public class Fabric
     {

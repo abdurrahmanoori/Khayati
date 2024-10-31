@@ -2,7 +2,6 @@
 using Khayati.Core.Domain.Entities;
 using Khayati.Core.Domain.UserServiceContracts;
 using Khayati.Infrastructure.DatabaseSeeders;
-using Khayati.Infrastructure.EntityConfigurations;
 using Khayati.Infrastructure.Identity.Entity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +9,7 @@ using System.Reflection;
 
 namespace Entities.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser,ApplicationRole,int> 
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, int>
     {
         //private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ICurrentUser _currentUser;
@@ -28,6 +27,7 @@ namespace Entities.Data
             CustomerSeed.DataSeed(modelBuilder);
             EmbellishmentTypeSeed.DataSeed(modelBuilder);
             EmbellishmentSeed.DataSeed(modelBuilder);
+            FabricSeed.DataSeed(modelBuilder);
             //MeasurmentSeed.DataSeed(modelBuilder);
             #endregion
 
@@ -38,7 +38,7 @@ namespace Entities.Data
             modelBuilder.Entity<EmbellishmentType>()
                 .HasIndex(e => e.Name)
                 .IsUnique();
-                
+
             #endregion
 
         }
