@@ -2,9 +2,11 @@
 using Khayati.Core.Domain.Entities;
 using Khayati.Core.Domain.UserServiceContracts;
 using Khayati.Infrastructure.DatabaseSeeders;
+using Khayati.Infrastructure.EntityConfigurations;
 using Khayati.Infrastructure.Identity.Entity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace Entities.Data
 {
@@ -26,10 +28,13 @@ namespace Entities.Data
             CustomerSeed.DataSeed(modelBuilder);
             EmbellishmentTypeSeed.DataSeed(modelBuilder);
             EmbellishmentSeed.DataSeed(modelBuilder);
-            MeasurmentSeed.DataSeed(modelBuilder);
+            //MeasurmentSeed.DataSeed(modelBuilder);
             #endregion
 
             #region Fluent Configuration
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            //modelBuilder.ApplyConfiguration(new OrderConfiguration());
+
             modelBuilder.Entity<EmbellishmentType>()
                 .HasIndex(e => e.Name)
                 .IsUnique();
@@ -75,5 +80,6 @@ namespace Entities.Data
         public DbSet<Embellishment> Embellishment { get; set; }
         public DbSet<EmbellishmentType> EmbellishmentTypes { get; set; }
         public DbSet<Translation> Translations { get; set; }
+        public DbSet<Fabric> Fabrics { get; set; }
     }
 }

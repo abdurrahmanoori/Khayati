@@ -23,7 +23,11 @@ namespace Khayati.Service
             {
                 return null;
             }
-            OrderDesign OrderDesign = null;// OrderDesignAddDto.ToOrderDesign();
+
+            var OrderDesign = _mapper.Map<OrderDesign>(OrderDesignAddDto);
+
+
+
             await _unitOfWork.OrderDesignRepository.Add(OrderDesign);
             await _unitOfWork.SaveChanges(CancellationToken.None);
             return OrderDesignAddDto;

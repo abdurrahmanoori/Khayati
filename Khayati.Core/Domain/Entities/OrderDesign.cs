@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Khayati.Core.Domain.Entities; 
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
  
 namespace Entities
@@ -11,7 +12,7 @@ namespace Entities
         [Key]
         public int DesignId { get; set; }
         public int CustomerId { get; set; }
-
+        public int? FabricId { get; set; }
         public int OrderId { get; set; }
         /// <summary>
         /// If different designs can have different prices based on the embellishments or 
@@ -38,6 +39,9 @@ namespace Entities
 
         [ForeignKey(nameof(OrderId))]
         public virtual Order? Order { get; set; }
+
+        [ForeignKey(nameof(FabricId))]
+        public virtual Fabric Fabric { get; set; }
     }
 
 }

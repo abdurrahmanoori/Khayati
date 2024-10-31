@@ -23,7 +23,8 @@ namespace Khayati.Infrastructure.DatabaseSeeders
                      Waist = 80, // Example waist measurement in centimeters
                      //Trousers = 90, // Example trousers length in centimeters
                      Leg = 80, // Example leg length in centimeters
-                     CreatedAt = DateTime.Now // Current date for when the measurement was created
+                     CreatedAt = DateTime.Now, // Current date for when the measurement was created
+                    //FabricId = 
                  },
             new Measurement
             {
