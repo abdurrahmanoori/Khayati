@@ -9,6 +9,7 @@
         IOrderDesignRepository OrderDesignRepository { get; }
         IEmbellishmentTypeRepository EmbellishmentTypeRepository { get; }
         IOrderRepository OrderRepository { get; }
+        IPaymentRepository PaymentRepository { get; }
 
         Task SaveChanges(CancellationToken cancellationToken);
 

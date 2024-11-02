@@ -70,7 +70,7 @@ namespace Khayati.Service
             var measurement = await _unitOfWork.MeasurementRepository.GetLatestMeasurementByCustomerIdAsync(customerId);
             if (measurement == null) throw new Exception("Measurement not found");
 
-            return measurement.Cost;
+            return measurement.Cost ?? 0;
         }
 
         // Helper method to calculate embellishment cost

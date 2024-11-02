@@ -20,7 +20,7 @@ namespace Khyati.Test.Services
         {
             _ordersService = ordersService;
 
-            _orderController = new OrderController(_ordersService);
+            _orderController = new OrderController(_ordersService,null);
             _fixture = new Fixture();
         }
 

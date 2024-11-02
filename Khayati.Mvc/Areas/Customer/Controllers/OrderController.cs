@@ -13,29 +13,38 @@ namespace Khayati.Mvc.Areas.Customer.Controllers
     public class OrderController : Controller
     {
         private readonly IOrdersService _ordersService;
+        private readonly IPaymentService _paymentService;
         private readonly Fixture _fixture;
 
 
-        public OrderController(IOrdersService ordersService)
+        public OrderController(IOrdersService ordersService, IPaymentService paymentService)
         {
             _ordersService = ordersService;
             _fixture = new Fixture();
+            _paymentService = paymentService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index(int orderId)
         {
-            return View();
+            var tototalCost = await _ordersService.CalculateTotalCost(orderId);
+            return Ok(new { TotalCost = tototalCost });
+        }
+
+        public async Task<IActionResult> Payment(int orderId, decimal amount)
+        {
+            await _paymentService.ProcessPaymentAsync(orderId, amount);
+            return Ok();
         }
 
 
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> Create( )
         {
 
             var customer = DataGenerator.GenerateCustomer();
             var measurment = DataGenerator.GenerateMeasurement();
             var order = DataGenerator.GenerateOrder();
 
-           var result = await _ordersService.AddOrderWithDetails(customer, measurment, order);
+            var result = await _ordersService.AddOrderWithDetails(customer, measurment, order);
 
             return Ok(result);
             //// Create an anonymous object to hold all the data you want to return as JSON
@@ -45,10 +54,10 @@ namespace Khayati.Mvc.Areas.Customer.Controllers
             //    Measurement = measurment,
             //    Order = order
             //};
-            
+
 
             // Return as JSON, automatically serialized by .NET
-           // return Ok(resultData); // or use `return Json(resultData);` if Ok() is not available
+            // return Ok(resultData); // or use `return Json(resultData);` if Ok() is not available
         }
     }
 }

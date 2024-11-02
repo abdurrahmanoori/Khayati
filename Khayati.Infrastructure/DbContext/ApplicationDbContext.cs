@@ -33,7 +33,7 @@ namespace Entities.Data
 
             #region Fluent Configuration
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-            //modelBuilder.ApplyConfiguration(new OrderConfiguration());
+            //modelBuilder.ApplyConfiguration(new PaymentConfiguration());
 
             modelBuilder.Entity<EmbellishmentType>()
                 .HasIndex(e => e.Name)
@@ -77,6 +77,7 @@ namespace Entities.Data
         public DbSet<Measurement> Measurements { get; set; }
         public DbSet<OrderDesign> OrderDesigns { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<Payment> Payments { get; set; }
         public DbSet<Embellishment> Embellishment { get; set; }
         public DbSet<EmbellishmentType> EmbellishmentTypes { get; set; }
         public DbSet<Translation> Translations { get; set; }

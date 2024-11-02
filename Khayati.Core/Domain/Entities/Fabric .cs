@@ -10,6 +10,7 @@
         public string FabricType { get; set; }
 
         public string Color { get; set; }
+        public float RequiredMeters { get; set; }
 
         /// <summary>
         /// The pattern on the fabric (e.g., striped, floral).

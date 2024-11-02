@@ -18,6 +18,7 @@ namespace Repositories.Base
             EmbellishmentRepository = new EmbellishmentRepository(db);
             OrderDesignRepository = new OrderDesignRepository(db);
             OrderRepository = new OrderRepository(db);
+            PaymentRepository = new PaymentRepository(db);
             
         }
         
@@ -27,6 +28,7 @@ namespace Repositories.Base
          public IOrderDesignRepository OrderDesignRepository { get; private set; }
          public IEmbellishmentTypeRepository EmbellishmentTypeRepository { get; private set; }
          public IOrderRepository OrderRepository { get; private set; }
+         public IPaymentRepository PaymentRepository { get; private set; }
          
 
         public async Task SaveChanges(CancellationToken cancellationToken)
