@@ -4,7 +4,6 @@ using Entities.Enum;
 using Khayati.Core.Common.Response;
 using Khayati.Core.DTO;
 using Khayati.ServiceContracts;
-using RepositoryContracts;
 using RepositoryContracts.Base;
 
 namespace Khayati.Service
@@ -29,8 +28,7 @@ namespace Khayati.Service
             var customer = _mapper.Map<Customer>(customerDto);
             await _unitOfWork.CustomerRepository.Add(customer);
 
-            var custdto = _mapper.Map<CustomerAddDto>(customer);
-            
+
             var measurment = _mapper.Map<Measurement>(measurementDto);
             measurment.Customer = customer;
             await _unitOfWork.MeasurementRepository.Add(measurment);
@@ -92,7 +90,7 @@ namespace Khayati.Service
                 .GetOrderDesignListByOrderIdAsync(orderId);
             if (orderDesigns == null) throw new Exception("No designs found");
 
-            return orderDesigns.Sum(d => d.Price); // Assuming Price is defined on OrderDesign
+            return orderDesigns.Sum(d => d.CostAtTimeOfOrder); // Assuming CostAtTimeOfOrder is defined on OrderDesign
         }
 
         // Example method to create an order

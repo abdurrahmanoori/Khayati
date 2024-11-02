@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using Entities;
+using Khayati.Core.DTO.OrderDesign;
 using Khayati.ServiceContracts;
 using RepositoryContracts.Base;
-using Khayati.Core.DTO.OrderDesign;
 
 namespace Khayati.Service
 {
@@ -17,21 +17,35 @@ namespace Khayati.Service
             _mapper = mapper;
         }
 
-        public async Task<OrderDesignAddDto> AddOrderDesign(OrderDesignAddDto OrderDesignAddDto)
+        public async Task<OrderDesignAddDto> AddOrderDesign(OrderDesignAddDto orderDesignAddDto)
         {
-            if (OrderDesignAddDto == null)
+            if (orderDesignAddDto == null)
             {
                 return null;
             }
 
-            var OrderDesign = _mapper.Map<OrderDesign>(OrderDesignAddDto);
+            // Map DTO to entity
+            var orderDesign = _mapper.Map<OrderDesign>(orderDesignAddDto);
 
+            // Check if an EmbellishmentId is specified
+            if (orderDesignAddDto.EmbellishmentId.HasValue)
+            {
+                // Fetch the Embellishment from the repository
+                var embellishment = await _unitOfWork.EmbellishmentRepository
+                    .GetFirstOrDefault(e => e.EmbellishmentId == orderDesignAddDto.EmbellishmentId.Value);
 
+                // Set the CostAtTimeOfOrder in OrderDesign based on the Embellishment's Cost
+                if (embellishment != null)
+                {
+                    orderDesign.CostAtTimeOfOrder = embellishment.Cost;
+                }
+            }
 
-            await _unitOfWork.OrderDesignRepository.Add(OrderDesign);
+            // Add the OrderDesign entity to the repository
+            await _unitOfWork.OrderDesignRepository.Add(orderDesign);
             await _unitOfWork.SaveChanges(CancellationToken.None);
-            return OrderDesignAddDto;
 
+            return orderDesignAddDto;
         }
 
         //public async Task<OrderDesignResponseDto> DeleteOrderDesign(int? OrderDesignId)
