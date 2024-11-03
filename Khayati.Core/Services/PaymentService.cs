@@ -5,6 +5,7 @@ using Khayati.ServiceContracts;
 using RepositoryContracts;
 using RepositoryContracts.Base;
 using Khayati.Core.DTO.Payment;
+using Khayati.Core.Common.Response;
 
 namespace Khayati.Service
 {
@@ -19,12 +20,12 @@ namespace Khayati.Service
             _mapper = mapper;
         }
 
-        public async Task ProcessPaymentAsync(int orderId, decimal amountPaid)
+        public async Task<Result<bool>> ProcessPaymentAsync(int orderId, decimal amountPaid)
         {
             // Fetch the order
             var order = await _unitOfWork.OrderRepository
-                .GetFirstOrDefault(x=>x.OrderId==orderId);
-            if (order == null) throw new Exception("Order not found");
+                .GetFirstOrDefault(x => x.OrderId == orderId);
+            if (order == null) return Result<bool>.FailureResult(DeclareMessage.NotFound.Code, "Order not found.");
 
             // Calculate outstanding(Remaining money) amount by summing all payments directly from the Payment repository
             var totalPayments = await _unitOfWork.PaymentRepository
@@ -61,6 +62,8 @@ namespace Khayati.Service
             await _unitOfWork.PaymentRepository.Add(payment);
             await _unitOfWork.SaveChanges(CancellationToken.None);
             //await _orderRepository.UpdateAsync(order);
+
+            return Result<bool>.SuccessResult(true);
 
         }
 

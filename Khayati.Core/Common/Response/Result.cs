@@ -1,66 +1,157 @@
-﻿namespace Khayati.Core.Common.Response
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Khayati.Core.Common.Response
 {
+
+    public class Result
+    {
+        public long Id { get; set; }
+
+        public bool Success { get; set; } = true;
+
+        public string? Message { get; set; }
+
+        public List<string>? Errors { get; set; }
+    }
 
     public class Result<T>
     {
-        public bool Success { get; private set; }
-        public string Message { get; private set; }
-        public List<ValidationError> ValidationErrors { get; private set; }
-        public string ErrorCode { get; private set; }
-        public T Data { get; private set; }
+        public long Id { get; set; }
 
-        // Constructor for successful responses
-        private Result(T data, string message)
+        public T? Response { get; set; }
+
+        public bool Success { get; set; } = true;
+
+        public string? Message { get; set; }
+
+        public List<ValidationError>? Errors { get; set; }
+
+        public static Result<T> SuccessResult(T? result)
         {
-            Success = true;
-            Message = message ?? "Operation succeeded.";
-            Data = data;
-            ValidationErrors = null;
-            ErrorCode = null;
+            return new Result<T>
+            {
+                Success = true,
+                Response = result,
+            };
         }
 
-        // Constructor for failure responses
-        private Result(string errorCode, string message, List<ValidationError> validationErrors = null)
+        // This method is written by Abdurrahman
+
+        /// <summary>
+        /// Creates a successful command response with the provided result and validation error details.
+        /// </summary>
+        /// <typeparam name="T">The type of the result.</typeparam>
+        /// <param name="result">The result to include in the response.</param>
+        /// <param name="validationError">The validation error containing description details.</param>
+        /// <returns>A <see cref="Result{T}"/> indicating success and containing the result and message.</returns>
+        public static Result<T> SuccessResult(T? result, ValidationError validationError)
         {
-            Success = false;
-            Message = message ?? "Operation failed.";
-            ValidationErrors = validationErrors;
-            ErrorCode = errorCode;
-            Data = default;
+            return new Result<T>
+            {
+                Success = true,
+                Response = result,
+                Message = validationError.Description.ToString(),
+            };
         }
 
-        // Static method to return success result
-        public static Result<T> SuccessResult(T data, string message = null)
+        public static Result<T> NotFoundResult( )
         {
-            return new Result<T>(data, message);
+            return new Result<T>
+            {
+                Success = false,
+            };
         }
 
-        // Static method to return failure result with errors
-        public static Result<T> FailureResult(string errorCode, string message = null, List<ValidationError> validationErrors = null)
+        public static Result<T> FailureResult(string code, string description)
         {
-            return new Result<T>(errorCode, message, validationErrors);
+            return new Result<T>
+            {
+                Success = false,
+                Errors = new List<ValidationError>
+        {
+            new ValidationError { Code = code, Description = description }
+        },
+            };
         }
 
-        // Static method to return failure with default error message and code
-        public static Result<T> DefaultError(string message = "An unexpected error occurred.")
+        public static Result<T> WithError(string code, string description, string? property = null)
         {
-            return new Result<T>("ERROR_UNKNOWN", message);
+            return new Result<T>
+            {
+                Success = false,
+                Errors = new List<ValidationError>
+        {
+            new ValidationError { Code = code, Description = description, Property = property }
+        },
+            };
         }
 
-        // Static method for validation failure
-        public static Result<T> ValidationFailure(List<ValidationError> validationErrors)
+        public static Result<T> WithError(ValidationError error)
         {
-            return new Result<T>("VALIDATION_ERROR", "Validation failed.", validationErrors);
+            return new Result<T>
+            {
+                Success = false,
+                Errors = new List<ValidationError> { error },
+            };
         }
 
-        // Check if it contains validation errors
-        public bool HasValidationErrors => ValidationErrors != null && ValidationErrors.Count > 0;
+
+        public static Result<T> WithErrors(List<ValidationError> errors)
+        {
+            return new Result<T>
+            {
+                Success = false,
+                Errors = errors,
+            };
+        }
+
+        //public static bool HasErrors<T>(AbstractValidator<T> validator, T dto, out List<ValidationError> errors)
+        //{
+        //    var result = validator.Validate(dto);
+        //    errors = new List<ValidationError>();  // Initialize with new List
+        //    if (result.Errors.Any())
+        //    {
+        //        errors.AddRange(result.Errors.Select(x => new ValidationError
+        //        {
+        //            Code = x.ErrorCode,
+        //            Description = x.ErrorMessage,
+        //            Property = x.PropertyName,
+        //        }));
+        //        return true;
+        //    }
+        //    return false;
+        //}
+
+        //public static bool HasErrors(ValidationResult validation, out List<ValidationError> errors)
+        //{
+        //    errors = new List<ValidationError>();  // Initialize with new List
+        //    if (validation.Errors.Any())
+        //    {
+        //        errors.AddRange(validation.Errors.Select(x => new ValidationError
+        //        {
+        //            Code = x.ErrorCode,
+        //            Description = x.ErrorMessage,
+        //            Property = x.PropertyName,
+        //        }));
+        //        return true;
+        //    }
+        //    return false;
+        //}
+
     }
 
     public class ValidationError
     {
-        public string Property { get; set; }
-        public string ErrorMessage { get; set; }
+        public override string ToString( )
+        {
+            return $"Code: {this.Code}, Property: {this.Property}, Description: {this.Description}";
+        }
+
+        public string Code { get; set; }
+
+        public string? Property { get; set; }
+
+        public string Description { get; set; }
     }
 
 }

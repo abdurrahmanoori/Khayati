@@ -42,7 +42,7 @@ namespace Khayati.Service
             await _unitOfWork.OrderRepository.Add(order);
 
             await _unitOfWork.SaveChanges(default);
-            return null;
+            return Result<CustomerAddDto>.SuccessResult(customerDto);
 
         }
 
@@ -53,11 +53,11 @@ namespace Khayati.Service
             if (order == null) throw new Exception("Order not found");
 
             decimal? measurementCost = await CalculateMeasurementCost(order.CustomerId);
-            decimal? embellishmentCost = await CalculateEmbellishmentCost(order.OrderId);
+           // decimal? embellishmentCost = await CalculateEmbellishmentCost(order.OrderId);
             decimal? designCost = await CalculateDesignCost(order.OrderId);
 
             // Total cost calculation
-            decimal? totalCost = measurementCost + embellishmentCost + designCost;
+            decimal? totalCost = measurementCost +  designCost;
 
             return totalCost;
         }
