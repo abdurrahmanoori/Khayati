@@ -35,10 +35,12 @@ namespace Khayati.Infrastructure.Extension
                     Directory.CreateDirectory(Path.GetDirectoryName(dbPath));
                 }
                 var databaseOptions = serviceProvider.GetService<IOptions<DatabaseOptions>>()!.Value;
-                
+
                 var interceptor = serviceProvider.GetRequiredService<AuditInterceptor>();
                 // Configure the SQLite DbContext
-                options.UseSqlite($"Data Source={dbPath}")
+                options.UseSqlite($"Data Source={dbPath}",
+                    o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery))
+
                 .AddInterceptors(interceptor);
                 options.EnableSensitiveDataLogging(databaseOptions.EnableSensitiveDataLoggin);
             });

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Entities;
+using Khayati.Core.Common.Response;
 using Khayati.Core.DTO.OrderDesign;
 using Khayati.ServiceContracts;
 using RepositoryContracts.Base;
@@ -17,35 +18,33 @@ namespace Khayati.Service
             _mapper = mapper;
         }
 
-        public async Task<OrderDesignAddDto> AddOrderDesign(OrderDesignAddDto orderDesignAddDto)
+        public async Task<Result<OrderDesignAddDto>> AddOrderDesign(OrderDesignAddDto orderDesignAddDto)
         {
             if (orderDesignAddDto == null)
             {
-                return null;
+                return Result<OrderDesignAddDto>.FailureResult(DeclareMessage.BadRequest.Code, DeclareMessage.BadRequest.Description);
             }
 
-            // Map DTO to entity
             var orderDesign = _mapper.Map<OrderDesign>(orderDesignAddDto);
 
-            // Check if an EmbellishmentId is specified
             if (orderDesignAddDto.EmbellishmentId.HasValue)
             {
-                // Fetch the Embellishment from the repository
+
                 var embellishment = await _unitOfWork.EmbellishmentRepository
                     .GetFirstOrDefault(e => e.EmbellishmentId == orderDesignAddDto.EmbellishmentId.Value);
 
+                if (embellishment == null) Result<OrderDesignAddDto>.FailureResult(DeclareMessage.NotFound.Code, DeclareMessage.NotFound.Description);
+
                 // Set the CostAtTimeOfOrder in OrderDesign based on the Embellishment's Cost
-                if (embellishment != null)
-                {
-                    orderDesign.CostAtTimeOfOrder = embellishment.Cost;
-                }
+
+                orderDesign.CostAtTimeOfOrder = embellishment?.Cost;
             }
 
             // Add the OrderDesign entity to the repository
             await _unitOfWork.OrderDesignRepository.Add(orderDesign);
             await _unitOfWork.SaveChanges(CancellationToken.None);
 
-            return orderDesignAddDto;
+            return Result<OrderDesignAddDto>.SuccessResult(orderDesignAddDto);
         }
 
         //public async Task<OrderDesignResponseDto> DeleteOrderDesign(int? OrderDesignId)
