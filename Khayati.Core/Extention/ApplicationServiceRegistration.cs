@@ -1,4 +1,5 @@
-﻿using Khayati.Service;
+﻿using Entities;
+using Khayati.Service;
 using Khayati.ServiceContracts;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,6 +15,9 @@ namespace Khayati.Core.Extention
             services.AddScoped<IEmbellishmentService, EmbellishmentService>();
             services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<IEmbellishmentTypeService, EmbellishmentTypeService>();
+            services.AddScoped<IOrdersService, OrdersService>();
+            services.AddScoped<IOrderDesignService, OrderDesignService>();
+            services.AddScoped<IPaymentService, PaymentService>();
             // Optionally, you could use a connection string from configuration:
             // options.UseSqlite(configuration.GetConnectionString("SqlLiteCS"));
             services.AddAutoMapper(Assembly.GetExecutingAssembly());

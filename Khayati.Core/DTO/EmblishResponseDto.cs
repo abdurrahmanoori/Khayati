@@ -23,7 +23,7 @@ namespace Khayati.Core.DTO
             {
                 EmbellishmentId = Embellishmentr.EmbellishmentId,
                 EmbellishmentName = Embellishmentr.Name,
-                EmbellishmentDiscription = Embellishmentr.Discription,
+                EmbellishmentDiscription = Embellishmentr.Description,
             };
         }
     }

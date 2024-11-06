@@ -4,9 +4,9 @@ namespace Khayati.Core.DTO
 {
     public class CustomerAddDto
     {
-        public string CustomerName { get; set; }
+        public string Name { get; set; }
 
-        public string CustomerAddress { get; set; }
+        public string Address { get; set; }
         public string PhoneNumber { get; set; }
         public string EmailAddress { get; set; }
         public string NationalID { get; set; }
@@ -20,8 +20,8 @@ namespace Khayati.Core.DTO
         {
             return new Customer
             {
-                Name = CustomerName,
-                Address = CustomerAddress,
+                Name = Name,
+                Address = Address,
                 PhoneNumber = PhoneNumber,
                 //CustomerSince = CustomerSince,
                 DateOfBirth = DateOfBirth,

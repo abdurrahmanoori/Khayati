@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Khayati.Core", "Khayati.Cor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Khayati.Infrastructure", "Khayati.Infrastructure\Khayati.Infrastructure.csproj", "{5049EB8D-7A6C-495A-B98B-2CAD04C1CE6B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Khyati.Test", "Khyati.Test\Khyati.Test.csproj", "{CFBD0C66-B233-436F-A4F3-45A9CEEF9859}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,10 @@ Global
 		{5049EB8D-7A6C-495A-B98B-2CAD04C1CE6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5049EB8D-7A6C-495A-B98B-2CAD04C1CE6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5049EB8D-7A6C-495A-B98B-2CAD04C1CE6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CFBD0C66-B233-436F-A4F3-45A9CEEF9859}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFBD0C66-B233-436F-A4F3-45A9CEEF9859}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFBD0C66-B233-436F-A4F3-45A9CEEF9859}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFBD0C66-B233-436F-A4F3-45A9CEEF9859}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -37,6 +43,7 @@ Global
 		{32BA41F3-4162-40F8-9C1B-BD9AA7BD3262} = {3103FB58-D1C3-433F-AFE5-A7351BE1246E}
 		{5F6CD784-CB2F-4E45-85F3-6408F6DED1C8} = {3103FB58-D1C3-433F-AFE5-A7351BE1246E}
 		{5049EB8D-7A6C-495A-B98B-2CAD04C1CE6B} = {3103FB58-D1C3-433F-AFE5-A7351BE1246E}
+		{CFBD0C66-B233-436F-A4F3-45A9CEEF9859} = {3103FB58-D1C3-433F-AFE5-A7351BE1246E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {40EB4CAD-0DB1-4D86-9770-E645175AF6CF}

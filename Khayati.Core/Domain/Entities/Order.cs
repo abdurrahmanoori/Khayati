@@ -20,10 +20,10 @@ namespace Entities
         public bool IsPaid { get; set; }
 
         // Sum of all payments made for this order
-        public decimal AmountPaid => Payments.Sum(p => p.Amount);
+        public decimal AmountPaid => Payments?.Sum(p => p.Amount) ?? 0;
         public decimal RemainingAmount => TotalCost - Payments.Sum(p => p.Amount);
 
-        public OrderStatus OrderStatus { get; set; }
+        public string OrderStatus { get; set; }
 
         // Status of the overall payment (Completed, Partial, etc.)
         public PaymentStatus PaymentStatus
@@ -40,6 +40,7 @@ namespace Entities
         [ForeignKey(nameof(CustomerId))]
         public virtual Customer? Customer { get; set; }
         public virtual ICollection<Payment>? Payments { get; set; }
+        public virtual ICollection<OrderDesign> OrderDesigns { get; set; }
     }
 }
 

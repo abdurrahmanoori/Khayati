@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Khayati.Core.DTO.EmbellishmentTypeDto
+namespace Khayati.Core.Domain.UserServiceContracts
 {
-    public class EmbellishmentTypeUpdateDto: EmbellishmentTypeResponseDto
+    public interface IUserService
     {
+
     }
 }

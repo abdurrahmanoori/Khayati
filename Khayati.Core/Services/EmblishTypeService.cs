@@ -1,10 +1,9 @@
-﻿using Entities;
-using Khayati.ServiceContracts;
+﻿using AutoMapper;
+using Entities;
 using Khayati.Core.DTO;
+using Khayati.Core.DTO.EmbellishmentType;
+using Khayati.ServiceContracts;
 using RepositoryContracts.Base;
-using Khayati.Core.DTO.EmbellishmentTypeDto;
-using Entities.Enum;
-using AutoMapper;
 
 namespace Khayati.Service
 {
@@ -19,16 +18,17 @@ namespace Khayati.Service
             _mapper = mapper;
         }
 
-        public async Task<EmbellishmentTypeAddDto> AddEmbellishmentType(EmbellishmentTypeAddDto EmbellishmentTypeAddDto)
+        public async Task<EmbellishmentTypeAddDto> AddEmbellishmentType(EmbellishmentTypeAddDto embellishmentTypeAddDto)
         {
-            if (EmbellishmentTypeAddDto == null)
+            if (embellishmentTypeAddDto == null)
             {
                 return null;
             }
-            EmbellishmentType EmbellishmentType = EmbellishmentTypeAddDto.ToEmbellishmentType();
+            EmbellishmentType EmbellishmentType = embellishmentTypeAddDto.ToEmbellishmentType();
+
             await _unitOfWork.EmbellishmentTypeRepository.Add(EmbellishmentType);
             await _unitOfWork.SaveChanges(CancellationToken.None);
-            return EmbellishmentTypeAddDto;
+            return embellishmentTypeAddDto;
 
         }
 
@@ -89,6 +89,7 @@ namespace Khayati.Service
             var embellishmentType = _mapper.Map<EmbellishmentType>(embellishmentTypeResponseDto);
 
              await _unitOfWork.EmbellishmentTypeRepository.Update(embellishmentType);
+            await _unitOfWork.SaveChanges(CancellationToken.None);
             return embellishmentTypeResponseDto;
         }
     }

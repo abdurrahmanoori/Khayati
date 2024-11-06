@@ -1,4 +1,4 @@
-﻿namespace Khayati.Core.Domain.Entities
+﻿namespace Khayati.Core.Common
 {
     public abstract class AuditableEntity
     {
@@ -12,6 +12,7 @@
         public int? DeletedBy { get; set; }
 
         public bool IsDeleted { get; set; }
+
     }
 
 }

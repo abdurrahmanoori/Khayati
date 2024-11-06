@@ -154,11 +154,7 @@ namespace Khayati.Infrastructure.Migrations
                     b.Property<int?>("Cost")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("EmbellishmentDiscription")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("EmbellishmentName")
-                        .IsRequired()
+                    b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
                     b.Property<int?>("EmbellishmentTypeId")
@@ -166,6 +162,10 @@ namespace Khayati.Infrastructure.Migrations
 
                     b.Property<bool?>("IsAcitve")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.HasKey("EmbellishmentId");
 
@@ -178,41 +178,41 @@ namespace Khayati.Infrastructure.Migrations
                         {
                             EmbellishmentId = 1,
                             Cost = 20,
-                            EmbellishmentDiscription = "A circular neck style.",
-                            EmbellishmentName = "Circle Neck",
-                            EmbellishmentTypeId = 1
+                            Description = "A circular neck style.",
+                            EmbellishmentTypeId = 1,
+                            Name = "Circle Neck"
                         },
                         new
                         {
                             EmbellishmentId = 2,
                             Cost = 25,
-                            EmbellishmentDiscription = "A V-shaped neck style.",
-                            EmbellishmentName = "V-Neck",
-                            EmbellishmentTypeId = 1
+                            Description = "A V-shaped neck style.",
+                            EmbellishmentTypeId = 1,
+                            Name = "V-Neck"
                         },
                         new
                         {
                             EmbellishmentId = 3,
                             Cost = 15,
-                            EmbellishmentDiscription = "A short sleeve style.",
-                            EmbellishmentName = "Short Sleeve",
-                            EmbellishmentTypeId = 2
+                            Description = "A short sleeve style.",
+                            EmbellishmentTypeId = 2,
+                            Name = "Short Sleeve"
                         },
                         new
                         {
                             EmbellishmentId = 4,
                             Cost = 30,
-                            EmbellishmentDiscription = "A long sleeve style.",
-                            EmbellishmentName = "Long Sleeve",
-                            EmbellishmentTypeId = 2
+                            Description = "A long sleeve style.",
+                            EmbellishmentTypeId = 2,
+                            Name = "Long Sleeve"
                         },
                         new
                         {
                             EmbellishmentId = 5,
                             Cost = 10,
-                            EmbellishmentDiscription = "A frayed hem style.",
-                            EmbellishmentName = "Frayed Hem",
-                            EmbellishmentTypeId = 3
+                            Description = "A frayed hem style.",
+                            EmbellishmentTypeId = 3,
+                            Name = "Frayed Hem"
                         });
                 });
 
@@ -222,7 +222,7 @@ namespace Khayati.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Discription")
+                    b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
@@ -243,31 +243,31 @@ namespace Khayati.Infrastructure.Migrations
                         new
                         {
                             EmbellishmentTypeId = 1,
-                            Discription = "Various neck styles.",
+                            Description = "Various neck styles.",
                             Name = "Neck"
                         },
                         new
                         {
                             EmbellishmentTypeId = 2,
-                            Discription = "Different sleeve styles.",
+                            Description = "Different sleeve styles.",
                             Name = "Sleeve"
                         },
                         new
                         {
                             EmbellishmentTypeId = 3,
-                            Discription = "Different hem styles.",
+                            Description = "Different hem styles.",
                             Name = "Hem"
                         },
                         new
                         {
                             EmbellishmentTypeId = 4,
-                            Discription = "Various pocket styles.",
+                            Description = "Various pocket styles.",
                             Name = "Pocket"
                         },
                         new
                         {
                             EmbellishmentTypeId = 5,
-                            Discription = "Different embroidery styles.",
+                            Description = "Different embroidery styles.",
                             Name = "Embroidery"
                         });
                 });
@@ -284,6 +284,9 @@ namespace Khayati.Infrastructure.Migrations
                     b.Property<double>("Chest")
                         .HasColumnType("REAL");
 
+                    b.Property<decimal?>("Cost")
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT");
 
@@ -297,6 +300,9 @@ namespace Khayati.Infrastructure.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<int?>("DeletedBy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("FabricId")
                         .HasColumnType("INTEGER");
 
                     b.Property<double>("Height")
@@ -333,73 +339,9 @@ namespace Khayati.Infrastructure.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("Measurements");
+                    b.HasIndex("FabricId");
 
-                    b.HasData(
-                        new
-                        {
-                            Measurementid = 1,
-                            ArmLength = 62.0,
-                            Chest = 100.0,
-                            CreatedAt = new DateTime(2024, 10, 14, 20, 26, 41, 690, DateTimeKind.Local).AddTicks(8495),
-                            CustomerId = 1,
-                            Height = 175.5,
-                            IsDeleted = false,
-                            Leg = 80.0,
-                            Neck = 38.0,
-                            ShoulderWidth = 45.0,
-                            Sleeve = 60.0,
-                            Waist = 80.0,
-                            trousers = 0.0
-                        },
-                        new
-                        {
-                            Measurementid = 2,
-                            ArmLength = 63.0,
-                            Chest = 101.0,
-                            CreatedAt = new DateTime(2024, 10, 14, 20, 26, 41, 690, DateTimeKind.Local).AddTicks(8512),
-                            CustomerId = 2,
-                            Height = 176.0,
-                            IsDeleted = false,
-                            Leg = 81.0,
-                            Neck = 39.0,
-                            ShoulderWidth = 46.0,
-                            Sleeve = 61.0,
-                            Waist = 81.0,
-                            trousers = 0.0
-                        },
-                        new
-                        {
-                            Measurementid = 3,
-                            ArmLength = 62.5,
-                            Chest = 99.0,
-                            CreatedAt = new DateTime(2024, 10, 14, 20, 26, 41, 690, DateTimeKind.Local).AddTicks(8515),
-                            CustomerId = 3,
-                            Height = 175.5,
-                            IsDeleted = false,
-                            Leg = 79.0,
-                            Neck = 38.5,
-                            ShoulderWidth = 45.0,
-                            Sleeve = 60.5,
-                            Waist = 79.0,
-                            trousers = 0.0
-                        },
-                        new
-                        {
-                            Measurementid = 4,
-                            ArmLength = 64.0,
-                            Chest = 102.0,
-                            CreatedAt = new DateTime(2024, 10, 14, 20, 26, 41, 690, DateTimeKind.Local).AddTicks(8516),
-                            CustomerId = 4,
-                            Height = 177.0,
-                            IsDeleted = false,
-                            Leg = 82.0,
-                            Neck = 40.0,
-                            ShoulderWidth = 46.0,
-                            Sleeve = 62.0,
-                            Waist = 82.0,
-                            trousers = 0.0
-                        });
+                    b.ToTable("Measurements");
                 });
 
             modelBuilder.Entity("Entities.Order", b =>
@@ -420,8 +362,9 @@ namespace Khayati.Infrastructure.Migrations
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("OrderStatus")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("OrderStatus")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<decimal>("TotalCost")
                         .HasColumnType("TEXT");
@@ -439,10 +382,16 @@ namespace Khayati.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<decimal?>("CostAtTimeOfOrder")
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("CustomerId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int?>("EmbellishmentId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("FabricId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("ImageUrl")
@@ -462,6 +411,8 @@ namespace Khayati.Infrastructure.Migrations
                     b.HasIndex("CustomerId");
 
                     b.HasIndex("EmbellishmentId");
+
+                    b.HasIndex("FabricId");
 
                     b.HasIndex("OrderId");
 
@@ -490,7 +441,78 @@ namespace Khayati.Infrastructure.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("Payment");
+                    b.ToTable("Payments");
+                });
+
+            modelBuilder.Entity("Khayati.Core.Domain.Entities.Fabric", b =>
+                {
+                    b.Property<int>("FabricId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Color")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("CostPerMeter")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Durability")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FabricType")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Pattern")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<float>("RequiredMeters")
+                        .HasColumnType("REAL");
+
+                    b.Property<short>("Thickness")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("FabricId");
+
+                    b.ToTable("Fabrics");
+
+                    b.HasData(
+                        new
+                        {
+                            FabricId = 1,
+                            Color = "White",
+                            CostPerMeter = 25.5m,
+                            Durability = "High",
+                            FabricType = "Cotton",
+                            Pattern = "Plain",
+                            RequiredMeters = 0f,
+                            Thickness = (short)5
+                        },
+                        new
+                        {
+                            FabricId = 2,
+                            Color = "Red",
+                            CostPerMeter = 50.75m,
+                            Durability = "Medium",
+                            FabricType = "Silk",
+                            Pattern = "Floral",
+                            RequiredMeters = 0f,
+                            Thickness = (short)2
+                        },
+                        new
+                        {
+                            FabricId = 3,
+                            Color = "Blue",
+                            CostPerMeter = 15.0m,
+                            Durability = "High",
+                            FabricType = "Polyester",
+                            Pattern = "Striped",
+                            RequiredMeters = 0f,
+                            Thickness = (short)3
+                        });
                 });
 
             modelBuilder.Entity("Khayati.Core.Domain.Entities.Relative", b =>
@@ -583,6 +605,197 @@ namespace Khayati.Infrastructure.Migrations
                     b.ToTable("Translations");
                 });
 
+            modelBuilder.Entity("Khayati.Infrastructure.Identity.Entity.ApplicationRole", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex");
+
+                    b.ToTable("AspNetRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Khayati.Infrastructure.Identity.Entity.ApplicationUser", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex");
+
+                    b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens", (string)null);
+                });
+
             modelBuilder.Entity("Entities.Embellishment", b =>
                 {
                     b.HasOne("Entities.EmbellishmentType", "EmbellishmentType")
@@ -600,7 +813,13 @@ namespace Khayati.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Khayati.Core.Domain.Entities.Fabric", "Fabric")
+                        .WithMany()
+                        .HasForeignKey("FabricId");
+
                     b.Navigation("Customer");
+
+                    b.Navigation("Fabric");
                 });
 
             modelBuilder.Entity("Entities.Order", b =>
@@ -623,11 +842,15 @@ namespace Khayati.Infrastructure.Migrations
                         .IsRequired();
 
                     b.HasOne("Entities.Embellishment", "Embellishment")
-                        .WithMany()
+                        .WithMany("OrderDesigns")
                         .HasForeignKey("EmbellishmentId");
 
-                    b.HasOne("Entities.Order", "Order")
+                    b.HasOne("Khayati.Core.Domain.Entities.Fabric", "Fabric")
                         .WithMany()
+                        .HasForeignKey("FabricId");
+
+                    b.HasOne("Entities.Order", "Order")
+                        .WithMany("OrderDesigns")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -635,6 +858,8 @@ namespace Khayati.Infrastructure.Migrations
                     b.Navigation("Customer");
 
                     b.Navigation("Embellishment");
+
+                    b.Navigation("Fabric");
 
                     b.Navigation("Order");
                 });
@@ -659,6 +884,57 @@ namespace Khayati.Infrastructure.Migrations
                     b.Navigation("Customer");
                 });
 
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
+                {
+                    b.HasOne("Khayati.Infrastructure.Identity.Entity.ApplicationRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
+                {
+                    b.HasOne("Khayati.Infrastructure.Identity.Entity.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
+                {
+                    b.HasOne("Khayati.Infrastructure.Identity.Entity.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
+                {
+                    b.HasOne("Khayati.Infrastructure.Identity.Entity.ApplicationRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Khayati.Infrastructure.Identity.Entity.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
+                {
+                    b.HasOne("Khayati.Infrastructure.Identity.Entity.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Entities.Customer", b =>
                 {
                     b.Navigation("Measurements");
@@ -668,6 +944,11 @@ namespace Khayati.Infrastructure.Migrations
                     b.Navigation("Relatives");
                 });
 
+            modelBuilder.Entity("Entities.Embellishment", b =>
+                {
+                    b.Navigation("OrderDesigns");
+                });
+
             modelBuilder.Entity("Entities.EmbellishmentType", b =>
                 {
                     b.Navigation("Embellishmentes");
@@ -675,6 +956,8 @@ namespace Khayati.Infrastructure.Migrations
 
             modelBuilder.Entity("Entities.Order", b =>
                 {
+                    b.Navigation("OrderDesigns");
+
                     b.Navigation("Payments");
                 });
 #pragma warning restore 612, 618

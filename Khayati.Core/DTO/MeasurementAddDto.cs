@@ -4,7 +4,7 @@ namespace Khayati.Core.DTO
 {
     public class MeasurementAddDto
     {
-        public int CustomerId { get; set; }
+        //public int CustomerId { get; set; }
         public double Height { get; set; }
         public double Chest { get; set; }
         public double Waist { get; set; }
@@ -25,7 +25,7 @@ namespace Khayati.Core.DTO
             return new Measurement
             {
                 
-                CustomerId = CustomerId,
+                //CustomerId = CustomerId,
                 Height = Height,
                 Chest = Chest,
                 Waist = Waist,

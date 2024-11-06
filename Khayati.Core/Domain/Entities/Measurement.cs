@@ -1,6 +1,8 @@
-﻿using Khayati.Core.Domain.Entities;
+﻿using Khayati.Core.Common;
+using Khayati.Core.Domain.Entities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -17,6 +19,10 @@ namespace Entities
         /// Unique identifier for the measurement.
         /// </summary>
         public int Measurementid { get; set; }
+        /// <summary>
+        /// The cost charged by the tailor for sewing the clothes.
+        /// </summary>
+        public decimal? Cost { get; set; }
 
         /// <summary>
         /// Foreign key reference to the customer who owns the measurement.
@@ -75,6 +81,9 @@ namespace Entities
         /// </summary>
         public double Leg { get; set; }
 
+        [Required(AllowEmptyStrings =true)]
+        public int? FabricId { get; set; }
+
         /// <summary>
         /// Indicates the date when this measurement was created. Useful for tracking the most recent measurement of a customer.
         /// </summary>
@@ -85,5 +94,8 @@ namespace Entities
         /// </summary>
         [ForeignKey(nameof(CustomerId))]
         public virtual Customer Customer { get; set; }
+
+        [ForeignKey(nameof(FabricId))]
+        public virtual Fabric Fabric { get; set; }
     }
 }
