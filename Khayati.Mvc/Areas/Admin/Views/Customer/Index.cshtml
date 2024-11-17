@@ -1,0 +1,60 @@
+﻿@model IEnumerable<Khayati.Core.DTO.CustomerResponseDto>
+@{
+    ViewData["Title"] = "Customer Page";
+}
+
+<div class="container-fluid mb-1 ps-md-3  d-flex justify-content-end">
+    <a href="Customer/Create" class="nav-link">
+        <i class="nav-icon bi bi-circle"></i>
+        <button type="button" class="btn btn-block btn-primary btn-flat"><p> Add Customer </p></button>
+        
+    </a>
+</div>
+
+
+<div class="card">
+    <div class="card-header " style="background-color:aliceblue">
+        <h3 class="card-title">Responsive Hover Table</h3>
+        <div class="card-tools">
+            <div class="input-group input-group-sm" style="width: 150px;">
+                <input type="text" name="table_search" class="form-control float-right" placeholder="Search" spellcheck="false" data-ms-editor="true">
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-default">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-body table-responsive p-0">
+        <table class="table table-hover text-nowrap">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Date</th>
+                    <th>Phone Number</th>
+                    <th>Email Address</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var customer in Model)
+                {
+                    <tr>
+                        <td>@customer.CustomerId</td>
+                        <td>@customer.Name</td>
+                        <td>@customer.DateOfBirth</td>
+                        <td>@customer.PhoneNumber</td>
+                        <td>@customer.EmailAddress</td>
+                    </tr>
+
+                }
+
+
+            </tbody>
+        </table>
+
+    </div>
+
+</div>

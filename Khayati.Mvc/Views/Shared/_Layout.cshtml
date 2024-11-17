@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Khayati.Mvc</title>
     @*     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Khayati.Mvc.styles.css" asp-append-version="true" /> *@
+        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/Khayati.Mvc.styles.css" asp-append-version="true" /> *@
 
 
 
@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.3.0/styles/overlayscrollbars.min.css" integrity="sha256-dSokZseQNT08wYEWiz5iLI8QPlKxG+TswNRD8k35cpg=" crossorigin="anonymous"><!--end::Third Party Plugin(OverlayScrollbars)--><!--begin::Third Party Plugin(Bootstrap Icons)-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.min.css" integrity="sha256-Qsx5lrStHZyR9REqhUF8iQt73X06c8LGIUPzpOhwRrI=" crossorigin="anonymous"><!--end::Third Party Plugin(Bootstrap Icons)--><!--begin::Required Plugin(AdminLTE)-->
     <link rel="stylesheet" href="../../../dist/css/adminlte.css"><!--end::Required Plugin(AdminLTE)-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
 
 
@@ -30,7 +31,7 @@
 
 
 </head>
-<body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
+<body class="layout-fixed sidebar bg-body-tertiary">
 
     <div class="app-wrapper">
 
@@ -41,7 +42,8 @@
                 <!--begin::Start Navbar Links-->
                 <ul class="navbar-nav">
                     <li class="nav-item"> <a class="nav-link" data-lte-toggle="sidebar" href="#" role="button"> <i class="bi bi-list"></i> </a> </li>
-                    <li class="nav-item d-none d-md-block"> <a asp-action="Index" asp-controller="Customer" class="nav-link">Customer</a> </li>
+                    <li class="nav-item d-none d-md-block"> <a asp-area="Admin" asp-action="Index" asp-controller="Customer" class="nav-link">Customer</a> </li>
+                    <li class="nav-item d-none d-md-block"> <a asp-area="Admin" asp-action="Index" asp-controller="EmbellishmentType" class="nav-link">EmbellishmentType</a> </li>
                     <li class="nav-item d-none d-md-block"> <a href="#" class="nav-link">Contact</a> </li>
                 </ul> <!--end::Start Navbar Links--> <!--begin::End Navbar Links-->
                 <ul class="navbar-nav ms-auto">
@@ -162,414 +164,13 @@
                             <a href="#" class="nav-link">
                                 <i class="nav-icon bi bi-speedometer"></i>
                                 <p>
-                                    Dashboard
+                                    Admin
                                     <i class="nav-arrow bi bi-chevron-right"></i>
                                 </p>
                             </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="../index.html" class="nav-link">
-                                        <i class="nav-icon bi bi-circle"></i>
-                                        <p>Dashboard v1</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="../index2.html" class="nav-link">
-                                        <i class="nav-icon bi bi-circle"></i>
-                                        <p>Dashboard v2</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="../index3.html" class="nav-link">
-                                        <i class="nav-icon bi bi-circle"></i>
-                                        <p>Dashboard v3</p>
-                                    </a>
-                                </li>
-                            </ul>
+
                         </li>
-                        <li class="nav-item">
-                            <a href="../generate/theme.html" class="nav-link">
-                                <i class="nav-icon bi bi-palette"></i>
-                                <p>Theme Generate</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon bi bi-box-seam-fill"></i>
-                                <p>
-                                    Widgets
-                                    <i class="nav-arrow bi bi-chevron-right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="../widgets/small-box.html" class="nav-link">
-                                        <i class="nav-icon bi bi-circle"></i>
-                                        <p>Small Box</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="../widgets/info-box.html" class="nav-link">
-                                        <i class="nav-icon bi bi-circle"></i>
-                                        <p>info Box</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="../widgets/cards.html" class="nav-link">
-                                        <i class="nav-icon bi bi-circle"></i>
-                                        <p>Cards</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item menu-open">
-                            <a href="#" class="nav-link active">
-                                <i class="nav-icon bi bi-clipboard-fill"></i>
-                                <p>
-                                    Layout Options
-                                    <span class="nav-badge badge text-bg-secondary me-3">6</span> <i class="nav-arrow bi bi-chevron-right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="../layout/unfixed-sidebar.html" class="nav-link">
-                                        <i class="nav-icon bi bi-circle"></i>
-                                        <p>Default Sidebar</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="../layout/fixed-sidebar.html" class="nav-link">
-                                        <i class="nav-icon bi bi-circle"></i>
-                                        <p>Fixed Sidebar</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="../layout/layout-custom-area.html" class="nav-link active">
-                                        <i class="nav-icon bi bi-circle"></i>
-                                        <p>Layout <small>+ Custom Area </small></p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="../layout/sidebar-mini.html" class="nav-link">
-                                        <i class="nav-icon bi bi-circle"></i>
-                                        <p>Sidebar Mini</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="../layout/collapsed-sidebar.html" class="nav-link">
-                                        <i class="nav-icon bi bi-circle"></i>
-                                        <p>Sidebar Mini <small>+ Collapsed</small></p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="../layout/logo-switch.html" class="nav-link">
-                                        <i class="nav-icon bi bi-circle"></i>
-                                        <p>Sidebar Mini <small>+ Logo Switch</small></p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="../layout/layout-rtl.html" class="nav-link">
-                                        <i class="nav-icon bi bi-circle"></i>
-                                        <p>Layout RTL</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon bi bi-tree-fill"></i>
-                                <p>
-                                    UI Elements
-                                    <i class="nav-arrow bi bi-chevron-right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="../UI/general.html" class="nav-link">
-                                        <i class="nav-icon bi bi-circle"></i>
-                                        <p>General</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="../UI/icons.html" class="nav-link">
-                                        <i class="nav-icon bi bi-circle"></i>
-                                        <p>Icons</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="../UI/timeline.html" class="nav-link">
-                                        <i class="nav-icon bi bi-circle"></i>
-                                        <p>Timeline</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon bi bi-pencil-square"></i>
-                                <p>
-                                    Forms
-                                    <i class="nav-arrow bi bi-chevron-right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="../forms/general.html" class="nav-link">
-                                        <i class="nav-icon bi bi-circle"></i>
-                                        <p>General Elements</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon bi bi-table"></i>
-                                <p>
-                                    Tables
-                                    <i class="nav-arrow bi bi-chevron-right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="../tables/simple.html" class="nav-link">
-                                        <i class="nav-icon bi bi-circle"></i>
-                                        <p>Simple Tables</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-header">EXAMPLES</li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon bi bi-box-arrow-in-right"></i>
-                                <p>
-                                    Auth
-                                    <i class="nav-arrow bi bi-chevron-right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="nav-icon bi bi-box-arrow-in-right"></i>
-                                        <p>
-                                            Version 1
-                                            <i class="nav-arrow bi bi-chevron-right"></i>
-                                        </p>
-                                    </a>
-                                    <ul class="nav nav-treeview">
-                                        <li class="nav-item">
-                                            <a href="../examples/login.html" class="nav-link">
-                                                <i class="nav-icon bi bi-circle"></i>
-                                                <p>Login</p>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="../examples/register.html" class="nav-link">
-                                                <i class="nav-icon bi bi-circle"></i>
-                                                <p>Register</p>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="nav-icon bi bi-box-arrow-in-right"></i>
-                                        <p>
-                                            Version 2
-                                            <i class="nav-arrow bi bi-chevron-right"></i>
-                                        </p>
-                                    </a>
-                                    <ul class="nav nav-treeview">
-                                        <li class="nav-item">
-                                            <a href="../examples/login-v2.html" class="nav-link">
-                                                <i class="nav-icon bi bi-circle"></i>
-                                                <p>Login</p>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="../examples/register-v2.html" class="nav-link">
-                                                <i class="nav-icon bi bi-circle"></i>
-                                                <p>Register</p>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="../examples/lockscreen.html" class="nav-link">
-                                        <i class="nav-icon bi bi-circle"></i>
-                                        <p>Lockscreen</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-header">DOCUMENTATIONS</li>
-                        <li class="nav-item">
-                            <a href="../docs/introduction.html" class="nav-link">
-                                <i class="nav-icon bi bi-download"></i>
-                                <p>Installation</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="../docs/layout.html" class="nav-link">
-                                <i class="nav-icon bi bi-grip-horizontal"></i>
-                                <p>Layout</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="../docs/color-mode.html" class="nav-link">
-                                <i class="nav-icon bi bi-star-half"></i>
-                                <p>Color Mode</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon bi bi-ui-checks-grid"></i>
-                                <p>
-                                    Components
-                                    <i class="nav-arrow bi bi-chevron-right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="../docs/components/main-header.html" class="nav-link">
-                                        <i class="nav-icon bi bi-circle"></i>
-                                        <p>Main Header</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="../docs/components/main-sidebar.html" class="nav-link">
-                                        <i class="nav-icon bi bi-circle"></i>
-                                        <p>Main Sidebar</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon bi bi-filetype-js"></i>
-                                <p>
-                                    Javascript
-                                    <i class="nav-arrow bi bi-chevron-right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="../docs/javascript/treeview.html" class="nav-link">
-                                        <i class="nav-icon bi bi-circle"></i>
-                                        <p>Treeview</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="../docs/browser-support.html" class="nav-link">
-                                <i class="nav-icon bi bi-browser-edge"></i>
-                                <p>Browser Support</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="../docs/how-to-contribute.html" class="nav-link">
-                                <i class="nav-icon bi bi-hand-thumbs-up-fill"></i>
-                                <p>How To Contribute</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="../docs/faq.html" class="nav-link">
-                                <i class="nav-icon bi bi-question-circle-fill"></i>
-                                <p>FAQ</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="../docs/license.html" class="nav-link">
-                                <i class="nav-icon bi bi-patch-check-fill"></i>
-                                <p>License</p>
-                            </a>
-                        </li>
-                        <li class="nav-header">MULTI LEVEL EXAMPLE</li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon bi bi-circle-fill"></i>
-                                <p>Level 1</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon bi bi-circle-fill"></i>
-                                <p>
-                                    Level 1
-                                    <i class="nav-arrow bi bi-chevron-right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="nav-icon bi bi-circle"></i>
-                                        <p>Level 2</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="nav-icon bi bi-circle"></i>
-                                        <p>
-                                            Level 2
-                                            <i class="nav-arrow bi bi-chevron-right"></i>
-                                        </p>
-                                    </a>
-                                    <ul class="nav nav-treeview">
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="nav-icon bi bi-record-circle-fill"></i>
-                                                <p>Level 3</p>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="nav-icon bi bi-record-circle-fill"></i>
-                                                <p>Level 3</p>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="nav-icon bi bi-record-circle-fill"></i>
-                                                <p>Level 3</p>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="nav-icon bi bi-circle"></i>
-                                        <p>Level 2</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon bi bi-circle-fill"></i>
-                                <p>Level 1</p>
-                            </a>
-                        </li>
-                        <li class="nav-header">LABELS</li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon bi bi-circle text-danger"></i>
-                                <p class="text">Important</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon bi bi-circle text-warning"></i>
-                                <p>Warning</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon bi bi-circle text-info"></i>
-                                <p>Informational</p>
-                            </a>
-                        </li>
-                    </ul> <!--end::Sidebar Menu-->
+                    </ul>
                 </nav>
             </div> <!--end::Sidebar Wrapper-->
         </aside> <!--end::Sidebar--> <!--begin::App Main-->
@@ -598,51 +199,63 @@
         </footer> <!--end::Footer-->
         <!--begin::Sidebar Brand-->
         @* <div class="container">
-        <main role="main" class="pb-3">
+            <main role="main" class="pb-3">
         *@
         @*  </main>
-        </div>
+            </div>
         *@
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.3.0/browser/overlayscrollbars.browser.es6.min.js" integrity="sha256-H2VM7BKda+v2Z4+DRy69uknwxjyDRhszjXFhsL4gD3w=" crossorigin="anonymous"></script> <!--end::Third Party Plugin(OverlayScrollbars)--><!--begin::Required Plugin(popperjs for Bootstrap 5)-->
-    <script src="https://cdn.jsdelivr.net/npm/@@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha256-whL0tQWoY1Ku1iskqPFvmZ+CHsvmRWx/PIoEvIeWh4I=" crossorigin="anonymous"></script> <!--end::Required Plugin(popperjs for Bootstrap 5)--><!--begin::Required Plugin(Bootstrap 5)-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha256-YMa+wAM6QkVyz999odX7lPRxkoYAan8suedu4k2Zur8=" crossorigin="anonymous"></script> <!--end::Required Plugin(Bootstrap 5)--><!--begin::Required Plugin(AdminLTE)-->
+    @*     <script src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.3.0/browser/overlayscrollbars.browser.es6.min.js" integrity="sha256-H2VM7BKda+v2Z4+DRy69uknwxjyDRhszjXFhsL4gD3w=" crossorigin="anonymous"></script> <!--end::Third Party Plugin(OverlayScrollbars)--><!--begin::Required Plugin(popperjs for Bootstrap 5)-->
+        <script src="https://cdn.jsdelivr.net/npm/@@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha256-whL0tQWoY1Ku1iskqPFvmZ+CHsvmRWx/PIoEvIeWh4I=" crossorigin="anonymous"></script> <!--end::Required Plugin(popperjs for Bootstrap 5)--><!--begin::Required Plugin(Bootstrap 5)-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha256-YMa+wAM6QkVyz999odX7lPRxkoYAan8suedu4k2Zur8=" crossorigin="anonymous"></script> <!--end::Required Plugin(Bootstrap 5)--><!--begin::Required Plugin(AdminLTE)-->
 
 
-
-
-    <script src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.3.0/browser/overlayscrollbars.browser.es6.min.js" integrity="sha256-H2VM7BKda+v2Z4+DRy69uknwxjyDRhszjXFhsL4gD3w=" crossorigin="anonymous"></script> <!--end::Third Party Plugin(OverlayScrollbars)--><!--begin::Required Plugin(popperjs for Bootstrap 5)-->
-    <script src="https://cdn.jsdelivr.net/npm/popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha256-whL0tQWoY1Ku1iskqPFvmZ+CHsvmRWx/PIoEvIeWh4I=" crossorigin="anonymous"></script> <!--end::Required Plugin(popperjs for Bootstrap 5)--><!--begin::Required Plugin(Bootstrap 5)-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha256-YMa+wAM6QkVyz999odX7lPRxkoYAan8suedu4k2Zur8=" crossorigin="anonymous"></script> <!--end::Required Plugin(Bootstrap 5)--><!--begin::Required Plugin(AdminLTE)-->
+    *@
+    @*
+        <script src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.3.0/browser/overlayscrollbars.browser.es6.min.js" integrity="sha256-H2VM7BKda+v2Z4+DRy69uknwxjyDRhszjXFhsL4gD3w=" crossorigin="anonymous"></script> <!--end::Third Party Plugin(OverlayScrollbars)--><!--begin::Required Plugin(popperjs for Bootstrap 5)-->
+        <script src="https://cdn.jsdelivr.net/npm/popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha256-whL0tQWoY1Ku1iskqPFvmZ+CHsvmRWx/PIoEvIeWh4I=" crossorigin="anonymous"></script> <!--end::Required Plugin(popperjs for Bootstrap 5)--><!--begin::Required Plugin(Bootstrap 5)-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha256-YMa+wAM6QkVyz999odX7lPRxkoYAan8suedu4k2Zur8=" crossorigin="anonymous"></script> <!--end::Required Plugin(Bootstrap 5)--><!--begin::Required Plugin(AdminLTE)-->
+    *@
     <script src="~/dist/js/adminlte.js"></script>
 
-    <script>
+    @*   <script>
         const SELECTOR_SIDEBAR_WRAPPER = ".sidebar-wrapper";
         const Default = {
-            scrollbarTheme: "os-theme-light",
-            scrollbarAutoHide: "leave",
-            scrollbarClickScroll: true,
+        scrollbarTheme: "os-theme-light",
+        scrollbarAutoHide: "leave",
+        scrollbarClickScroll: true,
         };
         document.addEventListener("DOMContentLoaded", function () {
-            const sidebarWrapper = document.querySelector(SELECTOR_SIDEBAR_WRAPPER);
-            if (
-                sidebarWrapper &&
-                typeof OverlayScrollbarsGlobal?.OverlayScrollbars !== "undefined"
-            ) {
-                OverlayScrollbarsGlobal.OverlayScrollbars(sidebarWrapper, {
-                    scrollbars: {
-                        theme: Default.scrollbarTheme,
-                        autoHide: Default.scrollbarAutoHide,
-                        clickScroll: Default.scrollbarClickScroll,
-                    },
-                });
-            }
+        const sidebarWrapper = document.querySelector(SELECTOR_SIDEBAR_WRAPPER);
+        if (
+        sidebarWrapper &&
+        typeof OverlayScrollbarsGlobal?.OverlayScrollbars !== "undefined"
+        ) {
+        OverlayScrollbarsGlobal.OverlayScrollbars(sidebarWrapper, {
+        scrollbars: {
+        theme: Default.scrollbarTheme,
+        autoHide: Default.scrollbarAutoHide,
+        clickScroll: Default.scrollbarClickScroll,
+        },
         });
-    </script> <!--end::OverlayScrollbars Configure--> <!--end::Script-->
+        }
+        });
+        </script> *@ <!--end::OverlayScrollbars Configure--> <!--end::Script-->
     @* <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script> *@
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script> *@
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+
+    @* <partial name="_ValidationScriptsPartial" /> *@
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" asp-fallback-test="window.jQuery" asp-fallback-src="~/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.4/jquery.validate.min.js" asp-fallback-test="window.jQuery.validator" asp-fallback-src="~/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js" asp-fallback-test="window.jQuery.validator.unobstrusive" asp-fallback-src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

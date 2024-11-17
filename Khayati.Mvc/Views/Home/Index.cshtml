@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Khayati.ServiceContracts.DTO.CustomerResponseDto>
+﻿@model IEnumerable<Khayati.Core.DTO.CustomerResponseDto>
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -18,7 +18,7 @@
     </div> <!--end::Container-->
 </div> <!--end::App Content Bottom Area--> <!--begin::App Content Header-->
 <div class="app-content-header">
-    @foreach(var item in Model)
+@*     @foreach(var item in Model)
     {
         <span>
             @item.CustomerId
@@ -28,7 +28,7 @@
             @item.CustomerName
 
         </span>
-    }
+    } *@
     <!--begin::Container-->
     <div class="container-fluid">
         <!--begin::Row-->
