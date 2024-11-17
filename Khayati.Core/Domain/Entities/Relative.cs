@@ -6,7 +6,7 @@ namespace Khayati.Core.Domain.Entities
     public class Relative : AuditableEntity
     {
         public int RelativeId { get; set; }
-        public string FirstName { get; set; }
+        //public string FirstName { get; set; }
         public string LastName { get; set; }
         public string? RelationshipType { get; set; } // e.g., Father, Baby, etc.
         public DateTime? DateOfBirth { get; set; }   // Optional, useful for babies

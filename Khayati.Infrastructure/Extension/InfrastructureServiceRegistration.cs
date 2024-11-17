@@ -13,6 +13,8 @@ using Microsoft.Extensions.Options;
 using Repositories.Base;
 using RepositoryContracts.Base;
 using System;
+using System.Collections.Generic;
+using System.IO;
 
 
 namespace Khayati.Infrastructure.Extension
@@ -21,47 +23,51 @@ namespace Khayati.Infrastructure.Extension
     {
         public static IServiceCollection ConfigureInfrastructureService(this IServiceCollection services)
         {
-
             services.AddScoped<AuditInterceptor>();
             services.ConfigureOptions<DatabaseOptionsSetup>();
+
+            // Configure DbContext for SQLite
             services.AddDbContext<ApplicationDbContext>((serviceProvider, options) =>
             {
-                // Set your custom path for the SQLite database
-                var dbPath = Path.Combine(Directory.GetCurrentDirectory(), "Databases", "mydatabase.db");
 
+           
+                // Retrieves the directory path without the last segment(Khayati.Api).
+                var current = Directory.GetCurrentDirectory();
+
+                string parentDirectory = Path.GetDirectoryName(current);
+
+                // Path to store the database inside the Infrastructure project
+                var dbPath = Path.Combine(parentDirectory, "Khayati.Infrastructure", "Databases", "mydatabase.db");
                 // Ensure the directory exists
                 if (!Directory.Exists(Path.GetDirectoryName(dbPath)))
                 {
                     Directory.CreateDirectory(Path.GetDirectoryName(dbPath));
                 }
-                var databaseOptions = serviceProvider.GetService<IOptions<DatabaseOptions>>()!.Value;
 
+                var databaseOptions = serviceProvider.GetService<IOptions<DatabaseOptions>>()!.Value;
                 var interceptor = serviceProvider.GetRequiredService<AuditInterceptor>();
-                // Configure the SQLite DbContext
+
+                // Configure SQLite database context
                 options.UseSqlite($"Data Source={dbPath}",
                     o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery))
+                    .AddInterceptors(interceptor);
 
-                .AddInterceptors(interceptor);
                 options.EnableSensitiveDataLogging(databaseOptions.EnableSensitiveDataLoggin);
             });
-            //Enable Identity in this project
+
+            // Enable Identity
             services.AddIdentity<ApplicationUser, ApplicationRole>()
-             .AddEntityFrameworkStores<ApplicationDbContext>()
-             .AddDefaultTokenProviders()
-
-             .AddUserStore<UserStore<ApplicationUser, ApplicationRole, ApplicationDbContext, int>>()
-
-             .AddRoleStore<RoleStore<ApplicationRole, ApplicationDbContext, int>>();
-
-
-
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders()
+                .AddUserStore<UserStore<ApplicationUser, ApplicationRole, ApplicationDbContext, int>>()
+                .AddRoleStore<RoleStore<ApplicationRole, ApplicationDbContext, int>>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<ICurrentUser, CurrentUser>();
             services.AddScoped<IUserService, UserService>();
 
             return services;
-
         }
     }
+
 }
