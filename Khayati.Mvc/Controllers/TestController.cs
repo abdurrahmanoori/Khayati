@@ -20,7 +20,7 @@ namespace Khayati.Mvc.Controllers
             _customerService = customerService;
             _currentUser = currentUser;
         }
-
+        [HttpGet("test")]
         public async Task<IActionResult> Get()
         {
 
