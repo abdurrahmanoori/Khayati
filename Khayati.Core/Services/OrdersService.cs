@@ -53,12 +53,13 @@ namespace Khayati.Service
         public async Task<Result<IEnumerable<CustomerOrderResponseDto>>> GetOrdersByCustomerId(int customerId)
         {
             var customerOrderList = await _unitOfWork.OrderRepository.GetOrderListByCustomerId(customerId);
-            if (customerOrderList is null)
+            if (customerOrderList.Any() == false)
             {
                 return Result<IEnumerable<CustomerOrderResponseDto>>
                     .FailureResult(DeclareMessage.NotFound.Code,
                     $"Customer order with customer id {customerId} not found");
             }
+
             return Result<IEnumerable<CustomerOrderResponseDto>>.SuccessResult(customerOrderList!);
         }
 
