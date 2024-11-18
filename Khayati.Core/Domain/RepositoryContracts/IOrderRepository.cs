@@ -5,11 +5,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Khayati.Core.DTO.Orders;
 
 namespace RepositoryContracts
 {
     public interface IOrderRepository : IGenericRepository<Order>
     {
-        public  Task<Order> GetOrderWithDetailsAsync(int orderId);
+        Task<IEnumerable<CustomerOrderResponseDto?>>
+            GetOrderListByCustomerId(int customerId);
+
+        public  Task<Order>
+            GetOrderWithDetailsAsync(int orderId);
     }
 }

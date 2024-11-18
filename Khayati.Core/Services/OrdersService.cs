@@ -3,6 +3,7 @@ using Entities;
 using Entities.Enum;
 using Khayati.Core.Common.Response;
 using Khayati.Core.DTO;
+using Khayati.Core.DTO.Orders;
 using Khayati.ServiceContracts;
 using RepositoryContracts.Base;
 
@@ -46,35 +47,55 @@ namespace Khayati.Service
 
         }
 
+
+
         // Calculates the total cost of an order
-        public async Task<decimal?> CalculateTotalCost(int orderId)
+        public async Task<Result<IEnumerable<CustomerOrderResponseDto>>> GetOrdersByCustomerId(int customerId)
+        {
+            var customerOrderList = await _unitOfWork.OrderRepository.GetOrderListByCustomerId(customerId);
+            if (customerOrderList is null)
+            {
+                return Result<IEnumerable<CustomerOrderResponseDto>>
+                    .FailureResult(DeclareMessage.NotFound.Code,
+                    $"Customer order with customer id {customerId} not found");
+            }
+            return Result<IEnumerable<CustomerOrderResponseDto>>.SuccessResult(customerOrderList!);
+        }
+
+        public async Task<decimal?>
+            CalculateTotalCost(int orderId)
         {
             var order = await _unitOfWork.OrderRepository.GetOrderWithDetailsAsync(orderId);
             if (order == null) throw new Exception("Order not found");
 
             decimal? measurementCost = await CalculateMeasurementCost(order.CustomerId);
-           // decimal? embellishmentCost = await CalculateEmbellishmentCost(order.OrderId);
+
+            // decimal? embellishmentCost = await CalculateEmbellishmentCost(order.OrderId);
             decimal? designCost = await CalculateDesignCost(order.OrderId);
 
             // Total cost calculation
-            decimal? totalCost = measurementCost +  designCost;
+            decimal? totalCost = measurementCost + designCost;
 
             return totalCost;
         }
 
         // Helper method to calculate measurement-based cost
-        public async Task<decimal?> CalculateMeasurementCost(int customerId)
+        public async Task<decimal?>
+            CalculateMeasurementCost(int customerId)
         {
 
 
-            var measurement = await _unitOfWork.MeasurementRepository.GetLatestMeasurementByCustomerIdAsync(customerId);
+            var measurement = await _unitOfWork.MeasurementRepository
+                .GetLatestMeasurementByCustomerIdAsync(customerId);
+
             if (measurement == null) throw new Exception("Measurement not found");
 
             return measurement.Cost ?? 0;
         }
 
         // Helper method to calculate embellishment cost
-        public async Task<decimal?> CalculateEmbellishmentCost(int orderId)
+        public async Task<decimal?>
+            CalculateEmbellishmentCost(int orderId)
         {
             var embellishments = await _unitOfWork.EmbellishmentRepository
                 .GetEmbellishmentListByOrderIdAsync(orderId);
@@ -84,13 +105,14 @@ namespace Khayati.Service
         }
 
         // Helper method to calculate design cost
-        public async Task<decimal?> CalculateDesignCost(int orderId)
+        public async Task<decimal?>
+            CalculateDesignCost(int orderId)
         {
             var orderDesigns = await _unitOfWork.OrderDesignRepository
                 .GetOrderDesignListByOrderIdAsync(orderId);
             if (orderDesigns == null) throw new Exception("No designs found");
 
-            return orderDesigns.Sum(d => d.CostAtTimeOfOrder); // Assuming CostAtTimeOfOrder is defined on OrderDesign
+            return orderDesigns.Sum(d => d.CostAtTimeOfOrder);
         }
 
         // Example method to create an order

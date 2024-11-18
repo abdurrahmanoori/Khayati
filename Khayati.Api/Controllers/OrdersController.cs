@@ -14,14 +14,14 @@ namespace Khayati.Api.Controllers
 
     public class OrdersController : ControllerBase
     {
-        private readonly IOrdersService _ordersService;
+        private readonly IOrdersService _orderService;
         private readonly IPaymentService _paymentService;
         //private readonly Fixture _fixture;
 
 
         public OrdersController(IOrdersService ordersService, IPaymentService paymentService)
         {
-            _ordersService = ordersService;
+            _orderService = ordersService;
             //_fixture = new Fixture();
             _paymentService = paymentService;
         }
@@ -34,11 +34,25 @@ namespace Khayati.Api.Controllers
             var measurment = DataGenerator.GenerateMeasurement();
             var order = DataGenerator.GenerateOrder();
 
-            var result = await _ordersService.AddOrderWithDetails(customer, measurment, order);
+            var result = await _orderService.AddOrderWithDetails(customer, measurment, order);
 
             return Ok(result);
 
+        }
 
+        [HttpGet("getCustomerOrders{customerId}")]
+        public async Task<IActionResult> GetCustomerOrders(int customerId)
+        {
+            var result = await _orderService.GetOrdersByCustomerId(customerId);
+            return Ok(result);
+        }
+
+        [HttpGet("getTotalCost{orderId}")]
+        public async Task<IActionResult> GetTotalCost(int orderId)
+        {
+            var result = await _orderService.CalculateTotalCost(orderId);
+            return Ok(result);
+        }
 
 
             //[HttpGet("Api/GetAll")]
@@ -83,6 +97,6 @@ namespace Khayati.Api.Controllers
 
 
 
-        }
+        
     }
 }

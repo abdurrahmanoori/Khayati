@@ -1,6 +1,7 @@
 ﻿using Entities;
 using Khayati.Core.Common.Response;
 using Khayati.Core.DTO;
+using Khayati.Core.DTO.Orders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,7 @@ namespace Khayati.ServiceContracts
         public Task<decimal?> CalculateEmbellishmentCost(int orderId);
 
         public Task<decimal?> CalculateDesignCost(int orderId);
+        Task<Result<IEnumerable<CustomerOrderResponseDto>>> GetOrdersByCustomerId(int customerId);
         //public Task<decimal> CalculateTotalCost (Order order);
 
         //public Task<OrdersAddDto> AddOrders(OrdersAddDto addOrdersDto);

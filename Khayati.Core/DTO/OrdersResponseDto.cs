@@ -17,6 +17,7 @@ namespace Khayati.Core.DTO
         public string Status { get; set; }
 
         public Order Orders { get; set; }
+
     }
 
     public static class OrdersExtention
