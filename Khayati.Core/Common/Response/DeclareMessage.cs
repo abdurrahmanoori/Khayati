@@ -10,8 +10,9 @@ namespace Khayati.Core.Common.Response
     {
         public static ValidationError NotFound = new() { Code = nameof(NotFound), Description = "Not Found" };
         public static ValidationError BadRequest = new() { Code = nameof(BadRequest), Description = "Bad Request" };
-        // public static ValidationError NonEnterprise = new() { Code = nameof(NonEnterprise), Description = "TIN is not Enterprise" };
+        public static ValidationError EmptyList = new() { Code = nameof(EmptyList), Description = "List is empty" };
 
+        // public static ValidationError NonEnterprise = new() { Code = nameof(NonEnterprise), Description = "TIN is not Enterprise" };
         // public static ValidationError TinApplicaionNotFound = new() { Code = nameof(TinApplicaionNotFound), Description = "Tin Application Not Found" };
         // 
         // public static ValidationError DoesNotRequireManualValidation = new() { Code = nameof(DoesNotRequireManualValidation), Description = "This tin applicatinon does require manual varifacation, so it cannot be viewed" };

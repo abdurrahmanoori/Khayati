@@ -1,5 +1,7 @@
 ﻿using Entities;
+using Khayati.Core.Common.Response;
 using Khayati.Core.DTO;
+using Khayati.Core.DTO.Embellishments;
 using Khayati.ServiceContracts;
 using RepositoryContracts.Base;
 using System;
@@ -32,7 +34,7 @@ namespace Khayati.Service
 
         }
 
-        public async Task<EmbellishmentResponseDto> 
+        public async Task<EmbellishmentResponseDto>
             DeleteEmbellishment(int? embellishmentId)
         {
             if (!embellishmentId.HasValue)
@@ -52,7 +54,7 @@ namespace Khayati.Service
         }
 
 
-        public async Task<EmbellishmentResponseDto> 
+        public async Task<EmbellishmentResponseDto>
             GetEmbellishmentById(int? EmbellishmentId)
         {
             if (EmbellishmentId == null || EmbellishmentId == 0)
@@ -67,7 +69,7 @@ namespace Khayati.Service
 
         }
 
-        public async Task<EmbellishmentDetailDto> 
+        public async Task<EmbellishmentDetailDto>
             GetEmbellishmentDetails(int? EmbellishmentId)
         {
             var query = (
@@ -84,22 +86,20 @@ namespace Khayati.Service
             return query;
         }
 
-        public async Task<IEnumerable<EmbellishmentResponseDto>>
-            GetEmbellishmentList()
+        public async Task<Result<IEnumerable<EmellishmentResponseDetailsDto>>>
+            GetEmbellishmentList( )
         {
-            IEnumerable<Embellishment> embellishments = 
-                await _unitOfWork.EmbellishmentRepository
-                .GetAll();
+            IEnumerable<EmellishmentResponseDetailsDto> embellishments =
+              await _unitOfWork.EmbellishmentRepository
+                .GetEmellishmentResponseDetailList();
 
-            if (embellishments is null)
+            if (embellishments.Any() == false)
             {
-                return null;
+                return Result<IEnumerable<EmellishmentResponseDetailsDto>>
+                    .FailureResult(DeclareMessage.EmptyList.Code, DeclareMessage.EmptyList.Description);
             }
 
-            IEnumerable<EmbellishmentResponseDto> EmbellishmentResponseDtos = embellishments
-                .Select(temp => temp.ToEmbellishmentResponseDto());
-
-            return EmbellishmentResponseDtos;
+            return Result<IEnumerable<EmellishmentResponseDetailsDto>>.SuccessResult(embellishments);
 
         }
 
