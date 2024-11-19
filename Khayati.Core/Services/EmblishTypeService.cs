@@ -65,9 +65,13 @@ namespace Khayati.Service
 
         }
 
-        public async Task<IEnumerable<EmbellishmentTypeResponseDto>> GetEmbellishmentTypeList()
+        public async Task<IEnumerable<EmbellishmentTypeResponseDto>>
+            GetEmbellishmentTypeList()
         {
-            IEnumerable<EmbellishmentType> EmbellishmentTypes = await _unitOfWork.EmbellishmentTypeRepository.GetAll();
+            IEnumerable<EmbellishmentType> EmbellishmentTypes =
+                await _unitOfWork.EmbellishmentTypeRepository
+                .GetAll();
+
             if (EmbellishmentTypes is null)
             {
                 return null;

@@ -32,7 +32,8 @@ namespace Khayati.Service
 
         }
 
-        public async Task<EmbellishmentResponseDto> DeleteEmbellishment(int? embellishmentId)
+        public async Task<EmbellishmentResponseDto> 
+            DeleteEmbellishment(int? embellishmentId)
         {
             if (!embellishmentId.HasValue)
             {
@@ -51,7 +52,8 @@ namespace Khayati.Service
         }
 
 
-        public async Task<EmbellishmentResponseDto> GetEmbellishmentById(int? EmbellishmentId)
+        public async Task<EmbellishmentResponseDto> 
+            GetEmbellishmentById(int? EmbellishmentId)
         {
             if (EmbellishmentId == null || EmbellishmentId == 0)
             {
@@ -65,7 +67,8 @@ namespace Khayati.Service
 
         }
 
-        public async Task<EmbellishmentDetailDto> GetEmbellishmentDetails(int? EmbellishmentId)
+        public async Task<EmbellishmentDetailDto> 
+            GetEmbellishmentDetails(int? EmbellishmentId)
         {
             var query = (
                 from e in await _unitOfWork.EmbellishmentRepository.GetAll()
@@ -81,15 +84,19 @@ namespace Khayati.Service
             return query;
         }
 
-        public async Task<IEnumerable<EmbellishmentResponseDto>> GetEmbellishmentList()
+        public async Task<IEnumerable<EmbellishmentResponseDto>>
+            GetEmbellishmentList()
         {
-            IEnumerable<Embellishment> Embellishments = await _unitOfWork.EmbellishmentRepository.GetAll();
-            if (Embellishments is null)
+            IEnumerable<Embellishment> embellishments = 
+                await _unitOfWork.EmbellishmentRepository
+                .GetAll();
+
+            if (embellishments is null)
             {
                 return null;
             }
 
-            IEnumerable<EmbellishmentResponseDto> EmbellishmentResponseDtos = Embellishments
+            IEnumerable<EmbellishmentResponseDto> EmbellishmentResponseDtos = embellishments
                 .Select(temp => temp.ToEmbellishmentResponseDto());
 
             return EmbellishmentResponseDtos;

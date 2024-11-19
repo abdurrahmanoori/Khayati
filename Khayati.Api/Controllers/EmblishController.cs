@@ -29,7 +29,10 @@ namespace Khayati.Api.Controllers
         [HttpGet("Api/GetAll")]
         public async Task<IActionResult> GetEmbellishmentList()
         {
-            IEnumerable<EmbellishmentResponseDto> results = await _EmbellishmentService.GetEmbellishmentList();
+            IEnumerable<EmbellishmentResponseDto> results = 
+                await _EmbellishmentService
+                .GetEmbellishmentList();
+
             return Ok(results);
 
         }
