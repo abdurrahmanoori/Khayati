@@ -1,7 +1,9 @@
-﻿using Entities;
+﻿using AutoMapper;
+using Entities;
 using Khayati.Core.Common.Response;
 using Khayati.Core.DTO;
 using Khayati.Core.DTO.Embellishments;
+using Khayati.Core.Helpers;
 using Khayati.ServiceContracts;
 using RepositoryContracts.Base;
 using System;
@@ -15,22 +17,29 @@ namespace Khayati.Service
     public class EmbellishmentService : IEmbellishmentService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public EmbellishmentService(IUnitOfWork unitOfWork)
+        public EmbellishmentService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
-        public async Task<EmbellishmentAddDto> AddEmbellishment(EmbellishmentAddDto EmbellishmentAddDto)
+        public async Task<EmbellishmentAddDto> AddEmbellishment(EmbellishmentAddDto embellishmentAddDto)
         {
-            if (EmbellishmentAddDto == null)
+            embellishmentAddDto.Name = null;
+            ValidationHelper.ModelValidation(embellishmentAddDto);
+
+            if (embellishmentAddDto == null)
             {
                 return null;
             }
-            Embellishment Embellishment = EmbellishmentAddDto.ToEmbellishment();
+            //Embellishment Embellishment = embellishmentAddDto.ToEmbellishment();
+            Embellishment Embellishment = _mapper.Map<Embellishment>(embellishmentAddDto);
+
             await _unitOfWork.EmbellishmentRepository.Add(Embellishment);
             await _unitOfWork.SaveChanges(CancellationToken.None);
-            return EmbellishmentAddDto;
+            return embellishmentAddDto;
 
         }
 

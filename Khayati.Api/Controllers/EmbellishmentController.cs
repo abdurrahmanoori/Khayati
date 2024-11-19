@@ -25,16 +25,13 @@ namespace Khayati.Api.Controllers
         }
 
         [HttpGet("getAll")]
-        public async Task<IActionResult> GetEmbellishmentList()
+        public async Task<IActionResult> GetEmbellishmentList( )
         {
-            var results = 
+            var results =
                 await _embellishmentService
                 .GetEmbellishmentList();
 
             return HandleResult(results);
-
-            // return Ok(results);
-
         }
 
         [HttpPost("getById")]

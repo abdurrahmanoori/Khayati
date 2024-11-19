@@ -1,22 +1,29 @@
 ﻿using Entities;
+using System.ComponentModel.DataAnnotations;
 
 namespace Khayati.Core.DTO
 {
     public class EmbellishmentAddDto
     {
 
-        public int EmbellishmentTypeId { get; set; }
-        public string EmbellishmentName { get; set; }
 
-        public string EmbellishmentDescription { get; set; }
+        public string Name { get; set; }
+        public string? Description { get; set; }
+        public int? Cost { get; set; }
+
+        public int EmbellishmentTypeId { get; set; }
+        public bool? IsAcitve { get; set; }
+
+
+
 
 
         public Embellishment ToEmbellishment()
         {
             return new Embellishment
             {
-                Name = EmbellishmentName,
-                Description = EmbellishmentDescription,
+               // Name = EmbellishmentName,
+               // Description = EmbellishmentDescription,
                 EmbellishmentTypeId = EmbellishmentTypeId
             };
         }
