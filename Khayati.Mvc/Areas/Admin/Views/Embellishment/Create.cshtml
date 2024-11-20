@@ -1,16 +1,20 @@
-﻿
+﻿@using Khayati.Core.DTO.Embellishments
+@model EmbellishmentAddDto
+@{
+    ViewData["Title"] = "Embellishment Page";
+}
 <div class="container mt-5 fw-bold">
     <form id="myForm" action="Create" method="post">
         <!-- Name and Number Inputs -->
         <div class="row">
             <div class="col-md-4">
-                <label for="designName" class="form-label">Name</label>
+                <label for="designName" class="form-label">Embellishment Name</label>
                 <input asp-for="Name" class="form-control border-primary border-2" placeholder="Enter design name">
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="col-md-4">
-                <label for="designNumber" class="form-label ">Number</label>
-                <input asp-for="SortOrder" class="form-control border-primary border-2" placeholder="Enter number for sorting">
+                <label for="designNumber" class="form-label ">Cost</label>
+                <input asp-for="Cost" class="form-control border-primary border-2" placeholder="Enter number for sorting">
             </div>
             <!-- Description Textarea -->
             <div class="mt-3 col-md-8">
@@ -37,7 +41,7 @@
 
 @section scripts
 {
-   }
+}
 <script>
 
     // Back Button Fanction

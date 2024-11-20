@@ -3,92 +3,72 @@ using Khayati.ServiceContracts;
 using Khayati.Core.DTO;
 using Microsoft.AspNetCore.Mvc;
 
-//using Khayati.Core.DTO.Embellishment;
+using Khayati.Core.DTO.Embellishments;
 
 namespace Khayati.Mvc.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class EmbellishmentController : Controller
     {
-        //private readonly IEmbellishmentService _EmbellishmentService;
-        private readonly IEmbellishmentService _EmbellishmentService;
+        //private readonly IUnitOfWork _unitOfWork;
+        private readonly IEmbellishmentService _embellishmentService;
 
-        public EmbellishmentController(IEmbellishmentService EmbellishmentService)
+        public EmbellishmentController(IEmbellishmentService embellishmentService)
         {
-            _EmbellishmentService = EmbellishmentService;
-            //_EmbellishmentService = EmbellishmentService;
+            _embellishmentService = embellishmentService;
         }
 
-        public async Task<IActionResult> Index()
+        [HttpPost("create")]
+        public async Task<IActionResult> Create(EmbellishmentAddDto addEmbellishmentDto)
         {
-            IEnumerable<EmbellishmentResponseDto> results = await _EmbellishmentService.GetEmbellishmentList();
-            return View(results);
-        }
-        [HttpGet]
-        public IActionResult Create()
-        {
+            var result = await _embellishmentService.AddEmbellishment(addEmbellishmentDto);
+            return View();
 
+        }
+
+        
+        public async Task<IActionResult> Index( )
+        {
+            var results =
+                await _embellishmentService
+                .GetEmbellishmentList();
+
+            return View(results.Response);
+        }
+
+        [HttpPost("getById")]
+        public async Task<IActionResult> GitById(int id)
+        {
+            var Embellishment = await _embellishmentService.GetEmbellishmentById(id);
+
+            return View();
+
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteEmbellishment(int EmbellishmentId)
+        {
+            EmbellishmentResponseDto Embellishment = await _embellishmentService.DeleteEmbellishment(EmbellishmentId);
             return View();
         }
 
-
-        //[HttpPost]
-        //public async Task<IActionResult> Create(EmbellishmentAddDto addEmbellishmentDto)
-        //{
-        //    var result = await _EmbellishmentService.AddEmbellishment(addEmbellishmentDto);
-        //    return RedirectToAction(nameof(Index));
-        //}
-
-        //[HttpGet]
+        //[HttpPost("gdit")]
         //public async Task<IActionResult> Edit(int id)
         //{
-        //    var result = await _EmbellishmentService.GetEmbellishmentById(id);
-        //    if (result == null)
+        //    var Measurement = await _unitOfWork.MeasurementRepository.GetFirstOrDefault(x => x.MeasurementID == id);
+        //    if (Measurement == null)
         //    {
-        //        return NotFound();
+        //        return NotFound("There is no on by this Id.");
         //    }
-        //    return View(result);
+        //    await _unitOfWork.MeasurementRepository.Update(Measurement);
+
+        //    return Ok(Measurement);
 
         //}
 
-        //[HttpPost]
-        //public async Task<IActionResult> Edit(EmbellishmentResponseDto dto)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest();
-        //    }
-        //    await _EmbellishmentService.UpdateEmbellishment(dto);
-
-        //    return RedirectToAction(nameof(Index));
-        //}
-
-        //[HttpGet("api/Embellishment/Delete")]
-        //public async Task<IActionResult> Delete(int id)
-        //{
-        //    await _EmbellishmentService.DeleteEmbellishment(id);
-        //    return Ok("deleted susscefully");
-        //}
 
 
 
-        ////public async Task<IActionResult> Index()
-        ////{
-        ////    HttpClient client = new HttpClient();
-        ////    client.BaseAddress = new Uri("https://localhost:7235/");
-        ////    HttpResponseMessage res = await client.GetAsync("api/Embellishment/GetAll");
 
-        ////    if (!res.IsSuccessStatusCode)
-        ////    {
-        ////        return NotFound();
-        ////    }
-
-        ////    var result = res.Content.ReadAsStringAsync().Result;
-        ////    var studentList = JsonConvert.DeserializeObject<IEnumerable<EmbellishmentResponseDto>>(result);
-
-
-        ////    // var result = await _EmbellishmentService.GetEmbellishmentList();
-        ////    return View(studentList);
-        ////}
     }
 }
