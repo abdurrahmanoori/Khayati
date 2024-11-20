@@ -3,6 +3,7 @@ using Entities;
 using Khayati.Core.Common.Response;
 using Khayati.Core.DTO;
 using Khayati.Core.DTO.Embellishments;
+using Khayati.Core.DTO.Embellishments.Validatores;
 using Khayati.Core.Helpers;
 using Khayati.ServiceContracts;
 using RepositoryContracts.Base;
@@ -27,8 +28,10 @@ namespace Khayati.Service
 
         public async Task<EmbellishmentAddDto> AddEmbellishment(EmbellishmentAddDto embellishmentAddDto)
         {
-            embellishmentAddDto.Name = null;
-            ValidationHelper.ModelValidation(embellishmentAddDto);
+            //var validator = new EmbellishmentResponseDetailsDtoValidator();
+            //var result = await validator.ValidateAsync(embellishmentAddDto);
+             
+            //ValidationHelper.ModelValidation(embellishmentAddDto);
 
             if (embellishmentAddDto == null)
             {

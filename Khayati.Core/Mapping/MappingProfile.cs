@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Entities;
 using Khayati.Core.DTO;
+using Khayati.Core.DTO.Embellishments;
 using Khayati.Core.DTO.EmbellishmentType;
 using Khayati.Core.DTO.OrderDesign;
 

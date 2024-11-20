@@ -1,4 +1,5 @@
 ﻿using Khayati.Core.DTO;
+using Khayati.Core.DTO.Embellishments;
 using Khayati.ServiceContracts;
 using Microsoft.AspNetCore.Mvc;
 

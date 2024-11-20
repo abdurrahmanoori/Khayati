@@ -1,3 +1,6 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using Khayati.Core.DTO.Embellishments.Validatores;
 using Khayati.Core.Extention;
 using Khayati.Infrastructure.Extension;
 //using Khayati.Mvc.Extenstion;
@@ -5,10 +8,17 @@ using Khayati.Infrastructure.Extension;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddControllers()
+    .AddControllersAsServices();
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddFluentValidationClientsideAdapters();
+builder.Services.AddValidatorsFromAssemblyContaining<EmbellishmentResponseDetailsDtoValidator>();// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+
+
+
+
 builder.Services.AddSwaggerGen();
 
 
@@ -17,6 +27,7 @@ builder.Services.ConfigureInfrastructureService();
 //builder.Services.ConfigurePresentionService();
 
 var app = builder.Build();
+app.UseMiddleware<ExceptionMiddleware>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
