@@ -110,7 +110,8 @@ namespace Khayati.Service
 
         }
 
-        public async Task<Result<bool>> Update(int embellishmentId, EmbellishmentUpdateDto updateDto)
+        public async Task<Result<bool>>
+            Update(int embellishmentId, EmbellishmentUpdateDto updateDto)
         {
             var embellishment = await _unitOfWork
                 .EmbellishmentRepository
@@ -123,6 +124,7 @@ namespace Khayati.Service
             }
 
             _mapper.Map(updateDto, embellishment);
+            embellishment.EmbellishmentId = embellishmentId;
             await _unitOfWork.SaveChanges(CancellationToken.None);
 
             return Result<bool>.SuccessResult(true);

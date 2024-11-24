@@ -27,7 +27,6 @@ builder.Services.ConfigureInfrastructureService();
 //builder.Services.ConfigurePresentionService();
 
 var app = builder.Build();
-app.UseMiddleware<ExceptionMiddleware>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -35,7 +34,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+else
+{
+   // app.UseMiddleware<ExceptionMiddleware>();
+}
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

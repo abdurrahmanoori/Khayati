@@ -55,8 +55,7 @@ namespace Khayati.Api.Controllers
         public async Task<IActionResult> Edit(int id, EmbellishmentUpdateDto updateDto)
         {
 
-            await _embellishmentService.Update(id,updateDto);
-            return Ok();
+          return HandleResult(await _embellishmentService.Update(id,updateDto));
 
         }
 
