@@ -3,15 +3,8 @@ using Entities;
 using Khayati.Core.Common.Response;
 using Khayati.Core.DTO;
 using Khayati.Core.DTO.Embellishments;
-using Khayati.Core.DTO.Embellishments.Validatores;
-using Khayati.Core.Helpers;
 using Khayati.ServiceContracts;
 using RepositoryContracts.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Khayati.Service
 {
@@ -30,7 +23,7 @@ namespace Khayati.Service
         {
             //var validator = new EmbellishmentResponseDetailsDtoValidator();
             //var result = await validator.ValidateAsync(embellishmentAddDto);
-             
+
             //ValidationHelper.ModelValidation(embellishmentAddDto);
 
             if (embellishmentAddDto == null)
@@ -107,13 +100,37 @@ namespace Khayati.Service
 
             if (embellishments.Any() == false)
             {
+
                 return Result<IEnumerable<EmellishmentResponseDetailsDto>>
                     .FailureResult(DeclareMessage.EmptyList.Code, DeclareMessage.EmptyList.Description);
+
             }
 
             return Result<IEnumerable<EmellishmentResponseDetailsDto>>.SuccessResult(embellishments);
 
         }
 
+        public async Task<Result<bool>> Update(int embellishmentId, EmbellishmentUpdateDto updateDto)
+        {
+            var embellishment = await _unitOfWork
+                .EmbellishmentRepository
+                .GetFirstOrDefault(x => x.EmbellishmentId == embellishmentId);
+
+            if (embellishment == null)
+            {
+                return Result<bool>
+                    .FailureResult("NotFound", $"The embellishment with the provided {embellishmentId} ID was not found.");
+            }
+
+            _mapper.Map(updateDto, embellishment);
+            await _unitOfWork.SaveChanges(CancellationToken.None);
+
+            return Result<bool>.SuccessResult(true);
+        }
+        //public Task<Result<string>> Update(EmbellishmentUpdateDto updateDto)
+        //{
+        //    return Result<bool>.FailureResult()
+        //    return Task.FromResult(Result<string>.SuccessResult("not found"));
+        //}
     }
 }
