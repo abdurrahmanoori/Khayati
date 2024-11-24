@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using Entities;
+using Khayati.Core.Domain.Entities;
 using Khayati.Core.DTO;
 using Khayati.Core.DTO.Embellishments;
 using Khayati.Core.DTO.EmbellishmentType;
 using Khayati.Core.DTO.OrderDesign;
+using Khayati.Core.DTO.Relative;
 
 namespace Khayati.Core.Mapping
 {
@@ -19,6 +21,8 @@ namespace Khayati.Core.Mapping
             CreateMap<Order, OrdersAddDto>().ReverseMap();
             CreateMap<OrderDesign, OrderDesignAddDto>().ReverseMap();
             CreateMap<Measurement, MeasurementAddDto>().ReverseMap();
+
+            CreateMap<Relative,RelativeAddDto>().ReverseMap();
        
             // CreateMap<EmbellishmentType, EmbellishmentTypeResponseDto>();
 

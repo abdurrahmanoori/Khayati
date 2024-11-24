@@ -1,11 +1,8 @@
-﻿using Entities;
-using Khayati.Core.Common;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Khayati.Core.DTO.Relative
+﻿namespace Khayati.Core.DTO.Relative
 {
-    public class RelativeAddDto
+    public class RelativeResponseDto
     {
+        public int RelativeId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string? RelationshipType { get; set; } // e.g., Father, Baby, etc.
@@ -16,6 +13,8 @@ namespace Khayati.Core.DTO.Relative
 
         // Foreign key to link back to the customer
         public int CustomerId { get; set; }
+
+        public string? FullName { get; set; }
+        
     }
-}
 }
