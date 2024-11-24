@@ -17,7 +17,7 @@ namespace Khayati.Api.Controllers
             _embellishmentService = embellishmentService;
         }
 
-        [HttpPost("create")]
+        [HttpPost]
         public async Task<IActionResult> Create(EmbellishmentAddDto addEmbellishmentDto)
         {
             var result = await _embellishmentService.AddEmbellishment(addEmbellishmentDto);
@@ -25,7 +25,7 @@ namespace Khayati.Api.Controllers
 
         }
 
-        [HttpGet("getAll")]
+        [HttpGet]
         public async Task<IActionResult> GetEmbellishmentList( )
         {
             var results =
@@ -35,7 +35,7 @@ namespace Khayati.Api.Controllers
             return HandleResult(results);
         }
 
-        [HttpPost("getById")]
+        [HttpPost("{id}")]
         public async Task<IActionResult> GitById(int id)
         {
             var Embellishment = await _embellishmentService.GetEmbellishmentById(id);
@@ -45,25 +45,20 @@ namespace Khayati.Api.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteEmbellishment(int EmbellishmentId)
+        public async Task<IActionResult> DeleteEmbellishment(int embellishmentId)
         {
-            EmbellishmentResponseDto Embellishment = await _embellishmentService.DeleteEmbellishment(EmbellishmentId);
-            return Ok(Embellishment);
+            EmbellishmentResponseDto embellishment = await _embellishmentService.DeleteEmbellishment(embellishmentId);
+            return Ok(embellishment);
         }
 
-        //[HttpPost("gdit")]
-        //public async Task<IActionResult> Edit(int id)
-        //{
-        //    var Measurement = await _unitOfWork.MeasurementRepository.GetFirstOrDefault(x => x.MeasurementID == id);
-        //    if (Measurement == null)
-        //    {
-        //        return NotFound("There is no on by this Id.");
-        //    }
-        //    await _unitOfWork.MeasurementRepository.Update(Measurement);
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Edit(int id, EmbellishmentUpdateDto updateDto)
+        {
 
-        //    return Ok(Measurement);
+            await _embellishmentService.Update(id,updateDto);
+            return Ok();
 
-        //}
+        }
 
 
 
