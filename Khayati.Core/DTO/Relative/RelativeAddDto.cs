@@ -1,8 +1,4 @@
-﻿using Entities;
-using Khayati.Core.Common;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Khayati.Core.DTO.Relative
+﻿namespace Khayati.Core.DTO.Relative
 {
     public class RelativeAddDto
     {
@@ -18,4 +14,4 @@ namespace Khayati.Core.DTO.Relative
         public int CustomerId { get; set; }
     }
 }
-}
+

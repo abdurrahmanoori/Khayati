@@ -48,8 +48,8 @@ namespace Khayati.Mvc.Areas.Admin.Controllers
         [HttpDelete]
         public async Task<IActionResult> DeleteEmbellishment(int EmbellishmentId)
         {
-            EmbellishmentResponseDto Embellishment = await _embellishmentService.DeleteEmbellishment(EmbellishmentId);
-            return View();
+            var embellishment = await _embellishmentService.DeleteEmbellishment(EmbellishmentId);
+            return View(embellishment.Response);
         }
 
         //[HttpPost("gdit")]

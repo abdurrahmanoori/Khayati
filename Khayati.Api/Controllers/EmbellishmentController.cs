@@ -30,14 +30,16 @@ namespace Khayati.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetEmbellishmentById(int id)
+        public async Task<IActionResult>
+            GetEmbellishmentById(int id)
         {
             var embellishment = await _embellishmentService.GetEmbellishmentById(id);
             return Ok(embellishment);
         }
 
         [HttpDelete("{embellishmentId}")]
-        public async Task<IActionResult> DeleteEmbellishment(int embellishmentId)
+        public async Task<IActionResult> 
+            DeleteEmbellishment(int embellishmentId)
         {
             var embellishment = await _embellishmentService.DeleteEmbellishment(embellishmentId);
             return Ok(embellishment);
