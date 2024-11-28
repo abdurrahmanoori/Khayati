@@ -1,4 +1,5 @@
-﻿using Khayati.Core.DTO.Embellishments;
+﻿using Khayati.Core.DTO;
+using Khayati.Core.DTO.Embellishments;
 using Khayati.ServiceContracts;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,37 +17,44 @@ namespace Khayati.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddEmbellishment(EmbellishmentAddDto addEmbellishmentDto)
+        public async Task<ActionResult<EmbellishmentAddDto>> 
+            AddEmbellishment(EmbellishmentAddDto addEmbellishmentDto)
         {
-            var result = await _embellishmentService.AddEmbellishment(addEmbellishmentDto);
-            return Ok(result);
+            var result = await _embellishmentService
+                .AddEmbellishment(addEmbellishmentDto);
+
+            return HandleResultResponse(result);
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetEmbellishmentList( )
+        public async Task<ActionResult<IEnumerable<EmellishmentResponseDetailsDto>>>
+            GetEmbellishmentList( )
         {
-            var results = await _embellishmentService.GetEmbellishmentList();
-            return HandleResult(results);
+            var results = await _embellishmentService
+                .GetEmbellishmentList();
+
+            return HandleResultResponse(results);
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult>
+        public async Task<ActionResult<EmbellishmentResponseDto>>
             GetEmbellishmentById(int id)
         {
             var embellishment = await _embellishmentService.GetEmbellishmentById(id);
-            return Ok(embellishment);
+            return HandleResultResponse(embellishment);
         }
 
         [HttpDelete("{embellishmentId}")]
-        public async Task<IActionResult> 
+        public async Task<ActionResult<EmbellishmentResponseDto>> 
             DeleteEmbellishment(int embellishmentId)
         {
             var embellishment = await _embellishmentService.DeleteEmbellishment(embellishmentId);
-            return Ok(embellishment);
+            return HandleResultResponse(embellishment);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateEmbellishment(int id, EmbellishmentUpdateDto updateDto)
+        public async Task<IActionResult>
+            UpdateEmbellishment(int id, EmbellishmentUpdateDto updateDto)
         {
             return HandleResult(await _embellishmentService.Update(id, updateDto));
         }

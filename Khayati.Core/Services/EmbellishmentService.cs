@@ -70,7 +70,8 @@ namespace Khayati.Service
         {
             var query = (
                 from e in await _unitOfWork.EmbellishmentRepository.GetAll()
-                join et in await _unitOfWork.EmbellishmentTypeRepository.GetAll() on e.EmbellishmentTypeId equals et.EmbellishmentTypeId
+                join et in await _unitOfWork.EmbellishmentTypeRepository.GetAll() 
+                on e.EmbellishmentTypeId equals et.EmbellishmentTypeId
                 where e.EmbellishmentId == embellishmentId
                 select new EmbellishmentDetailDto
                 {
@@ -82,7 +83,7 @@ namespace Khayati.Service
             if (query is null)
             {
                 return Result<EmbellishmentDetailDto>
-                   .FailureResult(DeclareMessage.NotFound.Code, $"Ebellishment with ID {embellishmentId} not found.");
+                   .FailureResult(DeclareMessage.NotFound.Code, $"Embellishment with ID {embellishmentId} not found.");
             }
 
             return Result<EmbellishmentDetailDto>.SuccessResult(query);
@@ -107,7 +108,7 @@ namespace Khayati.Service
 
         }
 
-        public async Task<Result<bool>>
+        public async Task<Result<EmbellishmentUpdateDto>>
             Update(int embellishmentId, EmbellishmentUpdateDto updateDto)
         {
             var embellishment = await _unitOfWork
@@ -116,7 +117,7 @@ namespace Khayati.Service
 
             if (embellishment == null)
             {
-                return Result<bool>
+                return Result<EmbellishmentUpdateDto>
                     .FailureResult("NotFound", $"The embellishment with the provided {embellishmentId} ID was not found.");
             }
 
@@ -124,7 +125,7 @@ namespace Khayati.Service
             embellishment.EmbellishmentId = embellishmentId;
             await _unitOfWork.SaveChanges(CancellationToken.None);
 
-            return Result<bool>.SuccessResult(true);
+            return Result<EmbellishmentUpdateDto>.SuccessResult(updateDto);
         }
         //public Task<Result<string>> Update(EmbellishmentUpdateDto updateDto)
         //{
