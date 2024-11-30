@@ -110,7 +110,7 @@ namespace Repositories.Base
             return result;
         }
 
-        public async Task<T> GetById(int Id)
+        public async Task<T?> GetById(int Id)
         {
             return await dbSet.FindAsync(Id);
 

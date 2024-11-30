@@ -6,6 +6,7 @@
         ICustomerRepository CustomerRepository { get; }
         IMeasurementRepository MeasurementRepository { get; }
         IEmbellishmentRepository EmbellishmentRepository { get; }
+        IRelativeRepository RelativeRepository { get; }
         IOrderDesignRepository OrderDesignRepository { get; }
         IEmbellishmentTypeRepository EmbellishmentTypeRepository { get; }
         IOrderRepository OrderRepository { get; }

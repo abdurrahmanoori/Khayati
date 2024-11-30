@@ -13,6 +13,7 @@ namespace Khayati.Core.Extention
         {
 
             services.AddScoped<IEmbellishmentService, EmbellishmentService>();
+            services.AddScoped<IRelativeService, RelativeService>();
             services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<IEmbellishmentTypeService, EmbellishmentTypeService>();
             services.AddScoped<IOrdersService, OrdersService>();

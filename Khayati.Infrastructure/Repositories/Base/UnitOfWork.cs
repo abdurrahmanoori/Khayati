@@ -16,6 +16,7 @@ namespace Repositories.Base
             MeasurementRepository = new MeasurementRepository(db);
             EmbellishmentTypeRepository = new EmbellishmentTypeRepository(db);
             EmbellishmentRepository = new EmbellishmentRepository(db);
+            RelativeRepository = new RelativeRepository(db);
             OrderDesignRepository = new OrderDesignRepository(db);
             OrderRepository = new OrderRepository(db);
             PaymentRepository = new PaymentRepository(db);
@@ -25,6 +26,7 @@ namespace Repositories.Base
          public ICustomerRepository CustomerRepository { get; private set; }
          public IMeasurementRepository MeasurementRepository { get; private set; }
          public IEmbellishmentRepository EmbellishmentRepository { get; private set; }
+         public IRelativeRepository RelativeRepository { get; private set; }
          public IOrderDesignRepository OrderDesignRepository { get; private set; }
          public IEmbellishmentTypeRepository EmbellishmentTypeRepository { get; private set; }
          public IOrderRepository OrderRepository { get; private set; }

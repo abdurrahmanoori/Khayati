@@ -7,7 +7,7 @@ namespace RepositoryContracts.Base
 
 
         Task<T> GetFirstOrDefault(Expression<Func<T, bool>> filter, string? includeProperties = null, bool tracked = true);
-        Task<T> GetById(int Id);
+        Task<T?> GetById(int Id);
         Task<IEnumerable<T>> GetAll(Expression<Func<T, bool>>? filter = null, string? includeProperties = null);
 
         Task Add(T entity);
