@@ -25,15 +25,15 @@ namespace Khayati.Api.Controllers
             return HandleResultResponse(result);
         }
 
-        //[HttpGet]
-        //public async Task<ActionResult<IEnumerable<EmellishmentResponseDetailsDto>>>
-        //    GetRelativeList( )
-        //{
-        //    var results = await _RelativeService
-        //        .GetRelativeList();
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<RelativeDto>>>
+            GetRelativeList( )
+        {
+            var results = await _relativeService
+                .GetRelativeList();
 
-        //    return HandleResultResponse(results);
-        //}
+            return HandleResultResponse(results);
+        }
 
         //[HttpGet("{id}")]
         //public async Task<ActionResult<RelativeResponseDto>>
@@ -43,13 +43,13 @@ namespace Khayati.Api.Controllers
         //    return HandleResultResponse(Relative);
         //}
 
-        //[HttpDelete("{RelativeId}")]
-        //public async Task<ActionResult<RelativeResponseDto>> 
-        //    DeleteRelative(int RelativeId)
-        //{
-        //    var Relative = await _RelativeService.DeleteRelative(RelativeId);
-        //    return HandleResultResponse(Relative);
-        //}
+        [HttpDelete("{relativeId}")]
+        public async Task<ActionResult<RelativeResponseDto>>
+            DeleteRelative(int relativeId)
+        {
+            var Relative = await _relativeService.DeleteRelative(relativeId);
+            return HandleResultResponse(Relative);
+        }
 
         //[HttpPut("{id}")]
         //public async Task<IActionResult>

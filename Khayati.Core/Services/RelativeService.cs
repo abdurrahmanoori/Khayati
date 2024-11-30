@@ -18,7 +18,8 @@ namespace Khayati.Service
             _mapper = mapper;
         }
 
-        public async Task<Result<RelativeAddDto>> AddRelative(RelativeAddDto RelativeAddDto)
+        public async Task<Result<RelativeAddDto>>
+            AddRelative(RelativeAddDto RelativeAddDto)
         {
             //Relative Relative = RelativeAddDto.ToRelative();
             Relative relative = _mapper.Map<Relative>(RelativeAddDto);
@@ -45,11 +46,7 @@ namespace Khayati.Service
 
         }
 
-        public Task<RelativeResponseDto> DeleteRelative(int? RelativeId)
-        {
-            throw new NotImplementedException();
-        }
-
+      
         public async Task<Result<RelativeResponseDto>>
             GetRelativeById(int relativeId)
         {
@@ -68,17 +65,13 @@ namespace Khayati.Service
 
         }
 
-        public Task<RelativeResponseDto> GetRelativeById(int? RelativeId)
+        public Task<Result<RelativeResponseDto>> GetRelativeById(int? RelativeId)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<RelativeResponseDto>> GetRelativeList( )
-        {
-            throw new NotImplementedException();
-        }
 
-      
+
 
         //public async Task<Result<RelativeDetailDto>>
         //    GetRelativeDetails(int relativeId)
@@ -104,24 +97,24 @@ namespace Khayati.Service
         //    return Result<RelativeDetailDto>.SuccessResult(query);
         //}
 
-        //public async Task<Result<IEnumerable<EmellishmentResponseDetailsDto>>>
-        //    GetRelativeList( )
-        //{
-        //    IEnumerable<EmellishmentResponseDetailsDto> Relatives =
-        //      await _unitOfWork.RelativeRepository
-        //        .GetEmellishmentResponseDetailList();
+        public async Task<Result<IEnumerable<RelativeDto>>>
+            GetRelativeList( )
+        {
+            IEnumerable<Relative> relatives =
+              await _unitOfWork.RelativeRepository.GetAll(includeProperties: "Customer");
+              
 
-        //    if (Relatives.Any() == false)
-        //    {
+            if (relatives.Any() == false)
+            {
 
-        //        return Result<IEnumerable<EmellishmentResponseDetailsDto>>
-        //            .FailureResult(DeclareMessage.EmptyList.Code, DeclareMessage.EmptyList.Description);
+                return Result<IEnumerable<RelativeDto>>
+                    .FailureResult(DeclareMessage.EmptyList.Code, DeclareMessage.EmptyList.Description);
 
-        //    }
+            }
+          var  relativesDto = _mapper.Map<IEnumerable<RelativeDto>>(relatives);
+            return Result<IEnumerable<RelativeDto>>.SuccessResult(relativesDto);
 
-        //    return Result<IEnumerable<EmellishmentResponseDetailsDto>>.SuccessResult(Relatives);
-
-        //}
+        }
 
         //public async Task<Result<RelativeUpdateDto>>
         //    Update(int RelativeId, RelativeUpdateDto updateDto)

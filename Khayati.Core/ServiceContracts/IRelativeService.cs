@@ -6,11 +6,11 @@ namespace Khayati.ServiceContracts
     public interface IRelativeService
     {
         public Task<Result< RelativeAddDto>> AddRelative(RelativeAddDto addRelativeDto);
-        public Task<RelativeResponseDto> GetRelativeById(int? RelativeId);
+        public Task<Result< RelativeResponseDto>> GetRelativeById(int? RelativeId);
 
-        public Task<IEnumerable<RelativeResponseDto>> GetRelativeList();
+        public Task<Result<IEnumerable<RelativeDto>>> GetRelativeList();
 
-        public Task<RelativeResponseDto> DeleteRelative(int? RelativeId);
+        public Task<Result<RelativeResponseDto>> DeleteRelative(int RelativeId);
 
     }
 }

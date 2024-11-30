@@ -1,9 +1,13 @@
-﻿using Khayati.Core.Common;
-using Khayati.Core.Domain.Entities;
+﻿using Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Entities
+namespace Khayati.Core.DTO.Relative
 {
-    public class Customer : AuditableEntity
+    public class CustomerRelativeDto
     {
         public int CustomerId { get; set; }
         public string Name { get; set; }
@@ -15,16 +19,13 @@ namespace Entities
         public string? EmailAddress { get; set; }
         public string? NationalID { get; set; }
         public DateTime DateOfBirth { get; set; }
-       // public bool IsActive { get; set; }
+        //public bool IsActive { get; set; }
         //public string? CustomerType { get; set; }
 
-        public virtual ICollection<Order> Orders { get; set; }
-        public virtual ICollection<Measurement> Measurements { get; set; }
-        public virtual ICollection<Relative> Relatives { get; set; }  // New relationship to track relatives
-
-
+        //public virtual ICollection<Order> Orders { get; set; }
+        //public virtual ICollection<Measurement> Measurements { get; set; }
+        //public virtual ICollection<Relative> Relatives { get; set; }  // New relationship to track relatives
 
 
     }
-
 }

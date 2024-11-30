@@ -31,6 +31,9 @@ namespace Khayati.Core.Mapping
             CreateMap<Measurement, MeasurementAddDto>().ReverseMap();
 
             CreateMap<Relative, RelativeAddDto>().ReverseMap();
+            CreateMap<Relative, RelativeResponseDto>().ReverseMap();
+            CreateMap<Relative, RelativeDto>().ReverseMap();
+            CreateMap<Customer, CustomerRelativeDto>().ReverseMap();
 
             // CreateMap<EmbellishmentType, EmbellishmentTypeResponseDto>();
 
