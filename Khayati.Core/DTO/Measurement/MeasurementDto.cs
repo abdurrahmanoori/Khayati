@@ -1,8 +1,9 @@
-﻿namespace Khayati.Core.DTO.Measurement
+﻿using Khayati.Core.DTO.Customers;
+
+namespace Khayati.Core.DTO.Measurement
 {
     public class MeasurementDto
     {
-
         public int MeasurementId { get; set; }
         public decimal? Cost { get; set; }
         // public DateTime DateTaken { get; set; }
@@ -17,6 +18,7 @@
         public double Leg { get; set; }
         public int? FabricId { get; set; }
         public int CustomerId { get; set; }
+        public CustomerDto? Customer { get; set; }
     }
 }
 

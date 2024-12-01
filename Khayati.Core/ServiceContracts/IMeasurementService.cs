@@ -1,27 +1,27 @@
 ﻿using Khayati.Core.Common.Response;
-using Khayati.Core.DTO;
-using Khayati.Core.DTO.Embellishments;
+using Khayati.Core.DTO.Measurement;
 
 namespace Khayati.ServiceContracts
 {
     public interface IMeasurementService
     {
         public Task<Result<MeasurementAddDto>> 
-            AddMeasurement(MeasurementAddDto addMeasurementDto);
-        public Task<Result<MeasurementResponseDto>>
-            GetMeasurementById(int MeasurementId);
+            AddMeasurement(MeasurementAddDto measurementAddDto);
+
+        public Task<Result<MeasurementDto>>
+            GetMeasurementById(int measurementId);
 
         //public Task<Result<MeasurementDetailDto>> 
         //    GetMeasurementDetails(int MeasurementId);
 
-        public Task<Result<IEnumerable<MeasurementResponseDetailsDto>>> 
+        public Task<Result<IEnumerable<MeasurementDto>>> 
             GetMeasurementList();
 
-        public Task<Result<MeasurementResponseDto>>
-            DeleteMeasurement(int MeasurementId);
+        public Task<Result<MeasurementDto>>
+            DeleteMeasurement(int measurementId);
 
-        public Task<Result<MeasurementUpdateDto>>
-            Update(int MeasurementId, MeasurementUpdateDto updateDto);
+        public Task<Result<MeasurementDto>>
+            UpdateMeasurement(int measurementId, MeasurementDto updateDto);
         // public Task<MeasurementResponseDto> UpdateMeasurement(int? MeasurementId);
 
     }

@@ -1,5 +1,6 @@
 ﻿using AutoFixture;
 using Khayati.Core.DTO;
+using Khayati.Core.DTO.Measurement;
 using Khayati.Mvc.Areas.Customer.Controllers;
 using Khayati.ServiceContracts;
 using System;

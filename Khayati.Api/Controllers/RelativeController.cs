@@ -59,24 +59,6 @@ namespace Khayati.Api.Controllers
         }
     }
 
-    //[Route("api/[controller]")]
-    //[ApiController]
-    //public class RelativeController : BaseApiController
-    //{
-    //    //private readonly IUnitOfWork _unitOfWork;
-    //    private readonly IRelativeService _RelativeService;
-
-    //    public RelativeController(IRelativeService RelativeService)
-    //    {
-    //        _RelativeService = RelativeService;
-    //    }
-
-    //    [HttpPost]
-    //    public async Task<IActionResult> Create(RelativeAddDto addRelativeDto)
-    //    {
-    //        var result = await _RelativeService.AddRelative(addRelativeDto);
-    //        return Ok(result);
-
-    //}
+   
 
 }

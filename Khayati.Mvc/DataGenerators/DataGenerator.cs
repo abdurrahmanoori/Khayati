@@ -1,5 +1,6 @@
 ﻿using Bogus;
 using Khayati.Core.DTO;
+using Khayati.Core.DTO.Measurement;
 
 namespace Khayati.Mvc.DataGenerators
 {
