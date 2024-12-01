@@ -11,6 +11,6 @@ namespace Khayati.ServiceContracts
         public Task<Result<IEnumerable<RelativeDto>>> GetRelativeList();
 
         public Task<Result<RelativeResponseDto>> DeleteRelative(int RelativeId);
-
+        Task<Result<RelativeUpdateDto>> UpdateRelative(int relativeId, RelativeUpdateDto relativeDto);
     }
 }

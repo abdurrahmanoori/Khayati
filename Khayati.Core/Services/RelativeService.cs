@@ -50,7 +50,7 @@ namespace Khayati.Service
         public async Task<Result<RelativeDto>>
             GetRelativeById(int relativeId)
         {
-            Relative relative = await _unitOfWork.RelativeRepository
+            Relative? relative = await _unitOfWork.RelativeRepository
                 .GetFirstOrDefault(x => x.RelativeId == relativeId,
                 includeProperties: "Customer", tracked: false);
             if (relative is null)
@@ -111,25 +111,25 @@ namespace Khayati.Service
 
         }
 
-        //public async Task<Result<RelativeUpdateDto>>
-        //    Update(int RelativeId, RelativeUpdateDto updateDto)
-        //{
-        //    var Relative = await _unitOfWork
-        //        .RelativeRepository
-        //        .GetFirstOrDefault(x => x.RelativeId == RelativeId);
+        public async Task<Result<RelativeUpdateDto>>
+            UpdateRelative(int relativeId, RelativeUpdateDto relativeDto)
+        {
+            var relative = await _unitOfWork
+                .RelativeRepository
+                .GetFirstOrDefault(x => x.RelativeId == relativeId);
 
-        //    if (Relative == null)
-        //    {
-        //        return Result<RelativeUpdateDto>
-        //            .FailureResult("NotFound", $"The Relative with the provided {RelativeId} ID was not found.");
-        //    }
+            if (relative == null)
+            {
+                return Result<RelativeUpdateDto>
+                    .FailureResult("NotFound", $"The Relative with the provided {relativeId} ID was not found.");
+            }
 
-        //    _mapper.Map(updateDto, Relative);
-        //    Relative.RelativeId = RelativeId;
-        //    await _unitOfWork.SaveChanges(CancellationToken.None);
+            _mapper.Map(relativeDto, relative);
+            relative.RelativeId = relativeId;
+            await _unitOfWork.SaveChanges(CancellationToken.None);
 
-        //    return Result<RelativeUpdateDto>.SuccessResult(updateDto);
-        //}
+            return Result<RelativeUpdateDto>.SuccessResult(relativeDto);
+        }
         //public Task<Result<string>> Update(RelativeUpdateDto updateDto)
         //{
         //    return Result<bool>.FailureResult()

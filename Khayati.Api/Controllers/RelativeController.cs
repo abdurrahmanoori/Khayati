@@ -51,12 +51,12 @@ namespace Khayati.Api.Controllers
             return HandleResultResponse(Relative);
         }
 
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult>
-        //    UpdateRelative(int id, RelativeUpdateDto updateDto)
-        //{
-        //    return HandleResult(await _RelativeService.Update(id, updateDto));
-        //}
+        [HttpPut("{id}")]
+        public async Task<IActionResult>
+            UpdateRelative(int id, RelativeUpdateDto relativeDto)
+        {
+            return HandleResult(await _relativeService.UpdateRelative(id, relativeDto));
+        }
     }
 
 

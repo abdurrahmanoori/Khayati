@@ -9,6 +9,7 @@ namespace Khayati.Infrastructure.EntityConfigurations
         public void Configure(EntityTypeBuilder<Relative> builder)
         {
             builder.HasQueryFilter(x => !x.IsDeleted);
+
             //builder.Property(f => f.FabricId).IsRequired(false);
             //builder.HasOne(c=>c.Customer)
             //    .WithMany(o=>o.Relatives)
