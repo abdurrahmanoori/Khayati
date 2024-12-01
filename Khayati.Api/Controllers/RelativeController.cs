@@ -16,7 +16,7 @@ namespace Khayati.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<RelativeAddDto>> 
+        public async Task<ActionResult<RelativeAddDto>>
             AddRelative(RelativeAddDto addRelativeDto)
         {
             var result = await _relativeService
@@ -59,9 +59,6 @@ namespace Khayati.Api.Controllers
         }
     }
 
-
-
-
     //[Route("api/[controller]")]
     //[ApiController]
     //public class RelativeController : BaseApiController
@@ -80,45 +77,6 @@ namespace Khayati.Api.Controllers
     //        var result = await _RelativeService.AddRelative(addRelativeDto);
     //        return Ok(result);
 
-    //    }
-
-    //    [HttpGet]
-    //    public async Task<IActionResult> GetRelativeList( )
-    //    {
-    //        var results =
-    //            await _RelativeService
-    //            .GetRelativeList();
-
-    //        return HandleResult(results);
-    //    }
-
-    //    [HttpGet("{id}")]
-    //    public async Task<IActionResult> GitById(int id)
-    //    {
-    //        var Relative = await _RelativeService.GetRelativeById(id);
-
-    //        return Ok(Relative);
-
-    //    }
-
-    //    [HttpDelete]
-    //    public async Task<IActionResult> DeleteRelative(int RelativeId)
-    //    {
-    //        RelativeResponseDto Relative = await _RelativeService.DeleteRelative(RelativeId);
-    //        return Ok(Relative);
-    //    }
-
-    //    [HttpPut("{id}")]
-    //    public async Task<IActionResult> Edit(int id, RelativeUpdateDto updateDto)
-    //    {
-
-    //      return HandleResult(await _RelativeService.Update(id,updateDto));
-
-    //    }
-
-
-
-
-
     //}
+
 }

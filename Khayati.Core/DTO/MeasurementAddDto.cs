@@ -17,28 +17,28 @@ namespace Khayati.Core.DTO
        
         public double ShoulderWidth { get; set; }
         public double ArmLength { get; set; }
-       
+        public int CustomerId { get; set; }
 
 
-        public Measurement ToMeasurement()
-        {
-            return new Measurement
-            {
-                
-                //CustomerId = CustomerId,
-                Height = Height,
-                Chest = Chest,
-                Waist = Waist,
-                Sleeve = Sleeve,
-                Neck = Neck,
-                trousers = trousers,
-                Leg = Leg,  
-                ShoulderWidth = ShoulderWidth,  
-                ArmLength = ArmLength,
-                
-                
-            };
-        }
+        //public Measurement ToMeasurement()
+        //{
+        //    return new Measurement
+        //    {
+
+        //        //CustomerId = CustomerId,
+        //        Height = Height,
+        //        Chest = Chest,
+        //        Waist = Waist,
+        //        Sleeve = Sleeve,
+        //        Neck = Neck,
+        //        trousers = trousers,
+        //        Leg = Leg,  
+        //        ShoulderWidth = ShoulderWidth,  
+        //        ArmLength = ArmLength,
+
+
+        //    };
+        //}
 
     }
 }

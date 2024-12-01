@@ -23,7 +23,7 @@ namespace Repositories
         public async Task<Measurement> GetLatestMeasurementByCustomerIdAsync(int customerId)
         {
             var customer = await _dbcontext.Measurements.Where(x => x.CustomerId == customerId)
-                .OrderByDescending(x => x.Measurementid).FirstOrDefaultAsync();
+                .OrderByDescending(x => x.MeasurementId).FirstOrDefaultAsync();
 
             return customer!;
         }

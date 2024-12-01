@@ -11,7 +11,7 @@ namespace Khayati.Infrastructure.DatabaseSeeders
 
                  new Measurement
                  {
-                     Measurementid = 1,
+                     MeasurementId = 1,
                      CustomerId = 1,
                      //DateTaken = new DateTime(2024, 10, 01),
                      Height = 175.5, // Example height in centimeters
@@ -28,7 +28,7 @@ namespace Khayati.Infrastructure.DatabaseSeeders
                  },
             new Measurement
             {
-                Measurementid = 2,
+                MeasurementId = 2,
                 CustomerId = 2,
                 //DateTaken = new DateTime(2024, 10, 02),
                 Height = 176.0,
@@ -44,7 +44,7 @@ namespace Khayati.Infrastructure.DatabaseSeeders
             },
             new Measurement
             {
-                Measurementid = 3,
+                MeasurementId = 3,
                 CustomerId = 3,
                 //DateTaken = new DateTime(2024, 10, 03),
                 Height = 175.5,
@@ -60,7 +60,7 @@ namespace Khayati.Infrastructure.DatabaseSeeders
             },
             new Measurement
             {
-                Measurementid = 4,
+                MeasurementId = 4,
                 CustomerId = 4,
                 //DateTaken = new DateTime(2024, 10, 04),
                 Height = 177.0,
