@@ -2,6 +2,8 @@
 {
     public class RelativeDto
     {
+
+        public int RelativeId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string? RelationshipType { get; set; } // e.g., Father, Baby, etc.

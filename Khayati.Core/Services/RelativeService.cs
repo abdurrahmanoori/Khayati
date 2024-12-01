@@ -46,30 +46,25 @@ namespace Khayati.Service
 
         }
 
-      
-        public async Task<Result<RelativeResponseDto>>
+
+        public async Task<Result<RelativeDto>>
             GetRelativeById(int relativeId)
         {
             Relative relative = await _unitOfWork.RelativeRepository
-                .GetFirstOrDefault(x => x.RelativeId == relativeId);
+                .GetFirstOrDefault(x => x.RelativeId == relativeId,
+                includeProperties: "Customer", tracked: false);
             if (relative is null)
             {
-                return Result<RelativeResponseDto>
+                return Result<RelativeDto>
                    .FailureResult(DeclareMessage.NotFound.Code, $"Relative with ID {relativeId} not found.");
             }
 
-            RelativeResponseDto relativeResponseDto =
-                _mapper.Map<RelativeResponseDto>(relative);
+            RelativeDto relativeDto =
+                _mapper.Map<RelativeDto>(relative);
 
-            return Result<RelativeResponseDto>.SuccessResult(relativeResponseDto);
+            return Result<RelativeDto>.SuccessResult(relativeDto);
 
         }
-
-        public Task<Result<RelativeResponseDto>> GetRelativeById(int? RelativeId)
-        {
-            throw new NotImplementedException();
-        }
-
 
 
 
@@ -102,7 +97,7 @@ namespace Khayati.Service
         {
             IEnumerable<Relative> relatives =
               await _unitOfWork.RelativeRepository.GetAll(includeProperties: "Customer");
-              
+
 
             if (relatives.Any() == false)
             {
@@ -111,7 +106,7 @@ namespace Khayati.Service
                     .FailureResult(DeclareMessage.EmptyList.Code, DeclareMessage.EmptyList.Description);
 
             }
-          var  relativesDto = _mapper.Map<IEnumerable<RelativeDto>>(relatives);
+            var relativesDto = _mapper.Map<IEnumerable<RelativeDto>>(relatives);
             return Result<IEnumerable<RelativeDto>>.SuccessResult(relativesDto);
 
         }

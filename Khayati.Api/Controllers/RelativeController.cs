@@ -35,13 +35,13 @@ namespace Khayati.Api.Controllers
             return HandleResultResponse(results);
         }
 
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<RelativeResponseDto>>
-        //    GetRelativeById(int id)
-        //{
-        //    var Relative = await _RelativeService.GetRelativeById(id);
-        //    return HandleResultResponse(Relative);
-        //}
+        [HttpGet("{id}")]
+        public async Task<ActionResult<RelativeDto>>
+            GetRelativeById(int id)
+        {
+            var relative = await _relativeService.GetRelativeById(id);
+            return HandleResultResponse(relative);
+        }
 
         [HttpDelete("{relativeId}")]
         public async Task<ActionResult<RelativeResponseDto>>
