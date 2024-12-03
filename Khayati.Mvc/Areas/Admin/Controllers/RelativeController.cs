@@ -2,6 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 
 using Khayati.Core.DTO.Relative;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Khayati.Core.DTO;
+using System.Globalization;
 
 namespace Khayati.Mvc.Areas.Admin.Controllers
 {
@@ -10,10 +13,12 @@ namespace Khayati.Mvc.Areas.Admin.Controllers
     {
         //private readonly IRelativeService _relativeService;
         private readonly IRelativeService _relativeService;
+        private readonly ICustomerService _customerService;
 
-        public RelativeController(IRelativeService RelativeService)
+        public RelativeController(IRelativeService RelativeService, ICustomerService customerService)
         {
             _relativeService = RelativeService;
+            _customerService = customerService;
             //_relativeService = RelativeService;
         }
 
@@ -23,9 +28,9 @@ namespace Khayati.Mvc.Areas.Admin.Controllers
             return View();
         }
         [HttpGet]
-        public IActionResult Create( )
+        public async  Task<IActionResult> Create( )
         {
-
+            ViewBag.Customers = new SelectList(await _customerService.GetCustomerList(), nameof(CustomerResponseDto.CustomerId), nameof(CustomerResponseDto.Name));
             return View();
         }
       

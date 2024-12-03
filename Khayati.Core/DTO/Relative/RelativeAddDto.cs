@@ -1,4 +1,6 @@
-﻿namespace Khayati.Core.DTO.Relative
+﻿using Entities.Enum;
+
+namespace Khayati.Core.DTO.Relative
 {
     public class RelativeAddDto
     {
@@ -12,6 +14,9 @@
 
         // Foreign key to link back to the customer
         public int CustomerId { get; set; }
+    
+    public RelationshipType RelationshipTypeEnum { get; set; }
     }
+
 }
 
