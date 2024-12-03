@@ -4,6 +4,8 @@ using Khayati.Core.DTO;
 using Microsoft.AspNetCore.Mvc;
 
 using Khayati.Core.DTO.Embellishments;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace Khayati.Mvc.Areas.Admin.Controllers
 {
@@ -12,21 +14,36 @@ namespace Khayati.Mvc.Areas.Admin.Controllers
     {
         //private readonly IUnitOfWork _unitOfWork;
         private readonly IEmbellishmentService _embellishmentService;
-
-        public EmbellishmentController(IEmbellishmentService embellishmentService)
+        private readonly IEmbellishmentTypeService _embellishmentTypeService;
+        
+        
+        
+        public EmbellishmentController (IEmbellishmentService embellishmentService ,  IEmbellishmentTypeService embellishmentTypeService)
         {
             _embellishmentService = embellishmentService;
+            _embellishmentTypeService= embellishmentTypeService;    
         }
 
-        [HttpPost("create")]
+        [HttpPost]
         public async Task<IActionResult> Create(EmbellishmentAddDto addEmbellishmentDto)
         {
             var result = await _embellishmentService.AddEmbellishment(addEmbellishmentDto);
-            return View();
+            return RedirectToAction(nameof(Index));
 
         }
 
-        
+        public async Task<IActionResult>  Create( )
+        {
+            // Fetch data from the database
+            var embellishmentTypes = await _embellishmentTypeService.GetEmbellishmentTypeList();
+
+            // Use SelectList to prepare data for the dropdown
+            ViewBag.EmbellishmentTypes = new SelectList(embellishmentTypes, "EmbellishmentTypeId", "Name");
+
+            return View();
+        }
+
+
         public async Task<IActionResult> Index( )
         {
             var results =
