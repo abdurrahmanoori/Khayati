@@ -1,14 +1,13 @@
 ﻿using Khayati.ServiceContracts;
 using Microsoft.AspNetCore.Mvc;
-
 using Khayati.Core.DTO.Relative;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Khayati.Core.DTO;
-using System.Globalization;
 
 namespace Khayati.Mvc.Areas.Admin.Controllers
 {
     [Area("Admin")]
+
     public class RelativeController : Controller
     {
         //private readonly IRelativeService _relativeService;
@@ -24,16 +23,16 @@ namespace Khayati.Mvc.Areas.Admin.Controllers
 
         public async Task<IActionResult> Index( )
         {
-            
-            return View();
+            var list = await _relativeService.GetRelativeList();
+            return View(list.Response);
         }
         [HttpGet]
-        public async  Task<IActionResult> Create( )
+        public async Task<IActionResult> Create( )
         {
             ViewBag.Customers = new SelectList(await _customerService.GetCustomerList(), nameof(CustomerResponseDto.CustomerId), nameof(CustomerResponseDto.Name));
             return View();
         }
-      
+
         [HttpPost]
         public async Task<IActionResult> Create(RelativeAddDto addRelativeDto)
         {
@@ -45,22 +44,23 @@ namespace Khayati.Mvc.Areas.Admin.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             var result = await _relativeService.GetRelativeById(id);
-            if (result == null)
+            if (result is null)
             {
                 return NotFound();
             }
-            return View(result);
+            ViewBag.Customers = new SelectList(await _customerService.GetCustomerList(), nameof(CustomerResponseDto.CustomerId), nameof(CustomerResponseDto.Name));
+            return View(result.Response);
 
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(RelativeResponseDto dto)
+        public async Task<IActionResult> Edit(RelativeUpdateDto dto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
-            //await _relativeService.UpdateRelative(dto);
+            await _relativeService.UpdateRelative(dto.RelativeId, dto);
 
             return RedirectToAction(nameof(Index));
         }
