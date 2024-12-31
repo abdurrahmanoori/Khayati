@@ -65,7 +65,7 @@ namespace Khayati.Mvc.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [HttpGet("api/Relative/Delete")]
+        [HttpDelete("api/relative/delete")]
         public async Task<IActionResult> Delete(int id)
         {
             await _relativeService.DeleteRelative(id);
