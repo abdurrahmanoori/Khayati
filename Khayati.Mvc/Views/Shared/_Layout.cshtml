@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Khayati.Mvc</title>
     @*     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-        <link rel="stylesheet" href="~/Khayati.Mvc.styles.css" asp-append-version="true" /> *@
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Khayati.Mvc.styles.css" asp-append-version="true" /> *@
 
 
 
@@ -23,12 +23,12 @@
     <link rel="stylesheet" href="../../../dist/css/adminlte.css"><!--end::Required Plugin(AdminLTE)-->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
-
+    <link rel="stylesheet" href="~/dist/css/sweetAlert2.css" />
 
 
     <link rel="stylesheet" href="~/dist/css/adminlte.css" />
 
-
+    <link rel="stylesheet" href="~/css/site.css">
 
 </head>
 <body class="layout-fixed sidebar bg-body-tertiary">
@@ -44,6 +44,9 @@
                     <li class="nav-item"> <a class="nav-link" data-lte-toggle="sidebar" href="#" role="button"> <i class="bi bi-list"></i> </a> </li>
                     <li class="nav-item d-none d-md-block"> <a asp-area="Admin" asp-action="Index" asp-controller="Customer" class="nav-link">Customer</a> </li>
                     <li class="nav-item d-none d-md-block"> <a asp-area="Admin" asp-action="Index" asp-controller="EmbellishmentType" class="nav-link">EmbellishmentType</a> </li>
+                    <li class="nav-item d-none d-md-block"> <a asp-area="Admin" asp-action="Index" asp-controller="Embellishment" class="nav-link">Embellishment</a> </li>
+                    <li class="nav-item d-none d-md-block"> <a asp-area="Admin" asp-action="Index" asp-controller="Relative" class="nav-link">Relative</a> </li>
+
                     <li class="nav-item d-none d-md-block"> <a href="#" class="nav-link">Contact</a> </li>
                 </ul> <!--end::Start Navbar Links--> <!--begin::End Navbar Links-->
                 <ul class="navbar-nav ms-auto">
@@ -177,7 +180,7 @@
 
 
 
-        <div class="app-main">
+        <div class="app-main bg-body-secondary">
 
             @RenderBody()
 
@@ -199,53 +202,55 @@
         </footer> <!--end::Footer-->
         <!--begin::Sidebar Brand-->
         @* <div class="container">
-            <main role="main" class="pb-3">
+        <main role="main" class="pb-3">
         *@
         @*  </main>
-            </div>
+        </div>
         *@
     </div>
 
     @*     <script src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.3.0/browser/overlayscrollbars.browser.es6.min.js" integrity="sha256-H2VM7BKda+v2Z4+DRy69uknwxjyDRhszjXFhsL4gD3w=" crossorigin="anonymous"></script> <!--end::Third Party Plugin(OverlayScrollbars)--><!--begin::Required Plugin(popperjs for Bootstrap 5)-->
-        <script src="https://cdn.jsdelivr.net/npm/@@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha256-whL0tQWoY1Ku1iskqPFvmZ+CHsvmRWx/PIoEvIeWh4I=" crossorigin="anonymous"></script> <!--end::Required Plugin(popperjs for Bootstrap 5)--><!--begin::Required Plugin(Bootstrap 5)-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha256-YMa+wAM6QkVyz999odX7lPRxkoYAan8suedu4k2Zur8=" crossorigin="anonymous"></script> <!--end::Required Plugin(Bootstrap 5)--><!--begin::Required Plugin(AdminLTE)-->
+    <script src="https://cdn.jsdelivr.net/npm/@@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha256-whL0tQWoY1Ku1iskqPFvmZ+CHsvmRWx/PIoEvIeWh4I=" crossorigin="anonymous"></script> <!--end::Required Plugin(popperjs for Bootstrap 5)--><!--begin::Required Plugin(Bootstrap 5)-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha256-YMa+wAM6QkVyz999odX7lPRxkoYAan8suedu4k2Zur8=" crossorigin="anonymous"></script> <!--end::Required Plugin(Bootstrap 5)--><!--begin::Required Plugin(AdminLTE)-->
 
 
     *@
     @*
-        <script src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.3.0/browser/overlayscrollbars.browser.es6.min.js" integrity="sha256-H2VM7BKda+v2Z4+DRy69uknwxjyDRhszjXFhsL4gD3w=" crossorigin="anonymous"></script> <!--end::Third Party Plugin(OverlayScrollbars)--><!--begin::Required Plugin(popperjs for Bootstrap 5)-->
-        <script src="https://cdn.jsdelivr.net/npm/popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha256-whL0tQWoY1Ku1iskqPFvmZ+CHsvmRWx/PIoEvIeWh4I=" crossorigin="anonymous"></script> <!--end::Required Plugin(popperjs for Bootstrap 5)--><!--begin::Required Plugin(Bootstrap 5)-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha256-YMa+wAM6QkVyz999odX7lPRxkoYAan8suedu4k2Zur8=" crossorigin="anonymous"></script> <!--end::Required Plugin(Bootstrap 5)--><!--begin::Required Plugin(AdminLTE)-->
+    <script src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.3.0/browser/overlayscrollbars.browser.es6.min.js" integrity="sha256-H2VM7BKda+v2Z4+DRy69uknwxjyDRhszjXFhsL4gD3w=" crossorigin="anonymous"></script> <!--end::Third Party Plugin(OverlayScrollbars)--><!--begin::Required Plugin(popperjs for Bootstrap 5)-->
+    <script src="https://cdn.jsdelivr.net/npm/popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha256-whL0tQWoY1Ku1iskqPFvmZ+CHsvmRWx/PIoEvIeWh4I=" crossorigin="anonymous"></script> <!--end::Required Plugin(popperjs for Bootstrap 5)--><!--begin::Required Plugin(Bootstrap 5)-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha256-YMa+wAM6QkVyz999odX7lPRxkoYAan8suedu4k2Zur8=" crossorigin="anonymous"></script> <!--end::Required Plugin(Bootstrap 5)--><!--begin::Required Plugin(AdminLTE)-->
     *@
     <script src="~/dist/js/adminlte.js"></script>
 
     @*   <script>
-        const SELECTOR_SIDEBAR_WRAPPER = ".sidebar-wrapper";
-        const Default = {
-        scrollbarTheme: "os-theme-light",
-        scrollbarAutoHide: "leave",
-        scrollbarClickScroll: true,
-        };
-        document.addEventListener("DOMContentLoaded", function () {
-        const sidebarWrapper = document.querySelector(SELECTOR_SIDEBAR_WRAPPER);
-        if (
-        sidebarWrapper &&
-        typeof OverlayScrollbarsGlobal?.OverlayScrollbars !== "undefined"
-        ) {
-        OverlayScrollbarsGlobal.OverlayScrollbars(sidebarWrapper, {
-        scrollbars: {
-        theme: Default.scrollbarTheme,
-        autoHide: Default.scrollbarAutoHide,
-        clickScroll: Default.scrollbarClickScroll,
-        },
-        });
-        }
-        });
-        </script> *@ <!--end::OverlayScrollbars Configure--> <!--end::Script-->
+    const SELECTOR_SIDEBAR_WRAPPER = ".sidebar-wrapper";
+    const Default = {
+    scrollbarTheme: "os-theme-light",
+    scrollbarAutoHide: "leave",
+    scrollbarClickScroll: true,
+    };
+    document.addEventListener("DOMContentLoaded", function () {
+    const sidebarWrapper = document.querySelector(SELECTOR_SIDEBAR_WRAPPER);
+    if (
+    sidebarWrapper &&
+    typeof OverlayScrollbarsGlobal?.OverlayScrollbars !== "undefined"
+    ) {
+    OverlayScrollbarsGlobal.OverlayScrollbars(sidebarWrapper, {
+    scrollbars: {
+    theme: Default.scrollbarTheme,
+    autoHide: Default.scrollbarAutoHide,
+    clickScroll: Default.scrollbarClickScroll,
+    },
+    });
+    }
+    });
+    </script> *@ <!--end::OverlayScrollbars Configure--> <!--end::Script-->
     @* <script src="~/lib/jquery/dist/jquery.min.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script> *@
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script> *@
     <script src="~/js/site.js" asp-append-version="true"></script>
 
+    @* <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> *@
+    <script src="~/dist/js/sweetAlert2.js"></script>
 
     @* <partial name="_ValidationScriptsPartial" /> *@
 

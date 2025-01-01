@@ -18,7 +18,7 @@ namespace Entities
         /// <summary>
         /// Unique identifier for the measurement.
         /// </summary>
-        public int Measurementid { get; set; }
+        public int MeasurementId { get; set; }
         /// <summary>
         /// The cost charged by the tailor for sewing the clothes.
         /// </summary>

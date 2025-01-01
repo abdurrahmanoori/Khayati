@@ -1,6 +1,9 @@
-﻿using Entities;
-using Khayati.ServiceContracts;
+﻿using AutoMapper;
+using Entities;
+using Khayati.Core.Common.Response;
 using Khayati.Core.DTO;
+using Khayati.Core.DTO.Measurement;
+using Khayati.ServiceContracts;
 using RepositoryContracts.Base;
 
 namespace Khayati.Service
@@ -8,72 +11,99 @@ namespace Khayati.Service
     public class MeasurementService : IMeasurementService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public MeasurementService(IUnitOfWork unitOfWork)
+        public MeasurementService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
-        public async Task<MeasurementAddDto> AddMeasurement(MeasurementAddDto measurementAddDto)
+        public async Task<Result<MeasurementAddDto>> AddMeasurement(MeasurementAddDto MeasurementAddDto)
         {
-            if (measurementAddDto == null)
-            {
-                return null;
-            }
-            Measurement measurement = measurementAddDto.ToMeasurement();
-            await _unitOfWork.MeasurementRepository.Add(measurement);
+            //Measurement Measurement = MeasurementAddDto.ToMeasurement();
+            Measurement Measurement = _mapper.Map<Measurement>(MeasurementAddDto);
+
+            await _unitOfWork.MeasurementRepository.Add(Measurement);
             await _unitOfWork.SaveChanges(CancellationToken.None);
-            return measurementAddDto;
+            return Result<MeasurementAddDto>.SuccessResult(MeasurementAddDto);
 
         }
 
-        public async Task<MeasurementResponseDto> DeleteMeasurement(int? MeasurementId)
+        public async Task<Result<MeasurementDto>>
+            DeleteMeasurement(int MeasurementId)
         {
-            if (!MeasurementId.HasValue)
+            Measurement? Measurement = await _unitOfWork.MeasurementRepository.GetById(MeasurementId);
+            if (Measurement is null)
             {
-                return null;
-            }
-            Measurement Measurement = await _unitOfWork.MeasurementRepository.GetById((int)MeasurementId);
-            if (Measurement == null)
-            {
-                return null;
+                return Result<MeasurementDto>
+                    .FailureResult(DeclareMessage.NotFound.Code, $"Measurement with ID {MeasurementId} not found.");
             }
             await _unitOfWork.MeasurementRepository.Remove(Measurement);
             await _unitOfWork.SaveChanges(default);
-
-            return Measurement.ToMeasurementResponseDto();
-
-        }
-
-
-        public async Task<MeasurementResponseDto> GetMeasurementById(int? MeasurementId)
-        {
-            if (MeasurementId == null || MeasurementId == 0)
-            {
-                return null;
-            }
-            Measurement Measurement = await _unitOfWork.MeasurementRepository
-                .GetFirstOrDefault(x => x.Measurementid == MeasurementId);
-
-            MeasurementResponseDto MeasurementResponseDto = Measurement.ToMeasurementResponseDto();
-            return MeasurementResponseDto;
+            var dto = _mapper.Map<MeasurementDto>(Measurement);
+            return Result<MeasurementDto>.SuccessResult(dto);
 
         }
 
-        public async Task<IEnumerable<MeasurementResponseDto>> GetMeasurementList()
+        public async Task<Result<MeasurementDto>>
+            GetMeasurementById(int measurementId)
         {
-            IEnumerable<Measurement> Measurements = await _unitOfWork.MeasurementRepository.GetAll();
-            if (Measurements is null)
+            Measurement? measurement = await _unitOfWork.MeasurementRepository
+                .GetFirstOrDefault(x => x.MeasurementId == measurementId);
+            if (measurement is null)
             {
-                return null;
+                return Result<MeasurementDto>
+                   .FailureResult(DeclareMessage.NotFound.Code, $"Measurement with ID {measurementId} not found.");
             }
 
-            IEnumerable<MeasurementResponseDto> MeasurementResponseDtos = Measurements
-                .Select(temp => temp.ToMeasurementResponseDto());
+            MeasurementDto measurementDto =
+                _mapper.Map<MeasurementDto>(measurement);
 
-            return MeasurementResponseDtos;
+            return Result<MeasurementDto>.SuccessResult(measurementDto);
 
         }
 
+
+
+        public async Task<Result<IEnumerable<MeasurementDto>>>
+            GetMeasurementList( )
+        {
+            IEnumerable<Measurement> measurements =
+              await _unitOfWork.MeasurementRepository
+                .GetAll();
+            var measurmentDto = _mapper.Map<IEnumerable<MeasurementDto>>(measurements);
+
+            if (measurements.Any() == false)
+            {
+
+                return Result<IEnumerable<MeasurementDto>>
+                    .FailureResult(DeclareMessage.EmptyList.Code, DeclareMessage.EmptyList.Description);
+
+            }
+
+            return Result<IEnumerable<MeasurementDto>>.SuccessResult(measurmentDto);
+
+        }
+
+        public async Task<Result<MeasurementDto>>
+            UpdateMeasurement(int measurementId, MeasurementDto measurementDto)
+        {
+            var measurement = await _unitOfWork
+                .MeasurementRepository
+                .GetFirstOrDefault(x => x.MeasurementId == measurementId);
+
+            if (measurement == null)
+            {
+                return Result<MeasurementDto>
+                    .FailureResult("NotFound", $"The Measurement with the provided {measurementId} ID was not found.");
+            }
+
+            _mapper.Map(measurementDto, measurement);
+            measurement.MeasurementId = measurementId;
+            await _unitOfWork.SaveChanges(CancellationToken.None);
+
+            return Result<MeasurementDto>.SuccessResult(measurementDto);
+        }    
     }
 }

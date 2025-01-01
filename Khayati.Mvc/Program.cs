@@ -30,6 +30,11 @@ builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 builder.Services.ConfigureApplicationService(builder.Configuration);
 builder.Services.ConfigureInfrastructureService();
 builder.Services.ConfigurePresentionService();
+builder.Services.AddHttpClient("ApiClient", client =>
+{
+    client.BaseAddress = new Uri("https://localhost:7016");
+});
+
 
 var app = builder.Build();
 

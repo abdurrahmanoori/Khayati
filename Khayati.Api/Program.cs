@@ -15,6 +15,10 @@ builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddFluentValidationClientsideAdapters();
 builder.Services.AddValidatorsFromAssemblyContaining<EmbellishmentResponseDetailsDtoValidator>();// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddHttpClient("ApiClient", client =>
+{
+    client.BaseAddress = new Uri("https://localhost:7016");
+});
 
 
 
@@ -27,7 +31,6 @@ builder.Services.ConfigureInfrastructureService();
 //builder.Services.ConfigurePresentionService();
 
 var app = builder.Build();
-app.UseMiddleware<ExceptionMiddleware>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -35,7 +38,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+else
+{
+   // app.UseMiddleware<ExceptionMiddleware>();
+}
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

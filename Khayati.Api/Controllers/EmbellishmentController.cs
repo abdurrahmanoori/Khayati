@@ -9,7 +9,6 @@ namespace Khayati.Api.Controllers
     [ApiController]
     public class EmbellishmentController : BaseApiController
     {
-        //private readonly IUnitOfWork _unitOfWork;
         private readonly IEmbellishmentService _embellishmentService;
 
         public EmbellishmentController(IEmbellishmentService embellishmentService)
@@ -17,57 +16,110 @@ namespace Khayati.Api.Controllers
             _embellishmentService = embellishmentService;
         }
 
-        [HttpPost("create")]
-        public async Task<IActionResult> Create(EmbellishmentAddDto addEmbellishmentDto)
+        [HttpPost]
+        public async Task<ActionResult<EmbellishmentAddDto>> 
+            AddEmbellishment(EmbellishmentAddDto addEmbellishmentDto)
         {
-            var result = await _embellishmentService.AddEmbellishment(addEmbellishmentDto);
-            return Ok(result);
+            var result = await _embellishmentService
+                .AddEmbellishment(addEmbellishmentDto);
 
+            return HandleResultResponse(result);
         }
 
-        [HttpGet("getAll")]
-        public async Task<IActionResult> GetEmbellishmentList( )
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<EmellishmentResponseDetailsDto>>>
+            GetEmbellishmentList( )
         {
-            var results =
-                await _embellishmentService
+            var results = await _embellishmentService
                 .GetEmbellishmentList();
 
-            return HandleResult(results);
+            return HandleResultResponse(results);
         }
 
-        [HttpPost("getById")]
-        public async Task<IActionResult> GitById(int id)
+        [HttpGet("{id}")]
+        public async Task<ActionResult<EmbellishmentResponseDto>>
+            GetEmbellishmentById(int id)
         {
-            var Embellishment = await _embellishmentService.GetEmbellishmentById(id);
-
-            return Ok(Embellishment);
-
+            var embellishment = await _embellishmentService.GetEmbellishmentById(id);
+            return HandleResultResponse(embellishment);
         }
 
-        [HttpDelete]
-        public async Task<IActionResult> DeleteEmbellishment(int EmbellishmentId)
+        [HttpDelete("{embellishmentId}")]
+        public async Task<ActionResult<EmbellishmentResponseDto>> 
+            DeleteEmbellishment(int embellishmentId)
         {
-            EmbellishmentResponseDto Embellishment = await _embellishmentService.DeleteEmbellishment(EmbellishmentId);
-            return Ok(Embellishment);
+            var embellishment = await _embellishmentService.DeleteEmbellishment(embellishmentId);
+            return HandleResultResponse(embellishment);
         }
 
-        //[HttpPost("gdit")]
-        //public async Task<IActionResult> Edit(int id)
-        //{
-        //    var Measurement = await _unitOfWork.MeasurementRepository.GetFirstOrDefault(x => x.MeasurementID == id);
-        //    if (Measurement == null)
-        //    {
-        //        return NotFound("There is no on by this Id.");
-        //    }
-        //    await _unitOfWork.MeasurementRepository.Update(Measurement);
-
-        //    return Ok(Measurement);
-
-        //}
-
-
-
-
-
+        [HttpPut("{id}")]
+        public async Task<IActionResult>
+            UpdateEmbellishment(int id, EmbellishmentUpdateDto updateDto)
+        {
+            return HandleResult(await _embellishmentService.Update(id, updateDto));
+        }
     }
+
+
+
+
+    //[Route("api/[controller]")]
+    //[ApiController]
+    //public class EmbellishmentController : BaseApiController
+    //{
+    //    //private readonly IUnitOfWork _unitOfWork;
+    //    private readonly IEmbellishmentService _embellishmentService;
+
+    //    public EmbellishmentController(IEmbellishmentService embellishmentService)
+    //    {
+    //        _embellishmentService = embellishmentService;
+    //    }
+
+    //    [HttpPost]
+    //    public async Task<IActionResult> Create(EmbellishmentAddDto addEmbellishmentDto)
+    //    {
+    //        var result = await _embellishmentService.AddEmbellishment(addEmbellishmentDto);
+    //        return Ok(result);
+
+    //    }
+
+    //    [HttpGet]
+    //    public async Task<IActionResult> GetEmbellishmentList( )
+    //    {
+    //        var results =
+    //            await _embellishmentService
+    //            .GetEmbellishmentList();
+
+    //        return HandleResult(results);
+    //    }
+
+    //    [HttpGet("{id}")]
+    //    public async Task<IActionResult> GitById(int id)
+    //    {
+    //        var Embellishment = await _embellishmentService.GetEmbellishmentById(id);
+
+    //        return Ok(Embellishment);
+
+    //    }
+
+    //    [HttpDelete]
+    //    public async Task<IActionResult> DeleteEmbellishment(int embellishmentId)
+    //    {
+    //        EmbellishmentResponseDto embellishment = await _embellishmentService.DeleteEmbellishment(embellishmentId);
+    //        return Ok(embellishment);
+    //    }
+
+    //    [HttpPut("{id}")]
+    //    public async Task<IActionResult> Edit(int id, EmbellishmentUpdateDto updateDto)
+    //    {
+
+    //      return HandleResult(await _embellishmentService.Update(id,updateDto));
+
+    //    }
+
+
+
+
+
+    //}
 }

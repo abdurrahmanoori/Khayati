@@ -47,9 +47,6 @@ namespace Khayati.Infrastructure.Migrations
                     b.Property<string>("Gender")
                         .HasColumnType("TEXT");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("INTEGER");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("INTEGER");
 
@@ -75,7 +72,7 @@ namespace Khayati.Infrastructure.Migrations
 
                     b.HasKey("CustomerId");
 
-                    b.ToTable("Customers", (string)null);
+                    b.ToTable("Customers");
 
                     b.HasData(
                         new
@@ -85,7 +82,6 @@ namespace Khayati.Infrastructure.Migrations
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateOfBirth = new DateTime(1985, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             EmailAddress = "johndoe@example.com",
-                            IsActive = false,
                             IsDeleted = false,
                             Name = "John Doe",
                             NationalID = "1234567890",
@@ -98,7 +94,6 @@ namespace Khayati.Infrastructure.Migrations
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateOfBirth = new DateTime(1990, 3, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             EmailAddress = "janesmith@example.com",
-                            IsActive = false,
                             IsDeleted = false,
                             Name = "Jane Smith",
                             NationalID = "0987654321",
@@ -111,7 +106,6 @@ namespace Khayati.Infrastructure.Migrations
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateOfBirth = new DateTime(1975, 9, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             EmailAddress = "robertbrown@example.com",
-                            IsActive = false,
                             IsDeleted = false,
                             Name = "Robert Brown",
                             NationalID = "4567890123",
@@ -124,7 +118,6 @@ namespace Khayati.Infrastructure.Migrations
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateOfBirth = new DateTime(1992, 11, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             EmailAddress = "emilydavis@example.com",
-                            IsActive = false,
                             IsDeleted = false,
                             Name = "Emily Davis",
                             NationalID = "3216549870",
@@ -137,7 +130,6 @@ namespace Khayati.Infrastructure.Migrations
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateOfBirth = new DateTime(1980, 7, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             EmailAddress = "michaeljohnson@example.com",
-                            IsActive = false,
                             IsDeleted = false,
                             Name = "Michael Johnson",
                             NationalID = "9876543210",
@@ -171,7 +163,7 @@ namespace Khayati.Infrastructure.Migrations
 
                     b.HasIndex("EmbellishmentTypeId");
 
-                    b.ToTable("Embellishment", (string)null);
+                    b.ToTable("Embellishment");
 
                     b.HasData(
                         new
@@ -237,7 +229,7 @@ namespace Khayati.Infrastructure.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("EmbellishmentTypes", (string)null);
+                    b.ToTable("EmbellishmentTypes");
 
                     b.HasData(
                         new
@@ -341,7 +333,7 @@ namespace Khayati.Infrastructure.Migrations
 
                     b.HasIndex("FabricId");
 
-                    b.ToTable("Measurements", (string)null);
+                    b.ToTable("Measurements");
                 });
 
             modelBuilder.Entity("Entities.Order", b =>
@@ -373,7 +365,7 @@ namespace Khayati.Infrastructure.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("Orders", (string)null);
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("Entities.OrderDesign", b =>
@@ -416,7 +408,7 @@ namespace Khayati.Infrastructure.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("OrderDesigns", (string)null);
+                    b.ToTable("OrderDesigns");
                 });
 
             modelBuilder.Entity("Entities.Payment", b =>
@@ -441,7 +433,7 @@ namespace Khayati.Infrastructure.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("Payments", (string)null);
+                    b.ToTable("Payments");
                 });
 
             modelBuilder.Entity("Khayati.Core.Domain.Entities.Fabric", b =>
@@ -477,7 +469,7 @@ namespace Khayati.Infrastructure.Migrations
 
                     b.HasKey("FabricId");
 
-                    b.ToTable("Fabrics", (string)null);
+                    b.ToTable("Fabrics");
 
                     b.HasData(
                         new
@@ -572,7 +564,7 @@ namespace Khayati.Infrastructure.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("Relative", (string)null);
+                    b.ToTable("Relative");
                 });
 
             modelBuilder.Entity("Khayati.Core.Domain.Entities.Translation", b =>
@@ -602,7 +594,7 @@ namespace Khayati.Infrastructure.Migrations
 
                     b.HasKey("TranslationId");
 
-                    b.ToTable("Translations", (string)null);
+                    b.ToTable("Translations");
                 });
 
             modelBuilder.Entity("Khayati.Infrastructure.Identity.Entity.ApplicationRole", b =>

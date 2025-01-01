@@ -3,6 +3,7 @@ using Entities;
 using Entities.Enum;
 using Khayati.Core.Common.Response;
 using Khayati.Core.DTO;
+using Khayati.Core.DTO.Measurement;
 using Khayati.Core.DTO.Orders;
 using Khayati.ServiceContracts;
 using RepositoryContracts.Base;

@@ -1,6 +1,6 @@
 ﻿using Entities;
 
-namespace Khayati.Core.DTO
+namespace Khayati.Core.DTO.Measurement
 {
     public class MeasurementAddDto
     {
@@ -14,31 +14,31 @@ namespace Khayati.Core.DTO
         public double Sleeve { get; set; }
         public double DateCreated { get; set; }
         public double DateTaken { get; set; }
-       
+
         public double ShoulderWidth { get; set; }
         public double ArmLength { get; set; }
-       
+        public int CustomerId { get; set; }
 
 
-        public Measurement ToMeasurement()
-        {
-            return new Measurement
-            {
-                
-                //CustomerId = CustomerId,
-                Height = Height,
-                Chest = Chest,
-                Waist = Waist,
-                Sleeve = Sleeve,
-                Neck = Neck,
-                trousers = trousers,
-                Leg = Leg,  
-                ShoulderWidth = ShoulderWidth,  
-                ArmLength = ArmLength,
-                
-                
-            };
-        }
+        //public Measurement ToMeasurement()
+        //{
+        //    return new Measurement
+        //    {
+
+        //        //CustomerId = CustomerId,
+        //        Height = Height,
+        //        Chest = Chest,
+        //        Waist = Waist,
+        //        Sleeve = Sleeve,
+        //        Neck = Neck,
+        //        trousers = trousers,
+        //        Leg = Leg,  
+        //        ShoulderWidth = ShoulderWidth,  
+        //        ArmLength = ArmLength,
+
+
+        //    };
+        //}
 
     }
 }

@@ -77,7 +77,7 @@ namespace Repositories.Base
         //     return await query.ToListAsync();
         // }
 
-        public async Task<T> GetFirstOrDefault(Expression<Func<T, bool>> filter, string? includeProperties = null, bool tracked = true)
+        public async Task<T?> GetFirstOrDefault(Expression<Func<T, bool>> filter, string? includeProperties = null, bool tracked = true)
         {
 
             IQueryable<T> query;
@@ -100,17 +100,18 @@ namespace Repositories.Base
                     query = query.Include(includeProp);
                 }
             }
-
+          
             var result = await query.FirstOrDefaultAsync();
             if (result == null)
             {
-                throw new ArgumentException($"No {typeof(T).Name}s found matching the filter. and this message comes form generic repository.");
+                return null;
+                //throw new ArgumentException($"No {typeof(T).Name}s found matching the filter. and this message comes form generic repository.");
             }
 
             return result;
         }
 
-        public async Task<T> GetById(int Id)
+        public async Task<T?> GetById(int Id)
         {
             return await dbSet.FindAsync(Id);
 

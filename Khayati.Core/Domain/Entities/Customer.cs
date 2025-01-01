@@ -15,7 +15,7 @@ namespace Entities
         public string? EmailAddress { get; set; }
         public string? NationalID { get; set; }
         public DateTime DateOfBirth { get; set; }
-        public bool IsActive { get; set; }
+       // public bool IsActive { get; set; }
         //public string? CustomerType { get; set; }
 
         public virtual ICollection<Order> Orders { get; set; }
