@@ -39,7 +39,6 @@ namespace Repositories.Base
             dbSet.Remove(entity);
             return Task.CompletedTask;
         }
-        //sfds
         public async Task<IEnumerable<T>> GetAll(Expression<Func<T, bool>>? filter = null, string? includeProperties = null)
         {
             IQueryable<T> query = dbSet;

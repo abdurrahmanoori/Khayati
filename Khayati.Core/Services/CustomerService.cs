@@ -65,7 +65,8 @@ namespace Khayati.Service
 
         public async Task<IEnumerable<CustomerResponseDto>> GetCustomerList()
         {
-            IEnumerable<Customer> customers = await _unitOfWork.CustomerRepository.GetAll();
+            IEnumerable<Customer> customers = await _unitOfWork.CustomerRepository
+                .GetAll(x=>x.IsDeleted == false);
             if (customers is null)
             {
                 return null;
