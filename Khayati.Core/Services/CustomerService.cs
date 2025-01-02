@@ -36,7 +36,7 @@ namespace Khayati.Service
             {
                 return null;
             }
-            Customer customer = await _unitOfWork.CustomerRepository.GetById((int)customerId);
+            Customer? customer = await _unitOfWork.CustomerRepository.GetById((int)customerId);
             if (customer == null)
             {
                 return null;

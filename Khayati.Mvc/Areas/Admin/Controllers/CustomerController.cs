@@ -1,6 +1,7 @@
 ﻿using Khayati.ServiceContracts;
 using Khayati.Core.DTO;
 using Microsoft.AspNetCore.Mvc;
+using Khayati.Service;
 
 namespace Khayati.Mvc.Areas.Admin.Controllers
 {
@@ -35,7 +36,12 @@ namespace Khayati.Mvc.Areas.Admin.Controllers
             return Ok(result);
 
         }
-
+        [HttpDelete("api/Customer/delete")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await _customerService.DeleteCustomer(id);
+            return Ok("deleted susscefully");
+        }
         //public async Task<IActionResult> Index()
         //{
         //    HttpClient client = new HttpClient();
