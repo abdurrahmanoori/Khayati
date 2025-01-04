@@ -1,4 +1,175 @@
-﻿
+﻿@using Khayati.Core.DTO.Relative
+@model IEnumerable<RelativeDto>
+@{
+    ViewData["Title"] = "EmbellishmentType Page";
+}
+
+
+
+<div class="col-12">
+    <div class="card">
+        <div class="card-header">
+
+            <h3 class="card-title">Fixed Header Table</h3>
+            <div class="card-tools">
+                <div class="input-group input-group-sm" style="width: 150px;">
+                    <a asp-action="Create" asp-area="Admin" asp-controller="Relative" class="btn btn-block btn-primary btn-lg">Create</a>
+                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-default">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body table-responsive p-0">
+            <table class="table table-head-fixed text-nowrap">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Relationship Type</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Phone</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.RelativeId</td>
+                            <td>@item.RelationshipType</td>
+                            <td>@item.FirstName</td>
+                            <td>@item.LastName</td>
+                            <td>@item.PhoneNumber</td>
+                            <td>
+                                <a asp-action="Edit"
+                                   asp-controller="Relative"
+                                   asp-area="Admin"
+                                   asp-route-id="@item.RelativeId" class="btn btn-primary">
+                                    <i class="fas fa-edit"></i>
+                                    Edit
+                                </a>
+
+                                <a onclick="confirmDeletion(@item.RelativeId,'Relative','/api/relative/delete','/Admin/Relative/Index')"
+                                   class="btn btn-danger">
+                                    <i class="fas fa-trash-alt"></i> Delete
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</div>
+<script>
+    
+
+    // function confirmDeletion(id) {
+    //     Swal.fire({
+    //         title: 'Are You Sure?',
+    //         text: 'You Want to Delete This Record',
+    //         icon: 'warning',
+    //         showCancelButton: true,
+    //         confirmButtonText: 'Yes',
+    //         cancelButtonText: 'Nah'
+    //     }).then((result) => {
+    //         if (result.value) {
+    //             // Perform the deletion action by calling the .NET Core API
+    //             fetch(`/api/relative/delete?id=${id}`, {
+    //                 method: 'DELETE',
+    //                 headers: {
+    //                     'Content-Type': 'application/json'
+    //                 }
+    //             }).then(response => {
+    //                 if (response.ok) {
+    //                     Swal.fire({
+    //                         title: 'Deleted',
+    //                         text: 'Selected Record Has been Deleted',
+    //                         icon: 'success',
+    //                         timer: 2000,
+    //                         showConfirmButton: false
+    //                     });
+    //                     // Delay the redirection to allow the success message to be displayed
+    //                     setTimeout(() => {
+    //                         window.location = "/Admin/Relative/Index";
+    //                     }, 2000);
+    //                 } else {
+    //                     throw new Error('Network response was not ok.');
+    //                 }
+    //             })
+    //                 .catch(error => {
+    //                     Swal.fire({
+    //                         title: 'Not Deleted',
+    //                         text: 'Selected Record is Save',
+    //                         icon: 'error',
+    //                         timer: 2000,
+    //                         showConfirmButton: false
+    //                     });
+    //                 });
+    //         } else if (result.dismiss === Swal.DismissReason.cancel) {
+    //             // Optionally handle cancel action
+    //         }
+    //     });
+    // }
+
+
+
+
+    // // Function to show SweetAlert confirmation dialog for deletion
+    // async function confirmDeletion(id) {
+    //     const result = await Swal.fire({
+    //         title: 'Are you sure?',
+    //         text: "You won't be able to revert this!",
+    //         icon: 'warning',
+    //         showCancelButton: true,
+    //         confirmButtonColor: '#3085d6',
+    //         cancelButtonColor: '#d33',
+    //         confirmButtonText: 'Yes, delete it!'
+    //     });
+
+    //     if (result.isConfirmed) {
+    //         try {
+    //             // Perform the deletion action by calling the .NET Core API
+    //             const response = await fetch(`https://your-api-url.com/api/entities/${id}`, {
+    //                 method: 'DELETE',
+    //                 headers: {
+    //                     'Content-Type': 'application/json'
+    //                 }
+    //             });
+
+    //             if (response.ok) {
+    //                 Swal.fire(
+    //                     'Deleted!',
+    //                     'Your item has been deleted.',
+    //                     'success'
+    //                 );
+    //             } else {
+    //                 Swal.fire(
+    //                     'Error!',
+    //                     'There was a problem deleting the item.',
+    //                     'error'
+    //                 );
+    //             }
+    //         } catch (error) {
+    //             Swal.fire(
+    //                 'Error!',
+    //                 'There was a problem deleting the item.',
+    //                 'error'
+    //             );
+    //         }
+    //     }
+    // }
+
+</script>
+
+
 
 
 

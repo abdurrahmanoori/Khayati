@@ -4,10 +4,10 @@
 }
 
 <div class="container-fluid mb-1 ps-md-3  d-flex justify-content-end">
-    <a href="Customer/Create" class="nav-link">
+    <a asp-action="Create" asp-controller="Customer" asp-area="Admin" class="nav-link">
         <i class="nav-icon bi bi-circle"></i>
-        <button type="button" class="btn btn-block btn-primary btn-flat"><p> Add Customer </p></button>
-        
+        <button type="button" class="btn btn-block btn-primary btn-flat"><p> Create </p></button>
+
     </a>
 </div>
 
@@ -36,6 +36,7 @@
                     <th>Date</th>
                     <th>Phone Number</th>
                     <th>Email Address</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -47,6 +48,20 @@
                         <td>@customer.DateOfBirth</td>
                         <td>@customer.PhoneNumber</td>
                         <td>@customer.EmailAddress</td>
+                        <td>
+                            <a asp-action="Edit"
+                               asp-controller="Customer"
+                               asp-area="Admin"
+                               asp-route-id="@customer.CustomerId" class="btn btn-primary">
+                                <i class="fas fa-edit"></i>
+                                Edit
+                            </a>
+
+                            <a onclick="confirmDeletion(@customer.CustomerId,'Customer','/api/Customer/delete','/Admin/Customer/Index')"
+                               class="btn btn-danger">
+                                <i class="fas fa-trash-alt"></i> Delete
+                            </a>
+                        </td>
                     </tr>
 
                 }

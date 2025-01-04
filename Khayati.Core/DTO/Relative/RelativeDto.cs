@@ -1,4 +1,6 @@
-﻿namespace Khayati.Core.DTO.Relative
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Khayati.Core.DTO.Relative
 {
     public class RelativeDto
     {
@@ -13,6 +15,7 @@
         public string? Address { get; set; }         // Optional
 
         // Foreign key to link back to the customer
+        [Required]
         public int CustomerId { get; set; }
         public CustomerRelativeDto Customer { get; set; }
     }

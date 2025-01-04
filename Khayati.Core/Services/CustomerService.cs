@@ -36,7 +36,7 @@ namespace Khayati.Service
             {
                 return null;
             }
-            Customer customer = await _unitOfWork.CustomerRepository.GetById((int)customerId);
+            Customer? customer = await _unitOfWork.CustomerRepository.GetById((int)customerId);
             if (customer == null)
             {
                 return null;
@@ -65,7 +65,8 @@ namespace Khayati.Service
 
         public async Task<IEnumerable<CustomerResponseDto>> GetCustomerList()
         {
-            IEnumerable<Customer> customers = await _unitOfWork.CustomerRepository.GetAll();
+            IEnumerable<Customer> customers = await _unitOfWork.CustomerRepository
+                .GetAll(x=>x.IsDeleted == false);
             if (customers is null)
             {
                 return null;
