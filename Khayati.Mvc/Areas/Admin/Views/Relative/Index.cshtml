@@ -54,7 +54,7 @@
                                     Edit
                                 </a>
 
-                                <a onclick="confirmDeletion(@item.RelativeId)"
+                                <a onclick="confirmDeletion(@item.RelativeId,'Relative','/api/relative/delete','/Admin/Relative/Index')"
                                    class="btn btn-danger">
                                     <i class="fas fa-trash-alt"></i> Delete
                                 </a>
@@ -69,54 +69,55 @@
 
 </div>
 <script>
+    
 
-    function confirmDeletion(id) {
-        Swal.fire({
-            title: 'Are You Sure?',
-            text: 'You Want to Delete This Record',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Yes',
-            cancelButtonText: 'Nah'
-        }).then((result) => {
-            if (result.value) {
-                // Perform the deletion action by calling the .NET Core API
-                fetch(`/api/relative/delete?id=${id}`, {
-                    method: 'DELETE',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                }).then(response => {
-                    if (response.ok) {
-                        Swal.fire({
-                            title: 'Deleted',
-                            text: 'Selected Record Has been Deleted',
-                            icon: 'success',
-                            timer: 2000,
-                            showConfirmButton: false
-                        });
-                        // Delay the redirection to allow the success message to be displayed
-                        setTimeout(() => {
-                            window.location = "/Admin/Relative/Index";
-                        }, 2000);
-                    } else {
-                        throw new Error('Network response was not ok.');
-                    }
-                })
-                    .catch(error => {
-                        Swal.fire({
-                            title: 'Not Deleted',
-                            text: 'Selected Record is Save',
-                            icon: 'error',
-                            timer: 2000,
-                            showConfirmButton: false
-                        });
-                    });
-            } else if (result.dismiss === Swal.DismissReason.cancel) {
-                // Optionally handle cancel action
-            }
-        });
-    }
+    // function confirmDeletion(id) {
+    //     Swal.fire({
+    //         title: 'Are You Sure?',
+    //         text: 'You Want to Delete This Record',
+    //         icon: 'warning',
+    //         showCancelButton: true,
+    //         confirmButtonText: 'Yes',
+    //         cancelButtonText: 'Nah'
+    //     }).then((result) => {
+    //         if (result.value) {
+    //             // Perform the deletion action by calling the .NET Core API
+    //             fetch(`/api/relative/delete?id=${id}`, {
+    //                 method: 'DELETE',
+    //                 headers: {
+    //                     'Content-Type': 'application/json'
+    //                 }
+    //             }).then(response => {
+    //                 if (response.ok) {
+    //                     Swal.fire({
+    //                         title: 'Deleted',
+    //                         text: 'Selected Record Has been Deleted',
+    //                         icon: 'success',
+    //                         timer: 2000,
+    //                         showConfirmButton: false
+    //                     });
+    //                     // Delay the redirection to allow the success message to be displayed
+    //                     setTimeout(() => {
+    //                         window.location = "/Admin/Relative/Index";
+    //                     }, 2000);
+    //                 } else {
+    //                     throw new Error('Network response was not ok.');
+    //                 }
+    //             })
+    //                 .catch(error => {
+    //                     Swal.fire({
+    //                         title: 'Not Deleted',
+    //                         text: 'Selected Record is Save',
+    //                         icon: 'error',
+    //                         timer: 2000,
+    //                         showConfirmButton: false
+    //                     });
+    //                 });
+    //         } else if (result.dismiss === Swal.DismissReason.cancel) {
+    //             // Optionally handle cancel action
+    //         }
+    //     });
+    // }
 
 
 

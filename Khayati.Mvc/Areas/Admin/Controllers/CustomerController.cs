@@ -1,6 +1,9 @@
 ﻿using Khayati.ServiceContracts;
 using Khayati.Core.DTO;
 using Microsoft.AspNetCore.Mvc;
+using Khayati.Service;
+using Khayati.Core.DTO.Relative;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Khayati.Mvc.Areas.Admin.Controllers
 {
@@ -36,6 +39,40 @@ namespace Khayati.Mvc.Areas.Admin.Controllers
 
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var result = await _customerService.GetCustomerById(id);
+            if (result is null)
+            {
+                return NotFound();
+            }
+            ViewBag.Customers = new SelectList(await _customerService.GetCustomerList(), 
+                nameof(CustomerResponseDto.CustomerId), nameof(CustomerResponseDto.Name));
+
+            //return View(result.Response);
+            return View();
+
+        }
+
+        //[HttpPost]
+        //public async Task<IActionResult> Edit(RelativeUpdateDto dto)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest();
+        //    }
+        //    await _relativeService.UpdateRelative(dto.RelativeId, dto);
+
+        //    return RedirectToAction(nameof(Index));
+        //}
+
+        [HttpDelete("api/Customer/delete")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await _customerService.DeleteCustomer(id);
+            return Ok("deleted susscefully");
+        }
         //public async Task<IActionResult> Index()
         //{
         //    HttpClient client = new HttpClient();
