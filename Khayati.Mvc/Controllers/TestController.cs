@@ -1,9 +1,7 @@
 ﻿using Khayati.Core.Domain.UserServiceContracts;
 using Khayati.Core.DTO.Relative;
 using Khayati.ServiceContracts;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Net.Http;
 
 namespace Khayati.Mvc.Controllers
 {
