@@ -55,13 +55,13 @@ namespace Khayati.Infrastructure.Extension
                 options.EnableSensitiveDataLogging(databaseOptions.EnableSensitiveDataLoggin);
             });
 
-            // Enable Identity
             services.AddIdentity<ApplicationUser, ApplicationRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders()
                 .AddUserStore<UserStore<ApplicationUser, ApplicationRole, ApplicationDbContext, int>>()
                 .AddRoleStore<RoleStore<ApplicationRole, ApplicationDbContext, int>>();
 
+            // Register services
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<ICurrentUser, CurrentUser>();
             services.AddScoped<IUserService, UserService>();

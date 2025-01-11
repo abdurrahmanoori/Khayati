@@ -10,22 +10,22 @@ namespace Khayati.Infrastructure.Identity.UserServices
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly ILogger<UserService> _logger;
-        private readonly string _jwtSecret;
+        private readonly RoleManager<ApplicationRole> _roleManager;
+        //private readonly ILogger<UserService> _logger;
+        //private readonly string _jwtSecret;
 
         public UserService(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            RoleManager<IdentityRole> roleManager,
-            ILogger<UserService> logger,
-            string jwtSecret)
+            RoleManager<ApplicationRole> roleManager
+            /*ILogger<UserService> logger,
+            string jwtSecret*/)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
-            _logger = logger;
-            _jwtSecret = jwtSecret;
+            //_logger = logger;
+            //_jwtSecret = jwtSecret;
         }
 
         // User Management

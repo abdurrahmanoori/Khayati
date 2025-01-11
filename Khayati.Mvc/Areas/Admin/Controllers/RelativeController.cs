@@ -14,9 +14,9 @@ namespace Khayati.Mvc.Areas.Admin.Controllers
         private readonly IRelativeService _relativeService;
         private readonly ICustomerService _customerService;
 
-        public RelativeController(IRelativeService RelativeService, ICustomerService customerService)
+        public RelativeController(IRelativeService relativeService, ICustomerService customerService)
         {
-            _relativeService = RelativeService;
+            _relativeService = relativeService;
             _customerService = customerService;
             //_relativeService = RelativeService;
         }

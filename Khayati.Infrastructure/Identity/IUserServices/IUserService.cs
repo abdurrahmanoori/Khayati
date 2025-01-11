@@ -1,5 +1,4 @@
-﻿using System.Security.Claims;
-using Khayati.Infrastructure.Identity.Entity;
+﻿using Khayati.Infrastructure.Identity.Entity;
 using Microsoft.AspNetCore.Identity;
 
 namespace Khayati.Core.Domain.UserServiceContracts
