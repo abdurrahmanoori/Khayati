@@ -14,9 +14,9 @@ namespace Khayati.Mvc.Areas.Admin.Controllers
         private readonly IMeasurementService _measurementService;
         private readonly ICustomerService _customerService;
 
-        public MeasurementController(IMeasurementService MeasurementService, ICustomerService customerService)
+        public MeasurementController(IMeasurementService measurementService, ICustomerService customerService)
         {
-            _measurementService = MeasurementService;
+            _measurementService = measurementService;
             _customerService = customerService;
             //_measurementService = MeasurementService;
         }

@@ -1,5 +1,4 @@
 ﻿using Khayati.ServiceContracts;
-using Khayati.Core.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Khayati.Core.Utility;
 using Khayati.Core.DTO.OrderDesign;

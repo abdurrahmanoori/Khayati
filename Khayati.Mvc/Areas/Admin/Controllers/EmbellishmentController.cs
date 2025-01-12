@@ -1,11 +1,8 @@
 ﻿using Khayati.ServiceContracts;
-using Khayati.ServiceContracts;
-using Khayati.Core.DTO;
 using Microsoft.AspNetCore.Mvc;
 
 using Khayati.Core.DTO.Embellishments;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 
 namespace Khayati.Mvc.Areas.Admin.Controllers;
 

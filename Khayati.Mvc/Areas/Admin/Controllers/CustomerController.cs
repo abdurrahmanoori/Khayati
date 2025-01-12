@@ -1,8 +1,6 @@
 ﻿using Khayati.ServiceContracts;
 using Khayati.Core.DTO;
 using Microsoft.AspNetCore.Mvc;
-using Khayati.Service;
-using Khayati.Core.DTO.Relative;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Khayati.Mvc.Areas.Admin.Controllers;

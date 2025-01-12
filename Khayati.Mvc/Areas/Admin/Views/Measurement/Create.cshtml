@@ -1,9 +1,8 @@
-﻿@using Entities.Enum
-@model Khayati.Core.DTO.Measurement.MeasurementAddDto
+﻿@model Khayati.Core.DTO.Measurement.MeasurementAddDto
 <div class="p-3 content-wrapper ">
     <div class="row">
 
-        <div class="col-md-9">
+        <div class="col-md-12">
             <h1 class="">
                 <a asp-action="Index" asp-controller="Measurement" asp-area="Admin" class="custom-link">
                     Customers
@@ -20,56 +19,77 @@
                     <div class="row">
                         <div class="col-md-6">
 
-                            <label asp-for="FirstName" class="form-label"></label>
-                            <input asp-for="FirstName" class="form-control">
-                            <span asp-validation-for="FirstName" class="text-danger"></span>
+                            <label asp-for="ArmLength" class="form-label"></label>
+                            <input asp-for="ArmLength" class="form-control">
+                            <span asp-validation-for="ArmLength" class="text-danger"></span>
                         </div>
                         <div class="col-md-6">
-                            <label asp-for="LastName" class="form-label"></label>
-                            <input asp-for="LastName" class="form-control">
-                            <span asp-validation-for="LastName" class="text-danger"></span>
+                            <label asp-for="Chest" class="form-label"></label>
+                            <input asp-for="Chest" class="form-control">
+                            <span asp-validation-for="Chest" class="text-danger"></span>
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="col-md-6">
+                        @* <div class="col-md-6">
 
-                            <label asp-for="RelationshipType" class="form-label"></label>
-                            <select asp-for="RelationshipType" asp-items="Html.GetEnumSelectList<RelationshipType>()"
-                                    class="form-select" data-control="select2" data-placeholder="Select an option">
-                                <option value="">Select an option</option>
-                            </select>
-                            <span asp-validation-for="RelationshipType" id="realtionErrorMsg" class="text-danger"></span>
+                        <label asp-for="RelationshipType" class="form-label"></label>
+                        <select asp-for="RelationshipType" asp-items="Html.GetEnumSelectList<RelationshipType>()"
+                        class="form-select" data-control="select2" data-placeholder="Select an option">
+                        <option value="">Select an option</option>
+                        </select>
+                        <span asp-validation-for="RelationshipType" id="realtionErrorMsg" class="text-danger"></span>
+                        </div> *@
+                        <div class="col-md-6">
+                            <label asp-for="Height" class="form-label"></label>
+                            <input asp-for="Height" class="form-control">
+                            <span asp-validation-for="Chest" class="text-danger"></span>
                         </div>
                         <div class="col-md-6">
 
-                            <label asp-for="DateOfBirth" class="form-label"></label>
-                            <input asp-for="DateOfBirth" class="form-control">
-                            <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                            <label asp-for="Leg" class="form-label"></label>
+                            <input asp-for="Leg" class="form-control">
+                            <span asp-validation-for="Leg" class="text-danger"></span>
                         </div>
                     </div>
 
                     <div class="row ">
                         <div class="col-md-6">
 
-                            <label asp-for="PhoneNumber" class="form-label"></label>
-                            <input asp-for="PhoneNumber" class="form-control">
-                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                            <label asp-for="Neck" class="form-label"></label>
+                            <input asp-for="Neck" class="form-control">
+                            <span asp-validation-for="Neck" class="text-danger"></span>
                         </div>
 
                         <div class="col-md-6">
 
-                            <label asp-for="EmailAddress" class="form-label"></label>
-                            <input asp-for="EmailAddress" class="form-control">
-                            <span asp-validation-for="EmailAddress" class="text-danger"></span>
+                            <label asp-for="DateTaken" class="form-label"></label>
+                            <input asp-for="DateTaken" class="form-control">
+                            <span asp-validation-for="DateTaken" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="row ">
+                        <div class="col-md-6">
+
+                            <label asp-for="Sleeve" class="form-label"></label>
+                            <input asp-for="Sleeve" class="form-control">
+                            <span asp-validation-for="Sleeve" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <label asp-for="Waist" class="form-label"></label>
+                            <input asp-for="Waist" class="form-control">
+                            <span asp-validation-for="Waist" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
 
-                            <label asp-for="EmailAddress" class="form-label"></label>
-                            <input asp-for="EmailAddress" class="form-control">
-                            <span asp-validation-for="EmailAddress" class="text-danger"></span>
+                            <label asp-for="ShoulderWidth" class="form-label"></label>
+                            <input asp-for="ShoulderWidth" class="form-control">
+                            <span asp-validation-for="ShoulderWidth" class="text-danger"></span>
                         </div>
                         <div class="col-md-6">
 
@@ -82,13 +102,14 @@
 
                     </div>
 
-                    <div class="row mb-3">
+                    <div class="row ">
                         <div class="col-md-6">
 
-                            <label asp-for="Address" class="form-label"></label>
-                            <input asp-for="Address" class="form-control">
-                            <span asp-validation-for="Address" class="text-danger"></span>
+                            <label asp-for="trousers" class="form-label"></label>
+                            <input asp-for="trousers" class="form-control">
+                            <span asp-validation-for="trousers" class="text-danger"></span>
                         </div>
+
                     </div>
 
                     <div class="card-footer">
