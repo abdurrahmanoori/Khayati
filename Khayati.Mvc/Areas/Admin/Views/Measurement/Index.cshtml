@@ -34,10 +34,6 @@
     </div>
 </div>
 
-
-
-
-
 <div class="card m-2">
     <div class="card-body table-responsive p-0">
         <table class="table table-hover text-nowrap">
@@ -51,9 +47,9 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var customer in Model)
+                @foreach (var item in Model)
                 {
-                    <tr class="table-row" onclick="redirectToEdit('@customer.CustomerId')">
+                    <tr class="table-row" onclick="redirectToEdit('@item.MeasurementId')">
                         <td>@item.Customer?.Name</td>
                         <td>@item.Customer?.LastName</td>
                         <td>@item.Chest</td>
@@ -63,7 +59,7 @@
                             <button type="button" class="btn btn-outline-success"
                                     data-bs-toggle="modal"
                                     data-bs-target="#addPaymentModal"
-                                    onclick="event.stopPropagation(); loadCustomerData('@customer.CustomerId', '@customer.Name')">
+                                    onclick="event.stopPropagation(); loadCustomerData('@item.MeasurementId', '@item.?Customer.Name')">
                                 <i class="fas fa-plus"></i>
                             </button>
                         </td>
@@ -154,22 +150,22 @@
 
 
 <script>
-    function redirectToEdit(customerId) {
-        window.location.href = `/Admin/Customer/Edit/${customerId}`;
+    function redirectToEdit(measurementId) {
+        window.location.href = `/Admin/Measurement/Edit/${measurementId}`;
     }
 
-    function loadCustomerData(customerId, customerName) {
+    function loadCustomerData(measurementId, customerName) {
         // Populate modal with customer details
         document.getElementById("customer").value = customerName;
     }
 
-    function loadCustomerData(customerId, customerName) {
+    function loadCustomerData(measurementId, customerName) {
         // Populate modal with the selected customer's details
         document.getElementById("customer").value = customerName;
     }
 </script>
 
-
+@* 
 <div class="col-12">
     <div class="card">
         <div class="card-header">
@@ -230,6 +226,6 @@
 
 
 
-
+ *@
 
     

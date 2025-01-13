@@ -84,6 +84,8 @@ namespace Entities
         [Required(AllowEmptyStrings =true)]
         public int? FabricId { get; set; }
 
+
+        public string? Description { get; set; }
         /// <summary>
         /// Indicates the date when this measurement was created. Useful for tracking the most recent measurement of a customer.
         /// </summary>
