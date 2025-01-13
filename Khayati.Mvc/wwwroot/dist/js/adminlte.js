@@ -1,8 +1,8 @@
-/*!
+!
  * AdminLTE v4.0.0-beta2 (https://adminlte.io)
  * Copyright 2014-2024 Colorlib <https://colorlib.com>
  * Licensed under MIT (https://github.com/ColorlibHQ/AdminLTE/blob/master/LICENSE)
- */
+ 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
     typeof define === 'function' && define.amd ? define(['exports'], factory) :
@@ -12,7 +12,7 @@
     const domContentLoadedCallbacks = [];
     const onDOMContentLoaded = (callback) => {
         if (document.readyState === 'loading') {
-            // add listener on the first call when the document is in loading state
+             add listener on the first call when the document is in loading state
             if (!domContentLoadedCallbacks.length) {
                 document.addEventListener('DOMContentLoaded', () => {
                     for (const callback of domContentLoadedCallbacks) {
@@ -26,7 +26,7 @@
             callback();
         }
     };
-    /* SLIDE UP */
+     SLIDE UP 
     const slideUp = (target, duration = 500) => {
         target.style.transitionProperty = 'height, margin, padding';
         target.style.transitionDuration = `${duration}ms`;
@@ -52,7 +52,7 @@
             target.style.removeProperty('transition-property');
         }, duration);
     };
-    /* SLIDE DOWN */
+     SLIDE DOWN 
     const slideDown = (target, duration = 500) => {
         target.style.removeProperty('display');
         let { display } = window.getComputedStyle(target);
@@ -85,24 +85,24 @@
         }, duration);
     };
 
-    /**
+    *
      * --------------------------------------------
      * @file AdminLTE layout.ts
      * @description Layout for AdminLTE.
      * @license MIT
      * --------------------------------------------
-     */
-    /**
+     
+    *
      * ------------------------------------------------------------------------
      * Constants
      * ------------------------------------------------------------------------
-     */
+     
     const CLASS_NAME_HOLD_TRANSITIONS = 'hold-transition';
     const CLASS_NAME_APP_LOADED = 'app-loaded';
-    /**
+    *
      * Class Definition
      * ====================================================
-     */
+     
     class Layout {
         constructor(element) {
             this._element = element;
@@ -126,18 +126,18 @@
         }, 400);
     });
 
-    /**
+    *
      * --------------------------------------------
      * @file AdminLTE push-menu.ts
      * @description Push menu for AdminLTE.
      * @license MIT
      * --------------------------------------------
-     */
-    /**
+     
+    *
      * ------------------------------------------------------------------------
      * Constants
      * ------------------------------------------------------------------------
-     */
+     
     const DATA_KEY$4 = 'lte.push-menu';
     const EVENT_KEY$4 = `.${DATA_KEY$4}`;
     const EVENT_OPEN = `open${EVENT_KEY$4}`;
@@ -158,16 +158,16 @@
     const Defaults = {
         sidebarBreakpoint: 992
     };
-    /**
+    *
      * Class Definition
      * ====================================================
-     */
+     
     class PushMenu {
         constructor(element, config) {
             this._element = element;
             this._config = Object.assign(Object.assign({}, Defaults), config);
         }
-        // TODO
+         TODO
         menusClose() {
             const navTreeview = document.querySelectorAll(SELECTOR_NAV_TREEVIEW);
             navTreeview.forEach(navTree => {
@@ -225,11 +225,11 @@
             this.addSidebarBreakPoint();
         }
     }
-    /**
+    *
      * ------------------------------------------------------------------------
      * Data Api implementation
      * ------------------------------------------------------------------------
-     */
+     
     onDOMContentLoaded(() => {
         var _a;
         const sidebar = document === null || document === void 0 ? void 0 : document.querySelector(SELECTOR_APP_SIDEBAR);
@@ -272,24 +272,24 @@
         });
     });
 
-    /**
+    *
      * --------------------------------------------
      * @file AdminLTE treeview.ts
      * @description Treeview plugin for AdminLTE.
      * @license MIT
      * --------------------------------------------
-     */
-    /**
+     
+    *
      * ------------------------------------------------------------------------
      * Constants
      * ------------------------------------------------------------------------
-     */
-    // const NAME = 'Treeview'
+     
+     const NAME = 'Treeview'
     const DATA_KEY$3 = 'lte.treeview';
     const EVENT_KEY$3 = `.${DATA_KEY$3}`;
     const EVENT_EXPANDED$2 = `expanded${EVENT_KEY$3}`;
     const EVENT_COLLAPSED$2 = `collapsed${EVENT_KEY$3}`;
-    // const EVENT_LOAD_DATA_API = `load${EVENT_KEY}`
+     const EVENT_LOAD_DATA_API = `load${EVENT_KEY}`
     const CLASS_NAME_MENU_OPEN = 'menu-open';
     const SELECTOR_NAV_ITEM = '.nav-item';
     const SELECTOR_NAV_LINK = '.nav-link';
@@ -299,10 +299,10 @@
         animationSpeed: 300,
         accordion: true
     };
-    /**
+    *
      * Class Definition
      * ====================================================
-     */
+     
     class Treeview {
         constructor(element, config) {
             this._element = element;
@@ -349,11 +349,11 @@
             }
         }
     }
-    /**
+    *
      * ------------------------------------------------------------------------
      * Data Api implementation
      * ------------------------------------------------------------------------
-     */
+     
     onDOMContentLoaded(() => {
         const button = document.querySelectorAll(SELECTOR_DATA_TOGGLE$1);
         button.forEach(btn => {
@@ -372,17 +372,17 @@
         });
     });
 
-    /**
+    *
      * --------------------------------------------
      * @file AdminLTE direct-chat.ts
      * @description Direct chat for AdminLTE.
      * @license MIT
      * --------------------------------------------
-     */
-    /**
+     
+    *
      * Constants
      * ====================================================
-     */
+     
     const DATA_KEY$2 = 'lte.direct-chat';
     const EVENT_KEY$2 = `.${DATA_KEY$2}`;
     const EVENT_EXPANDED$1 = `expanded${EVENT_KEY$2}`;
@@ -390,10 +390,10 @@
     const SELECTOR_DATA_TOGGLE = '[data-lte-toggle="chat-pane"]';
     const SELECTOR_DIRECT_CHAT = '.direct-chat';
     const CLASS_NAME_DIRECT_CHAT_OPEN = 'direct-chat-contacts-open';
-    /**
+    *
      * Class Definition
      * ====================================================
-     */
+     
     class DirectChat {
         constructor(element) {
             this._element = element;
@@ -411,11 +411,11 @@
             }
         }
     }
-    /**
+    *
      *
      * Data Api implementation
      * ====================================================
-     */
+     
     onDOMContentLoaded(() => {
         const button = document.querySelectorAll(SELECTOR_DATA_TOGGLE);
         button.forEach(btn => {
@@ -431,17 +431,17 @@
         });
     });
 
-    /**
+    *
      * --------------------------------------------
      * @file AdminLTE card-widget.ts
      * @description Card widget for AdminLTE.
      * @license MIT
      * --------------------------------------------
-     */
-    /**
+     
+    *
      * Constants
      * ====================================================
-     */
+     
     const DATA_KEY$1 = 'lte.card-widget';
     const EVENT_KEY$1 = `.${DATA_KEY$1}`;
     const EVENT_COLLAPSED = `collapsed${EVENT_KEY$1}`;
@@ -586,11 +586,11 @@
             this.maximize();
         }
     }
-    /**
+    *
      *
      * Data Api implementation
      * ====================================================
-     */
+     
     onDOMContentLoaded(() => {
         const collapseBtn = document.querySelectorAll(SELECTOR_DATA_COLLAPSE);
         collapseBtn.forEach(btn => {
@@ -621,17 +621,17 @@
         });
     });
 
-    /**
+    *
      * --------------------------------------------
      * @file AdminLTE fullscreen.ts
      * @description Fullscreen plugin for AdminLTE.
      * @license MIT
      * --------------------------------------------
-     */
-    /**
+     
+    *
      * Constants
      * ============================================================================
-     */
+     
     const DATA_KEY = 'lte.fullscreen';
     const EVENT_KEY = `.${DATA_KEY}`;
     const EVENT_MAXIMIZED = `maximized${EVENT_KEY}`;
@@ -639,10 +639,10 @@
     const SELECTOR_FULLSCREEN_TOGGLE = '[data-lte-toggle="fullscreen"]';
     const SELECTOR_MAXIMIZE_ICON = '[data-lte-icon="maximize"]';
     const SELECTOR_MINIMIZE_ICON = '[data-lte-icon="minimize"]';
-    /**
+    *
      * Class Definition.
      * ============================================================================
-     */
+     
     class FullScreen {
         constructor(element, config) {
             this._element = element;
@@ -685,10 +685,10 @@
             }
         }
     }
-    /**
+    *
      * Data Api implementation
      * ============================================================================
-     */
+     
     onDOMContentLoaded(() => {
         const buttons = document.querySelectorAll(SELECTOR_FULLSCREEN_TOGGLE);
         buttons.forEach(btn => {
@@ -712,4 +712,4 @@
     exports.Treeview = Treeview;
 
 }));
-//# sourceMappingURL=adminlte.js.map
+# sourceMappingURL=adminlte.js.map
