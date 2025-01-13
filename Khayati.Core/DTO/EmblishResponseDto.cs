@@ -17,7 +17,7 @@ namespace Khayati.Core.DTO
 
     public static class EmbellishmentExtention
     {
-        public static EmbellishmentResponseDto ToEmbellishmentResponseDto(this Embellishment Embellishmentr)
+        public static EmbellishmentResponseDto ToEmbellishmentResponseDto(this Entities.Embellishment Embellishmentr)
         {
             return new EmbellishmentResponseDto
             {

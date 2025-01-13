@@ -99,11 +99,11 @@ namespace Khayati.Service
         public async Task<decimal?>
             CalculateEmbellishmentCost(int orderId)
         {
-            var embellishments = await _unitOfWork.EmbellishmentRepository
+            var Embellishment = await _unitOfWork.EmbellishmentRepository
                 .GetEmbellishmentListByOrderIdAsync(orderId);
-            if (embellishments == null) throw new Exception("No embellishments found");
+            if (Embellishment == null) throw new Exception("No Embellishment found");
 
-            return embellishments.Sum(e => e.Cost ?? 0); // Assume Cost is nullable
+            return Embellishment.Sum(e => e.Cost ?? 0); // Assume Cost is nullable
         }
 
         // Helper method to calculate design cost
