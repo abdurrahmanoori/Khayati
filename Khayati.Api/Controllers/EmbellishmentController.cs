@@ -9,9 +9,9 @@ namespace Khayati.Api.Controllers
     [ApiController]
     public class EmbellishmentController : BaseApiController
     {
-        private readonly IEmbellishmentervice _Embellishmentervice;
+        private readonly IEmbellishmentService _Embellishmentervice;
 
-        public EmbellishmentController(IEmbellishmentervice Embellishmentervice)
+        public EmbellishmentController(IEmbellishmentService Embellishmentervice)
         {
             _Embellishmentervice = Embellishmentervice;
         }
@@ -68,11 +68,11 @@ namespace Khayati.Api.Controllers
     //public class EmbellishmentController : BaseApiController
     //{
     //    //private readonly IUnitOfWork _unitOfWork;
-    //    private readonly IEmbellishmentervice _Embellishmentervice;
+    //    private readonly IEmbellishmentService _Embellishmentervice;
 
-    //    public EmbellishmentController(IEmbellishmentervice Embellishmentervice)
+    //    public EmbellishmentController(IEmbellishmentService EmbellishmentService)
     //    {
-    //        _Embellishmentervice = Embellishmentervice;
+    //        _Embellishmentervice = EmbellishmentService;
     //    }
 
     //    [HttpPost]

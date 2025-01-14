@@ -4,7 +4,7 @@ using Khayati.Core.DTO.Embellishment;
 
 namespace Khayati.ServiceContracts
 {
-    public interface IEmbellishmentervice
+    public interface IEmbellishmentService
     {
         public Task<Result<EmbellishmentAddDto>> 
             AddEmbellishment(EmbellishmentAddDto addEmbellishmentDto);

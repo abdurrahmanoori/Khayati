@@ -8,12 +8,12 @@ using RepositoryContracts.Base;
 
 namespace Khayati.Service
 {
-    public class Embellishmentervice : IEmbellishmentervice
+    public class EmbellishmentService : IEmbellishmentService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public Embellishmentervice(IUnitOfWork unitOfWork, IMapper mapper)
+        public EmbellishmentService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;

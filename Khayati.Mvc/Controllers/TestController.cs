@@ -9,13 +9,13 @@ namespace Khayati.Mvc.Controllers
     [ApiController]
     public class TestController : Controller
     {
-        private readonly IEmbellishmentervice _embellishment;
+        private readonly IEmbellishmentService _embellishment;
         private readonly ICustomerService _customerService;
         private readonly ICurrentUser _currentUser;
         private readonly HttpClient _httpClient;
 
 
-        public TestController(IEmbellishmentervice embellishment,
+        public TestController(IEmbellishmentService embellishment,
             ICustomerService customerService, 
             ICurrentUser currentUser,
             IHttpClientFactory httpClientFactory)
