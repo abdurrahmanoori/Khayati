@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Khayati.Infrastructure.DatabaseSeeders
 {
-    public static class EmbellishmentSeed
+    public static class Embellishmenteed
     {
         public static void DataSeed(ModelBuilder modelBuilder)
         {

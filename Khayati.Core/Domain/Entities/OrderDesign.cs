@@ -15,7 +15,7 @@ namespace Entities
         public int? FabricId { get; set; }
         public int OrderId { get; set; }
         /// <summary>
-        /// If different designs can have different prices based on the embellishments or 
+        /// If different designs can have different prices based on the Embellishment or 
         /// customizations applied, a CostAtTimeOfOrder field in the OrderDesigns table is useful. 
         /// This allows for flexibility in pricing models where designs might have additional costs.
         /// </summary>

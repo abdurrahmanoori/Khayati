@@ -2,7 +2,7 @@
 using Entities;
 using Khayati.Core.Common.Response;
 using Khayati.Core.DTO;
-using Khayati.Core.DTO.Embellishments;
+using Khayati.Core.DTO.Embellishment;
 using Khayati.ServiceContracts;
 using RepositoryContracts.Base;
 
@@ -92,11 +92,11 @@ namespace Khayati.Service
         public async Task<Result<IEnumerable<EmellishmentResponseDetailsDto>>>
             GetEmbellishmentList( )
         {
-            IEnumerable<EmellishmentResponseDetailsDto> embellishments =
+            IEnumerable<EmellishmentResponseDetailsDto> Embellishment =
               await _unitOfWork.EmbellishmentRepository
                 .GetEmellishmentResponseDetailList();
 
-            if (embellishments.Any() == false)
+            if (Embellishment.Any() == false)
             {
 
                 return Result<IEnumerable<EmellishmentResponseDetailsDto>>
@@ -104,7 +104,7 @@ namespace Khayati.Service
 
             }
 
-            return Result<IEnumerable<EmellishmentResponseDetailsDto>>.SuccessResult(embellishments);
+            return Result<IEnumerable<EmellishmentResponseDetailsDto>>.SuccessResult(Embellishment);
 
         }
 

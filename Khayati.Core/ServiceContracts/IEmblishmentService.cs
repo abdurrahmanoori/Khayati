@@ -1,6 +1,6 @@
 ﻿using Khayati.Core.Common.Response;
 using Khayati.Core.DTO;
-using Khayati.Core.DTO.Embellishments;
+using Khayati.Core.DTO.Embellishment;
 
 namespace Khayati.ServiceContracts
 {

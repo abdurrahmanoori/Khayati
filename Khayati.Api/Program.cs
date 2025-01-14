@@ -1,6 +1,6 @@
 using FluentValidation;
 using FluentValidation.AspNetCore;
-using Khayati.Core.DTO.Embellishments.Validatores;
+using Khayati.Core.DTO.Embellishment.Validatores;
 using Khayati.Core.Extention;
 using Khayati.Infrastructure.Extension;
 //using Khayati.Mvc.Extenstion;

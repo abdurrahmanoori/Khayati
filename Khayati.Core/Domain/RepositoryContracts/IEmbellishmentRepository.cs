@@ -1,5 +1,5 @@
 ﻿using Entities;
-using Khayati.Core.DTO.Embellishments;
+using Khayati.Core.DTO.Embellishment;
 using RepositoryContracts.Base;
 using System;
 using System.Collections.Generic;

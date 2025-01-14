@@ -1,4 +1,4 @@
-﻿namespace Khayati.Core.DTO.Embellishments
+﻿namespace Khayati.Core.DTO.Embellishment
 {
     public class EmellishmentResponseDetailsDto
     {
