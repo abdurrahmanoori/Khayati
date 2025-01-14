@@ -40,30 +40,32 @@ namespace Khayati.Mvc.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        //[HttpGet]
-        //public async Task<IActionResult> Edit(int id)
-        //{
-        //    var result = await _measurementService.GetMeasurementById(id);
-        //    if (result is null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    ViewBag.Customers = new SelectList(await _customerService.GetCustomerList(), nameof(CustomerResponseDto.CustomerId), nameof(CustomerResponseDto.Name));
-        //    return View(result.Response);
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var result = await _measurementService.GetMeasurementById(id);
+            if (result is null)
+            {
+                return NotFound();
+            }
+            ViewBag.Customers = new SelectList(await _customerService
+                .GetCustomerList(), nameof(CustomerResponseDto.CustomerId), nameof(CustomerResponseDto.Name));
 
-        //}
+            return View(result.Response);
 
-        //[HttpPost]
-        //public async Task<IActionResult> Edit(MeasurementUpdateDto dto)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest();
-        //    }
-        //    await _measurementService.UpdateMeasurement(dto.MeasurementId, dto);
+        }
 
-        //    return RedirectToAction(nameof(Index));
-        //}
+        [HttpPost]
+        public async Task<IActionResult> Edit(MeasurementDto dto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            await _measurementService.UpdateMeasurement(dto.MeasurementId, dto);
+
+            return RedirectToAction(nameof(Index));
+        }
 
         [HttpDelete("api/Measurement/delete")]
         public async Task<IActionResult> Delete(int id)

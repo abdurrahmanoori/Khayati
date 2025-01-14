@@ -71,7 +71,7 @@ namespace Khayati.Service
         {
             IEnumerable<Measurement> measurements =
               await _unitOfWork.MeasurementRepository
-                .GetAll();
+                .GetAll(includeProperties: "Customer");
             var measurmentDto = _mapper.Map<IEnumerable<MeasurementDto>>(measurements);
 
             if (measurements.Any() == false)

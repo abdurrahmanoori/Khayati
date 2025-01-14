@@ -35,7 +35,7 @@ namespace Khayati.Mvc.DataGenerators
                 .RuleFor(m => m.Neck, f => f.Random.Double(30, 50))           // cm
                 .RuleFor(m => m.Sleeve, f => f.Random.Double(50, 70))         // cm
                 .RuleFor(m => m.DateCreated, f => f.Date.Recent().ToOADate())
-                .RuleFor(m => m.DateTaken, f => f.Date.Past().ToOADate())
+                //.RuleFor(m => m.DateTaken, f => f.Date.Past().ToOADate())
                 .RuleFor(m => m.ShoulderWidth, f => f.Random.Double(35, 55))  // cm
                 .RuleFor(m => m.ArmLength, f => f.Random.Double(50, 70));     // cm
 
