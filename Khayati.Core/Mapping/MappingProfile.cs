@@ -3,7 +3,7 @@ using Entities;
 using Khayati.Core.Domain.Entities;
 using Khayati.Core.DTO;
 using Khayati.Core.DTO.Customers;
-using Khayati.Core.DTO.Embellishments;
+using Khayati.Core.DTO.Embellishment;
 using Khayati.Core.DTO.EmbellishmentType;
 using Khayati.Core.DTO.Measurement;
 using Khayati.Core.DTO.OrderDesign;

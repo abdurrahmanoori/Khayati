@@ -1,4 +1,4 @@
-﻿@using Khayati.Core.DTO.Embellishments
+﻿@using Khayati.Core.DTO.Embellishment
 @model IEnumerable<EmellishmentResponseDetailsDto>
 @{
     ViewData["Title"] = "Embellishment Page";
@@ -45,7 +45,7 @@
                             <td>@item.Cost</td>
                             <td>
                                 <a asp-action="Edit"
-                                   asp-controller="Embellishments"
+                                   asp-controller="Embellishment"
                                    asp-area="Admin"
                                    asp-route-id="@item.EmbellishmentId" class="btn btn-primary">
                                     <i class="fas fa-edit"></i>
@@ -68,3 +68,92 @@
     </div>
 
 </div>
+
+
+@*////////////////////////////////////////////////////////////*@
+
+<style>
+    /* Override table-hover behavior */
+    .table-hover .table-row:hover {
+        background-color: var(--bs-success) !important; /* You can replace this with any color you prefer */
+        color: white !important;
+        transition: background-color 0.2s ease-in-out;
+    }
+</style>
+
+<div class="container-fluid pt-4 ">
+
+    <h3 class="fw-bold ">Embellishment</h3>
+</div>
+
+
+<div class="container-fluid m-2 p-3">
+    <div class="d-flex align-items-center justify-content-between">
+        <!-- Search Box -->
+        <div class="col-4">
+            <input type="text" class="form-control" placeholder="Search" aria-label="Search">
+        </div>
+        <!-- Create Embellishment Button -->
+        <div class="col-3 text-end">
+            <a asp-action="Create" asp-controller="Embellishment" asp-area="Admin" class="btn btn-outline-success">
+                Create Embellishment
+            </a>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="card m-2">
+    <div class="card-body table-responsive p-0">
+        <table class="table table-hover text-nowrap">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Type Name</th>
+                    <th>Description</th>
+                    <th>Cost</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var Embellishment in Model)
+                {
+                    <tr class="table-row" onclick="redirectToEdit('@Embellishment.EmbellishmentId')">
+                        <td>@Embellishment.EmbellishmentId</td>
+                        <td>@Embellishment.EmbellishmentName</td>
+                        <td>@Embellishment.EmbellishmentTypeName</td>
+                        <td>@Embellishment.Cost</td>
+                        <td>
+                            <!-- Icon to Open Modal -->
+                            <button type="button" class="btn btn-outline-success"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#addPaymentModal"
+                                    onclick="event.stopPropagation(); loadEmbellishmentData('@Embellishment.EmbellishmentId', '@Embellishment.EmbellishmentName')">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    function redirectToEdit(EmbellishmentId) {
+        window.location.href = `/Admin/Embellishment/Edit/${EmbellishmentId}`;
+    }
+
+    function loadEmbellishmentData(EmbellishmentId, EmbellishmentName) {
+        // Populate modal with Embellishment details
+        document.getElementById("Embellishment").value = EmbellishmentName;
+    }
+
+    function loadEmbellishmentData(EmbellishmentId, EmbellishmentName) {
+        // Populate modal with the selected Embellishment's details
+        document.getElementById("Embellishment").value = EmbellishmentName;
+    }
+</script>

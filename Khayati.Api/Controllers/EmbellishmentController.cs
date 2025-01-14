@@ -1,5 +1,5 @@
 ﻿using Khayati.Core.DTO;
-using Khayati.Core.DTO.Embellishments;
+using Khayati.Core.DTO.Embellishment;
 using Khayati.ServiceContracts;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,18 +9,18 @@ namespace Khayati.Api.Controllers
     [ApiController]
     public class EmbellishmentController : BaseApiController
     {
-        private readonly IEmbellishmentService _embellishmentService;
+        private readonly IEmbellishmentervice _Embellishmentervice;
 
-        public EmbellishmentController(IEmbellishmentService embellishmentService)
+        public EmbellishmentController(IEmbellishmentervice Embellishmentervice)
         {
-            _embellishmentService = embellishmentService;
+            _Embellishmentervice = Embellishmentervice;
         }
 
         [HttpPost]
         public async Task<ActionResult<EmbellishmentAddDto>> 
             AddEmbellishment(EmbellishmentAddDto addEmbellishmentDto)
         {
-            var result = await _embellishmentService
+            var result = await _Embellishmentervice
                 .AddEmbellishment(addEmbellishmentDto);
 
             return HandleResultResponse(result);
@@ -30,7 +30,7 @@ namespace Khayati.Api.Controllers
         public async Task<ActionResult<IEnumerable<EmellishmentResponseDetailsDto>>>
             GetEmbellishmentList( )
         {
-            var results = await _embellishmentService
+            var results = await _Embellishmentervice
                 .GetEmbellishmentList();
 
             return HandleResultResponse(results);
@@ -40,7 +40,7 @@ namespace Khayati.Api.Controllers
         public async Task<ActionResult<EmbellishmentResponseDto>>
             GetEmbellishmentById(int id)
         {
-            var embellishment = await _embellishmentService.GetEmbellishmentById(id);
+            var embellishment = await _Embellishmentervice.GetEmbellishmentById(id);
             return HandleResultResponse(embellishment);
         }
 
@@ -48,7 +48,7 @@ namespace Khayati.Api.Controllers
         public async Task<ActionResult<EmbellishmentResponseDto>> 
             DeleteEmbellishment(int embellishmentId)
         {
-            var embellishment = await _embellishmentService.DeleteEmbellishment(embellishmentId);
+            var embellishment = await _Embellishmentervice.DeleteEmbellishment(embellishmentId);
             return HandleResultResponse(embellishment);
         }
 
@@ -56,7 +56,7 @@ namespace Khayati.Api.Controllers
         public async Task<IActionResult>
             UpdateEmbellishment(int id, EmbellishmentUpdateDto updateDto)
         {
-            return HandleResult(await _embellishmentService.Update(id, updateDto));
+            return HandleResult(await _Embellishmentervice.Update(id, updateDto));
         }
     }
 
@@ -68,17 +68,17 @@ namespace Khayati.Api.Controllers
     //public class EmbellishmentController : BaseApiController
     //{
     //    //private readonly IUnitOfWork _unitOfWork;
-    //    private readonly IEmbellishmentService _embellishmentService;
+    //    private readonly IEmbellishmentervice _Embellishmentervice;
 
-    //    public EmbellishmentController(IEmbellishmentService embellishmentService)
+    //    public EmbellishmentController(IEmbellishmentervice Embellishmentervice)
     //    {
-    //        _embellishmentService = embellishmentService;
+    //        _Embellishmentervice = Embellishmentervice;
     //    }
 
     //    [HttpPost]
     //    public async Task<IActionResult> Create(EmbellishmentAddDto addEmbellishmentDto)
     //    {
-    //        var result = await _embellishmentService.AddEmbellishment(addEmbellishmentDto);
+    //        var result = await _Embellishmentervice.AddEmbellishment(addEmbellishmentDto);
     //        return Ok(result);
 
     //    }
@@ -87,7 +87,7 @@ namespace Khayati.Api.Controllers
     //    public async Task<IActionResult> GetEmbellishmentList( )
     //    {
     //        var results =
-    //            await _embellishmentService
+    //            await _Embellishmentervice
     //            .GetEmbellishmentList();
 
     //        return HandleResult(results);
@@ -96,7 +96,7 @@ namespace Khayati.Api.Controllers
     //    [HttpGet("{id}")]
     //    public async Task<IActionResult> GitById(int id)
     //    {
-    //        var Embellishment = await _embellishmentService.GetEmbellishmentById(id);
+    //        var Embellishment = await _Embellishmentervice.GetEmbellishmentById(id);
 
     //        return Ok(Embellishment);
 
@@ -105,7 +105,7 @@ namespace Khayati.Api.Controllers
     //    [HttpDelete]
     //    public async Task<IActionResult> DeleteEmbellishment(int embellishmentId)
     //    {
-    //        EmbellishmentResponseDto embellishment = await _embellishmentService.DeleteEmbellishment(embellishmentId);
+    //        EmbellishmentResponseDto embellishment = await _Embellishmentervice.DeleteEmbellishment(embellishmentId);
     //        return Ok(embellishment);
     //    }
 
@@ -113,7 +113,7 @@ namespace Khayati.Api.Controllers
     //    public async Task<IActionResult> Edit(int id, EmbellishmentUpdateDto updateDto)
     //    {
 
-    //      return HandleResult(await _embellishmentService.Update(id,updateDto));
+    //      return HandleResult(await _Embellishmentervice.Update(id,updateDto));
 
     //    }
 

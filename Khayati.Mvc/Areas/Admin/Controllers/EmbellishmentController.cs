@@ -3,7 +3,7 @@ using Khayati.ServiceContracts;
 using Khayati.Core.DTO;
 using Microsoft.AspNetCore.Mvc;
 
-using Khayati.Core.DTO.Embellishments;
+using Khayati.Core.DTO.Embellishment;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,21 +13,21 @@ namespace Khayati.Mvc.Areas.Admin.Controllers
     public class EmbellishmentController : Controller
     {
         //private readonly IUnitOfWork _unitOfWork;
-        private readonly IEmbellishmentService _embellishmentService;
+        private readonly IEmbellishmentervice _Embellishmentervice;
         private readonly IEmbellishmentTypeService _embellishmentTypeService;
         
         
         
-        public EmbellishmentController (IEmbellishmentService embellishmentService ,  IEmbellishmentTypeService embellishmentTypeService)
+        public EmbellishmentController (IEmbellishmentervice Embellishmentervice ,  IEmbellishmentTypeService embellishmentTypeService)
         {
-            _embellishmentService = embellishmentService;
+            _Embellishmentervice = Embellishmentervice;
             _embellishmentTypeService= embellishmentTypeService;    
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(EmbellishmentAddDto addEmbellishmentDto)
         {
-            var result = await _embellishmentService.AddEmbellishment(addEmbellishmentDto);
+            var result = await _Embellishmentervice.AddEmbellishment(addEmbellishmentDto);
             return RedirectToAction(nameof(Index));
 
         }
@@ -47,7 +47,7 @@ namespace Khayati.Mvc.Areas.Admin.Controllers
         public async Task<IActionResult> Index( )
         {
             var results =
-                await _embellishmentService
+                await _Embellishmentervice
                 .GetEmbellishmentList();
 
             return View(results.Response);
@@ -56,7 +56,7 @@ namespace Khayati.Mvc.Areas.Admin.Controllers
         [HttpPost("getById")]
         public async Task<IActionResult> GitById(int id)
         {
-            var Embellishment = await _embellishmentService.GetEmbellishmentById(id);
+            var Embellishment = await _Embellishmentervice.GetEmbellishmentById(id);
 
             return View();
 
@@ -65,7 +65,7 @@ namespace Khayati.Mvc.Areas.Admin.Controllers
         [HttpDelete]
         public async Task<IActionResult> DeleteEmbellishment(int EmbellishmentId)
         {
-            var embellishment = await _embellishmentService.DeleteEmbellishment(EmbellishmentId);
+            var embellishment = await _Embellishmentervice.DeleteEmbellishment(EmbellishmentId);
             return View(embellishment.Response);
         }
 

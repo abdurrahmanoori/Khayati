@@ -1,10 +1,10 @@
 ﻿using Khayati.Core.Common.Response;
 using Khayati.Core.DTO;
-using Khayati.Core.DTO.Embellishments;
+using Khayati.Core.DTO.Embellishment;
 
 namespace Khayati.ServiceContracts
 {
-    public interface IEmbellishmentService
+    public interface IEmbellishmentervice
     {
         public Task<Result<EmbellishmentAddDto>> 
             AddEmbellishment(EmbellishmentAddDto addEmbellishmentDto);

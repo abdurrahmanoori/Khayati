@@ -1,7 +1,7 @@
 ﻿using Entities;
 using System.ComponentModel.DataAnnotations;
 
-namespace Khayati.Core.DTO.Embellishments
+namespace Khayati.Core.DTO.Embellishment
 {
     public class EmbellishmentAddDto
     {
@@ -18,9 +18,9 @@ namespace Khayati.Core.DTO.Embellishments
 
 
 
-        public Embellishment ToEmbellishment()
+        public Entities.Embellishment ToEmbellishment()
         {
-            return new Embellishment
+            return new Entities.Embellishment
             {
                 // Name = EmbellishmentName,
                 // Description = EmbellishmentDescription,
