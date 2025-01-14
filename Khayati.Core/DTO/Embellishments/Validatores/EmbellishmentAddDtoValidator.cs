@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Khayati.Core.DTO.Embellishments.Validatores
+namespace Khayati.Core.DTO.Embellishment.Validatores
 {
     public class EmbellishmentAddDtoValidator:AbstractValidator<EmbellishmentAddDto>
     {

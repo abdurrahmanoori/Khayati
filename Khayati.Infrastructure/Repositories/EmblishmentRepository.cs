@@ -1,6 +1,6 @@
 ﻿using Entities;
 using Entities.Data;
-using Khayati.Core.DTO.Embellishments;
+using Khayati.Core.DTO.Embellishment;
 using Microsoft.EntityFrameworkCore;
 using Repositories.Base;
 using RepositoryContracts;

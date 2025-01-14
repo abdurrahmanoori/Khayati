@@ -26,7 +26,7 @@ namespace Entities.Data
             #region Seed Database
             CustomerSeed.DataSeed(modelBuilder);
             EmbellishmentTypeSeed.DataSeed(modelBuilder);
-            EmbellishmentSeed.DataSeed(modelBuilder);
+            Embellishmenteed.DataSeed(modelBuilder);
             FabricSeed.DataSeed(modelBuilder);
             //MeasurmentSeed.DataSeed(modelBuilder);
             #endregion
