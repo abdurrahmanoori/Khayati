@@ -51,7 +51,7 @@ namespace Khayati.Mvc.Areas.Admin.Controllers
                 nameof(CustomerResponseDto.CustomerId), nameof(CustomerResponseDto.Name));
 
             //return View(result.Response);
-            return View();
+            return View(result);
 
         }
 
