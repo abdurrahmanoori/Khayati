@@ -3,6 +3,7 @@ using Entities;
 using Khayati.ServiceContracts;
 using Khayati.Core.DTO;
 using RepositoryContracts.Base;
+using Khayati.Core.DTO.Customers;
 
 namespace Khayati.Service
 {
@@ -66,7 +67,7 @@ namespace Khayati.Service
         public async Task<IEnumerable<CustomerResponseDto>> GetCustomerList()
         {
             IEnumerable<Customer> customers = await _unitOfWork.CustomerRepository
-                .GetAll(x=>x.IsDeleted == false);
+                .GetAll(x=>x.IsDeleted == false, includeProperties: "Measurements");
             if (customers is null)
             {
                 return null;

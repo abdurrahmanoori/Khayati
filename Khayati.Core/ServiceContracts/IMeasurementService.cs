@@ -1,5 +1,5 @@
 ﻿using Khayati.Core.Common.Response;
-using Khayati.Core.DTO.Measurement;
+using Khayati.Core.DTO.Measurements;
 
 namespace Khayati.ServiceContracts
 {

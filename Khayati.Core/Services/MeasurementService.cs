@@ -2,7 +2,7 @@
 using Entities;
 using Khayati.Core.Common.Response;
 using Khayati.Core.DTO;
-using Khayati.Core.DTO.Measurement;
+using Khayati.Core.DTO.Measurements;
 using Khayati.ServiceContracts;
 using RepositoryContracts.Base;
 
@@ -21,7 +21,7 @@ namespace Khayati.Service
 
         public async Task<Result<MeasurementAddDto>> AddMeasurement(MeasurementAddDto MeasurementAddDto)
         {
-            //Measurement Measurement = MeasurementAddDto.ToMeasurement();
+            //Measurements Measurements = MeasurementAddDto.ToMeasurement();
             Measurement Measurement = _mapper.Map<Measurement>(MeasurementAddDto);
 
             await _unitOfWork.MeasurementRepository.Add(Measurement);

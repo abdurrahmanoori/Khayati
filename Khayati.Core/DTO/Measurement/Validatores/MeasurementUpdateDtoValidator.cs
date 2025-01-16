@@ -1,6 +1,6 @@
 ﻿//using FluentValidation;
 
-//namespace Khayati.Core.DTO.Measurement.Validatores
+//namespace Khayati.Core.DTO.Measurements.Validatores
 //{
 //    public class MeasurementUpdateDtoValidator : AbstractValidator<MeasurementUpdateDto>
 //    {

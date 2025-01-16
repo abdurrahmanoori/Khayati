@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Khayati.Core.DTO.Relative;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Khayati.Core.DTO;
+using Khayati.Core.DTO.Customers;
 
 namespace Khayati.Mvc.Areas.Admin.Controllers;
 

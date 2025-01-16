@@ -1,8 +1,8 @@
 ﻿using Khayati.ServiceContracts;
 using Microsoft.AspNetCore.Mvc;
-using Khayati.Core.DTO.Measurement;
+using Khayati.Core.DTO.Measurements;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Khayati.Core.DTO;
+using Khayati.Core.DTO.Customers;
 
 namespace Khayati.Mvc.Areas.Admin.Controllers
 {
@@ -80,7 +80,7 @@ namespace Khayati.Mvc.Areas.Admin.Controllers
         //{
         //    HttpClient client = new HttpClient();
         //    client.BaseAddress = new Uri("https://localhost:7235/");
-        //    HttpResponseMessage res = await client.GetAsync("api/Measurement/GetAll");
+        //    HttpResponseMessage res = await client.GetAsync("api/Measurements/GetAll");
 
         //    if (!res.IsSuccessStatusCode)
         //    {

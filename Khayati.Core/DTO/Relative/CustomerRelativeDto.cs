@@ -23,7 +23,7 @@ namespace Khayati.Core.DTO.Relative
         //public string? CustomerType { get; set; }
 
         //public virtual ICollection<Order> Orders { get; set; }
-        //public virtual ICollection<Measurement> Measurements { get; set; }
+        //public virtual ICollection<Measurements> Measurements { get; set; }
         //public virtual ICollection<Relative> Relatives { get; set; }  // New relationship to track relatives
 
 

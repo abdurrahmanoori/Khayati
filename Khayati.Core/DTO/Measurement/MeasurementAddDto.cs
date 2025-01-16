@@ -1,6 +1,6 @@
 ﻿using Entities;
 
-namespace Khayati.Core.DTO.Measurement
+namespace Khayati.Core.DTO.Measurements
 {
     public class MeasurementAddDto
     {
@@ -20,9 +20,9 @@ namespace Khayati.Core.DTO.Measurement
         public int CustomerId { get; set; }
 
 
-        //public Measurement ToMeasurement()
+        //public Measurements ToMeasurement()
         //{
-        //    return new Measurement
+        //    return new Measurements
         //    {
 
         //        //CustomerId = CustomerId,

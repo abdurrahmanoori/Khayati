@@ -6,7 +6,7 @@ using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Khayati.Core.DTO
+namespace Khayati.Core.DTO.Customers
 {
     public class CustomerResponseDto
     {
@@ -21,6 +21,8 @@ namespace Khayati.Core.DTO
         //public bool IsActive { get; set; }
         public DateTime CustomerSince { get; set; }
         public string CustomerType { get; set; }
+
+        public List<Measurement> Measurements { get; set; }
     }
 
     public static class CustomerExtention

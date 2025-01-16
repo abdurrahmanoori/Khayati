@@ -5,7 +5,7 @@ using Khayati.Core.DTO;
 using Khayati.Core.DTO.Customers;
 using Khayati.Core.DTO.Embellishment;
 using Khayati.Core.DTO.EmbellishmentType;
-using Khayati.Core.DTO.Measurement;
+using Khayati.Core.DTO.Measurements;
 using Khayati.Core.DTO.OrderDesign;
 using Khayati.Core.DTO.Relative;
 
@@ -64,7 +64,7 @@ namespace Khayati.Core.Mapping
 
             //// Mapping from DTO to Entity
             ////CreateMap<CustomerAddDto, Customer>().ReverseMap(); // Add this line
-            //CreateMap<MeasurementAddDto, Measurement>(); // Add this line
+            //CreateMap<MeasurementAddDto, Measurements>(); // Add this line
             //CreateMap<OrdersAddDto, Order>(); // Add this line
 
             //// Mapping from Entity to DTO and vice versa
@@ -73,7 +73,7 @@ namespace Khayati.Core.Mapping
             //CreateMap<EmbellishmentType, EmbellishmentTypeResponseDto>().ReverseMap();
             //CreateMap<Order, OrdersAddDto>().ReverseMap();
             //CreateMap<OrderDesign, OrderDesignAddDto>().ReverseMap();
-            //CreateMap<Measurement, MeasurementAddDto>().ReverseMap();
+            //CreateMap<Measurements, MeasurementAddDto>().ReverseMap();
         }
     }
 }

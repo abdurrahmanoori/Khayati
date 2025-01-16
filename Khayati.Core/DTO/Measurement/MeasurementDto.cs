@@ -1,6 +1,6 @@
 ﻿using Khayati.Core.DTO.Customers;
 
-namespace Khayati.Core.DTO.Measurement
+namespace Khayati.Core.DTO.Measurements
 {
     public class MeasurementDto
     {
