@@ -49,8 +49,8 @@ public class CustomerController : Controller
         ViewBag.Customers = new SelectList(await _customerService.GetCustomerList(), 
             nameof(CustomerResponseDto.CustomerId), nameof(CustomerResponseDto.Name));
 
-        //return View(result.Response);
-        return View();
+            //return View(result.Response);
+            return View(result);
 
     }
 
