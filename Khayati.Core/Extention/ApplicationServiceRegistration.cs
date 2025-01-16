@@ -12,7 +12,7 @@ namespace Khayati.Core.Extention
         public static IServiceCollection ConfigureApplicationService(this IServiceCollection services, IConfiguration configuration)
         {
 
-            services.AddScoped<IEmbellishmentervice, Embellishmentervice>();
+            services.AddScoped<IEmbellishmentService, EmbellishmentService>();
             services.AddScoped<IRelativeService, RelativeService>();
             services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<IEmbellishmentTypeService, EmbellishmentTypeService>();

@@ -1,4 +1,5 @@
 ﻿using Khayati.Core.DTO;
+using Khayati.Core.DTO.Customers;
 
 namespace Khayati.ServiceContracts
 {

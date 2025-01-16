@@ -51,7 +51,7 @@ namespace Khayati.Mvc.Areas.Customer.Controllers
             //var resultData = new
             //{
             //    Customer = customer,
-            //    Measurement = measurment,
+            //    Measurements = measurment,
             //    Order = order
             //};
 

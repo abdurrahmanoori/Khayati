@@ -1,9 +1,7 @@
 ﻿using Khayati.Core.Domain.UserServiceContracts;
 using Khayati.Core.DTO.Relative;
 using Khayati.ServiceContracts;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Net.Http;
 
 namespace Khayati.Mvc.Controllers
 {
@@ -11,13 +9,13 @@ namespace Khayati.Mvc.Controllers
     [ApiController]
     public class TestController : Controller
     {
-        private readonly IEmbellishmentervice _embellishment;
+        private readonly IEmbellishmentService _embellishment;
         private readonly ICustomerService _customerService;
         private readonly ICurrentUser _currentUser;
         private readonly HttpClient _httpClient;
 
 
-        public TestController(IEmbellishmentervice embellishment,
+        public TestController(IEmbellishmentService embellishment,
             ICustomerService customerService, 
             ICurrentUser currentUser,
             IHttpClientFactory httpClientFactory)

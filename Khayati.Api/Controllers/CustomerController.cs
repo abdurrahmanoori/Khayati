@@ -1,4 +1,5 @@
 ﻿using Khayati.Core.DTO;
+using Khayati.Core.DTO.Customers;
 using Khayati.ServiceContracts;
 using Microsoft.AspNetCore.Mvc;
 
@@ -53,14 +54,14 @@ namespace Khayati.Api.Controllers
         //[HttpPost("Edit")]
         //public async Task<IActionResult> Edit(int id)
         //{
-        //    var Measurement = await _unitOfWork.MeasurementRepository.GetFirstOrDefault(x => x.MeasurementID == id);
-        //    if (Measurement == null)
+        //    var Measurements = await _unitOfWork.MeasurementRepository.GetFirstOrDefault(x => x.MeasurementID == id);
+        //    if (Measurements == null)
         //    {
         //        return NotFound("There is no on by this Id.");
         //    }
-        //    await _unitOfWork.MeasurementRepository.Update(Measurement);
+        //    await _unitOfWork.MeasurementRepository.Update(Measurements);
 
-        //    return Ok(Measurement);
+        //    return Ok(Measurements);
 
         //}
 

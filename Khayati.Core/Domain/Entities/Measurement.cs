@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace Entities
 {
     /// <summary>
-    /// Represents the Measurement entity, responsible for storing and handling customer measurement details.
+    /// Represents the Measurements entity, responsible for storing and handling customer measurement details.
     /// </summary>
     public class Measurement: AuditableEntity
     {
@@ -84,6 +84,8 @@ namespace Entities
         [Required(AllowEmptyStrings =true)]
         public int? FabricId { get; set; }
 
+
+        public string? Description { get; set; }
         /// <summary>
         /// Indicates the date when this measurement was created. Useful for tracking the most recent measurement of a customer.
         /// </summary>

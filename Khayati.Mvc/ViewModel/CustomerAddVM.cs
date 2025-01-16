@@ -1,5 +1,5 @@
 ﻿using Khayati.Core.DTO;
-using Khayati.Core.DTO.Measurement;
+using Khayati.Core.DTO.Measurements;
 
 namespace Khayati.Mvc.ViewModel
 {

@@ -1,8 +1,9 @@
-﻿@using Khayati.Core.DTO.EmbellishmentType
-@model IEnumerable<EmbellishmentTypeResponseDto>
+﻿@using Khayati.Core.DTO.Measurements
+@model IEnumerable<MeasurementDto>
 @{
-    ViewData["Title"] = "EmbellishmentType Page";
+    ViewData["Title"] = "Measurement Page";
 }
+
 
 <style>
     /* Override table-hover behavior */
@@ -15,7 +16,7 @@
 
 <div class="container-fluid pt-4 ">
 
-    <h3 class="fw-bold ">EmbellishmentType</h3>
+    <h3 class="fw-bold ">Measurement</h3>
 </div>
 
 
@@ -25,35 +26,43 @@
         <div class="col-4">
             <input type="text" class="form-control" placeholder="Search" aria-label="Search">
         </div>
-        <!-- Create EmbellishmentType Button -->
         <div class="col-3 text-end">
-            <a asp-action="Create" asp-controller="EmbellishmentType" asp-area="Admin" class="btn btn-outline-success">
-                Create EmbellishmentType
+            <a asp-action="Create" asp-controller="Measurement" asp-area="Admin" class="btn btn-outline-success">
+                Create Measurement
             </a>
         </div>
     </div>
 </div>
-
 
 <div class="card m-2">
     <div class="card-body table-responsive p-0">
         <table class="table table-hover text-nowrap">
             <thead>
                 <tr>
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th>Sort Value</th>
-                    <th>Description</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Chest</th>
+                    <th>ArmLength</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var embellishmentType in Model)
+                @foreach (var item in Model)
                 {
-                    <tr class="table-row" onclick="redirectToEdit('@embellishmentType.EmbellishmentTypeId')">
-                        <td>@embellishmentType.EmbellishmentTypeId</td>
-                        <td>@embellishmentType.Name</td>
-                        <td>@embellishmentType.SortOrder</td>
-                        <td>@embellishmentType.Discription</td>
+                    <tr class="table-row" onclick="redirectToEdit('@item.MeasurementId')">
+                        <td>@item.Customer?.Name</td>
+                        <td>@item.Customer?.LastName</td>
+                        <td>@item.Chest</td>
+                        <td>@item.ArmLength</td>
+                        <td>
+                            <!-- Icon to Open Modal -->
+                            <button type="button" class="btn btn-outline-success"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#addPaymentModal"
+                                    onclick="event.stopPropagation(); loadCustomerData('@item.MeasurementId', '@item.?Customer.Name')">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </td>
                     </tr>
                 }
             </tbody>
@@ -62,7 +71,7 @@
 </div>
 
 
-@* 
+
 <!-- Modal -->
 <div class="modal fade" id="addPaymentModal" tabindex="-1" aria-labelledby="addPaymentModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -105,10 +114,10 @@
                         </div>
                     </div>
 
-                    <!-- EmbellishmentType Dropdown -->
+                    <!-- Customer Dropdown -->
                     <div class="mb-3">
-                        <label for="EmbellishmentType" class="form-label">EmbellishmentType</label>
-                        <select class="form-select" id="EmbellishmentType">
+                        <label for="customer" class="form-label">Customer</label>
+                        <select class="form-select" id="customer">
                             <option selected>Ziemann Inc</option>
                             <option value="1">Harvey Group</option>
                             <option value="2">Vandervort-Bogan</option>
@@ -137,39 +146,26 @@
         </div>
     </div>
 </div>
- *@
+
 
 
 <script>
-    function redirectToEdit(EmbellishmentTypeId) {
-        window.location.href = `/Admin/EmbellishmentType/Edit/${EmbellishmentTypeId}`;
+    function redirectToEdit(measurementId) {
+        window.location.href = `/Admin/Measurement/Edit/${measurementId}`;
     }
 
-    function loadEmbellishmentTypeData(EmbellishmentTypeId, EmbellishmentTypeName) {
-        // Populate modal with EmbellishmentType details
-        document.getElementById("EmbellishmentType").value = EmbellishmentTypeName;
+    function loadCustomerData(measurementId, customerName) {
+        // Populate modal with customer details
+        document.getElementById("customer").value = customerName;
     }
 
-    function loadEmbellishmentTypeData(EmbellishmentTypeId, EmbellishmentTypeName) {
-        // Populate modal with the selected EmbellishmentType's details
-        document.getElementById("EmbellishmentType").value = EmbellishmentTypeName;
+    function loadCustomerData(measurementId, customerName) {
+        // Populate modal with the selected customer's details
+        document.getElementById("customer").value = customerName;
     }
 </script>
 
-
-
-
-
-
-
-
 @* 
-
-
-
-
-
-
 <div class="col-12">
     <div class="card">
         <div class="card-header">
@@ -177,7 +173,7 @@
             <h3 class="card-title">Fixed Header Table</h3>
             <div class="card-tools">
                 <div class="input-group input-group-sm" style="width: 150px;">
-                    <a asp-action="Create" asp-area="Admin" asp-controller="EmbellishmentType" class="btn btn-block btn-primary btn-lg">Create</a>
+                    <a asp-action="Create" asp-area="Admin" asp-controller="Measurement" class="btn btn-block btn-primary btn-lg">Create</a>
                     <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
                     <div class="input-group-append">
                         <button type="submit" class="btn btn-default">
@@ -190,7 +186,7 @@
 
         <div class="card-body table-responsive p-0">
             <table class="table table-head-fixed text-nowrap">
-                <thead >
+                <thead>
                     <tr>
                       
                     </tr>
@@ -199,20 +195,21 @@
                     @foreach (var item in Model)
                     {
                         <tr>
-                         
+                            <td>@item.Customer?.Name</td>
+                            <td>@item.Customer?.LastName</td>
+                            <td>@item.Chest</td>
+                            <td>@item.ArmLength</td>
                             <td>
                                 <a asp-action="Edit"
-                                   asp-controller="EmbellishmentType"
+                                   asp-controller="Measurement"
                                    asp-area="Admin"
-                                   asp-route-id="@item.EmbellishmentTypeId" class="btn btn-primary">
+                                   asp-route-id="@item.MeasurementId" class="btn btn-primary">
                                     <i class="fas fa-edit"></i>
                                     Edit
                                 </a>
 
-                                <a asp-action="Delete"
-                                   asp-controller="EmbellishmentType"
-                                   asp-area="Admin"
-                                   asp-route-id="@item.EmbellishmentTypeId" class="btn btn-danger">
+                                <a onclick="confirmDeletion(@item.MeasurementId,'Measurement','/api/Measurement/delete','/Admin/Measurement/Index')"
+                                   class="btn btn-danger">
                                     <i class="fas fa-trash-alt"></i> Delete
                                 </a>
                             </td>
@@ -224,4 +221,11 @@
 
     </div>
 
-</div> *@
+</div>
+
+
+
+
+ *@
+
+    

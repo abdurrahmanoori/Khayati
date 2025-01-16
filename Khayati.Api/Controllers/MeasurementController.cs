@@ -1,4 +1,4 @@
-﻿using Khayati.Core.DTO.Measurement;
+﻿using Khayati.Core.DTO.Measurements;
 using Khayati.ServiceContracts;
 using Microsoft.AspNetCore.Mvc;
 

@@ -13,7 +13,7 @@ builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 //builder.Services.AddScoped<IEmbellishmentTypeService, EmbellishmentTypeService>();
 //builder.Services.AddScoped<IMeasurementService, MeasurementService>();
 
-//builder.Services.AddScoped<IEmbellishmentervice, Embellishmentervice>();
+//builder.Services.AddScoped<IEmbellishmentService, EmbellishmentService>();
 
 //builder.Services.AddDbContext<ApplicationDbContext>(option =>
 //{

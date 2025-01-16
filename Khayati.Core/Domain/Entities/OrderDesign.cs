@@ -33,7 +33,7 @@ namespace Entities
 
         [ForeignKey(nameof(CustomerId))]
         public virtual Customer? Customer { get; set; }
-        //public Measurement Measurement { get; set; }
+        //public Measurements Measurements { get; set; }
         [ForeignKey(nameof(EmbellishmentId))]
         public virtual Embellishment? Embellishment { get; set; }
 
