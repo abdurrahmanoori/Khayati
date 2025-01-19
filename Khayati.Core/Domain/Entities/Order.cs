@@ -12,16 +12,17 @@ namespace Entities
         /// <summary>
         /// This property indicates when the tailor is expected to complete the sewing.
         /// </summary>
-        public DateTime ExpectedCompletionDate { get; set; }
+        public DateTime? ExpectedCompletionDate { get; set; }
 
-        public decimal TotalCost { get; set; }
+        public decimal? TotalCost { get; set; }
         public DateTime OrderDate { get; set; }
        
         public bool IsPaid { get; set; }
 
         // Sum of all payments made for this order
         public decimal AmountPaid => Payments?.Sum(p => p.Amount) ?? 0;
-        public decimal RemainingAmount => TotalCost - Payments.Sum(p => p.Amount);
+        public decimal? RemainingAmount => TotalCost - (Payments?.Sum(p => p.Amount) ?? 0);
+        //public decimal? RemainingAmount => TotalCost - Payments.Sum(p => p.Amount);
 
         public string OrderStatus { get; set; }
 
