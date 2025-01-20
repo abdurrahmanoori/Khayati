@@ -23,6 +23,8 @@ namespace Entities.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            
+
             #region Seed Database
             CustomerSeed.DataSeed(modelBuilder);
             EmbellishmentTypeSeed.DataSeed(modelBuilder);
