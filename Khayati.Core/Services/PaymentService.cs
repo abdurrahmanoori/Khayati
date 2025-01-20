@@ -75,8 +75,9 @@ namespace Khayati.Service
                 throw new Exception("Customer not found");
 
             // Check if the customer has any existing orders
-            var order = await _unitOfWork.OrderRepository
-                .GetFirstOrDefault(x => x.CustomerId == customerId && !x.IsPaid);
+            var orders = await _unitOfWork.OrderRepository
+                .GetAll(x => x.CustomerId == customerId && !x.IsPaid);
+            var order = orders.OrderByDescending(x => x.OrderDate).FirstOrDefault();
 
             // If no order exists, create a new one
             if (order == null)
@@ -88,10 +89,10 @@ namespace Khayati.Service
                     ExpectedCompletionDate = DateTime.Now.AddDays(7), // Example completion time
                     TotalCost = 0, // Since we don't know the cost yet
                     IsPaid = false,
-                    OrderStatus = "Pending"
+                    OrderStatus = OrderStatus.Pending.ToString()
                 };
-                _context.Orders.Add(order);
-                await _context.SaveChangesAsync();
+                await _unitOfWork.OrderRepository.Add(order);
+                await _unitOfWork.SaveChanges(default);
             }
 
             // Now create the payment
@@ -102,11 +103,11 @@ namespace Khayati.Service
                 PaymentDate = DateTime.Now,
                 PaymentStatus = PaymentStatus.PartialPayment // Assume partial by default
             };
-            _context.Payments.Add(payment);
+            //_context.Payments.Add(payment);
 
-            // Update Order Status
-            order.IsPaid = (order.AmountPaid + amount) >= order.TotalCost;
-            await _context.SaveChangesAsync();
+            //// Update Order Status
+            //order.IsPaid = (order.AmountPaid + amount) >= order.TotalCost;
+            //await _context.SaveChangesAsync();
         }
     }
 }
