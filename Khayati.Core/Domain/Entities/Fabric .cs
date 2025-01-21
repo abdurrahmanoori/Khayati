@@ -42,6 +42,6 @@
         /// </summary>
         public decimal CostPerMeter { get; set; }
 
-        //public virtual ICollection<Customer> Customers { get; set; }
+        //public virtual IList<Customer> Customers { get; set; }
     }
 }
