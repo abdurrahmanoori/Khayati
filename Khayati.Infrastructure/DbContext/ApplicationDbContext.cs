@@ -1,5 +1,4 @@
 ﻿using Khayati.Core.Common;
-using Khayati.Core.Domain.Entities;
 using Khayati.Core.Domain.UserServiceContracts;
 using Khayati.Infrastructure.DatabaseSeeders;
 using Khayati.Infrastructure.Identity.Entity;
@@ -23,6 +22,14 @@ namespace Entities.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<Order>()
+                .Property(x => x.OrderStatus)
+                .HasConversion<string>();
+
+            modelBuilder.Entity<Order>()
+                .Property(x => x.PaymentStatus)
+                .HasConversion<string>();
+                
             
 
             #region Seed Database
