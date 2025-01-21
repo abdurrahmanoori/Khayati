@@ -47,12 +47,12 @@ namespace Khayati.Service
             if (amountPaid >= outstandingAmount)
             {
                 order.IsPaid = true;
-                order.OrderStatus = OrderStatus.Completed.ToString();
+                order.OrderStatus = OrderStatus.Completed;
             }
             else
             {
                 order.IsPaid = false;
-                order.OrderStatus = OrderStatus.Progress.ToString();
+                order.OrderStatus = OrderStatus.Progress;
             }
 
             var payment = _mapper.Map<Payment>(paymentDto);
@@ -89,7 +89,7 @@ namespace Khayati.Service
                     ExpectedCompletionDate = DateTime.Now.AddDays(7), // Example completion time
                     TotalCost = 0, // Since we don't know the cost yet
                     IsPaid = false,
-                    OrderStatus = OrderStatus.Pending.ToString()
+                    OrderStatus = OrderStatus.Pending
                 };
                 await _unitOfWork.OrderRepository.Add(order);
                 await _unitOfWork.SaveChanges(default);
@@ -101,7 +101,7 @@ namespace Khayati.Service
                 OrderId = order.OrderId,
                 Amount = amount,
                 PaymentDate = DateTime.Now,
-                PaymentStatus = PaymentStatus.PartialPayment // Assume partial by default
+                //PaymentStatus = PaymentStatus.PartialPayment // Assume partial by default
             };
             //_context.Payments.Add(payment);
 

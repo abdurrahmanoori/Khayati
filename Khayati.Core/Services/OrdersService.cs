@@ -37,7 +37,7 @@ namespace Khayati.Service
 
             var order = _mapper.Map<Order>(orderDto);
             order.OrderDate = DateTime.UtcNow;
-            order.OrderStatus = OrderStatus.Pending.ToString();
+            order.OrderStatus = OrderStatus.Pending;
             order.Customer = customer;
             order.IsPaid = false;
 
