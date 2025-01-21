@@ -28,9 +28,9 @@ namespace Khayati.Api.Controllers
 
 
         [HttpGet("GetAll")]
-        public async Task<IActionResult> GetCustomerList()
+        public async Task<IActionResult> GetCustomerList( )
         {
-            IEnumerable<CustomerResponseDto> results =await _customerService.GetCustomerList();
+            IEnumerable<CustomerResponseDto> results = await _customerService.GetCustomerList();
             return Ok(results);
 
         }

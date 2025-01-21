@@ -12,8 +12,8 @@ namespace Khayati.Core.DTO
         public int OrdersId { get; set; }
         //public int DesignId { get; set; }
         public DateTime OrderDate { get; set; }
-        public DateTime ExpectedCompletionDate { get; set; }
-        public decimal TotalCost { get; set; }
+        public DateTime? ExpectedCompletionDate { get; set; }
+        public decimal? TotalCost { get; set; }
         public string Status { get; set; }
 
         public Order Orders { get; set; }

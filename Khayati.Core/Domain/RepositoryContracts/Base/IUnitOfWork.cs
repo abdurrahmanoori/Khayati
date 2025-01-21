@@ -13,6 +13,5 @@
         IPaymentRepository PaymentRepository { get; }
 
         Task SaveChanges(CancellationToken cancellationToken);
-
     }
 }

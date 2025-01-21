@@ -39,7 +39,7 @@ namespace Repositories.Base
             dbSet.Remove(entity);
             return Task.CompletedTask;
         }
-        public async Task<IEnumerable<T>> GetAll(Expression<Func<T, bool>>? filter = null, string? includeProperties = null)
+        public async Task<IList<T>> GetAll(Expression<Func<T, bool>>? filter = null, string? includeProperties = null)
         {
             IQueryable<T> query = dbSet;
             if (filter != null)// If requested records are based on a condation, then this block will execute.

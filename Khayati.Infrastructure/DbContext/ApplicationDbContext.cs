@@ -23,6 +23,16 @@ namespace Entities.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<Order>()
+                .Property(x => x.OrderStatus)
+                .HasConversion<string>();
+
+            modelBuilder.Entity<Order>()
+                .Property(x => x.PaymentStatus)
+                .HasConversion<string>();
+                
+            
+
             #region Seed Database
             CustomerSeed.DataSeed(modelBuilder);
             EmbellishmentTypeSeed.DataSeed(modelBuilder);

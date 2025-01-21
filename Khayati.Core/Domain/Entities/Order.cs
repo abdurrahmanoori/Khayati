@@ -12,35 +12,49 @@ namespace Entities
         /// <summary>
         /// This property indicates when the tailor is expected to complete the sewing.
         /// </summary>
-        public DateTime ExpectedCompletionDate { get; set; }
+        public DateTime? ExpectedCompletionDate { get; set; }
 
-        public decimal TotalCost { get; set; }
+        public decimal? TotalCost { get; set; }
         public DateTime OrderDate { get; set; }
        
         public bool IsPaid { get; set; }
 
         // Sum of all payments made for this order
         public decimal AmountPaid => Payments?.Sum(p => p.Amount) ?? 0;
-        public decimal RemainingAmount => TotalCost - Payments.Sum(p => p.Amount);
+        public decimal? RemainingAmount => TotalCost - (Payments?.Sum(p => p.Amount) ?? 0);
+        //public decimal? RemainingAmount => TotalCost - Payments.Sum(p => p.Amount);
 
-        public string OrderStatus { get; set; }
+        public OrderStatus OrderStatus { get; set; }
 
-        // Status of the overall payment (Completed, Partial, etc.)
-        public PaymentStatus PaymentStatus
-        {
-            get
-            {
-                if (AmountPaid == 0) return PaymentStatus.Pending;
-                if (AmountPaid >= TotalCost) return PaymentStatus.Completed;
-                return PaymentStatus.PartialPayment;
-            }
-        }
+        public PaymentStatus PaymentStatus { get; set; }
 
+        //// Status of the overall payment (Completed, Partial, etc.)
+        //public PaymentStatus PaymentStatus
+        //{
+        //    get
+        //    {
+        //        if (AmountPaid == 0) return PaymentStatus.Pending;
+        //        if (AmountPaid >= TotalCost) return PaymentStatus.Completed;
+        //        return PaymentStatus.PartialPayment;
+        //    }
+        //}
 
         [ForeignKey(nameof(CustomerId))]
         public virtual Customer? Customer { get; set; }
         public virtual ICollection<Payment>? Payments { get; set; }
         public virtual ICollection<OrderDesign> OrderDesigns { get; set; }
+
+
+
+        public void CalculatePaymentStatus( )
+        {
+            if (AmountPaid == 0)
+                PaymentStatus = PaymentStatus.Pending;
+            else if (AmountPaid >= TotalCost)
+                PaymentStatus = PaymentStatus.Completed;
+            else
+                PaymentStatus = PaymentStatus.PartialPayment;
+        }
     }
 }
 

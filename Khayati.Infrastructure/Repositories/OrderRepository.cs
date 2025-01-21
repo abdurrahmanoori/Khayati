@@ -42,7 +42,7 @@ namespace Repositories
         }
 
         // Method to fetch order details with related entities
-        public async Task<Order> GetOrderWithDetailsAsync(int orderId)
+        public async Task<Order?> GetOrderWithDetailsAsync(int orderId)
         {
             return await _dbcontext.Orders
                                  .Include(o => o.Payments)
