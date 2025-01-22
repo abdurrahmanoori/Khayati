@@ -18,9 +18,9 @@ namespace Entities
        // public bool IsActive { get; set; }
         //public string? CustomerType { get; set; }
 
-        public virtual IList<Order> Orders { get; set; }
-        public virtual IList<Measurement> Measurements { get; set; }
-        public virtual IList<Relative> Relatives { get; set; }  // New relationship to track relatives
+        public virtual ICollection<Order> Orders { get; set; }
+        public virtual ICollection<Measurement> Measurements { get; set; }
+        public virtual ICollection<Relative> Relatives { get; set; }  // New relationship to track relatives
 
 
 

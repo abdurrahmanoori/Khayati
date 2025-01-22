@@ -29,8 +29,8 @@ namespace Entities
 
         [ForeignKey(nameof(CustomerId))]
         public virtual Customer? Customer { get; set; }
-        public virtual IList<Payment>? Payments { get; set; }
-        public virtual IList<OrderDesign> OrderDesigns { get; set; }
+        public virtual ICollection<Payment>? Payments { get; set; }
+        public virtual ICollection<OrderDesign> OrderDesigns { get; set; }
 
 
         public void CalculatePaymentStatus( )
