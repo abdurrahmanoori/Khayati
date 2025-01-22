@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Khayati.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250121071358_paymentStatuAddedToOrder")]
-    partial class paymentStatuAddedToOrder
+    [Migration("20250122065908_payemtStatusAddedtoorder")]
+    partial class payemtStatusAddedtoorder
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

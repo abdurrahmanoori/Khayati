@@ -69,7 +69,8 @@ namespace Khayati.Service
 
         public async Task AddPaymentForCustomer(int customerId, decimal amount)
         {
-            var customer = await _unitOfWork.CustomerRepository.GetFirstOrDefault(x => x.CustomerId == customerId);
+            var customer = await _unitOfWork.CustomerRepository
+                .GetFirstOrDefault(x => x.CustomerId == customerId,includeProperties: "Measurements");
 
             if (customer == null)
                 throw new Exception("Customer not found");
@@ -90,7 +91,8 @@ namespace Khayati.Service
                     ExpectedCompletionDate = DateTime.Now.AddDays(7), // Example completion time
                     TotalCost = 0, // Since we don't know the cost yet
                     IsPaid = false,
-                    OrderStatus = OrderStatus.Pending
+                    OrderStatus = OrderStatus.Pending,
+                    PaymentStatus = PaymentStatus.PartialPayment
                 };
                 await _unitOfWork.OrderRepository.Add(order);
             }
@@ -99,11 +101,12 @@ namespace Khayati.Service
             var payment = new Payment
             {
                 OrderId = order.OrderId,
+                Order = order,
                 Amount = amount,
                 PaymentDate = DateTime.Now,
                 //PaymentStatus = PaymentStatus.PartialPayment // Assume partial by default
             };
-            order.CalculatePaymentStatus();
+
             await _unitOfWork.PaymentRepository.Add(payment);
             await _unitOfWork.SaveChanges(default);
             //_context.Payments.Add(payment);
