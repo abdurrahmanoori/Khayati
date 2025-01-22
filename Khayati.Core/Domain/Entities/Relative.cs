@@ -18,6 +18,6 @@ namespace Khayati.Core.Domain.Entities
         // Foreign key to link back to the customer
         public int CustomerId { get; set; }
         [ForeignKey(nameof(CustomerId))]
-        public Customer Customer { get; set; }
+        public virtual Customer Customer { get; set; }
     }
 }

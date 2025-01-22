@@ -29,7 +29,6 @@ namespace Khayati.Infrastructure.Extension
             // Configure DbContext for SQLite
             services.AddDbContext<ApplicationDbContext>((serviceProvider, options) =>
             {
-
            
                 // Retrieves the directory path without the last segment(Khayati.Api).
                 var current = Directory.GetCurrentDirectory();
@@ -46,6 +45,8 @@ namespace Khayati.Infrastructure.Extension
 
                 var databaseOptions = serviceProvider.GetService<IOptions<DatabaseOptions>>()!.Value;
                 var interceptor = serviceProvider.GetRequiredService<AuditInterceptor>();
+
+                options.UseLazyLoadingProxies();
 
                 // Configure SQLite database context
                 options.UseSqlite($"Data Source={dbPath}",

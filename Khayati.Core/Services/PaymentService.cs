@@ -77,6 +77,7 @@ namespace Khayati.Service
             // Check if the customer has any existing orders
             var orders = await _unitOfWork.OrderRepository
                 .GetAll(x => x.CustomerId == customerId && !x.IsPaid);
+
             var order = orders.OrderByDescending(x => x.OrderDate).FirstOrDefault();
 
             // If no order exists, create a new one
@@ -92,7 +93,6 @@ namespace Khayati.Service
                     OrderStatus = OrderStatus.Pending
                 };
                 await _unitOfWork.OrderRepository.Add(order);
-                await _unitOfWork.SaveChanges(default);
             }
 
             // Now create the payment
@@ -103,6 +103,9 @@ namespace Khayati.Service
                 PaymentDate = DateTime.Now,
                 //PaymentStatus = PaymentStatus.PartialPayment // Assume partial by default
             };
+            order.CalculatePaymentStatus();
+            await _unitOfWork.PaymentRepository.Add(payment);
+            await _unitOfWork.SaveChanges(default);
             //_context.Payments.Add(payment);
 
             //// Update Order Status
