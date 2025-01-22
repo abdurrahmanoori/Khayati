@@ -16,9 +16,17 @@ namespace Khayati.Api.Controllers
         }
 
         [HttpPost("customerPayment")]
-        public async Task<IActionResult> Create(int customerId, decimal amount)
+        public async Task<IActionResult> CreatePaymentForCustomer(int customerId, decimal amount)
         {
-             await _PaymentService.AddPaymentForCustomer(customerId, amount);
+            await _PaymentService.AddPaymentForCustomer(customerId, amount);
+            return Ok("success");
+
+        }
+
+        [HttpPost("orderPayment")]
+        public async Task<IActionResult> CreatePaymentForOrder(int orderId, decimal amount)
+        {
+            await _PaymentService.ProcessPaymentAsync(orderId, amount);
             return Ok("success");
 
         }
