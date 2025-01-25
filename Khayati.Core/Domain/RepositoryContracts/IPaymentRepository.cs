@@ -5,7 +5,7 @@ namespace RepositoryContracts
 {
     public interface IPaymentRepository : IGenericRepository<Payment>
     {
-        Task<decimal> GetTotalPaymentsByOrderIdAsync(int orderId);
+        Task<double> GetTotalPaymentsByOrderIdAsync(int orderId);
 
     }
 }

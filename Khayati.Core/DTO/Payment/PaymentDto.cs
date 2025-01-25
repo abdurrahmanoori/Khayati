@@ -18,7 +18,7 @@ namespace Khayati.Core.DTO.Payment
         /// the status of each payment individually, but it’s not required 
         /// unless you need detailed payment tracking.
         /// </summary>
-        public PaymentStatus PaymentStatus { get; set; }
+        //public PaymentStatus PaymentStatus { get; set; }
 
         //[ForeignKey(nameof(OrderId))]
         //public virtual Order? Order { get; set; }

@@ -9,6 +9,7 @@ namespace Khayati.Core.Common.Response
     public class DeclareMessage
     {
         public static ValidationError NotFound = new() { Code = nameof(NotFound), Description = "Not Found" };
+        public static ValidationError InvalidOperation = new() { Code = nameof(InvalidOperation), Description = "This operation is not valid." };
         public static ValidationError BadRequest = new() { Code = nameof(BadRequest), Description = "Bad Request" };
         public static ValidationError EmptyList = new() { Code = nameof(EmptyList), Description = "List is empty" };
 

@@ -3,7 +3,6 @@ using Entities.Enum;
 using Entities;
 using Khayati.ServiceContracts;
 using RepositoryContracts.Base;
-using Khayati.Core.DTO.Payment;
 using Khayati.Core.Common.Response;
 
 namespace Khayati.Service
@@ -20,100 +19,129 @@ namespace Khayati.Service
         }
         public async Task<Result<bool>> ProcessPaymentAsync(int orderId, decimal amountPaid)
         {
-            // Fetch the order
-            var order = await _unitOfWork.OrderRepository
-                .GetFirstOrDefault(x => x.OrderId == orderId);
+            // Validate and fetch the order
+            var order = await FetchValidateOrder(orderId);
+            if (order == null)
+                return Result<bool>.FailureResult(DeclareMessage.NotFound.Code, "Order not found or already paid.");
 
-            if (order == null) return Result<bool>.FailureResult(DeclareMessage.NotFound.Code, "Order not found.");
+            if (order.TotalCost == 0)
+                return Result<bool>.FailureResult(DeclareMessage.InvalidOperation.Code, "Operation cannot be done because Total cost is zero.");
 
-            // Calculate outstanding(Remaining money) amount by summing all payments directly from the Payment repository
-            var totalPayments = await _unitOfWork.PaymentRepository
-                .GetTotalPaymentsByOrderIdAsync(orderId);
+            // Calculate outstanding amount
+            var outstandingAmount = await CalculateOutstandingAmount(orderId, order.TotalCost);
 
-            var outstandingAmount = order.TotalCost - totalPayments;
+            // Create and configure the payment
+            var payment = CreatePayment(orderId, amountPaid);
+            UpdateOrderStatus(order, amountPaid, outstandingAmount);
 
-            // Create a new payment entry
-            var paymentDto = new PaymentDto
+            // Persist changes
+            await _unitOfWork.PaymentRepository.Add(payment);
+            await _unitOfWork.SaveChanges(CancellationToken.None);
+
+            return Result<bool>.SuccessResult(true);
+        }
+
+
+
+        public async Task AddPaymentForCustomer(int customerId, decimal amount)
+        {
+            var customer = await FetchCustomer(customerId);
+            var order = await GetOrCreateCustomerOrder(customerId);
+
+            // Create and save the payment
+            var payment = CreatePayment(order.OrderId, amount);
+            await SavePayment(payment);
+
+            // Save changes for both order and payment
+            await _unitOfWork.SaveChanges(default);
+        }
+
+
+
+
+        private async Task<Customer> FetchCustomer(int customerId)
+        {
+            var customer = await _unitOfWork.CustomerRepository
+                .GetFirstOrDefault(x => x.CustomerId == customerId);
+
+            if (customer == null)
+                throw new Exception("Customer not found");
+
+            return customer;
+        }
+
+        private async Task<Order> GetOrCreateCustomerOrder(int customerId)
+        {
+            var orders = await _unitOfWork.OrderRepository
+                .GetAll(x => x.CustomerId == customerId && !x.IsPaid && x.OrderStatus != OrderStatus.Completed);
+
+            var order = orders.OrderByDescending(x => x.OrderDate).FirstOrDefault();
+
+            if (order != null) return order;
+
+            // Create a new order if none exists
+            order = new Order
+            {
+                CustomerId = customerId,
+                OrderDate = DateTime.UtcNow,
+                ExpectedCompletionDate = DateTime.UtcNow.AddDays(7), // Example completion time
+                TotalCost = 0, // Default to zero since cost isn't known yet
+                IsPaid = false,
+                OrderStatus = OrderStatus.Pending,
+                PaymentStatus = PaymentStatus.PartialPayment
+            };
+
+            await _unitOfWork.OrderRepository.Add(order);
+            return order;
+        }
+
+
+        private async Task<Order?> FetchValidateOrder(int orderId)
+        {
+            return await _unitOfWork.OrderRepository.GetFirstOrDefault(
+                x => x.OrderId == orderId && !x.IsPaid && x.OrderStatus != OrderStatus.Completed);
+        }
+
+        private async Task<decimal> CalculateOutstandingAmount(int orderId, decimal? totalCost)
+        {
+            var totalPayments = await _unitOfWork.PaymentRepository.GetTotalPaymentsByOrderIdAsync(orderId);
+            return (totalCost ?? 0) - (decimal)totalPayments;
+        }
+
+        private Payment CreatePayment(int orderId, decimal amountPaid)
+        {
+            return new Payment
             {
                 Amount = amountPaid,
                 PaymentDate = DateTime.UtcNow,
                 OrderId = orderId,
-                PaymentStatus = amountPaid >= outstandingAmount
-                    ? PaymentStatus.Completed
-                    : PaymentStatus.PartialPayment
             };
+        }
 
-            // Update the order's IsPaid and OrderStatus without using navigation properties
+        private void UpdateOrderStatus(Order order, decimal amountPaid, decimal outstandingAmount)
+        {
             if (amountPaid >= outstandingAmount)
             {
+                order.PaymentStatus = PaymentStatus.Completed;
                 order.IsPaid = true;
                 order.OrderStatus = OrderStatus.Completed;
             }
             else
             {
+                order.PaymentStatus = PaymentStatus.PartialPayment;
                 order.IsPaid = false;
                 order.OrderStatus = OrderStatus.Progress;
             }
-
-            var payment = _mapper.Map<Payment>(paymentDto);
-
-            // Save the payment and update the order
-            await _unitOfWork.PaymentRepository.Add(payment);
-            await _unitOfWork.SaveChanges(CancellationToken.None);
-            //await _orderRepository.UpdateAsync(order);
-
-            return Result<bool>.SuccessResult(true);
-
         }
 
+      
 
-        public async Task AddPaymentForCustomer(int customerId, decimal amount)
+        private async Task SavePayment(Payment payment)
         {
-            var customer = await _unitOfWork.CustomerRepository
-                .GetFirstOrDefault(x => x.CustomerId == customerId,includeProperties: "Measurements");
-
-            if (customer == null)
-                throw new Exception("Customer not found");
-
-            // Check if the customer has any existing orders
-            var orders = await _unitOfWork.OrderRepository
-                .GetAll(x => x.CustomerId == customerId && !x.IsPaid);
-
-            var order = orders.OrderByDescending(x => x.OrderDate).FirstOrDefault();
-
-            // If no order exists, create a new one
-            if (order == null)
-            {
-                order = new Order
-                {
-                    CustomerId = customerId,
-                    OrderDate = DateTime.Now,
-                    ExpectedCompletionDate = DateTime.Now.AddDays(7), // Example completion time
-                    TotalCost = 0, // Since we don't know the cost yet
-                    IsPaid = false,
-                    OrderStatus = OrderStatus.Pending,
-                    PaymentStatus = PaymentStatus.PartialPayment
-                };
-                await _unitOfWork.OrderRepository.Add(order);
-            }
-
-            // Now create the payment
-            var payment = new Payment
-            {
-                OrderId = order.OrderId,
-                Order = order,
-                Amount = amount,
-                PaymentDate = DateTime.Now,
-                //PaymentStatus = PaymentStatus.PartialPayment // Assume partial by default
-            };
-
             await _unitOfWork.PaymentRepository.Add(payment);
-            await _unitOfWork.SaveChanges(default);
-            //_context.Payments.Add(payment);
-
-            //// Update Order Status
-            //order.IsPaid = (order.AmountPaid + amount) >= order.TotalCost;
-            //await _context.SaveChangesAsync();
         }
+
+
+
     }
 }

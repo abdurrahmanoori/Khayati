@@ -14,11 +14,12 @@ namespace Repositories
             _dbContext = dbContext;
         }
 
-        public async Task<decimal> GetTotalPaymentsByOrderIdAsync(int orderId)
+        public async Task<double> GetTotalPaymentsByOrderIdAsync(int orderId)
         {
             var totalPayments = await _dbContext.Payments
                 .Where(p => p.OrderId == orderId)
-                .SumAsync(p => p.Amount);
+                .SumAsync(p =>(double) p.Amount);
+
             return totalPayments;
             var query = await (from p in _dbContext.Payments
                                where p.OrderId == orderId
