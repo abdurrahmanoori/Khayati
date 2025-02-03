@@ -14,6 +14,7 @@ namespace Entities
         public int CustomerId { get; set; }
         public int? FabricId { get; set; }
         public int OrderId { get; set; }
+        public string? Details { get; set; }
         /// <summary>
         /// If different designs can have different prices based on the Embellishment or 
         /// customizations applied, a CostAtTimeOfOrder field in the OrderDesigns table is useful. 
