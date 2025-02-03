@@ -17,7 +17,7 @@ namespace Entities
 
         public decimal? TotalCost { get; set; }
         public DateTime OrderDate { get; set; }
-       
+
         public bool IsPaid { get; set; }
 
         // Sum of all payments made for this order
@@ -53,6 +53,14 @@ namespace Entities
                 PaymentStatus = PaymentStatus.PartialPayment;
                 IsPaid = false;
             }
+        }
+
+        public bool IsValidOrderForPayment( )
+        {
+            if (TotalCost == 0 && OrderStatus != OrderStatus.Completed)
+                return true;
+
+            return false;
         }
 
     }

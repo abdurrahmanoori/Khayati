@@ -77,24 +77,25 @@ namespace Khayati.Service
 
             var order = orders.OrderByDescending(x => x.OrderDate).FirstOrDefault();
 
-            if (order != null) return order;
-
-            // Create a new order if none exists
-            order = new Order
+            // If no order exists, create a new one
+            if (order == null)
             {
-                CustomerId = customerId,
-                OrderDate = DateTime.UtcNow,
-                ExpectedCompletionDate = DateTime.UtcNow.AddDays(7), // Example completion time
-                TotalCost = 0, // Default to zero since cost isn't known yet
-                IsPaid = false,
-                OrderStatus = OrderStatus.Pending,
-                PaymentStatus = PaymentStatus.PartialPayment
-            };
+                order = new Order
+                {
+                    CustomerId = customerId,
+                    OrderDate = DateTime.Now,
+                    ExpectedCompletionDate = DateTime.Now.AddDays(7), // Example completion time
+                    TotalCost = 0, // Since we don't know the cost yet
+                    IsPaid = false,
+                    OrderStatus = OrderStatus.Pending,
+                    PaymentStatus = PaymentStatus.PartialPayment
+                };
+                await _unitOfWork.OrderRepository.Add(order);
 
-            await _unitOfWork.OrderRepository.Add(order);
+            }
+
             return order;
         }
-
 
         private async Task<Order?> FetchValidateOrder(int orderId)
         {
@@ -134,11 +135,12 @@ namespace Khayati.Service
             }
         }
 
-      
+
 
         private async Task SavePayment(Payment payment)
         {
             await _unitOfWork.PaymentRepository.Add(payment);
+            await _unitOfWork.SaveChanges(default);
         }
 
 
