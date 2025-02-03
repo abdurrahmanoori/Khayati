@@ -30,6 +30,10 @@ namespace Entities.Data
             modelBuilder.Entity<Order>()
                 .Property(x => x.PaymentStatus)
                 .HasConversion<string>();
+
+            modelBuilder.Entity<Order>()
+                .Property(x => x.OrderPriority)
+                .HasConversion<string>();
                 
             
 

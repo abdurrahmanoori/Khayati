@@ -1,4 +1,5 @@
 ﻿using Entities.Enum;
+using Khayati.Core.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -25,7 +26,9 @@ namespace Entities
 
         public OrderStatus OrderStatus { get; set; }
 
-        public PaymentStatus PaymentStatus { get; set; }
+        public PaymentStatus PaymentStatus { get; set; } 
+
+        public OrderPriority OrderPriority { get; set; } = OrderPriority.Normal;
 
         [ForeignKey(nameof(CustomerId))]
         public virtual Customer? Customer { get; set; }
