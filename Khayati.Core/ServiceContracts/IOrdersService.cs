@@ -14,10 +14,7 @@ namespace Khayati.ServiceContracts
     public interface IOrdersService
     {
 
-        Task<Result<CustomerAddDto>> AddOrderWithDetails(
-           CustomerAddDto customer,
-           MeasurementAddDto measurement
-           , OrdersAddDto order);
+        Task<Result<OrdersAddDto>> AddOrderWithDetails(OrdersAddDto order);
 
         public Task<decimal?> CalculateTotalCost(int orderId);
 

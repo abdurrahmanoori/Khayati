@@ -27,7 +27,7 @@ namespace Khayati.Api.Controllers
         }
 
         [HttpPost("Api/Create")]
-        public async Task<IActionResult> Create(OrdersAddDto addOrdersDto)
+        public async Task<IActionResult> Create(OrdersAddDto ordersAddDto)
         {
 
 
@@ -37,7 +37,7 @@ namespace Khayati.Api.Controllers
             var measurment = DataGenerator.GenerateMeasurement();
             var order = DataGenerator.GenerateOrder();
 
-            var result = await _orderService.AddOrderWithDetails(customer, measurment, order);
+            var result = await _orderService.AddOrderWithDetails(ordersAddDto);
 
             return Ok(result);
 

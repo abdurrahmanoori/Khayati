@@ -22,29 +22,31 @@ namespace Khayati.Service
         }
 
 
-        public async Task<Result<CustomerAddDto>> AddOrderWithDetails(
-            CustomerAddDto customerDto,
-            MeasurementAddDto measurementDto,
-            OrdersAddDto orderDto)
+        public  Task<Result<OrdersAddDto>> AddOrderWithDetails(OrdersAddDto orderDto)
         {
-            var customer = _mapper.Map<Customer>(customerDto);
-            await _unitOfWork.CustomerRepository.Add(customer);
 
-
-            var measurment = _mapper.Map<Measurement>(measurementDto);
-            measurment.Customer = customer;
-            await _unitOfWork.MeasurementRepository.Add(measurment);
 
             var order = _mapper.Map<Order>(orderDto);
             order.OrderDate = DateTime.UtcNow;
             order.OrderStatus = OrderStatus.Pending;
-            order.Customer = customer;
+            //order.Customer = customer;
             order.IsPaid = false;
 
-            await _unitOfWork.OrderRepository.Add(order);
+            return default;
 
-            await _unitOfWork.SaveChanges(default);
-            return Result<CustomerAddDto>.SuccessResult(customerDto);
+            //var customer = _mapper.Map<Customer>(customerDto);
+            //await _unitOfWork.CustomerRepository.Add(customer);
+
+
+            //var measurment = _mapper.Map<Measurement>(measurementDto);
+            //measurment.Customer = customer;
+            //await _unitOfWork.MeasurementRepository.Add(measurment);
+
+
+            //await _unitOfWork.OrderRepository.Add(order);
+
+            //await _unitOfWork.SaveChanges(default);
+            //return Result<CustomerAddDto>.SuccessResult(customerDto);
 
         }
 

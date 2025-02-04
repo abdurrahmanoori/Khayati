@@ -35,6 +35,10 @@ namespace Entities
         public virtual ICollection<Payment>? Payments { get; set; }
         public virtual ICollection<OrderDesign> OrderDesigns { get; set; }
 
+        public void CalculateOrderStatus( )
+        {
+
+        }
 
         public void CalculatePaymentStatus( )
         {
