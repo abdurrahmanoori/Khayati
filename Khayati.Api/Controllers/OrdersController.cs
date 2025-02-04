@@ -30,6 +30,9 @@ namespace Khayati.Api.Controllers
         public async Task<IActionResult> Create(OrdersAddDto addOrdersDto)
         {
 
+
+
+
             var customer = DataGenerator.GenerateCustomer();
             var measurment = DataGenerator.GenerateMeasurement();
             var order = DataGenerator.GenerateOrder();
