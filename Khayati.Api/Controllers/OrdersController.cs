@@ -33,9 +33,9 @@ namespace Khayati.Api.Controllers
 
 
 
-            var customer = DataGenerator.GenerateCustomer();
-            var measurment = DataGenerator.GenerateMeasurement();
-            var order = DataGenerator.GenerateOrder();
+            //var customer = DataGenerator.GenerateCustomer();
+            //var measurment = DataGenerator.GenerateMeasurement();
+            //var order = DataGenerator.GenerateOrder();
 
             var result = await _orderService.AddOrderWithDetails(ordersAddDto);
 

@@ -1,8 +1,6 @@
-﻿using Entities;
-using Entities.Enum;
+﻿using Entities.Enum;
 using Khayati.Core.DTO.OrderDesign;
 using Khayati.Core.Enums;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Khayati.Core.DTO
 {
