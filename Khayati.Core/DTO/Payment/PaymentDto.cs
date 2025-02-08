@@ -1,8 +1,4 @@
-﻿using Entities.Enum;
-using Entities;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Khayati.Core.DTO.Payment
+﻿namespace Khayati.Core.DTO.Payment
 {
     public class PaymentDto
     {

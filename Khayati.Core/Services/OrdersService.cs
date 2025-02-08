@@ -5,6 +5,7 @@ using Khayati.Core.Common.Response;
 using Khayati.Core.DTO;
 using Khayati.Core.DTO.Measurements;
 using Khayati.Core.DTO.Orders;
+using Khayati.Core.DTO.Payment;
 using Khayati.ServiceContracts;
 using RepositoryContracts.Base;
 
@@ -22,13 +23,18 @@ namespace Khayati.Service
         }
 
 
-        public  Task<Result<OrdersAddDto>> AddOrderWithDetails(OrdersAddDto orderDto)
+        public async Task<Result<OrdersAddDto>> AddOrderWithDetails(OrdersAddDto orderDto)
         {
 
-
             var order = _mapper.Map<Order>(orderDto);
+
+            if (order.OrderStatus == OrderStatus.Completed)
+            {
+                order.CalculatePaymentStatus();
+            }
+
             order.OrderDate = DateTime.UtcNow;
-            order.OrderStatus = OrderStatus.Pending;
+            //order.OrderStatus = OrderStatus.Pending;
             //order.Customer = customer;
             order.IsPaid = false;
 
@@ -51,6 +57,38 @@ namespace Khayati.Service
         }
 
 
+        private async Task<bool> IsPaidOrder(OrdersAddDto ordersAddDto)
+        {
+
+            var amoutPaid = ordersAddDto?.PaymentDtos?.Sum(x => x.Amount);
+
+            if (amoutPaid >= ordersAddDto?.TotalCost)
+            {
+
+                return true;
+            }
+            return false;
+        }
+
+
+        private async Task<bool> IsPaidOrder1(Order order)
+        {
+            var existingOrder = await _unitOfWork.PaymentRepository
+                .GetAll(x => x.OrderId == order.OrderId);
+            if (existingOrder is null)
+            {
+                return false;
+
+            }
+            var amountPaid = existingOrder.Sum(x => x.Amount);
+
+            if (amountPaid >= order.TotalCost)
+            {
+                return true;
+            }
+            return false;
+
+        }
 
         // Calculates the total cost of an order
         public async Task<Result<IEnumerable<CustomerOrderResponseDto>>> GetOrdersByCustomerId(int customerId)
