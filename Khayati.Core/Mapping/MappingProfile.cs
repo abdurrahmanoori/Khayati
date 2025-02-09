@@ -7,6 +7,7 @@ using Khayati.Core.DTO.Embellishment;
 using Khayati.Core.DTO.EmbellishmentType;
 using Khayati.Core.DTO.Measurements;
 using Khayati.Core.DTO.OrderDesign;
+using Khayati.Core.DTO.Payment;
 using Khayati.Core.DTO.Relative;
 
 namespace Khayati.Core.Mapping
@@ -39,6 +40,8 @@ namespace Khayati.Core.Mapping
             CreateMap<Customer, CustomerRelativeDto>().ReverseMap();
             CreateMap<Measurement, MeasurementAddDto>().ReverseMap();
             CreateMap<Measurement, MeasurementDto>().ReverseMap();
+
+            CreateMap<Payment,PaymentDto>().ReverseMap();
 
             // CreateMap<EmbellishmentType, EmbellishmentTypeResponseDto>();
 

@@ -28,8 +28,8 @@ namespace Khayati.Core.DTO
 
         public OrderPriority OrderPriority { get; set; } = OrderPriority.Normal;
 
-        public virtual ICollection<OrderDesignAddDto>? OrderDesignAddDto { get; set; }
-        public virtual ICollection<PaymentDto>? PaymentDtos { get; set; }
+        public virtual ICollection<OrderDesignAddDto>? OrderDesigns { get; set; }
+        public virtual ICollection<PaymentDto>? Payments { get; set; }
 
     }
 }
