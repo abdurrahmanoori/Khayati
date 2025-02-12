@@ -3,7 +3,6 @@ using Entities;
 using Entities.Enum;
 using Khayati.Core.Common.Response;
 using Khayati.Core.DTO;
-using Khayati.Core.DTO.Measurements;
 using Khayati.Core.DTO.Orders;
 using Khayati.ServiceContracts;
 using RepositoryContracts.Base;
@@ -22,14 +21,14 @@ namespace Khayati.Service
         }
 
 
+
         public  Task<Result<OrdersAddDto>> AddOrderWithDetails(OrdersAddDto orderDto)
         {
-
-
             var order = _mapper.Map<Order>(orderDto);
+
             order.OrderDate = DateTime.UtcNow;
             order.OrderStatus = OrderStatus.Pending;
-            //order.Customer = customer;
+            // order.Customer = customer;
             order.IsPaid = false;
 
             return default;

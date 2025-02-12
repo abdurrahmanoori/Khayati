@@ -4,7 +4,7 @@ using Entities;
 using Khayati.ServiceContracts;
 using RepositoryContracts.Base;
 using Khayati.Core.Common.Response;
-
+ 
 namespace Khayati.Service
 {
     public class PaymentService : IPaymentService
