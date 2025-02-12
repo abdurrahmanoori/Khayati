@@ -51,11 +51,13 @@ namespace Entities
             {
                 PaymentStatus = PaymentStatus.Completed;
                 IsPaid = true;
+                //OrderDate = DateTime.UtcNow;
             }
             else
             {
                 PaymentStatus = PaymentStatus.PartialPayment;
                 IsPaid = false;
+                //OrderDate = DateTime.UtcNow;
             }
         }
 
