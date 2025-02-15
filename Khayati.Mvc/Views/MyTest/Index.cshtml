@@ -147,6 +147,9 @@
                         reference: "",
                         assignedTo: "",
                         priority: "",
+                        priorities: [],
+                        selectedPaymentStatus: "",
+                        paymentStatus: [],
                         taxes: "",
                         comment: "",
                         staffList: [
@@ -174,7 +177,7 @@
 
                     async fetchPriorities() {
                         try {
-                            const response = await fetch("https://localhost:7205/api/General/getPriorities"); 
+                            const response = await fetch("https://localhost:7205/api/General/getPriorities");
                             if (!response.ok) throw new Error("Failed to fetch priorities");
 
                             const data = await response.json();

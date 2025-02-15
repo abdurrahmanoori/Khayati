@@ -1,4 +1,5 @@
-﻿using Khayati.Core.Enums;
+﻿using Entities.Enum;
+using Khayati.Core.Enums;
 using Khayati.ServiceContracts;
 using Microsoft.AspNetCore.Mvc;
 
@@ -40,5 +41,15 @@ namespace Khayati.Mvc.Areas.Admin.Controllers.Api
             return Ok(priorities);
         }
 
+        [HttpGet("getPaymentStatus")]
+        public IActionResult GetPaymentStatus( )
+        {
+            var paymentStatus = Enum.GetValues(typeof(PaymentStatus))
+                                 .Cast<PaymentStatus>()
+                                 .ToDictionary(e => (int)e, e => e.ToString());
+
+            return Ok(paymentStatus);
+
+        }
     }
 }
