@@ -15,153 +15,172 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 p-6">
+    <div class="p-3">
+        <div id="app" class="max-w-2xl bg-white shadow-lg rounded-lg p-6">
+            <h2 class="text-xl font-semibold mb-4">Create Order</h2>
 
-    <div id="app" class="max-w-2xl bg-white shadow-lg rounded-lg p-6">
-        <h2 class="text-xl font-semibold mb-4">Create Order</h2>
+            <!-- Customer Selection -->
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Customer</label>
+                    <div class="flex items-center gap-2">
+                        <select v-model="selectedCustomer" class="border rounded-lg p-2 w-full">
+                            <option value="" disabled>Select Customer</option>
+                            <option v-for="customer in customers" :key="customer.id" :value="customer.id">
+                                {{ customer.name }}
+                            </option>
+                        </select>
+                        <button class="text-blue-500 text-sm">Create</button>
+                    </div>
+                </div>
+                <!-- Loading Indicator -->
+                <p v-if="isLoading" class="text-gray-500 text-sm mt-2">Loading customers...</p>
 
-        <!-- Customer Selection -->
-        <div class="grid grid-cols-2 gap-4">
-            <div>
-                <label class="block text-sm font-medium text-gray-700">Customer</label>
-                <div class="flex items-center gap-2">
-                    <select v-model="selectedCustomer" class="border rounded-lg p-2 w-full">
-                        <option value="" disabled>Select Customer</option>
-                        <option v-for="customer in customers" :key="customer.id" :value="customer.id">
-                            {{ customer.name }}
-                        </option>
-                    </select>
-                    <button class="text-blue-500 text-sm">Create</button>
+                <!-- Error Message -->
+                <p v-if="errorMessage" class="text-red-500 text-sm mt-2">{{ errorMessage }}</p>
+                <!-- Delivery Date -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Delivery Date</label>
+                    <input type="date" v-model="deliveryDate" class="border rounded-lg p-2 w-full">
                 </div>
             </div>
 
-            <!-- Delivery Date -->
-            <div>
-                <label class="block text-sm font-medium text-gray-700">Delivery Date</label>
-                <input type="date" v-model="deliveryDate" class="border rounded-lg p-2 w-full">
+            <!-- Status & Reference -->
+            <div class="grid grid-cols-2 gap-4 mt-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Received Status</label>
+                    <select v-model="receivedStatus" class="border rounded-lg p-2 w-full">
+                        <option value="received">Received</option>
+                        <option value="pending">Pending</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Reference</label>
+                    <input type="text" v-model="reference" placeholder="Reference" class="border rounded-lg p-2 w-full">
+                </div>
+            </div>
+
+            <!-- Assign & Priority -->
+            <div class="grid grid-cols-2 gap-4 mt-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Assign to</label>
+                    <select v-model="assignedTo" class="border rounded-lg p-2 w-full">
+                        <option value="" disabled>Search Staff</option>
+                        <option v-for="staff in staffList" :key="staff.id" :value="staff.id">
+                            {{ staff.name }}
+                        </option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Priority</label>
+                    <select v-model="priority" class="border rounded-lg p-2 w-full">
+                        <option value="">Select Priority</option>
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Service Selection -->
+            <div class="mt-4">
+                <label class="block text-sm font-medium text-gray-700">Services</label>
+                <input type="text" placeholder="Search service to add to order" class="border rounded-lg p-2 w-full">
+            </div>
+
+            <!-- Warnings -->
+            <div v-if="!selectedCustomer" class="mt-4 bg-yellow-100 text-yellow-800 p-2 rounded-lg">
+                Please select the customer first.
+            </div>
+
+            <!-- Taxes & Discount -->
+            <div class="grid grid-cols-2 gap-4 mt-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Taxes</label>
+                    <select v-model="taxes" class="border rounded-lg p-2 w-full">
+                        <option value="">Add Taxes</option>
+                        <option value="5%">5%</option>
+                        <option value="10%">10%</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Discount</label>
+                    <input type="text" placeholder="Discount (number or % only)" class="border rounded-lg p-2 w-full">
+                </div>
+            </div>
+
+            <!-- File Upload -->
+            <div class="mt-4">
+                <label class="block text-sm font-medium text-gray-700">Photo</label>
+                <input type="file" class="border rounded-lg p-2 w-full">
+            </div>
+
+            <!-- Comment -->
+            <div class="mt-4">
+                <label class="block text-sm font-medium text-gray-700">Comment / Note</label>
+                <textarea v-model="comment" rows="3" class="border rounded-lg p-2 w-full"></textarea>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="mt-6">
+                <button @@click="submitOrder" class="bg-blue-500 text-white px-4 py-2 rounded-lg w-full">
+                    CREATE ORDER
+                </button>
             </div>
         </div>
 
-        <!-- Status & Reference -->
-        <div class="grid grid-cols-2 gap-4 mt-4">
-            <div>
-                <label class="block text-sm font-medium text-gray-700">Received Status</label>
-                <select v-model="receivedStatus" class="border rounded-lg p-2 w-full">
-                    <option value="received">Received</option>
-                    <option value="pending">Pending</option>
-                </select>
-            </div>
-            <div>
-                <label class="block text-sm font-medium text-gray-700">Reference</label>
-                <input type="text" v-model="reference" placeholder="Reference" class="border rounded-lg p-2 w-full">
-            </div>
-        </div>
+        <!-- Vue Script -->
+        <script>
+            const { createApp } = Vue;
 
-        <!-- Assign & Priority -->
-        <div class="grid grid-cols-2 gap-4 mt-4">
-            <div>
-                <label class="block text-sm font-medium text-gray-700">Assign to</label>
-                <select v-model="assignedTo" class="border rounded-lg p-2 w-full">
-                    <option value="" disabled>Search Staff</option>
-                    <option v-for="staff in staffList" :key="staff.id" :value="staff.id">
-                        {{ staff.name }}
-                    </option>
-                </select>
-            </div>
-            <div>
-                <label class="block text-sm font-medium text-gray-700">Priority</label>
-                <select v-model="priority" class="border rounded-lg p-2 w-full">
-                    <option value="">Select Priority</option>
-                    <option value="low">Low</option>
-                    <option value="medium">Medium</option>
-                    <option value="high">High</option>
-                </select>
-            </div>
-        </div>
+            createApp({
+                data() {
+                    return {
+                        selectedCustomer: "",  // Stores selected customer ID
+                        customers: [],         // Stores customer list
+                        isLoading: false,      // Loading state
+                        errorMessage: "",     // Error message
 
-        <!-- Service Selection -->
-        <div class="mt-4">
-            <label class="block text-sm font-medium text-gray-700">Services</label>
-            <input type="text" placeholder="Search service to add to order" class="border rounded-lg p-2 w-full">
-        </div>
+                        deliveryDate: "",
+                        receivedStatus: "received",
+                        reference: "",
+                        assignedTo: "",
+                        priority: "",
+                        taxes: "",
+                        comment: "",
+                        staffList: [
+                            { id: 1, name: "Staff A" },
+                            { id: 2, name: "Staff B" }
+                        ]
+                    };
+                },
+                methods: {
+                    async fetchCustomers() {
+                        this.isLoading = true;  // Show loading state
+                        this.errorMessage = ""; // Clear previous errors
 
-        <!-- Warnings -->
-        <div v-if="!selectedCustomer" class="mt-4 bg-yellow-100 text-yellow-800 p-2 rounded-lg">
-            Please select the customer first.
-        </div>
-
-        <!-- Taxes & Discount -->
-        <div class="grid grid-cols-2 gap-4 mt-4">
-            <div>
-                <label class="block text-sm font-medium text-gray-700">Taxes</label>
-                <select v-model="taxes" class="border rounded-lg p-2 w-full">
-                    <option value="">Add Taxes</option>
-                    <option value="5%">5%</option>
-                    <option value="10%">10%</option>
-                </select>
-            </div>
-            <div>
-                <label class="block text-sm font-medium text-gray-700">Discount</label>
-                <input type="text" placeholder="Discount (number or % only)" class="border rounded-lg p-2 w-full">
-            </div>
-        </div>
-
-        <!-- File Upload -->
-        <div class="mt-4">
-            <label class="block text-sm font-medium text-gray-700">Photo</label>
-            <input type="file" class="border rounded-lg p-2 w-full">
-        </div>
-
-        <!-- Comment -->
-        <div class="mt-4">
-            <label class="block text-sm font-medium text-gray-700">Comment / Note</label>
-            <textarea v-model="comment" rows="3" class="border rounded-lg p-2 w-full"></textarea>
-        </div>
-
-        <!-- Submit Button -->
-        <div class="mt-6">
-            <button @@click="submitOrder" class="bg-blue-500 text-white px-4 py-2 rounded-lg w-full">
-                CREATE ORDER
-            </button>
-        </div>
-    </div>
-
-    <!-- Vue Script -->
-    <script>
-        const { createApp } = Vue;
-
-        createApp({
-            data() {
-                return {
-                    selectedCustomer: "",
-                    deliveryDate: "",
-                    receivedStatus: "received",
-                    reference: "",
-                    assignedTo: "",
-                    priority: "",
-                    taxes: "",
-                    comment: "",
-                    customers: [
-                        { id: 1, name: "John Doe" },
-                        { id: 2, name: "Jane Smith" }
-                    ],
-                    staffList: [
-                        { id: 1, name: "Staff A" },
-                        { id: 2, name: "Staff B" }
-                    ]
-                };
-            },
-            methods: {
-                submitOrder() {
-                    if (!this.selectedCustomer) {
-                        alert("Please select a customer.");
-                        return;
+                        try {
+                            const response = await fetch("https://localhost:7205/api/customer/GetCustomers"); 
+                            if (!response.ok) throw new Error("Failed to fetch customers");
+                            const data = await response.json();
+                            this.customers = data; // Assuming API returns an array of customers
+                        } catch (error) {
+                            this.errorMessage = "Error fetching customers: " + error.message;
+                        } finally {
+                            this.isLoading = false;
+                        }
                     }
-                    alert("Order Created!");
-                }
-            }
-        }).mount('#app');
-    </script>
 
+
+
+                },
+                mounted() {
+                    this.fetchCustomers(); // Call API when component loads
+                }
+            }).mount('#app');
+        </script>
+
+    </div>
 </body>
 </html>
 
@@ -180,7 +199,7 @@
         <button class="btn btn-outline-success" @@click="reverseMessage">Reverse Message</button>
     </div>
 
-     <script src="https://cdn.jsdelivr.net/npm/vue@3.2.37/dist/vue.global.prod.js"></script> 
+     <script src="https://cdn.jsdelivr.net/npm/vue@3.2.37/dist/vue.global.prod.js"></script>
     <script src="~/js/vue.js"></script>
     <script>
         const { createApp } = Vue;
