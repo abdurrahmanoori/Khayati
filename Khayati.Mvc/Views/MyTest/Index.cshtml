@@ -71,15 +71,16 @@
                         </option>
                     </select>
                 </div>
-                <div>
+                <div id="app">
                     <label class="block text-sm font-medium text-gray-700">Priority</label>
                     <select v-model="priority" class="border rounded-lg p-2 w-full">
                         <option value="">Select Priority</option>
-                        <option value="low">Low</option>
-                        <option value="medium">Medium</option>
-                        <option value="high">High</option>
+                        <option v-for="(name, id) in priorities" :key="id" :value="id">
+                            {{ name }}
+                        </option>
                     </select>
                 </div>
+
             </div>
 
             <!-- Service Selection -->
@@ -160,7 +161,7 @@
                         this.errorMessage = ""; // Clear previous errors
 
                         try {
-                            const response = await fetch("https://localhost:7205/api/customer/GetCustomers"); 
+                            const response = await fetch("https://localhost:7205/api/General/GetCustomers");
                             if (!response.ok) throw new Error("Failed to fetch customers");
                             const data = await response.json();
                             this.customers = data; // Assuming API returns an array of customers
@@ -169,13 +170,25 @@
                         } finally {
                             this.isLoading = false;
                         }
-                    }
+                    },
 
+                    async fetchPriorities() {
+                        try {
+                            const response = await fetch("https://localhost:7205/api/General/getPriorities"); 
+                            if (!response.ok) throw new Error("Failed to fetch priorities");
+
+                            const data = await response.json();
+                            this.priorities = data;
+                        } catch (error) {
+                            console.error("Error:", error);
+                        }
+                    }
 
 
                 },
                 mounted() {
                     this.fetchCustomers(); // Call API when component loads
+                    this.fetchPriorities();
                 }
             }).mount('#app');
         </script>

@@ -1,14 +1,15 @@
-﻿using Khayati.ServiceContracts;
+﻿using Khayati.Core.Enums;
+using Khayati.ServiceContracts;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Khayati.Mvc.Areas.Admin.Controllers.Api
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CustomerController : ControllerBase
+    public class GeneralController : ControllerBase
     {
         private readonly ICustomerService customerService;
-        public CustomerController(ICustomerService customerService)
+        public GeneralController(ICustomerService customerService)
         {
             this.customerService = customerService;
         }
@@ -28,5 +29,16 @@ namespace Khayati.Mvc.Areas.Admin.Controllers.Api
 
 
         }
+
+        [HttpGet("getPriorities")]
+        public IActionResult GetPriorities( )
+        {
+            var priorities = Enum.GetValues(typeof(OrderPriority))
+                                 .Cast<OrderPriority>()
+                                 .ToDictionary(e => (int)e, e => e.ToString());
+
+            return Ok(priorities);
+        }
+
     }
 }
