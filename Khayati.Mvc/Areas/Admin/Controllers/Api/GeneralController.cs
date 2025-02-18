@@ -31,7 +31,15 @@ namespace Khayati.Mvc.Areas.Admin.Controllers.Api
 
         }
 
-      
+        [HttpGet("getPriorities")]
+        public IActionResult GetPriorities( )
+        {
+            var priorities = Enum.GetValues(typeof(OrderPriority))
+                                 .Cast<OrderPriority>()
+                                 .ToDictionary(e => (int)e, e => e.ToString());
+
+            return Ok(priorities);
+        }
 
         [HttpGet("getPaymentStatus")]
         public IActionResult GetPaymentStatus( )
