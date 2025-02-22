@@ -4,53 +4,314 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vue Searchable Dropdown</title>
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script src="https://unpkg.com/vue-simple-search-dropdown/dist/vue-simple-search-dropdown.min.js"></script>
-    <script>
-        Vue.use(Dropdown);
-    </script>
+    <script src="https://unpkg.com/vue@3"></script>
+    <style>
+        .searchable-dropdown {
+            position: relative;
+            width: 200px;
+        }
+
+            .searchable-dropdown input {
+                width: 100%;
+                padding: 8px;
+                box-sizing: border-box;
+            }
+
+            .searchable-dropdown ul {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                border: 1px solid #ccc;
+                max-height: 150px;
+                overflow-y: auto;
+                position: absolute;
+                width: 100%;
+                background: white;
+                z-index: 1;
+            }
+
+            .searchable-dropdown li {
+                padding: 8px;
+                cursor: pointer;
+            }
+
+                .searchable-dropdown li:hover {
+                    background-color: #f0f0f0;
+                }
+    </style>
 </head>
 <body>
 
-    <div id="app">
-        <label for="customer">Customer</label>
-        <Dropdown :options="customers"
-                  v-on:selected="onCustomerSelected"
-                  v-on:filter="fetchCustomers"
-                  :maxItem="10"
-                  placeholder="Search or Select Customer">
-        </Dropdown>
+    <div id="vue-app">
+        <div class="searchable-dropdown">
+            <input type="text" v-model="searchQuery" placeholder="Search..."
+            @@input ="filterOptions" @@focus ="showDropdown = true" @@blur ="hideDropdown" />
+            <ul v-if="showDropdown && filteredOptions.length">
+                <li v-for="option in filteredOptions" :key="option.id"
+                @@mousedown.prevent ="selectOption(option)">
+                    {{ option.name }}
+                </li>
+            </ul>
+            <p v-else-if="showDropdown">No options found</p>
+        </div>
     </div>
 
     <script>
-        const { createApp, ref } = Vue;
+        const { createApp } = Vue;
 
         createApp({
             data() {
                 return {
-                    customers: [], // Initial empty list
+                    searchQuery: '',
+                    options: [], // Initially empty, filled with first 10 from API
+                    filteredOptions: [],
+                    showDropdown: false,
+                    apiUrl: "https://localhost:7205/api/general" // Change this to your .NET API endpoint
                 };
             },
+            async created() {
+                // console.log("Created");
+                await this.fetchCustomers();
+            },
             methods: {
-                async fetchCustomers(searchTerm) {
+                async fetchCustomers(query = "") {
                     try {
-                        // Call API to get customer list based on search term
-                        const response = await fetch(`https://localhost:7205/api/General/GetCustomers?search=${searchTerm}&limit=10`);
+                        const response = await fetch(`${this.apiUrl}?search=${query}&limit=10`);
                         const data = await response.json();
-                        this.customers = data; // Update dropdown options
+                        if (query) {
+                            this.options.push(...data); // Append new data to existing options
+                        } else {
+                            this.options = data; // Initial fetch
+                        }
+                        this.filteredOptions = this.options;
                     } catch (error) {
                         console.error("Error fetching customers:", error);
                     }
                 },
-                onCustomerSelected(selectedCustomer) {
-                    console.log("Selected Customer:", selectedCustomer);
+                filterOptions() {
+                    this.filteredOptions = this.options.filter(option =>
+                        option.name.toLowerCase().includes(this.searchQuery.toLowerCase())
+                    );
+
+                    // If no result found in current data, call API for more
+                    if (this.filteredOptions.length === 0) {
+                        this.fetchCustomers(this.searchQuery);
+                    }
+                },
+                selectOption(option) {
+                    this.searchQuery = option.name;
+                    this.filteredOptions = [];
+                    this.showDropdown = false;
+                },
+                hideDropdown() {
+                    setTimeout(() => {
+                        this.showDropdown = false;
+                    }, 200);
                 }
-            },
-            mounted() {
-                this.fetchCustomers(""); // Load initial customers
             }
-        }).mount("#app");
+        }).mount("#vue-app");
     </script>
 
 </body>
 </html>
+
+
+@* 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Order</title>
+
+    <!-- Vue 3 CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.2.37/dist/vue.global.prod.js"></script>
+
+    <!-- Tailwind CSS (For Styling) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-6">
+    <div class="p-3">
+        <div id="app" class="max-w-2xl bg-white shadow-lg rounded-lg p-6">
+            <h2 class="text-xl font-semibold mb-4">Create Order</h2>
+
+            <!-- Customer Selection -->
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Customer</label>
+                    <div class="flex items-center gap-2">
+                        <select v-model="selectedCustomer" class="border rounded-lg p-2 w-full">
+                            <option value="" disabled>Select Customer</option>
+                            <option v-for="customer in customers" :key="customer.id" :value="customer.id">
+                                {{ customer.name }}
+                            </option>
+                        </select>
+                        <button class="text-blue-500 text-sm">Create</button>
+                    </div>
+                </div>
+                <!-- Loading Indicator -->
+                <p v-if="isLoading" class="text-gray-500 text-sm mt-2">Loading customers...</p>
+
+                <!-- Error Message -->
+                <p v-if="errorMessage" class="text-red-500 text-sm mt-2">{{ errorMessage }}</p>
+                <!-- Delivery Date -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Delivery Date</label>
+                    <input type="date" v-model="deliveryDate" class="border rounded-lg p-2 w-full">
+                </div>
+            </div>
+
+            <!-- Status & Reference -->
+            <div class="grid grid-cols-2 gap-4 mt-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Received Status</label>
+                    <select v-model="receivedStatus" class="border rounded-lg p-2 w-full">
+                        <option value="received">Received</option>
+                        <option value="pending">Pending</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Reference</label>
+                    <input type="text" v-model="reference" placeholder="Reference" class="border rounded-lg p-2 w-full">
+                </div>
+            </div>
+
+            <!-- Assign & Priority -->
+            <div class="grid grid-cols-2 gap-4 mt-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Assign to</label>
+                    <select v-model="assignedTo" class="border rounded-lg p-2 w-full">
+                        <option value="" disabled>Search Staff</option>
+                        <option v-for="staff in staffList" :key="staff.id" :value="staff.id">
+                            {{ staff.name }}
+                        </option>
+                    </select>
+                </div>
+                <div id="app">
+                    <label class="block text-sm font-medium text-gray-700">Priority</label>
+                    <select v-model="priority" class="border rounded-lg p-2 w-full">
+                        <option value="">Select Priority</option>
+                        <option v-for="(name, id) in priorities" :key="id" :value="id">
+                            {{ name }}
+                        </option>
+                    </select>
+                </div>
+
+            </div>
+
+            <!-- Service Selection -->
+            <div class="mt-4">
+                <label class="block text-sm font-medium text-gray-700">Services</label>
+                <input type="text" placeholder="Search service to add to order" class="border rounded-lg p-2 w-full">
+            </div>
+
+            <!-- Warnings -->
+            <div v-if="!selectedCustomer" class="mt-4 bg-yellow-100 text-yellow-800 p-2 rounded-lg">
+                Please select the customer first.
+            </div>
+
+            <!-- Taxes & Discount -->
+            <div class="grid grid-cols-2 gap-4 mt-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Taxes</label>
+                    <select v-model="taxes" class="border rounded-lg p-2 w-full">
+                        <option value="">Add Taxes</option>
+                        <option value="5%">5%</option>
+                        <option value="10%">10%</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Discount</label>
+                    <input type="text" placeholder="Discount (number or % only)" class="border rounded-lg p-2 w-full">
+                </div>
+            </div>
+
+            <!-- File Upload -->
+            <div class="mt-4">
+                <label class="block text-sm font-medium text-gray-700">Photo</label>
+                <input type="file" class="border rounded-lg p-2 w-full">
+            </div>
+
+            <!-- Comment -->
+            <div class="mt-4">
+                <label class="block text-sm font-medium text-gray-700">Comment / Note</label>
+                <textarea v-model="comment" rows="3" class="border rounded-lg p-2 w-full"></textarea>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="mt-6">
+                <button @@click="submitOrder" class="bg-blue-500 text-white px-4 py-2 rounded-lg w-full">
+                    CREATE ORDER
+                </button>
+            </div>
+        </div>
+
+        <!-- Vue Script -->
+        <script>
+            const { createApp } = Vue;
+
+            createApp({
+                data() {
+                    return {
+                        selectedCustomer: "",  // Stores selected customer ID
+                        customers: [],         // Stores customer list
+                        isLoading: false,      // Loading state
+                        errorMessage: "",     // Error message
+
+                        deliveryDate: "",
+                        receivedStatus: "received",
+                        reference: "",
+                        assignedTo: "",
+                        priority: "",
+                        taxes: "",
+                        comment: "",
+                        staffList: [
+                            { id: 1, name: "Staff A" },
+                            { id: 2, name: "Staff B" }
+                        ]
+                    };
+                },
+                methods: {
+                    async fetchCustomers() {
+                        this.isLoading = true;  // Show loading state
+                        this.errorMessage = ""; // Clear previous errors
+
+                        try {
+                            const response = await fetch("https://localhost:7205/api/General/GetCustomers");
+                            if (!response.ok) throw new Error("Failed to fetch customers");
+                            const data = await response.json();
+                            this.customers = data; // Assuming API returns an array of customers
+                        } catch (error) {
+                            this.errorMessage = "Error fetching customers: " + error.message;
+                        } finally {
+                            this.isLoading = false;
+                        }
+                    },
+
+                    async fetchPriorities() {
+                        try {
+                            const response = await fetch("https://localhost:7205/api/General/getPriorities");
+                            if (!response.ok) throw new Error("Failed to fetch priorities");
+
+                            const data = await response.json();
+                            this.priorities = data;
+                        } catch (error) {
+                            console.error("Error:", error);
+                        }
+                    }
+
+
+                },
+                mounted() {
+                    this.fetchCustomers(); // Call API when component loads
+                    this.fetchPriorities();
+                }
+            }).mount('#app');
+        </script>
+
+    </div>
+</body>
+</html>
+
+ *@
