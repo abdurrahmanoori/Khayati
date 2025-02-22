@@ -4,52 +4,90 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vue Searchable Dropdown</title>
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script src="https://unpkg.com/vue-simple-search-dropdown/dist/vue-simple-search-dropdown.min.js"></script>
-    <script>
-        Vue.use(Dropdown);
-    </script>
+    <script src="https://unpkg.com/vue@3"></script>
+    <style>
+        .searchable-dropdown {
+            position: relative;
+            width: 200px;
+        }
+
+            .searchable-dropdown input {
+                width: 100%;
+                padding: 8px;
+                box-sizing: border-box;
+            }
+
+            .searchable-dropdown ul {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                border: 1px solid #ccc;
+                max-height: 150px;
+                overflow-y: auto;
+                position: absolute;
+                width: 100%;
+                background: white;
+                z-index: 1;
+            }
+
+            .searchable-dropdown li {
+                padding: 8px;
+                cursor: pointer;
+            }
+
+                .searchable-dropdown li:hover {
+                    background-color: #f0f0f0;
+                }
+    </style>
 </head>
 <body>
 
-    <div id="app">
-        <label for="customer">Customer</label>
-        <Dropdown :options="customers"
-                  v-on:selected="onCustomerSelected"
-                  v-on:filter="fetchCustomers"
-                  :maxItem="10"
-                  placeholder="Search or Select Customer">
-        </Dropdown>
+    <div id="vue-app">
+        <div class="searchable-dropdown">
+            <input type="text" v-model="searchQuery" placeholder="Search..." @@input ="filterOptions"
+            @@focus ="showDropdown = true" @@blur ="hideDropdown" />
+            <ul v-if="showDropdown && filteredOptions.length">
+                <li v-for="option in filteredOptions" :key="option" @@mousedown.prevent ="selectOption(option)">
+                    {{ option }}
+                </li>
+            </ul>
+            <p v-else-if="showDropdown">No options found</p>
+        </div>
     </div>
 
     <script>
-        const { createApp, ref } = Vue;
+        const { createApp } = Vue;
 
         createApp({
             data() {
                 return {
-                    customers: [], // Initial empty list
+                    searchQuery: '',
+                    options: ['Option 1', 'Option 2', 'Option 3', 'Option 4'],
+                    filteredOptions: [],
+                    showDropdown: false
                 };
             },
-            methods: {
-                async fetchCustomers(searchTerm) {
-                    try {
-                        // Call API to get customer list based on search term
-                        const response = await fetch(`https://localhost:7205/api/General/GetCustomers?search=${searchTerm}&limit=10`);
-                        const data = await response.json();
-                        this.customers = data; // Update dropdown options
-                    } catch (error) {
-                        console.error("Error fetching customers:", error);
-                    }
-                },
-                onCustomerSelected(selectedCustomer) {
-                    console.log("Selected Customer:", selectedCustomer);
-                }
+            created() {
+                this.filteredOptions = this.options;
             },
-            mounted() {
-                this.fetchCustomers(""); // Load initial customers
+            methods: {
+                filterOptions() {
+                    this.filteredOptions = this.options.filter(option =>
+                        option.toLowerCase().includes(this.searchQuery.toLowerCase())
+                    );
+                },
+                selectOption(option) {
+                    this.searchQuery = option;
+                    this.filteredOptions = [];
+                    this.showDropdown = false;
+                },
+                hideDropdown() {
+                    setTimeout(() => {
+                        this.showDropdown = false;
+                    }, 200);
+                }
             }
-        }).mount("#app");
+        }).mount("#vue-app");
     </script>
 
 </body>
