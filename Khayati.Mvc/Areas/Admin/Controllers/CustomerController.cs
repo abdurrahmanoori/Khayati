@@ -3,6 +3,7 @@ using Khayati.Core.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Khayati.Core.DTO.Customers;
+using Khayati.Mvc.ViewModel;
 
 namespace Khayati.Mvc.Areas.Admin.Controllers;
 
@@ -31,10 +32,12 @@ public class CustomerController : Controller
 
 
     [HttpPost]
-    public async Task<IActionResult> Create(CustomerAddDto addCustomerDto)
+    public async Task<IActionResult> Create(CustomerAddVM customerAddVM)
     {
-        var result = await _customerService.AddCustomer(addCustomerDto);
-        return Ok(result);
+        var daata = HttpContext;
+
+        var result = await _customerService.AddCustomer(customerAddVM.CustomerAdd);
+        return RedirectToAction("Index");
 
     }
 
