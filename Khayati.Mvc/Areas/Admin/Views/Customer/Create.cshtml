@@ -5,32 +5,169 @@
 }
 
 
+@* ////////////////////////////////////////// *@
+
+<div class="container m-2 p-1">
+    <div class="container-fluid pt-4 ">
+
+        <h3 class="fw-bold "><i class="fas fa-plus text-dark m-2 mt-1 mb-1 img-size-30"> </i>  Add Customer</h3>
+    </div>
 
 
-<div class="p-1 content-wrapper ">
-    <div class="row">
 
-        <div class="col-md-12">
+</div>
 
-            <div class="col-lg-12 card card-primary">
-                <div class="card-header text-center">
-                    <h4>مــعــلـــومــات    مــــشــتــری</h4>
+<div class="card shadow-sm col-lg-8 m-3 mt-1">
+
+    <div class="card-body p-4">
+        <form asp-area="Admin" asp-action="Create" asp-controller="Customer" method="post">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Full Name:</label>
+                        <input asp-for="CustomerAdd.Name" class="form-control border-success-subtle"  placeholder="Enter your full name">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="address" class="form-label">Address:</label>
+                        <input asp-for="CustomerAdd.Address" class="form-control border-success-subtle"  placeholder="Enter your address" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email Address:</label>
+                        <input asp-for="CustomerAdd.EmailAddress" type="email" class="form-control border-success-subtle"  placeholder="Enter your email" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="nationalID" class="form-label">National ID:</label>
+                        <input asp-for="CustomerAdd.NationalID" type="text" class="form-control border-success-subtle"  placeholder="Enter your national ID" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="dob" class="form-label">Date of Birth:</label>
+                        <input asp-for="CustomerAdd.DateOfBirth" type="date" class="form-control border-success-subtle"  required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="phone" class="form-label">Phone Number:</label>
+                        <input asp-for="CustomerAdd.PhoneNumber" type="tel" class="form-control border-success-subtle"  placeholder="Enter your phone number" required>
+                    </div>
+                </div>
+            </div>
+            <div class="text-end mt-3 ">
+                
+                <button type="submit" class="btn btn-outline-success "><i class="fas fa-plus text-dark m-2 mt-1 mb-1"> </i>  Add Customer</button>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+   
+
+
+
+
+@* ////////////////////////////////////////// *@
+@*<div class="p-1 content-wrapper ">
+        <div class="row">
+
+            <div class="col-md-12">
+
+                <div class="col-lg-12 card card-primary">
+                    <div class="card-header text-center">
+                        <h4>مــعــلـــومــات    مــــشــتــری</h4>
+                    </div>
+
+
+                    <form class="container-fluid p-4">
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Full Name:</label>
+                                    <input asp-for="CustomerAdd.Name" type="text" class="form-control" id="name" placeholder="Enter your full name" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="address" class="form-label">Address:</label>
+                                    <input asp-for="CustomerAdd.Address" type="text" class="form-control" id="address" placeholder="Enter your address" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email Address:</label>
+                                    <input asp-for="CustomerAdd.EmailAddress" type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="nationalID" class="form-label">National ID:</label>
+                                    <input asp-for="CustomerAdd.NationalID" type="text" class="form-control" id="nationalID" placeholder="Enter your national ID" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="dob" class="form-label">Date of Birth:</label>
+                                    <input asp-for="CustomerAdd.DateOfBirth" type="date" class="form-control" id="dob" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="phone" class="form-label">Phone Number:</label>
+                                    <input asp-for="CustomerAdd.PhoneNumber" type="tel" class="form-control" id="phone" placeholder="Enter your phone number" required>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
                 </div>
 
+            </div>
 
-                <form class="container-fluid p-4">
+        </div>
 
-                    <div class="row">
+    </div>*@
+
+
+@*//////////////////////////////
+        <div class="row ">
+            <div class="col-md-8">
+                <form class=" border-primary border-3 fw-bold p-5">
+                    <div class="card card-primary">
+                        <div class="card-header text-center p-1">
+                            <h4 class="bg-primary">قــــد انــــدام</h4>
+                        </div>
+                    </div>
+                    <div class="row pt-2">
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="name" class="form-label">Full Name:</label>
-                                <input asp-for="CustomerAdd.Name" type="text" class="form-control" id="name" placeholder="Enter your full name" required>
+                                <label for="Height" class="form-label">Height:</label>
+                                <input asp-for="MeasurementAdd.Height" type="number" class="form-control" id="Height" placeholder="Enter your full name" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="address" class="form-label">Address:</label>
-                                <input asp-for="CustomerAdd.Address" type="text" class="form-control" id="address" placeholder="Enter your address" required>
+                                <label for="ArmLength" class="form-label">ArmLength:</label>
+                                <input asp-for="MeasurementAdd.ArmLength" type="number" class="form-control" id="ArmLength" placeholder="Enter your address" required>
                             </div>
                         </div>
                     </div>
@@ -38,275 +175,211 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="email" class="form-label">Email Address:</label>
-                                <input asp-for="CustomerAdd.EmailAddress" type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                                <label for="Sleeve" class="form-label">Sleeve:</label>
+                                <input asp-for="MeasurementAdd.Sleeve" type="number" class="form-control" id="Sleeve" placeholder="Enter your email" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="nationalID" class="form-label">National ID:</label>
-                                <input asp-for="CustomerAdd.NationalID" type="text" class="form-control" id="nationalID" placeholder="Enter your national ID" required>
+                                <label for="ShoulderWidth" class="form-label">ShoulderWidth:</label>
+                                <input asp-for="MeasurementAdd.ShoulderWidth" type="number" class="form-control" id="ShoulderWidth" placeholder="Enter your national ID" required>
                             </div>
                         </div>
                     </div>
 
+
+
+                    <div class="row ">
+                        <!-- Neck Measurement -->
+                        <div class="col-md-2">
+                            <div class="mb-3">
+                                <label for="Neck" class="form-label">Neck:</label>
+                                <input asp-for="MeasurementAdd.Neck" type="number" class="form-control" id="Neck" placeholder="Measurement" required>
+                            </div>
+                        </div>
+                        <!-- Neck Design Dropdown -->
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="NeckDesign" class="form-label">Neck Design:</label>
+                                <select class="form-control" id="NeckDesign" required>
+                                    <option value="">Simple</option>
+                                    <option value="Round Neck">Round Neck</option>
+                                    <option value="V-Neck">V-Neck</option>
+                                    <option value="Collar Neck">Collar Neck</option>
+                                    <option value="Turtle Neck">Turtle Neck</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="mb-3">
+                                <label for="Neck" class="form-label">Neck:</label>
+                                <input asp-for="MeasurementAdd.Neck" type="number" class="form-control" id="Neck" placeholder="Measurement" required>
+                            </div>
+                        </div>
+                        <!-- Neck Design Dropdown -->
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="NeckDesign" class="form-label">Neck Design:</label>
+                                <select class="form-control" id="NeckDesign" required>
+                                    <option value="">Simple</option>
+                                    <option value="Round Neck">Round Neck</option>
+                                    <option value="V-Neck">V-Neck</option>
+                                    <option value="Collar Neck">Collar Neck</option>
+                                    <option value="Turtle Neck">Turtle Neck</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Repeat similar structure for Sleeve Measurement and Design -->
+
+                    <div class="row">
+                        <!-- Sleeve Measurement -->
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="Sleeve" class="form-label">Sleeve:</label>
+                                <input asp-for="MeasurementAdd.Sleeve" type="number" class="form-control" id="Sleeve" placeholder="Enter sleeve measurement" required>
+                            </div>
+                        </div>
+                        <!-- Sleeve Design Dropdown -->
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="SleeveDesign" class="form-label">Sleeve Design:</label>
+                                <select class="form-control" id="SleeveDesign" required>
+                                    <option value="">Select Sleeve Design</option>
+                                    <option value="Short Sleeve">Short Sleeve</option>
+                                    <option value="Long Sleeve">Long Sleeve</option>
+                                    <option value="Sleeveless">Sleeveless</option>
+                                    <option value="Three-Quarter Sleeve">Three-Quarter Sleeve</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Continue adding dropdowns for other measurements as needed -->
+
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="dob" class="form-label">Date of Birth:</label>
-                                <input asp-for="CustomerAdd.DateOfBirth" type="date" class="form-control" id="dob" required>
+                                <label for="Waist" class="form-label">Waist:</label>
+                                <input asp-for="MeasurementAdd.Waist" type="number" class="form-control" id="Waist" placeholder="Enter your email" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="phone" class="form-label">Phone Number:</label>
-                                <input asp-for="CustomerAdd.PhoneNumber" type="tel" class="form-control" id="phone" placeholder="Enter your phone number" required>
+                                <label for="trousers" class="form-label">trousers:</label>
+                                <input asp-for="MeasurementAdd.trousers" type="number" class="form-control" id="trousers" placeholder="Enter your national ID" required>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="Leg" class="form-label">Leg:</label>
+                                <input asp-for="MeasurementAdd.Leg" type="number" class="form-control" id="Leg" placeholder="Enter your email" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="DateCreated" class="form-label">DateCreated:</label>
+                                <input asp-for="MeasurementAdd.DateCreated" type="date" class="form-control" id="DateCreated" placeholder="Enter your email" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
                     </div>
 
                 </form>
             </div>
 
+
+
+            <div class="col-md-4">
+                <form class=" border-primary border-3 fw-bold p-5">
+                    <div class="card card-primary">
+                        <div class="card-header text-center p-1">
+                            <h4 class="bg-primary">قــــد انــــدام</h4>
+                        </div>
+                    </div>
+                    <div class="row pt-2">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="Height" class="form-label">Height Design:</label>
+                                <input asp-for="MeasurementAdd.Height" type="number" class="form-control" id="Height" placeholder="Enter your full name" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="ArmLength" class="form-label">ArmLength Design:</label>
+                                <input asp-for="MeasurementAdd.ArmLength" type="number" class="form-control" id="ArmLength" placeholder="Enter your address" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="Sleeve" class="form-label">Sleeve Design:</label>
+                                <input asp-for="MeasurementAdd.Sleeve" type="number" class="form-control" id="Sleeve" placeholder="Enter your email" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="ShoulderWidth" class="form-label">ShoulderWidth Design:</label>
+                                <input asp-for="MeasurementAdd.ShoulderWidth" type="number" class="form-control" id="ShoulderWidth" placeholder="Enter your national ID" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="Neck" class="form-label">Neck Design:</label>
+                                <input asp-for="MeasurementAdd.Neck" type="number" class="form-control" id="Neck" placeholder="Enter your email" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="Chest" class="form-label">Chest Design:</label>
+                                <input asp-for="MeasurementAdd.Chest" type="number" class="form-control" id="Chest" placeholder="Enter your national ID" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="Waist" class="form-label">Waist Design:</label>
+                                <input asp-for="MeasurementAdd.Waist" type="number" class="form-control" id="Waist" placeholder="Enter your email" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="trousers" class="form-label">trousers Design:</label>
+                                <input asp-for="MeasurementAdd.trousers" type="number" class="form-control" id="trousers" placeholder="Enter your national ID" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="Leg" class="form-label">Leg Design:</label>
+                                <input asp-for="MeasurementAdd.Leg" type="number" class="form-control" id="Leg" placeholder="Enter your email" required>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                    </div>
+
+                </form>
+            </div>
         </div>
-
-    </div>
-
-</div>
-
-
-@*//////////////////////////////
-    <div class="row ">
-        <div class="col-md-8">
-            <form class=" border-primary border-3 fw-bold p-5">
-                <div class="card card-primary">
-                    <div class="card-header text-center p-1">
-                        <h4 class="bg-primary">قــــد انــــدام</h4>
-                    </div>
-                </div>
-                <div class="row pt-2">
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="Height" class="form-label">Height:</label>
-                            <input asp-for="MeasurementAdd.Height" type="number" class="form-control" id="Height" placeholder="Enter your full name" required>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="ArmLength" class="form-label">ArmLength:</label>
-                            <input asp-for="MeasurementAdd.ArmLength" type="number" class="form-control" id="ArmLength" placeholder="Enter your address" required>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="Sleeve" class="form-label">Sleeve:</label>
-                            <input asp-for="MeasurementAdd.Sleeve" type="number" class="form-control" id="Sleeve" placeholder="Enter your email" required>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="ShoulderWidth" class="form-label">ShoulderWidth:</label>
-                            <input asp-for="MeasurementAdd.ShoulderWidth" type="number" class="form-control" id="ShoulderWidth" placeholder="Enter your national ID" required>
-                        </div>
-                    </div>
-                </div>
-
-
-
-                <div class="row ">
-                    <!-- Neck Measurement -->
-                    <div class="col-md-2">
-                        <div class="mb-3">
-                            <label for="Neck" class="form-label">Neck:</label>
-                            <input asp-for="MeasurementAdd.Neck" type="number" class="form-control" id="Neck" placeholder="Measurement" required>
-                        </div>
-                    </div>
-                    <!-- Neck Design Dropdown -->
-                    <div class="col-md-4">
-                        <div class="mb-3">
-                            <label for="NeckDesign" class="form-label">Neck Design:</label>
-                            <select class="form-control" id="NeckDesign" required>
-                                <option value="">Simple</option>
-                                <option value="Round Neck">Round Neck</option>
-                                <option value="V-Neck">V-Neck</option>
-                                <option value="Collar Neck">Collar Neck</option>
-                                <option value="Turtle Neck">Turtle Neck</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="mb-3">
-                            <label for="Neck" class="form-label">Neck:</label>
-                            <input asp-for="MeasurementAdd.Neck" type="number" class="form-control" id="Neck" placeholder="Measurement" required>
-                        </div>
-                    </div>
-                    <!-- Neck Design Dropdown -->
-                    <div class="col-md-4">
-                        <div class="mb-3">
-                            <label for="NeckDesign" class="form-label">Neck Design:</label>
-                            <select class="form-control" id="NeckDesign" required>
-                                <option value="">Simple</option>
-                                <option value="Round Neck">Round Neck</option>
-                                <option value="V-Neck">V-Neck</option>
-                                <option value="Collar Neck">Collar Neck</option>
-                                <option value="Turtle Neck">Turtle Neck</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Repeat similar structure for Sleeve Measurement and Design -->
-
-                <div class="row">
-                    <!-- Sleeve Measurement -->
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="Sleeve" class="form-label">Sleeve:</label>
-                            <input asp-for="MeasurementAdd.Sleeve" type="number" class="form-control" id="Sleeve" placeholder="Enter sleeve measurement" required>
-                        </div>
-                    </div>
-                    <!-- Sleeve Design Dropdown -->
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="SleeveDesign" class="form-label">Sleeve Design:</label>
-                            <select class="form-control" id="SleeveDesign" required>
-                                <option value="">Select Sleeve Design</option>
-                                <option value="Short Sleeve">Short Sleeve</option>
-                                <option value="Long Sleeve">Long Sleeve</option>
-                                <option value="Sleeveless">Sleeveless</option>
-                                <option value="Three-Quarter Sleeve">Three-Quarter Sleeve</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Continue adding dropdowns for other measurements as needed -->
-
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="Waist" class="form-label">Waist:</label>
-                            <input asp-for="MeasurementAdd.Waist" type="number" class="form-control" id="Waist" placeholder="Enter your email" required>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="trousers" class="form-label">trousers:</label>
-                            <input asp-for="MeasurementAdd.trousers" type="number" class="form-control" id="trousers" placeholder="Enter your national ID" required>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="Leg" class="form-label">Leg:</label>
-                            <input asp-for="MeasurementAdd.Leg" type="number" class="form-control" id="Leg" placeholder="Enter your email" required>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="DateCreated" class="form-label">DateCreated:</label>
-                            <input asp-for="MeasurementAdd.DateCreated" type="date" class="form-control" id="DateCreated" placeholder="Enter your email" required>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                </div>
-
-            </form>
+        @*//////////////////////////////
+    <div class="row">
+        <div class="col-md-12 text-end">
+            <button type="submit" class="btn btn-primary btn-sm rounded-pill px-5">Submit</button>
         </div>
-
-
-
-        <div class="col-md-4">
-            <form class=" border-primary border-3 fw-bold p-5">
-                <div class="card card-primary">
-                    <div class="card-header text-center p-1">
-                        <h4 class="bg-primary">قــــد انــــدام</h4>
-                    </div>
-                </div>
-                <div class="row pt-2">
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="Height" class="form-label">Height Design:</label>
-                            <input asp-for="MeasurementAdd.Height" type="number" class="form-control" id="Height" placeholder="Enter your full name" required>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="ArmLength" class="form-label">ArmLength Design:</label>
-                            <input asp-for="MeasurementAdd.ArmLength" type="number" class="form-control" id="ArmLength" placeholder="Enter your address" required>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="Sleeve" class="form-label">Sleeve Design:</label>
-                            <input asp-for="MeasurementAdd.Sleeve" type="number" class="form-control" id="Sleeve" placeholder="Enter your email" required>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="ShoulderWidth" class="form-label">ShoulderWidth Design:</label>
-                            <input asp-for="MeasurementAdd.ShoulderWidth" type="number" class="form-control" id="ShoulderWidth" placeholder="Enter your national ID" required>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="Neck" class="form-label">Neck Design:</label>
-                            <input asp-for="MeasurementAdd.Neck" type="number" class="form-control" id="Neck" placeholder="Enter your email" required>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="Chest" class="form-label">Chest Design:</label>
-                            <input asp-for="MeasurementAdd.Chest" type="number" class="form-control" id="Chest" placeholder="Enter your national ID" required>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="Waist" class="form-label">Waist Design:</label>
-                            <input asp-for="MeasurementAdd.Waist" type="number" class="form-control" id="Waist" placeholder="Enter your email" required>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="trousers" class="form-label">trousers Design:</label>
-                            <input asp-for="MeasurementAdd.trousers" type="number" class="form-control" id="trousers" placeholder="Enter your national ID" required>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="Leg" class="form-label">Leg Design:</label>
-                            <input asp-for="MeasurementAdd.Leg" type="number" class="form-control" id="Leg" placeholder="Enter your email" required>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="row">
-                </div>
-
-            </form>
-        </div>
-    </div>
-    @*//////////////////////////////
-<div class="row">
-    <div class="col-md-12 text-end">
-        <button type="submit" class="btn btn-primary btn-sm rounded-pill px-5">Submit</button>
-    </div>
-</div>*@
+    </div>*@
 
 
 @*<div class="container mt-5">
