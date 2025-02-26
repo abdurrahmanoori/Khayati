@@ -118,9 +118,9 @@
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700">OrderPriority</label>
-                    <select v-model="orderPriority" class="border rounded-lg p-2 w-full">
+                    <select v-model="selectedPriority" class="border rounded-lg p-2 w-full">
                         <option value="">Select Priority</option>
-                        <option v-for="(status, id) in orderPriority" :key="id" :value="id">
+                        <option v-for="status in orderPriority" :key="status.id" :value="status.id">
                             {{ status.name }}
                         </option>
                     </select>
@@ -191,7 +191,7 @@
                     customers: [],         // Stores customer list
                     isLoading: false,      // Loading state
                     errorMessage: "",     // Error message
-
+                     selectedPriority: "", 
                     deliveryDate: "",
                     receivedStatus: "received",
                     reference: "",
