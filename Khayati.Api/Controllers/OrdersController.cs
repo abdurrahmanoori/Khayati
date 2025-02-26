@@ -1,8 +1,4 @@
-﻿//using Khayati.Core.DTO;
-//using Khayati.ServiceContracts;
-//using Microsoft.AspNetCore.Mvc;
-using Khayati.Core.DTO;
-using Khayati.Mvc.DataGenerators;
+﻿using Khayati.Core.DTO;
 using Khayati.ServiceContracts;
 using Microsoft.AspNetCore.Mvc;
 

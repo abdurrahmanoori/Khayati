@@ -49,7 +49,7 @@ namespace Khayati.Mvc.Areas.Admin.Controllers.Api
              new Customer { Id = 12, Name = "Sarah Lewis" }
          };
 
-      
+
 
 
 
@@ -79,14 +79,20 @@ namespace Khayati.Mvc.Areas.Admin.Controllers.Api
 
         }
 
-        [HttpGet("getPriorities")]
+        [HttpGet("Priorities")]
         public IActionResult GetPriorities( )
         {
             var priorities = Enum.GetValues(typeof(OrderPriority))
                                  .Cast<OrderPriority>()
                                  .ToDictionary(e => (int)e, e => e.ToString());
 
-            return Ok(priorities);
+            var prioritiesList = priorities.Select(x => new
+            {
+                Id = x.Key,
+                Name = x.Value
+            });
+
+            return Ok(prioritiesList);
         }
 
         [HttpGet("getPaymentStatus")]

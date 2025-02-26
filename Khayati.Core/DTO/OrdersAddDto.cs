@@ -18,10 +18,6 @@ namespace Khayati.Core.DTO
 
         public bool IsPaid { get; set; }
 
-        // Sum of all payments made for this order
-        //public decimal AmountPaid => Payments?.Sum(p => p.Amount) ?? 0;
-        //public decimal? RemainingAmount => TotalCost - (Payments?.Sum(p => p.Amount) ?? 0);
-
         public OrderStatus OrderStatus { get; set; }
 
         public PaymentStatus PaymentStatus { get; set; }
@@ -30,6 +26,13 @@ namespace Khayati.Core.DTO
 
         public virtual ICollection<OrderDesignAddDto>? OrderDesigns { get; set; }
         public virtual ICollection<PaymentDto>? Payments { get; set; }
+
+
+
+
+        // Sum of all payments made for this order
+        //public decimal AmountPaid => Payments?.Sum(p => p.Amount) ?? 0;
+        //public decimal? RemainingAmount => TotalCost - (Payments?.Sum(p => p.Amount) ?? 0);
 
     }
 }
