@@ -48,22 +48,6 @@ namespace Khayati.Mvc.Areas.Admin.Controllers.Api
              new Customer { Id = 11, Name = "Robert Hall" },
              new Customer { Id = 12, Name = "Sarah Lewis" }
          };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         [HttpGet("GetCustomers")]
         public async Task<IActionResult> GetCustomers( )
         {
@@ -85,7 +69,6 @@ namespace Khayati.Mvc.Areas.Admin.Controllers.Api
             var priorities = Enum.GetValues(typeof(OrderPriority))
                                  .Cast<OrderPriority>()
                                  .ToDictionary(e => (int)e, e => e.ToString());
-
             var prioritiesList = priorities.Select(x => new
             {
                 Id = x.Key,
@@ -93,6 +76,14 @@ namespace Khayati.Mvc.Areas.Admin.Controllers.Api
             });
 
             return Ok(prioritiesList);
+        }
+        [HttpGet("orderStatuses")]
+        public IActionResult GetOrderStatuses( )
+        {
+            var orderStatusesList = Enum.GetValues<OrderStatus>()
+                .Select(status => new { Id = status, Name = status.ToString() });
+
+            return Ok(orderStatusesList);
         }
 
         [HttpGet("getPaymentStatus")]

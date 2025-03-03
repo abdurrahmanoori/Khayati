@@ -94,10 +94,12 @@
             <!-- Status & Reference -->
             <div class="grid grid-cols-2 gap-4 mt-4">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Received Status</label>
-                    <select v-model="receivedStatus" class="border rounded-lg p-2 w-full">
-                        <option value="received">Received</option>
-                        <option value="pending">Pending</option>
+                    <label class="block text-sm font-medium text-gray-700">Order Status</label>
+                    <select v-model="selectedOrder" class="border rounded-lg p-2 w-full">
+                        <option value="">Select an option</option>
+                        <option v-for="status in orderStatuses" :key="status.id" :value="status.id">
+                            {{status.name}}
+                        </option>
                     </select>
                 </div>
                 <div>
@@ -191,9 +193,10 @@
                     customers: [],         // Stores customer list
                     isLoading: false,      // Loading state
                     errorMessage: "",     // Error message
-                     selectedPriority: "", 
+                    selectedPriority: "",
                     deliveryDate: "",
-                    receivedStatus: "received",
+                    selectedOrder: "",
+                    orderStatuses: [],
                     reference: "",
                     assignedTo: "",
                     orderPriority: [],
@@ -253,6 +256,18 @@
                     } catch (error) {
                         console.error("Error:", error);
                     }
+                },
+                async fetchOrderStatus(){
+                    try {
+                        const response = await fetch(`${this.apiUrl}/orderStatuses`);
+                        if(!response.ok) throw new Error("Failed to fetch order statuses");
+
+                        const data = await response.json();
+                        this.orderStatuses = data;
+                    } catch (error) {
+                        console.error("Error:", error);
+                    }
+
                 }
 
 
@@ -260,8 +275,8 @@
                 mounted() {
                     console.log("Mounted");
                      this.fetchCustomers();
-                    // this.fetchCustomers();
                     this.fetchPriorities();
+                    this.fetchOrderStatus();
                 }
             }).mount('#app');
         </script>
