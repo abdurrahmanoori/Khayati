@@ -6,7 +6,7 @@
             display: none;
         }
     </style>
-    
+
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Khayati.Mvc</title>
@@ -39,19 +39,111 @@
 
     <link rel="stylesheet" href="~/dist/css/adminlte.css" />
 
-
-
-
-
     <link rel="stylesheet" href="~/css/site.css">
+    @* /////////////////////////////////////////// 
 
+    <nav class="app-header navbar navbar-expand bg-body">
+
+        <!--begin::Container-->
+
+        <div class="container-fluid">
+
+            <!--begin::Start Navbar Links-->
+
+            <ul class="navbar-nav">
+
+
+
+                <li class="nav-item"> <a class="nav-link" data-lte-toggle="sidebar" href="#" role="button"> <i class="bi bi-list"></i> </a> </li>
+
+                <li class="nav-item d-none d-md-block"> <a asp-area="Admin" asp-action="Index" asp-controller="Customer" class="nav-link">Customer</a> </li>
+
+                <li class="nav-item d-none d-md-block"> <a asp-area="Admin" asp-action="Index" asp-controller="EmbellishmentType" class="nav-link">EmbellishmentType</a> </li>
+
+                <li class="nav-item d-none d-md-block"> <a asp-area="Admin" asp-action="Index" asp-controller="Embellishment" class="nav-link">Embellishment</a> </li>
+
+                <li class="nav-item d-none d-md-block"> <a asp-area="Admin" asp-action="Index" asp-controller="Relative" class="nav-link">Relative</a> </li>
+
+
+
+                <li class="nav-item d-none d-md-block"> <a href="#" class="nav-link">Contact</a> </li>
+
+            </ul> <!--end::Start Navbar Links--> <!--begin::End Navbar Links-->
+
+            <ul class="navbar-nav ms-auto">
+
+                <!--begin::Navbar Search-->
+
+                <li class="nav-item"> <a class="nav-link" data-widget="navbar-search" href="#" role="button"> <i class="bi bi-search"></i> </a> </li> <!--end::Navbar Search--> <!--begin::Messages Dropdown Menu-->
+
+                <li class="nav-item dropdown">
+
+                    <a class="nav-link" data-bs-toggle="dropdown" href="#"> <i class="bi bi-chat-text"></i> <span class="navbar-badge badge text-bg-danger">3</span> </a>
+
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
+
+                        <a href="#" class="dropdown-item">
+
+                            <!--begin::Message-->
+
+                            <div class="d-flex">
+
+                                <div class="flex-shrink-0"> <img src="../../../dist/assets/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 rounded-circle me-3"> </div>
+
+                                <div class="flex-grow-1">
+
+                                    <h3 class="dropdown-item-title">
+
+                                        Brad Diesel
+
+                                        <span class="float-end fs-7 text-danger"><i class="bi bi-star-fill"></i></span>
+
+                                    </h3>
+
+                                    <p class="fs-7">Call me whenever you can...</p>
+
+                                    <p class="fs-7 text-secondary">
+
+                                        <i class="bi bi-clock-fill me-1"></i> 4 Hours Ago
+
+                                    </p>
+
+                                </div>
+
+                            </div> <!--end::Message-->
+
+                        </a>
+
+                        <div class="dropdown-divider"></div> <a href="#" class="dropdown-item">
+
+                            <!--begin::Message-->
+
+                            <div class="d-flex">
+
+                                <div class="flex-shrink-0"> <img src="../../../dist/assets/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 rounded-circle me-3"> </div>
+
+                                <div class="flex-grow-1">
+
+                                    <h3 class="dropdown-item-title">
+
+                                        John Pierce
+
+                                        <span class="float-end fs-7 text-secondary"> <i class="bi bi-star-fill"></i> </span>
+
+                                    </h3>
+
+                                    <p class="fs-7">I got your message bro</p>
+
+
+                                    @* //////////////////////////////////////////////// *@
 </head>
 <body class="layout-fixed sidebar bg-body-tertiary">
 
     <div class="app-wrapper">
         <nav class="app-header navbar navbar-expand bg-body">
             <div class="container-fluid">
-                <ul class="navbar-nav ms-auto">
+                <ul class="nav sidebar-menu  d-none d-md-flex" data-lte-toggle="treeview" role="menu" data-accordion="false">
+                    <li class="nav-item"> <a class="nav-link" data-lte-toggle="sidebar" href="#" role="button"> <i class="bi bi-list"></i> </a> </li>
                     <li class="nav-item"> <a class="nav-link" data-widget="navbar-search" href="#" role="button"> <i class="bi bi-search"></i> </a> </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link" data-bs-toggle="dropdown" href="#"> <i class="bi bi-bell-fill"></i> <span class="navbar-badge badge text-bg-warning">15</span> </a>
