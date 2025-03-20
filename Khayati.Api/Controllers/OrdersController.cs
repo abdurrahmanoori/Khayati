@@ -1,14 +1,9 @@
-﻿//using Khayati.Core.DTO;
-//using Khayati.ServiceContracts;
-//using Microsoft.AspNetCore.Mvc;
-using Khayati.Core.DTO;
-using Khayati.Mvc.DataGenerators;
+﻿using Khayati.Core.DTO;
 using Khayati.ServiceContracts;
 using Microsoft.AspNetCore.Mvc;
+
 namespace Khayati.Api.Controllers
 {
-
-
     [ApiController]
     [Route("api/[controller]")]
 
@@ -27,14 +22,17 @@ namespace Khayati.Api.Controllers
         }
 
         [HttpPost("Api/Create")]
-        public async Task<IActionResult> Create(OrdersAddDto addOrdersDto)
+        public async Task<IActionResult> Create(OrdersAddDto ordersAddDto)
         {
 
-            var customer = DataGenerator.GenerateCustomer();
-            var measurment = DataGenerator.GenerateMeasurement();
-            var order = DataGenerator.GenerateOrder();
 
-            var result = await _orderService.AddOrderWithDetails(customer, measurment, order);
+
+
+            //var customer = DataGenerator.GenerateCustomer();
+            //var measurment = DataGenerator.GenerateMeasurement();
+            //var order = DataGenerator.GenerateOrder();
+
+            var result = await _orderService.AddOrderWithDetails(ordersAddDto);
 
             return Ok(result);
 
@@ -55,48 +53,48 @@ namespace Khayati.Api.Controllers
         }
 
 
-            //[HttpGet("Api/GetAll")]
-            //public async Task<IActionResult> GetOrdersList( )
-            //{
-            //    IEnumerable<OrdersResponseDto> results = await _OrdersService.GetOrdersList();
-            //    return Ok(results);
+        //[HttpGet("Api/GetAll")]
+        //public async Task<IActionResult> GetOrdersList( )
+        //{
+        //    IEnumerable<OrdersResponseDto> results = await _OrdersService.GetOrdersList();
+        //    return Ok(results);
 
-            //}
+        //}
 
-            //[HttpPost("Api/GetById")]
-            //public async Task<IActionResult> GitById(int id)
-            //{
-            //    var Orders = await _OrdersService.GetOrdersById(id);
+        //[HttpPost("Api/GetById")]
+        //public async Task<IActionResult> GitById(int id)
+        //{
+        //    var Orders = await _OrdersService.GetOrdersById(id);
 
-            //    return Ok(Orders);
+        //    return Ok(Orders);
 
-            //}
+        //}
 
-            //[HttpDelete]
-            //public async Task<IActionResult> DeleteOrders(int OrdersId)
-            //{
-            //    OrdersResponseDto Orders = await _OrdersService.DeleteOrders(OrdersId);
-            //    return Ok(Orders);
-            //}
+        //[HttpDelete]
+        //public async Task<IActionResult> DeleteOrders(int OrdersId)
+        //{
+        //    OrdersResponseDto Orders = await _OrdersService.DeleteOrders(OrdersId);
+        //    return Ok(Orders);
+        //}
 
-            //        //[HttpPost("Api/Edit")]
-            //        //public async Task<IActionResult> Edit(int id)
-            //        //{
-            //        //    var Orders = await _unitOfWork.OrderRepository.GetFirstOrDefault(x => x.OrdersId == id);
-            //        //    if (Orders == null)
-            //        //    {
-            //        //        return NotFound("There is no on by this Id.");
-            //        //    }
-            //        //    await _unitOfWork.OrderRepository.Update(Orders);
+        //        //[HttpPost("Api/Edit")]
+        //        //public async Task<IActionResult> Edit(int id)
+        //        //{
+        //        //    var Orders = await _unitOfWork.OrderRepository.GetFirstOrDefault(x => x.OrdersId == id);
+        //        //    if (Orders == null)
+        //        //    {
+        //        //        return NotFound("There is no on by this Id.");
+        //        //    }
+        //        //    await _unitOfWork.OrderRepository.Update(Orders);
 
-            //        //    return Ok(Orders);
+        //        //    return Ok(Orders);
 
-            //        //}
-
-
+        //        //}
 
 
 
-        
+
+
+
     }
 }

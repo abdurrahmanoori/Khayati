@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Khayati.Infrastructure.Migrations
 {
-    public partial class paymentStatuAddedToOrder : Migration
+    public partial class payemtStatusAddedtoorder : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

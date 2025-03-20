@@ -1,4 +1,5 @@
 ﻿using Entities.Enum;
+using Khayati.Core.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -16,51 +17,73 @@ namespace Entities
 
         public decimal? TotalCost { get; set; }
         public DateTime OrderDate { get; set; }
-       
+
         public bool IsPaid { get; set; }
 
         // Sum of all payments made for this order
         public decimal AmountPaid => Payments?.Sum(p => p.Amount) ?? 0;
         public decimal? RemainingAmount => TotalCost - (Payments?.Sum(p => p.Amount) ?? 0);
-        //public decimal? RemainingAmount => TotalCost - Payments.Sum(p => p.Amount);
 
         public OrderStatus OrderStatus { get; set; }
 
-        public PaymentStatus PaymentStatus { get; set; }
+        public PaymentStatus PaymentStatus { get; set; } 
 
-        //// Status of the overall payment (Completed, Partial, etc.)
-        //public PaymentStatus PaymentStatus
-        //{
-        //    get
-        //    {
-        //        if (AmountPaid == 0) return PaymentStatus.Pending;
-        //        if (AmountPaid >= TotalCost) return PaymentStatus.Completed;
-        //        return PaymentStatus.PartialPayment;
-        //    }
-        //}
+        public OrderPriority OrderPriority { get; set; } = OrderPriority.Normal;
 
         [ForeignKey(nameof(CustomerId))]
         public virtual Customer? Customer { get; set; }
         public virtual ICollection<Payment>? Payments { get; set; }
         public virtual ICollection<OrderDesign> OrderDesigns { get; set; }
 
+        public void CalculateOrderStatus( )
+        {
 
+        }
 
         public void CalculatePaymentStatus( )
         {
             if (AmountPaid == 0)
+            {
                 PaymentStatus = PaymentStatus.Pending;
+                IsPaid = false;
+            }
             else if (AmountPaid >= TotalCost)
+            {
                 PaymentStatus = PaymentStatus.Completed;
+                IsPaid = true;
+                //OrderDate = DateTime.UtcNow;
+            }
             else
+            {
                 PaymentStatus = PaymentStatus.PartialPayment;
+                IsPaid = false;
+                //OrderDate = DateTime.UtcNow;
+            }
         }
+
+        public bool IsValidOrderForPayment( )
+        {
+            if (TotalCost == 0 && OrderStatus != OrderStatus.Completed)
+                return true;
+
+            return false;
+        }
+
     }
 }
 
 
 
-
+//// Status of the overall payment (Completed, Partial, etc.)
+//public PaymentStatus PaymentStatus
+//{
+//    get
+//    {
+//        if (AmountPaid == 0) return PaymentStatus.Pending;
+//        if (AmountPaid >= TotalCost) return PaymentStatus.Completed;
+//        return PaymentStatus.PartialPayment;
+//    }
+//}
 
 //To implement partial payment functionality, you can enhance your current Payment entity by tracking multiple partial payments associated with a specific order and calculating the remaining amount. Here's how you can approach it:
 //1. Add a TotalAmount field to the Order entity:
@@ -86,7 +109,7 @@ namespace Entities
 
 //    public decimal RemainingAmount => TotalAmount - Payments.Sum(p => p.Amount);
 
-//    public virtual ICollection<Payment> Payments { get; set; }
+//    public virtual IList<Payment> Payments { get; set; }
 //}
 
 //Updated Payment Class:

@@ -26,6 +26,7 @@ namespace Khayati.Mvc.Controllers
             _httpClient = httpClientFactory.CreateClient("ApiClient");
         }
 
+      
         [HttpGet("test")]
         public async Task<IActionResult> Get()
         {

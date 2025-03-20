@@ -1,4 +1,5 @@
 ﻿using Bogus;
+using Entities.Enum;
 using Khayati.Core.DTO;
 using Khayati.Core.DTO.Measurements;
 
@@ -48,10 +49,10 @@ namespace Khayati.Mvc.DataGenerators
             var orderFaker = new Faker<OrdersAddDto>()
                 //.RuleFor(o => o.CustomerId, _ => customerId)
                 .RuleFor(o => o.OrderDate, f => f.Date.Past(1))
-                .RuleFor(o => o.ExpectedCompletionDate, f => f.Date.Future(1))
+                .RuleFor(o => o.ExpectedCompletionDate, f => f.Date.Future(1));
                 //.RuleFor(o => o.TotalCost, f => f.Finance.Amount(100, 10000))
-                .RuleFor(o => o.Status, f => f.PickRandom(new[] { "Pending"}));
-                //.RuleFor(o => o.Status, f => f.PickRandom(new[] { "Pending", "Processing", "Completed", "Cancelled" }));
+                //.RuleFor(o => o.OrderStatus, f => f.PickRandom(new[] { "Pending" }));
+            //.RuleFor(o => o.Status, f => f.PickRandom(new[] { "Pending", "Processing", "Completed", "Cancelled" }));
 
             return orderFaker.Generate();
         }

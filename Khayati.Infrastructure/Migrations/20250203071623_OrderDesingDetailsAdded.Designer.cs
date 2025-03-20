@@ -3,6 +3,7 @@ using System;
 using Entities.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Khayati.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250203071623_OrderDesingDetailsAdded")]
+    partial class OrderDesingDetailsAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.0");
@@ -357,10 +359,6 @@ namespace Khayati.Infrastructure.Migrations
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("OrderPriority")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("OrderStatus")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -400,8 +398,10 @@ namespace Khayati.Infrastructure.Migrations
                     b.Property<int?>("FabricId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("MeasurementId")
-                        .IsRequired()
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("MeasurementId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Notes")
@@ -417,8 +417,6 @@ namespace Khayati.Infrastructure.Migrations
                     b.HasIndex("EmbellishmentId");
 
                     b.HasIndex("FabricId");
-
-                    b.HasIndex("MeasurementId");
 
                     b.HasIndex("OrderId");
 
@@ -852,12 +850,6 @@ namespace Khayati.Infrastructure.Migrations
                         .WithMany()
                         .HasForeignKey("FabricId");
 
-                    b.HasOne("Entities.Measurement", "Measurement")
-                        .WithMany()
-                        .HasForeignKey("MeasurementId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Entities.Order", "Order")
                         .WithMany("OrderDesigns")
                         .HasForeignKey("OrderId")
@@ -869,8 +861,6 @@ namespace Khayati.Infrastructure.Migrations
                     b.Navigation("Embellishment");
 
                     b.Navigation("Fabric");
-
-                    b.Navigation("Measurement");
 
                     b.Navigation("Order");
                 });

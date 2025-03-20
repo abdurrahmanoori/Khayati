@@ -44,9 +44,9 @@ namespace Khayati.Mvc.Areas.Customer.Controllers
             var measurment = DataGenerator.GenerateMeasurement();
             var order = DataGenerator.GenerateOrder();
 
-            var result = await _ordersService.AddOrderWithDetails(customer, measurment, order);
+            //var result = await _ordersService.AddOrderWithDetails(customer, measurment, order);
 
-            return Ok(result);
+            return Ok();
             //// Create an anonymous object to hold all the data you want to return as JSON
             //var resultData = new
             //{

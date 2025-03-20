@@ -14,6 +14,7 @@ namespace Entities
         public int CustomerId { get; set; }
         public int? FabricId { get; set; }
         public int OrderId { get; set; }
+        public string? Details { get; set; }
         /// <summary>
         /// If different designs can have different prices based on the Embellishment or 
         /// customizations applied, a CostAtTimeOfOrder field in the OrderDesigns table is useful. 
@@ -24,10 +25,9 @@ namespace Entities
         /// You could add a foreign key to MeasurementId if each design
         /// is based on specific customer measurements.
         /// </summary>
-        public int MeasurementId { get; set; }
+        public int? MeasurementId { get; set; }
         public int? EmbellishmentId { get; set; }
 
-        public string? ImageUrl { get; set; }
         public string? Notes { get; set; }
 
 
@@ -42,6 +42,9 @@ namespace Entities
 
         [ForeignKey(nameof(FabricId))]
         public virtual Fabric Fabric { get; set; }
+
+        [ForeignKey(nameof(MeasurementId))]
+        public virtual Measurement Measurement { get; set; }
     }
 
 }

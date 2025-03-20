@@ -3,7 +3,6 @@ using Entities;
 using Entities.Enum;
 using Khayati.Core.Common.Response;
 using Khayati.Core.DTO;
-using Khayati.Core.DTO.Measurements;
 using Khayati.Core.DTO.Orders;
 using Khayati.ServiceContracts;
 using RepositoryContracts.Base;
@@ -22,33 +21,55 @@ namespace Khayati.Service
         }
 
 
-        public async Task<Result<CustomerAddDto>> AddOrderWithDetails(
-            CustomerAddDto customerDto,
-            MeasurementAddDto measurementDto,
-            OrdersAddDto orderDto)
+        public async Task<Result<OrdersAddDto>> AddOrderWithDetails(OrdersAddDto orderDto)
         {
-            var customer = _mapper.Map<Customer>(customerDto);
-            await _unitOfWork.CustomerRepository.Add(customer);
-
-
-            var measurment = _mapper.Map<Measurement>(measurementDto);
-            measurment.Customer = customer;
-            await _unitOfWork.MeasurementRepository.Add(measurment);
 
             var order = _mapper.Map<Order>(orderDto);
+            if (order.OrderStatus == OrderStatus.Completed && order.Payments?.Any() == true)
+            {
+                order.CalculatePaymentStatus();
+            }
             order.OrderDate = DateTime.UtcNow;
-            order.OrderStatus = OrderStatus.Pending;
-            order.Customer = customer;
-            order.IsPaid = false;
-
             await _unitOfWork.OrderRepository.Add(order);
-
             await _unitOfWork.SaveChanges(default);
-            return Result<CustomerAddDto>.SuccessResult(customerDto);
+
+            return Result<OrdersAddDto>.SuccessResult(orderDto);
 
         }
 
 
+        private async Task<bool> IsPaidOrder(OrdersAddDto ordersAddDto)
+        {
+
+            var amoutPaid = ordersAddDto?.Payments?.Sum(x => x.Amount);
+
+            if (amoutPaid >= ordersAddDto?.TotalCost)
+            {
+
+                return true;
+            }
+            return false;
+        }
+
+
+        private async Task<bool> IsPaidOrder1(Order order)
+        {
+            var existingOrder = await _unitOfWork.PaymentRepository
+                .GetAll(x => x.OrderId == order.OrderId);
+            if (existingOrder is null)
+            {
+                return false;
+
+            }
+            var amountPaid = existingOrder.Sum(x => x.Amount);
+
+            if (amountPaid >= order.TotalCost)
+            {
+                return true;
+            }
+            return false;
+
+        }
 
         // Calculates the total cost of an order
         public async Task<Result<IEnumerable<CustomerOrderResponseDto>>> GetOrdersByCustomerId(int customerId)

@@ -19,6 +19,11 @@ namespace Entities
         [ForeignKey(nameof(OrderId))]
         public virtual Order? Order { get; set; }
 
+        public void PaymentCompleted( )
+        {
 
+        }
     }
+
+
 }
