@@ -12,9 +12,11 @@ namespace Khayati.Core.DTO.EmbellishmentType.Validators
         public EmbellishmentTypeAddDtoValidator()
         {
             RuleFor(x=> x.Name)
-                .NotEmpty().WithMessage("Name is required.")
-                .NotNull().WithMessage("Name cannot be null.")
-                .MaximumLength(3).WithMessage("Name cannot exceed 100 characters.");
+                .NotEmpty().WithMessage("Name cannot be empty. fluent valdiaton.")
+                .NotNull().WithMessage("Name cannot be null. fluent valdiaton")
+                .MaximumLength(3)
+                .WithMessage("Name cannot exceed 100 characters.fluent valdiaton")
+                ;
 
             RuleFor(x => x.SortOrder)
                 .NotNull()

@@ -12,6 +12,8 @@ namespace Khayati.Core.Common.Response
         public string? Message { get; set; }
 
         public List<string>? Errors { get; set; }
+        public List<ValidationError>? Errorssss { get; set; }
+
     }
 
     public class Result<T>
@@ -74,18 +76,6 @@ namespace Khayati.Core.Common.Response
             };
         }
 
-        public static Result<T> WithError(string code, string description, string? property = null)
-        {
-            return new Result<T>
-            {
-                Success = false,
-                Errors = new List<ValidationError>
-        {
-            new ValidationError { Code = code, Description = description, Property = property }
-        },
-            };
-        }
-
         public static Result<T> WithError(ValidationError error)
         {
             return new Result<T>
@@ -95,6 +85,18 @@ namespace Khayati.Core.Common.Response
             };
         }
 
+        public static class test
+        {
+
+         public static Result WithErrorrr(ValidationError error)
+            {
+                return new Result
+                {
+                    Success = false,
+                    Errorssss = new List<ValidationError> { error },
+                };
+            }
+        }
 
         public static Result<T> WithErrors(List<ValidationError> errors)
         {
@@ -147,11 +149,12 @@ namespace Khayati.Core.Common.Response
             return $"Code: {this.Code}, Property: {this.Property}, Description: {this.Description}";
         }
 
-        public string Code { get; set; }
+        public string? Code { get; set; }
 
         public string? Property { get; set; }
 
-        public string Description { get; set; }
+        public string? Description { get; set; }
+        public List<string>? Descriptions { get; set; }
     }
 
 }

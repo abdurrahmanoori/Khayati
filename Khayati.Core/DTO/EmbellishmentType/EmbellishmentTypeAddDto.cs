@@ -5,7 +5,7 @@ namespace Khayati.Core.DTO.EmbellishmentType
 {
     public class EmbellishmentTypeAddDto
     {
-        [Required(ErrorMessage ="Name is required from annotation")]
+        //[Required(ErrorMessage ="Name is required from annotation")]
         public string Name { get; set; }
 
         public string Description { get; set; }
