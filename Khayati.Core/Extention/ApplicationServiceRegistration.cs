@@ -1,4 +1,5 @@
 ﻿using Entities;
+using FluentValidation;
 using Khayati.Service;
 using Khayati.ServiceContracts;
 using Microsoft.Extensions.Configuration;
@@ -22,7 +23,9 @@ namespace Khayati.Core.Extention
             services.AddScoped<IMeasurementService, MeasurementService>();
             // Optionally, you could use a connection string from configuration:
             // options.UseSqlite(configuration.GetConnectionString("SqlLiteCS"));
+
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             return services;
         }
     }

@@ -1,15 +1,12 @@
-﻿using Khayati.Core.DTO;
-using Khayati.Core.DTO.EmbellishmentType;
+﻿using Khayati.Core.DTO.EmbellishmentType;
 using Khayati.ServiceContracts;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Khayati.Api.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
-    public class EmbellishmentTypeController : ControllerBase
+    public class EmbellishmentTypeController : BaseApiController
     {
-        //private readonly IUnitOfWork _unitOfWork;
         private readonly IEmbellishmentTypeService _embellishmentTypeService;
 
         public EmbellishmentTypeController(IEmbellishmentTypeService embellishmentTypeService)
@@ -20,6 +17,10 @@ namespace Khayati.Api.Controllers
         [HttpPost("create")]
         public async Task<IActionResult> Create(EmbellishmentTypeAddDto addEmbellishmentTypeDto)
         {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             var result = await _embellishmentTypeService.AddEmbellishmentType(addEmbellishmentTypeDto);
             return Ok(result);
 

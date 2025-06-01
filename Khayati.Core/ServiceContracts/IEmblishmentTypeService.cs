@@ -1,5 +1,4 @@
-﻿using Khayati.Core.DTO;
-using Khayati.Core.DTO.EmbellishmentType;
+﻿using Khayati.Core.DTO.EmbellishmentType;
 
 namespace Khayati.ServiceContracts
 {

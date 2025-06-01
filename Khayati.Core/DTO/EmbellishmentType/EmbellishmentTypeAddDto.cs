@@ -1,7 +1,7 @@
 ﻿using Entities;
 using System.ComponentModel.DataAnnotations;
 
-namespace Khayati.Core.DTO
+namespace Khayati.Core.DTO.EmbellishmentType
 {
     public class EmbellishmentTypeAddDto
     {

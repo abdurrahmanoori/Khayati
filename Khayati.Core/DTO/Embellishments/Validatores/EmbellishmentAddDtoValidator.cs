@@ -13,7 +13,7 @@ namespace Khayati.Core.DTO.Embellishment.Validatores
         {
             RuleFor(x => x.Name)
             .NotEmpty()
-            .WithMessage("Embellishment name is required and this message comes from vadidator");
+            .WithMessage("Embellishment name is required and this message comes from vadidatorrrrrrrrrrrrrrrrrrrr");
 
             //    RuleFor(x=>x.Description)
             //        .MaximumLength(5).WithMessage("Description must be less than 5 characterssss");

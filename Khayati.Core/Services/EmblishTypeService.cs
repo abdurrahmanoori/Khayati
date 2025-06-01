@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Entities;
-using Khayati.Core.DTO;
 using Khayati.Core.DTO.EmbellishmentType;
 using Khayati.ServiceContracts;
 using RepositoryContracts.Base;
