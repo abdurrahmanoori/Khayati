@@ -26,7 +26,6 @@ namespace Khayati.Infrastructure.Extension
             services.AddScoped<AuditInterceptor>();
             services.ConfigureOptions<DatabaseOptionsSetup>();
 
-            // Configure DbContext for SQLite
             services.AddDbContext<ApplicationDbContext>((serviceProvider, options) =>
             {
            
@@ -37,7 +36,7 @@ namespace Khayati.Infrastructure.Extension
 
                 // Path to store the database inside the Infrastructure project
                 var dbPath = Path.Combine(parentDirectory, "Khayati.Infrastructure", "Databases", "mydatabase.db");
-                // Ensure the directory exists
+
                 if (!Directory.Exists(Path.GetDirectoryName(dbPath)))
                 {
                     Directory.CreateDirectory(Path.GetDirectoryName(dbPath));

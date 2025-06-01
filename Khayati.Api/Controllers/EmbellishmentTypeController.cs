@@ -10,35 +10,33 @@ namespace Khayati.Api.Controllers
     public class EmbellishmentTypeController : ControllerBase
     {
         //private readonly IUnitOfWork _unitOfWork;
-        private readonly IEmbellishmentTypeService _EmbellishmentTypeService;
+        private readonly IEmbellishmentTypeService _embellishmentTypeService;
 
-        public EmbellishmentTypeController(IEmbellishmentTypeService EmbellishmentTypeService)
+        public EmbellishmentTypeController(IEmbellishmentTypeService embellishmentTypeService)
         {
-            _EmbellishmentTypeService = EmbellishmentTypeService;
+            _embellishmentTypeService = embellishmentTypeService;
         }
 
-        [HttpPost("Api/Create")]
+        [HttpPost("create")]
         public async Task<IActionResult> Create(EmbellishmentTypeAddDto addEmbellishmentTypeDto)
         {
-            var result = await _EmbellishmentTypeService.AddEmbellishmentType(addEmbellishmentTypeDto);
+            var result = await _embellishmentTypeService.AddEmbellishmentType(addEmbellishmentTypeDto);
             return Ok(result);
 
         }
 
-
-
-        [HttpGet("Api/GetAll")]
+        [HttpGet("getAll")]
         public async Task<IActionResult> GetEmbellishmentTypeList()
         {
-            IEnumerable<EmbellishmentTypeResponseDto> results =await _EmbellishmentTypeService.GetEmbellishmentTypeList();
+            IEnumerable<EmbellishmentTypeResponseDto> results =await _embellishmentTypeService.GetEmbellishmentTypeList();
             return Ok(results);
 
         }
 
-        [HttpPost("Api/GetById")]
+        [HttpPost("getById")]
         public async Task<IActionResult> GitById(int id)
         {
-            var EmbellishmentType = await _EmbellishmentTypeService.GetEmbellishmentTypeById(id);
+            var EmbellishmentType = await _embellishmentTypeService.GetEmbellishmentTypeById(id);
 
             return Ok(EmbellishmentType);
 
@@ -47,11 +45,11 @@ namespace Khayati.Api.Controllers
         [HttpDelete]
         public async Task<IActionResult> DeleteEmbellishmentType(int EmbellishmentTypeId)
         {
-            EmbellishmentTypeResponseDto EmbellishmentType = await _EmbellishmentTypeService.DeleteEmbellishmentType(EmbellishmentTypeId);
+            EmbellishmentTypeResponseDto EmbellishmentType = await _embellishmentTypeService.DeleteEmbellishmentType(EmbellishmentTypeId);
             return Ok(EmbellishmentType);
         }
 
-        //[HttpPost("Api/Edit")]
+        //[HttpPost("gdit")]
         //public async Task<IActionResult> Edit(int id)
         //{
         //    var Measurements = await _unitOfWork.MeasurementRepository.GetFirstOrDefault(x => x.MeasurementID == id);
