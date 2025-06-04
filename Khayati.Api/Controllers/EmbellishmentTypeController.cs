@@ -14,40 +14,31 @@ namespace Khayati.Api.Controllers
             _embellishmentTypeService = embellishmentTypeService;
         }
 
-        [HttpPost("create")]
-        public async Task<IActionResult> Create(EmbellishmentTypeAddDto addEmbellishmentTypeDto)
+        [HttpPost]
+        public async Task<ActionResult<EmbellishmentTypeAddDto>> Create(EmbellishmentTypeAddDto addEmbellishmentTypeDto)
         {
-            if(!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            var result = await _embellishmentTypeService.AddEmbellishmentType(addEmbellishmentTypeDto);
-            return Ok(result);
+            return HandleResultResponse(await _embellishmentTypeService.AddEmbellishmentType(addEmbellishmentTypeDto));
 
         }
 
-        [HttpGet("getAll")]
-        public async Task<IActionResult> GetEmbellishmentTypeList()
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<EmbellishmentTypeResponseDto>>> GetEmbellishmentTypeList()
         {
-            IEnumerable<EmbellishmentTypeResponseDto> results =await _embellishmentTypeService.GetEmbellishmentTypeList();
-            return Ok(results);
-
+            return HandleResultResponse(await _embellishmentTypeService.GetEmbellishmentTypeList());
         }
 
-        [HttpPost("getById")]
-        public async Task<IActionResult> GitById(int id)
+        [HttpGet("{id}")]
+        public async Task<ActionResult<EmbellishmentTypeResponseDto>> GitById(int id)
         {
-            var EmbellishmentType = await _embellishmentTypeService.GetEmbellishmentTypeById(id);
-
-            return Ok(EmbellishmentType);
+            return HandleResultResponse(await _embellishmentTypeService.GetEmbellishmentTypeById(id));
 
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteEmbellishmentType(int EmbellishmentTypeId)
+        public async Task<ActionResult<bool>> DeleteEmbellishmentType(int embellishmentTypeId)
         {
-            EmbellishmentTypeResponseDto EmbellishmentType = await _embellishmentTypeService.DeleteEmbellishmentType(EmbellishmentTypeId);
-            return Ok(EmbellishmentType);
+          return  HandleResultResponse(await _embellishmentTypeService.DeleteEmbellishmentType(embellishmentTypeId));
+
         }
 
         //[HttpPost("gdit")]

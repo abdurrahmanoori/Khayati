@@ -12,6 +12,6 @@
         IOrderRepository OrderRepository { get; }
         IPaymentRepository PaymentRepository { get; }
 
-        Task SaveChanges(CancellationToken cancellationToken);
+        Task SaveChanges(CancellationToken cancellationToken= default);
     }
 }

@@ -13,12 +13,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers()
     .AddControllersAsServices();
 
-builder.Services.AddFluentValidationAutoValidation();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddHttpClient("ApiClient", client =>
-{
-    client.BaseAddress = new Uri("https://localhost:7016");
-});
 
 builder.Services.Configure<ApiBehaviorOptions>(options =>
 {
@@ -52,6 +46,14 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
     };
 
 });
+
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddHttpClient("ApiClient", client =>
+{
+    client.BaseAddress = new Uri("https://localhost:7016");
+});
+
 
 
 builder.Services.AddSwaggerGen();

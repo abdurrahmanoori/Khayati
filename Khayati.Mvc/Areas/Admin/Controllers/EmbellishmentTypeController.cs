@@ -19,8 +19,8 @@ public class EmbellishmentTypeController : Controller
 
     public async Task<IActionResult> Index()
     {
-        IEnumerable<EmbellishmentTypeResponseDto> results = await _embellishmentTypeService.GetEmbellishmentTypeList();
-        return View(results);
+        var results = await _embellishmentTypeService.GetEmbellishmentTypeList();
+        return View(results.Response);
     }
     [HttpGet]
     public IActionResult Create()

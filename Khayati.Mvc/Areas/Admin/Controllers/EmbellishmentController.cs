@@ -36,7 +36,7 @@ public class EmbellishmentController : Controller
         var embellishmentTypes = await _embellishmentTypeService.GetEmbellishmentTypeList();
 
         // Use SelectList to prepare data for the dropdown
-        ViewBag.EmbellishmentTypes = new SelectList(embellishmentTypes, "EmbellishmentTypeId", "Name");
+        ViewBag.EmbellishmentTypes = new SelectList(embellishmentTypes.Response, "EmbellishmentTypeId", "Name");
 
         return View();
     }

@@ -12,7 +12,7 @@ namespace Khayati.Core.Common.Response
         public string? Message { get; set; }
 
         public List<string>? Errors { get; set; }
-        public List<ValidationError>? Errorssss { get; set; }
+        //public List<ValidationError>? Errorssss { get; set; }
 
     }
 
@@ -36,31 +36,20 @@ namespace Khayati.Core.Common.Response
                 Response = result,
             };
         }
-
-        // This method is written by Abdurrahman
-
-        /// <summary>
-        /// Creates a successful command response with the provided result and validation error details.
-        /// </summary>
-        /// <typeparam name="T">The type of the result.</typeparam>
-        /// <param name="result">The result to include in the response.</param>
-        /// <param name="validationError">The validation error containing description details.</param>
-        /// <returns>A <see cref="Result{T}"/> indicating success and containing the result and message.</returns>
-        public static Result<T> SuccessResult(T? result, ValidationError validationError)
-        {
-            return new Result<T>
-            {
-                Success = true,
-                Response = result,
-                Message = validationError.Description.ToString(),
-            };
-        }
-
-        public static Result<T> NotFoundResult( )
+        public static Result<T> NotFoundResult(int? id = null)
         {
             return new Result<T>
             {
                 Success = false,
+                Message = $"Entity with the {id} not found",
+            };
+        }
+        public static Result<T> EmptyResult(string? entity = null)
+        {
+            return new Result<T>
+            {
+                Success = false,
+                Message = $"The list of entity {entity} is empty.",
             };
         }
 
@@ -85,19 +74,6 @@ namespace Khayati.Core.Common.Response
             };
         }
 
-        public static class test
-        {
-
-         public static Result WithErrorrr(ValidationError error)
-            {
-                return new Result
-                {
-                    Success = false,
-                    Errorssss = new List<ValidationError> { error },
-                };
-            }
-        }
-
         public static Result<T> WithErrors(List<ValidationError> errors)
         {
             return new Result<T>
@@ -107,44 +83,10 @@ namespace Khayati.Core.Common.Response
             };
         }
 
-        //public static bool HasErrors<T>(AbstractValidator<T> validator, T dto, out List<ValidationError> errors)
-        //{
-        //    var result = validator.Validate(dto);
-        //    errors = new List<ValidationError>();  // Initialize with new List
-        //    if (result.Errors.Any())
-        //    {
-        //        errors.AddRange(result.Errors.Select(x => new ValidationError
-        //        {
-        //            Code = x.ErrorCode,
-        //            Description = x.ErrorMessage,
-        //            Property = x.PropertyName,
-        //        }));
-        //        return true;
-        //    }
-        //    return false;
-        //}
-
-        //public static bool HasErrors(ValidationResult validation, out List<ValidationError> errors)
-        //{
-        //    errors = new List<ValidationError>();  // Initialize with new List
-        //    if (validation.Errors.Any())
-        //    {
-        //        errors.AddRange(validation.Errors.Select(x => new ValidationError
-        //        {
-        //            Code = x.ErrorCode,
-        //            Description = x.ErrorMessage,
-        //            Property = x.PropertyName,
-        //        }));
-        //        return true;
-        //    }
-        //    return false;
-        //}
-
     }
-
     public class ValidationError
     {
-        public override string ToString( )
+        public override string ToString()
         {
             return $"Code: {this.Code}, Property: {this.Property}, Description: {this.Description}";
         }
@@ -154,7 +96,6 @@ namespace Khayati.Core.Common.Response
         public string? Property { get; set; }
 
         public string? Description { get; set; }
-        public List<string>? Descriptions { get; set; }
+        //public List<string>? Descriptions { get; set; }
     }
-
 }

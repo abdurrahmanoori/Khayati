@@ -33,7 +33,7 @@ namespace Repositories.Base
          public IPaymentRepository PaymentRepository { get; private set; }
          
 
-        public async Task SaveChanges(CancellationToken cancellationToken)
+        public async Task SaveChanges(CancellationToken cancellationToken =default)
         {
 
 

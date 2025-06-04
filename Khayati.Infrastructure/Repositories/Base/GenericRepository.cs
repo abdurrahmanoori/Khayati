@@ -116,6 +116,23 @@ namespace Repositories.Base
 
         }
 
+        public IQueryable<T> GetAllQueryable(Expression<Func<T, bool>>? filter = null, string? includeProperties = null)
+        {
+            IQueryable<T> query = dbSet;
+            if (filter != null)// If requested records are based on a condation, then this block will execute.
+            {
+                query = query.Where(filter);
+            }
+            if (includeProperties != null)
+            {
+                foreach (var includeProp in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProp);
+                }
+            }
+            return  query;
+        }
+
         //public Task RemoveRange(IEnumerable<T> entity)
         //{
         //    dbSet.RemoveRange(entity);
