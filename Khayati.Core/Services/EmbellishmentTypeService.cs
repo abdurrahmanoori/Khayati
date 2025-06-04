@@ -68,13 +68,18 @@ namespace Khayati.Service
 
         }
 
-        public async Task<Result<EmbellishmentTypeResponseDto>> UpdateEmbellishmentType(EmbellishmentTypeResponseDto embellishmentTypeResponseDto)
+        public async Task<Result<bool>> UpdateEmbellishmentType(int id, EmbellishmentTypeResponseDto embellishmentTypeResponseDto)
         {
-            var embellishmentType = _mapper.Map<EmbellishmentType>(embellishmentTypeResponseDto);
+            EmbellishmentType? embellishmentType = await _unitOfWork.EmbellishmentTypeRepository
+               .GetFirstOrDefault(x => x.EmbellishmentTypeId == id);
 
-            await _unitOfWork.EmbellishmentTypeRepository.Update(embellishmentType);
+            if (embellishmentType is null)
+            {
+                return Result<bool>.NotFoundResult(id);
+            }
+            _mapper.Map<EmbellishmentTypeResponseDto, EmbellishmentType>(embellishmentTypeResponseDto, embellishmentType);
             await _unitOfWork.SaveChanges();
-            return Result<EmbellishmentTypeResponseDto>.SuccessResult(_mapper.Map<EmbellishmentTypeResponseDto>(embellishmentType));
+            return Result<bool>.SuccessResult(true);
         }
     }
 }

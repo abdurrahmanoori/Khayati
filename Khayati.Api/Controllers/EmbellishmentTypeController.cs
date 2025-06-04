@@ -1,4 +1,5 @@
-﻿using Khayati.Core.DTO.EmbellishmentType;
+﻿using Entities;
+using Khayati.Core.DTO.EmbellishmentType;
 using Khayati.ServiceContracts;
 using Microsoft.AspNetCore.Mvc;
 
@@ -41,19 +42,13 @@ namespace Khayati.Api.Controllers
 
         }
 
-        //[HttpPost("gdit")]
-        //public async Task<IActionResult> Edit(int id)
-        //{
-        //    var Measurements = await _unitOfWork.MeasurementRepository.GetFirstOrDefault(x => x.MeasurementID == id);
-        //    if (Measurements == null)
-        //    {
-        //        return NotFound("There is no on by this Id.");
-        //    }
-        //    await _unitOfWork.MeasurementRepository.Update(Measurements);
+        [HttpPut("{id}")]
+        public async Task<ActionResult<bool>> Edit(int id,EmbellishmentTypeResponseDto embellishmentType)
+        {
+            return HandleResultResponse(await _embellishmentTypeService.UpdateEmbellishmentType(id,embellishmentType));
 
-        //    return Ok(Measurements);
 
-        //}
+        }
 
 
 

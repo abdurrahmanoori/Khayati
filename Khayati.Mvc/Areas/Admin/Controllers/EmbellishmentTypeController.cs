@@ -50,13 +50,13 @@ public class EmbellishmentTypeController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> Edit(EmbellishmentTypeResponseDto dto)
+    public async Task<IActionResult> Edit(int id,EmbellishmentTypeResponseDto dto)
     {
         if (!ModelState.IsValid)
         {
             return BadRequest();
         }
-        await _embellishmentTypeService.UpdateEmbellishmentType(dto);
+        await _embellishmentTypeService.UpdateEmbellishmentType(id,dto);
 
         return RedirectToAction(nameof(Index));
     }
