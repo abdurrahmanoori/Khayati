@@ -20,6 +20,7 @@ namespace Khayati.Core.Mapping
             CreateMap<Customer, CustomerAddDto>().ReverseMap();
             CreateMap<Customer, CustomerDto>().ReverseMap();
             CreateMap<EmbellishmentType, EmbellishmentTypeResponseDto>().ReverseMap();
+            CreateMap<EmbellishmentType, EmbellishmentTypeAddDto>().ReverseMap();
             CreateMap<Embellishment, EmbellishmentAddDto>().ReverseMap();
 
             CreateMap<Embellishment, EmbellishmentResponseDto>()

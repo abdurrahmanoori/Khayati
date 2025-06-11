@@ -61,7 +61,7 @@ public class EmbellishmentTypeController : Controller
         return RedirectToAction(nameof(Index));
     }
 
-    [HttpGet("api/EmbellishmentType/Delete")]
+    //[HttpGet("api/EmbellishmentType/Delete")]
     public async Task<IActionResult> Delete(int id)
     {
         await _embellishmentTypeService.DeleteEmbellishmentType(id);

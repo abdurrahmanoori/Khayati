@@ -14,38 +14,38 @@ namespace Khayati.Api.Controllers
         {
             _embellishmentTypeService = embellishmentTypeService;
         }
-
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPost]
-        public async Task<ActionResult<EmbellishmentTypeAddDto>> Create(EmbellishmentTypeAddDto addEmbellishmentTypeDto)
+        public async Task<ActionResult<EmbellishmentTypeAddDto>> Create([FromBody] EmbellishmentTypeAddDto dto)
         {
-            return HandleResultResponse(await _embellishmentTypeService.AddEmbellishmentType(addEmbellishmentTypeDto));
+            return HandleResultResponse(await _embellishmentTypeService.AddEmbellishmentType(dto));
 
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<EmbellishmentTypeResponseDto>>> GetEmbellishmentTypeList()
-        {
-            return HandleResultResponse(await _embellishmentTypeService.GetEmbellishmentTypeList());
-        }
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<IEnumerable<EmbellishmentTypeResponseDto>>> GetEmbellishmentTypeList() =>
+             HandleResultResponse(await _embellishmentTypeService.GetEmbellishmentTypeList());
+
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<EmbellishmentTypeResponseDto>> GitById(int id)
+        public async Task<ActionResult<EmbellishmentTypeResponseDto>> GetById(int id)
         {
             return HandleResultResponse(await _embellishmentTypeService.GetEmbellishmentTypeById(id));
 
         }
-
-        [HttpDelete]
-        public async Task<ActionResult<bool>> DeleteEmbellishmentType(int embellishmentTypeId)
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<bool>> DeleteEmbellishmentType([FromQuery] int id)
         {
-          return  HandleResultResponse(await _embellishmentTypeService.DeleteEmbellishmentType(embellishmentTypeId));
+            return HandleResultResponse(await _embellishmentTypeService.DeleteEmbellishmentType(id));
 
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<bool>> Edit(int id,EmbellishmentTypeResponseDto embellishmentType)
+        public async Task<ActionResult<bool>> Edit(int id, EmbellishmentTypeResponseDto embellishmentType)
         {
-            return HandleResultResponse(await _embellishmentTypeService.UpdateEmbellishmentType(id,embellishmentType));
+            return HandleResultResponse(await _embellishmentTypeService.UpdateEmbellishmentType(id, embellishmentType));
 
 
         }
