@@ -22,7 +22,7 @@ public class EmbellishmentController : Controller
         _embellishmentTypeService= embellishmentTypeService;    
     }
 
-    [HttpPost]
+    //[HttpPost]
     public async Task<IActionResult> Create(EmbellishmentAddDto addEmbellishmentDto)
     {
         var result = await _embellishmentService.AddEmbellishment(addEmbellishmentDto);
@@ -51,7 +51,7 @@ public class EmbellishmentController : Controller
         return View(results.Response);
     }
 
-    [HttpPost("getById")]
+    //[HttpPost("getById")]
     public async Task<IActionResult> GitById(int id)
     {
         var Embellishment = await _embellishmentService.GetEmbellishmentById(id);
@@ -60,7 +60,7 @@ public class EmbellishmentController : Controller
 
     }
 
-    [HttpDelete]
+    //[HttpDelete]
     public async Task<IActionResult> DeleteEmbellishment(int EmbellishmentId)
     {
         var embellishment = await _embellishmentService.DeleteEmbellishment(EmbellishmentId);

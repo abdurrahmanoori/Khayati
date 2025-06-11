@@ -19,118 +19,49 @@ namespace Khayati.Service
             _mapper = mapper;
         }
 
-        public async Task<Result<EmbellishmentAddDto>> AddEmbellishment(EmbellishmentAddDto embellishmentAddDto)
+        public async Task<Result<EmbellishmentAddDto>> AddEmbellishment(EmbellishmentAddDto dto)
         {
-            //Embellishment Embellishment = embellishmentAddDto.ToEmbellishment();
-            Embellishment embellishment = _mapper.Map<Embellishment>(embellishmentAddDto);
-
-            await _unitOfWork.EmbellishmentRepository.Add(embellishment);
-            await _unitOfWork.SaveChanges(CancellationToken.None);
-            return Result<EmbellishmentAddDto>.SuccessResult(embellishmentAddDto);
-
+            var entity = _mapper.Map<Embellishment>(dto);
+            await _unitOfWork.EmbellishmentRepository.Add(entity);
+            await _unitOfWork.SaveChanges();
+            return Result<EmbellishmentAddDto>.SuccessResult(_mapper.Map<EmbellishmentAddDto>(entity));
         }
 
-        public async Task<Result<EmbellishmentResponseDto>>
-            DeleteEmbellishment(int embellishmentId)
+        public async Task<Result<bool>> DeleteEmbellishment(int id)
         {
-            Embellishment embellishment = await _unitOfWork.EmbellishmentRepository.GetById(embellishmentId);
-            if (embellishment is null)
-            {
-                return Result<EmbellishmentResponseDto>
-                    .FailureResult(DeclareMessage.NotFound.Code, $"Ebellishment with ID {embellishmentId} not found.");
-            }
-            await _unitOfWork.EmbellishmentRepository.Remove(embellishment);
-            await _unitOfWork.SaveChanges(default);
-            var dto = _mapper.Map<EmbellishmentResponseDto>(embellishment);
-            return Result<EmbellishmentResponseDto>.SuccessResult(dto);
+            var entity = await _unitOfWork.EmbellishmentRepository.GetById(id);
+            if (entity == null) return Result<bool>.NotFoundResult(id);
 
+            await _unitOfWork.EmbellishmentRepository.Remove(entity);
+            await _unitOfWork.SaveChanges();
+            return Result<bool>.SuccessResult(true);
         }
 
-
-        public async Task<Result<EmbellishmentResponseDto>>
-            GetEmbellishmentById(int embellishmentId)
+        public async Task<Result<EmbellishmentResponseDto>> GetEmbellishmentById(int id)
         {
-            Embellishment embellishment = await _unitOfWork.EmbellishmentRepository
-                .GetFirstOrDefault(x => x.EmbellishmentId == embellishmentId);
-            if (embellishment is null)
-            {
-                return Result<EmbellishmentResponseDto>
-                   .FailureResult(DeclareMessage.NotFound.Code, $"Ebellishment with ID {embellishmentId} not found.");
-            }
+            var entity = await _unitOfWork.EmbellishmentRepository.GetFirstOrDefault(x => x.EmbellishmentId == id);
+            if (entity == null) return Result<EmbellishmentResponseDto>.NotFoundResult(id);
 
-            EmbellishmentResponseDto embellishmentResponseDto =
-                _mapper.Map<EmbellishmentResponseDto>(embellishment);
-
-            return Result<EmbellishmentResponseDto>.SuccessResult(embellishmentResponseDto);
-
+            return Result<EmbellishmentResponseDto>.SuccessResult(_mapper.Map<EmbellishmentResponseDto>(entity));
         }
 
-        public async Task<Result<EmbellishmentDetailDto>>
-            GetEmbellishmentDetails(int embellishmentId)
+        public async Task<Result<IEnumerable<EmellishmentResponseDetailsDto>>> GetEmbellishmentList()
         {
-            var query = (
-                from e in await _unitOfWork.EmbellishmentRepository.GetAll()
-                join et in await _unitOfWork.EmbellishmentTypeRepository.GetAll() 
-                on e.EmbellishmentTypeId equals et.EmbellishmentTypeId
-                where e.EmbellishmentId == embellishmentId
-                select new EmbellishmentDetailDto
-                {
-                    EmbellishmentId = e.EmbellishmentId,
-                    Name = e.Name,
-                    EmbellishmentTypeName = et.Name,
-                    EmbellishmentTypeId = et.EmbellishmentTypeId,
-                }).FirstOrDefault();
-            if (query is null)
-            {
-                return Result<EmbellishmentDetailDto>
-                   .FailureResult(DeclareMessage.NotFound.Code, $"Embellishment with ID {embellishmentId} not found.");
-            }
+            var entities = await _unitOfWork.EmbellishmentRepository.GetAll();
+            if (!entities.Any()) return Result<IEnumerable<EmellishmentResponseDetailsDto>>.EmptyResult(nameof(Embellishment));
 
-            return Result<EmbellishmentDetailDto>.SuccessResult(query);
+            return Result<IEnumerable<EmellishmentResponseDetailsDto>>.SuccessResult(_mapper.Map<IEnumerable<EmellishmentResponseDetailsDto>>(entities));
         }
 
-        public async Task<Result<IEnumerable<EmellishmentResponseDetailsDto>>>
-            GetEmbellishmentList( )
+        public async Task<Result<bool>> UpdateEmbellishment(int id, EmbellishmentResponseDto dto)
         {
-            IEnumerable<EmellishmentResponseDetailsDto> Embellishment =
-              await _unitOfWork.EmbellishmentRepository
-                .GetEmellishmentResponseDetailList();
+            var entity = await _unitOfWork.EmbellishmentRepository.GetById(id);
+            if (entity == null) return Result<bool>.NotFoundResult(id);
 
-            if (Embellishment.Any() == false)
-            {
-
-                return Result<IEnumerable<EmellishmentResponseDetailsDto>>
-                    .FailureResult(DeclareMessage.EmptyList.Code, DeclareMessage.EmptyList.Description);
-
-            }
-
-            return Result<IEnumerable<EmellishmentResponseDetailsDto>>.SuccessResult(Embellishment);
-
+            _mapper.Map(dto, entity);
+            await _unitOfWork.SaveChanges();
+            return Result<bool>.SuccessResult(true);
         }
-
-        public async Task<Result<EmbellishmentUpdateDto>>
-            Update(int embellishmentId, EmbellishmentUpdateDto updateDto)
-        {
-            var embellishment = await _unitOfWork
-                .EmbellishmentRepository
-                .GetFirstOrDefault(x => x.EmbellishmentId == embellishmentId);
-
-            if (embellishment == null)
-            {
-                return Result<EmbellishmentUpdateDto>
-                    .FailureResult("NotFound", $"The embellishment with the provided {embellishmentId} ID was not found.");
-            }
-
-            _mapper.Map(updateDto, embellishment);
-            embellishment.EmbellishmentId = embellishmentId;
-            await _unitOfWork.SaveChanges(CancellationToken.None);
-
-            return Result<EmbellishmentUpdateDto>.SuccessResult(updateDto);
-        }
-        //public Task<Result<string>> Update(EmbellishmentUpdateDto updateDto)
-        //{
-        //    return Result<bool>.FailureResult()
-        //    return Task.FromResult(Result<string>.SuccessResult("not found"));
-        //}
     }
+
 }

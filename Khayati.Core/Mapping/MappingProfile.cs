@@ -22,6 +22,7 @@ namespace Khayati.Core.Mapping
             CreateMap<EmbellishmentType, EmbellishmentTypeResponseDto>().ReverseMap();
             CreateMap<EmbellishmentType, EmbellishmentTypeAddDto>().ReverseMap();
             CreateMap<Embellishment, EmbellishmentAddDto>().ReverseMap();
+            CreateMap<Embellishment, EmellishmentResponseDetailsDto>().ReverseMap();
 
             CreateMap<Embellishment, EmbellishmentResponseDto>()
                 .ForMember(dest => dest.EmbellishmentName, opt => opt

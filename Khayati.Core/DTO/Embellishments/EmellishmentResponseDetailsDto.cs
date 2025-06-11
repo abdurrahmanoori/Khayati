@@ -8,6 +8,7 @@
         public string? EmbellishmentDescription { get; set; } = string.Empty;
 
         public string EmbellishmentTypeName { get; set; } = string.Empty;
+        public int EmbellishmentTypeId { get; set; }
 
         public int? Cost { get; set; }
     }
