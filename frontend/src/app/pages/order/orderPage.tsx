@@ -14,6 +14,7 @@ type Order = {
   ExpectedCompletionDate?: string
   TotalCost?: number
   PaymentStatus: string
+  OrderStatus: string
 }
 
 const OrderPage: React.FC<Props> = ({className}) => {
@@ -25,6 +26,7 @@ const OrderPage: React.FC<Props> = ({className}) => {
       ExpectedCompletionDate: '2020-03-01',
       TotalCost: 120.5,
       PaymentStatus: 'Pending',
+      OrderStatus: 'In Progress', // NEW
     },
     {
       OrderId: 2,
@@ -33,6 +35,7 @@ const OrderPage: React.FC<Props> = ({className}) => {
       ExpectedCompletionDate: '2021-04-01',
       TotalCost: 200,
       PaymentStatus: 'Completed',
+      OrderStatus: 'Completed', // NEW
     },
     {
       OrderId: 3,
@@ -41,8 +44,8 @@ const OrderPage: React.FC<Props> = ({className}) => {
       ExpectedCompletionDate: '2022-06-05',
       TotalCost: 350,
       PaymentStatus: 'PartialPayment',
+      OrderStatus: 'Delayed', // NEW
     },
-    // ... more orders here
   ])
 
   const [allOrders] = useState(orders)
@@ -121,6 +124,7 @@ const OrderPage: React.FC<Props> = ({className}) => {
                 <th className='min-w-150px'>Customer Name</th>
                 <th className='min-w-140px'>Order Date</th>
                 <th className='min-w-140px'>Expected Completion</th>
+                <th className='min-w-120px'>Order Status</th>
                 <th className='min-w-120px'>Total Cost</th>
                 <th className='min-w-120px'>Payment Status</th>
                 <th className='min-w-100px text-end'>Actions</th>
@@ -136,12 +140,6 @@ const OrderPage: React.FC<Props> = ({className}) => {
                   </td>
                   <td>
                     <div className='d-flex align-items-center'>
-                      <div className='symbol symbol-45px me-5'>
-                        <img
-                          src={toAbsoluteUrl(`/media/avatars/300-${(index % 10) + 1}.jpg`)}
-                          alt=''
-                        />
-                      </div>
                       <div className='d-flex justify-content-start flex-column'>
                         <a href='#' className='text-dark fw-bold text-hover-primary fs-6'>
                           {order.CustomerName || 'Unknown'}
@@ -157,7 +155,11 @@ const OrderPage: React.FC<Props> = ({className}) => {
                       {order.ExpectedCompletionDate || 'N/A'}
                     </span>
                   </td>
-                  <td className='text-end'>
+                  <td>
+                    <span className='fw-semibold d-block fs-7'>{order.OrderStatus}</span>
+                  </td>
+
+                  <td>
                     <span className='fw-semibold d-block fs-7'>
                       {order.TotalCost !== undefined ? `$${order.TotalCost.toFixed(2)}` : 'N/A'}
                     </span>
