@@ -10,9 +10,11 @@ import {
   MixedWidget3,
   MixedWidget1,
 } from '../../../_metronic/partials/widgets'
+import {Toolbar1} from '../../../_metronic/layout/components/toolbar/Toolbar1'
 
 const DashboardPage: FC = () => (
   <>
+    <Toolbar1 Title='Dashboard' />
     {/* begin::Row */}
     <div className='row gy-5 g-xl-8'>
       <div className='col-xxl-4'>
