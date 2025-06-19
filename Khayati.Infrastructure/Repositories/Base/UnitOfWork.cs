@@ -12,7 +12,7 @@ namespace Repositories.Base
         public UnitOfWork(ApplicationDbContext db)
         {
             _db = db;
-           CustomerRepository = new CustomerRepository(db);
+           //CustomerRepository = new CustomerRepository(db);
             MeasurementRepository = new MeasurementRepository(db);
             //EmbellishmentTypeRepository = new EmbellishmentTypeRepository(db);
             EmbellishmentRepository = new EmbellishmentRepository(db);
@@ -22,9 +22,9 @@ namespace Repositories.Base
             PaymentRepository = new PaymentRepository(db);
             
         }
-        
-         public ICustomerRepository CustomerRepository { get; private set; }
-         public IMeasurementRepository MeasurementRepository { get; private set; }
+
+        private ICustomerRepository _customerRepository;
+        public IMeasurementRepository MeasurementRepository { get; private set; }
          public IEmbellishmentRepository EmbellishmentRepository { get; private set; }
          public IRelativeRepository RelativeRepository { get; private set; }
          public IOrderDesignRepository OrderDesignRepository { get; private set; }
@@ -34,6 +34,10 @@ namespace Repositories.Base
          
         public IEmbellishmentTypeRepository EmbellishmentTypeRepository =>
             this._embellishmentTypeRepository ??= new EmbellishmentTypeRepository(_db);
+
+        public ICustomerRepository CustomerRepository =>
+       _customerRepository ??= new CustomerRepository(_db);
+
 
         public async Task SaveChanges(CancellationToken cancellationToken =default)
         {

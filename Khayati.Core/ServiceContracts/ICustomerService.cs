@@ -1,16 +1,16 @@
-﻿using Khayati.Core.DTO;
+﻿using Khayati.Core.Common.Response;
+using Khayati.Core.DTO;
 using Khayati.Core.DTO.Customers;
 
 namespace Khayati.ServiceContracts
 {
     public interface ICustomerService
     {
-        public Task<CustomerAddDto> AddCustomer(CustomerAddDto addCustomerDto);
-        public Task<CustomerResponseDto> GetCustomerById(int? customerId);
-
-        public Task<IEnumerable<CustomerResponseDto>> GetCustomerList();
-
-        public Task<CustomerResponseDto> DeleteCustomer(int? customerId);
+        Task<Result<CustomerAddDto>> AddCustomer(CustomerAddDto dto);
+        Task<Result<bool>> UpdateCustomer(int id, CustomerResponseDto dto);
+        Task<Result<CustomerResponseDto>> GetCustomerById(int id);
+        Task<Result<List<CustomerResponseDto>>> GetCustomerList( );
+        Task<Result<bool>> DeleteCustomer(int id);
 
     }
 }

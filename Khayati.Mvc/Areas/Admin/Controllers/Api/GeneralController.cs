@@ -53,7 +53,7 @@ namespace Khayati.Mvc.Areas.Admin.Controllers.Api
         {
             var customers = await customerService.GetCustomerList();
             return Ok(
-                customers.Select(x => new
+                customers.Response.Select(x => new
                 {
                     Id = x.CustomerId,
                     Name = x.Name

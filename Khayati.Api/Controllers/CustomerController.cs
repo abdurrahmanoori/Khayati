@@ -7,7 +7,7 @@ namespace Khayati.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CustomerController : ControllerBase
+    public class CustomerController : BaseApiController
     {
         //private readonly IUnitOfWork _unitOfWork;
         private readonly ICustomerService _customerService;
@@ -17,57 +17,24 @@ namespace Khayati.Api.Controllers
             _customerService = customerService;
         }
 
-        [HttpPost("Create")]
-        public async Task<IActionResult> Create(CustomerAddDto addCustomerDto)
-        {
-            var result = await _customerService.AddCustomer(addCustomerDto);
-            return Ok(result);
+        [HttpPost]
+        public async Task<ActionResult<CustomerAddDto>> Create(CustomerAddDto dto) =>
+         HandleResultResponse(await _customerService.AddCustomer(dto));
 
-        }
+        [HttpGet]
+        public async Task<ActionResult<List<CustomerResponseDto>>> GetAll( ) =>
+            HandleResultResponse(await _customerService.GetCustomerList());
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<CustomerResponseDto>> GetById(int id) =>
+            HandleResultResponse(await _customerService.GetCustomerById(id));
 
+        [HttpPut("{id}")]
+        public async Task<ActionResult<bool>> Update(int id, CustomerResponseDto dto) =>
+            HandleResultResponse(await _customerService.UpdateCustomer(id, dto));
 
-        [HttpGet("GetAll")]
-        public async Task<IActionResult> GetCustomerList( )
-        {
-            IEnumerable<CustomerResponseDto> results = await _customerService.GetCustomerList();
-            return Ok(results);
-
-        }
-
-        [HttpPost("GetById")]
-        public async Task<IActionResult> GitById(int id)
-        {
-            var customer = await _customerService.GetCustomerById(id);
-
-            return Ok(customer);
-
-        }
-
-        [HttpDelete]
-        public async Task<IActionResult> DeleteCustomer(int customerId)
-        {
-            CustomerResponseDto customer = await _customerService.DeleteCustomer(customerId);
-            return Ok(customer);
-        }
-
-        //[HttpPost("Edit")]
-        //public async Task<IActionResult> Edit(int id)
-        //{
-        //    var Measurements = await _unitOfWork.MeasurementRepository.GetFirstOrDefault(x => x.MeasurementID == id);
-        //    if (Measurements == null)
-        //    {
-        //        return NotFound("There is no on by this Id.");
-        //    }
-        //    await _unitOfWork.MeasurementRepository.Update(Measurements);
-
-        //    return Ok(Measurements);
-
-        //}
-
-
-
-
-
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<bool>> Delete(int id) =>
+            HandleResultResponse(await _customerService.DeleteCustomer(id));
     }
 }
