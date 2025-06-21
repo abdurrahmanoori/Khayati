@@ -1,4 +1,7 @@
 import React, {useState, FormEvent} from 'react'
+import CustomFormLayout from '../../components/CustomFormLayout'
+import CustomSelect from '../../components/CustomSelect'
+import {SingleValue} from 'react-select'
 
 type EmbellishmentTypeForm = {
   Name: string
@@ -14,9 +17,9 @@ const CreateEmbellishmentPage: React.FC = () => {
     Description: '',
     Type: '',
   })
-  const Type = ['Neck', 'Pocket', 'Dress', 'Pants']
 
-  // For demo: simple client-side validation errors (empty fields)
+  const types = ['Neck', 'Pocket', 'Dress', 'Pants']
+
   const [errors, setErrors] = useState<Partial<EmbellishmentTypeForm>>({})
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -25,16 +28,19 @@ const CreateEmbellishmentPage: React.FC = () => {
       [e.target.name]: e.target.value,
     })
   }
+
+  const handleSelectChange = (selected: SingleValue<{label: string; value: string}>) => {
+    setFormData({
+      ...formData,
+      Type: selected?.value || '',
+    })
+  }
+
   const validate = () => {
     const newErrors: Partial<EmbellishmentTypeForm> = {}
     if (!formData.Name.trim()) newErrors.Name = 'Name is required'
+    // add other validations as needed
     return newErrors
-  }
-  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    })
   }
 
   const handleSubmit = (e: FormEvent) => {
@@ -45,100 +51,88 @@ const CreateEmbellishmentPage: React.FC = () => {
       return
     }
     setErrors({})
+    // Submit logic here
+    console.log('Form submitted', formData)
   }
 
+  // Prepare options for CustomSelect
+  const typeOptions = types.map((t) => ({value: t, label: t}))
+
   return (
-    <div className='container mt-5 fw-bold'>
-      <div className='container-fluid pt-4 '>
-        <h3 className='fw-bold '>
-          <i className='fas fa-plus text-dark m-2 mt-1 mb-1 img-size-30'> </i> Create Embellishment
-        </h3>
-      </div>
-      <div className='card shadow-sm col-lg-9 m-3 mt-1'>
-        <div className='card-body p-4'>
-          <form id='myForm' onSubmit={handleSubmit}>
-            <div className='row'>
-              {/* Name Input */}
-              <div className='col-md-4'>
-                <label htmlFor='Name' className='form-label'>
-                  Name
-                </label>
-                <input
-                  name='Name'
-                  id='Name'
-                  type='text'
-                  className={`form-control border-primary border-2 ${
-                    errors.Name ? 'is-invalid' : ''
-                  }`}
-                  placeholder='Enter design name'
-                  value={formData.Name}
-                  onChange={handleChange}
-                />
-                {errors.Name && <div className='invalid-feedback'>{errors.Name}</div>}
-              </div>
+    <CustomFormLayout
+      title={
+        <>
+          <i className='fas fa-plus text-dark m-2 mt-1 mb-1 img-size-30' /> Create Embellishment
+        </>
+      }
+      onSubmit={handleSubmit}
+      submitLabel='Add Type'
+      rows={[
+        [
+          <div key='name' className='mb-3'>
+            <label htmlFor='Name' className='form-label'>
+              Name
+            </label>
+            <input
+              name='Name'
+              id='Name'
+              type='text'
+              className={`form-control border-primary border-2 ${errors.Name ? 'is-invalid' : ''}`}
+              placeholder='Enter design name'
+              value={formData.Name}
+              onChange={handleChange}
+            />
+            {errors.Name && <div className='invalid-feedback'>{errors.Name}</div>}
+          </div>,
 
-              {/* SortOrder Input */}
-              <div className='col-md-4'>
-                <label htmlFor='SortOrder' className='form-label'>
-                  Number
-                </label>
-                <input
-                  name='SortOrder'
-                  id='SortOrder'
-                  type='text'
-                  className='form-control border-primary border-2'
-                  placeholder='Enter number for sorting'
-                  value={formData.SortOrder}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className='col-md-4'>
-                <label htmlFor='SortOrder' className='form-label'>
-                  Type
-                </label>
-                <select
-                  className='form-select form-select-solid border-primary border-2'
-                  id='EmbellishmentType'
-                  name='Type'
-                  value={formData.Type}
-                  onChange={(e) => handleSelectChange(e)}
-                >
-                  <option value='' disabled>
-                    Select Type
-                  </option>
-                  {Type.map((t, idex) => (
-                    <option value={t}>{t}</option>
-                  ))}
-                </select>
-              </div>
-              {/* Description Textarea */}
-              <div className='mt-3 col-md-8'>
-                <label htmlFor='Description' className='form-label'>
-                  Description
-                </label>
-                <textarea
-                  name='Description'
-                  id='Description'
-                  className='form-control border-primary border-2'
-                  rows={5}
-                  placeholder='Enter description'
-                  value={formData.Description}
-                  onChange={handleChange}
-                />
-              </div>
+          <div key='sortorder' className='mb-3'>
+            <label htmlFor='SortOrder' className='form-label'>
+              Number
+            </label>
+            <input
+              name='SortOrder'
+              id='SortOrder'
+              type='text'
+              className='form-control border-primary border-2'
+              placeholder='Enter number for sorting'
+              value={formData.SortOrder}
+              onChange={handleChange}
+            />
+          </div>,
 
-              {/* Buttons */}
-              <div className='col-12 text-end text mt-3'>
-                <button type='submit' className='btn btn-outline-success'>
-                  <i className='fas fa-plus text-dark m-2 mt-1 mb-1'></i> Add Embellishment
-                </button>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
+          <div key='type' className='mb-3'>
+            <label htmlFor='Type' className='form-label'>
+              Type
+            </label>
+            <CustomSelect
+              id='Type'
+              name='Type'
+              options={typeOptions}
+              value={typeOptions.find((opt) => opt.value === formData.Type) || null}
+              onChange={handleSelectChange}
+              placeholder='Select Type'
+              className='form-control border-primary border-2'
+            />
+          </div>,
+        ],
+        [
+          <div key='description' className='mb-3 col-md-12'>
+            <label htmlFor='Description' className='form-label'>
+              Description
+            </label>
+            <textarea
+              name='Description'
+              id='Description'
+              className='form-control border-primary border-2'
+              rows={5}
+              placeholder='Enter description'
+              value={formData.Description}
+              onChange={handleChange}
+            />
+          </div>,
+        ],
+      ]}
+    />
   )
 }
-
 export default CreateEmbellishmentPage
