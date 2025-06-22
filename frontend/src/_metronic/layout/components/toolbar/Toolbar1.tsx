@@ -1,67 +1,39 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import clsx from 'clsx'
-import {useState} from 'react'
-import {KTSVG} from '../../../helpers'
-import {CreateAppModal} from '../../../partials'
 import {useLayout} from '../../core'
-import {DefaultTitle} from '../header/page-title/DefaultTitle'
+import {Link} from 'react-router-dom'
 
-const Toolbar1 = () => {
+const Toolbar1: React.FC = () => {
   const {classes} = useLayout()
-  const [showCreateAppModal, setShowCreateAppModal] = useState<boolean>(false)
 
   return (
-    <>
-      <div className='toolbar' id='kt_toolbar'>
-        {/* begin::Container */}
-        <div
-          id='kt_toolbar_container'
-          className={clsx(classes.toolbarContainer.join(' '), 'd-flex flex-stack')}
+    <div className='toolbar py-4' id='kt_toolbar'>
+      {/* begin::Container */}
+      <div
+        id='kt_toolbar_container'
+        className={clsx(
+          classes.toolbarContainer.join(' '),
+          'd-flex flex-wrap justify-content-center gap-4'
+        )}
+      >
+        <Link
+          to='/order-create'
+          className='btn btn-outline-success d-flex align-items-center gap-2 px-4 py-2'
         >
-          <DefaultTitle />
+          <i className='bi bi-plus-lg fs-5' />
+          New Order
+        </Link>
 
-          {/* begin::Actions */}
-          <div className='d-flex align-items-center py-1'>
-            {/* begin::Wrapper */}
-            <div className='me-4'>
-              {/* begin::Menu */}
-              <a
-                href='#'
-                className='btn btn-sm btn-flex btn-light btn-active-primary fw-bolder'
-                data-kt-menu-trigger='click'
-                data-kt-menu-placement='bottom-end'
-                data-kt-menu-flip='top-end'
-              >
-                <KTSVG
-                  path='/media/icons/duotune/general/gen031.svg'
-                  className='svg-icon-5 svg-icon-gray-500 me-1'
-                />
-                Filter
-              </a>
-
-              {/* end::Menu */}
-            </div>
-            {/* end::Wrapper */}
-
-            {/* begin::Button */}
-
-            <a
-              className='btn btn-sm btn-primary cursor-pointer'
-              id='kt_toolbar_primary_button'
-              data-bs-toggle='modal'
-              data-bs-target='#kt_modal_create_app'
-              onClick={() => setShowCreateAppModal(true)}
-            >
-              Create
-            </a>
-            {/* end::Button */}
-          </div>
-          {/* end::Actions */}
-        </div>
-        {/* end::Container */}
+        <Link
+          to='/customer-create'
+          className='btn btn-outline-primary d-flex align-items-center gap-2 px-4 py-2'
+        >
+          <i className='bi bi-person-plus fs-5' />
+          New Customer
+        </Link>
       </div>
-      <CreateAppModal show={showCreateAppModal} handleClose={() => setShowCreateAppModal(false)} />
-    </>
+      {/* end::Container */}
+    </div>
   )
 }
 

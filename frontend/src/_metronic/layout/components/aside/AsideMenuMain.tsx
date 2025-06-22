@@ -58,13 +58,6 @@ export function AsideMenuMain() {
         title='Relatives'
         fontIcon='bi-people'
       />
-      <AsideMenuItem
-        to=''
-        icon='/media/icons/duotune/communication/com011.svg'
-        title='Contacts'
-        fontIcon='bi-envelope'
-      />
-
       <div className='menu-item'>
         <div className='menu-content'>
           <div className='separator mx-1 my-4'></div>
