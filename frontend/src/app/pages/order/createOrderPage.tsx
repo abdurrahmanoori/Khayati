@@ -383,7 +383,7 @@ const CreateOrderPage = () => {
                       <div className='col-md-6'>
                         <div
                           className='btn btn-outline-danger text-end'
-                          onClick={() => removeGarment(gIndex)}
+                          onClick={() => removeGarment(g.id)}
                         >
                           Remove
                         </div>
