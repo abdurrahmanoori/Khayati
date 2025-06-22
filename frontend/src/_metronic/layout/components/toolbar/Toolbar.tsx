@@ -10,7 +10,7 @@ const Toolbar = () => {
 
   switch (config.toolbar.layout) {
     case 'toolbar1':
-      return <Toolbar1 Title='Default' />
+      return <Toolbar1 />
 
     default:
       return <Toolbar4 />

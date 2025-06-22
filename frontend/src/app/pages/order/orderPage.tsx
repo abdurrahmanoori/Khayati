@@ -4,7 +4,6 @@ import {KTSVG, toAbsoluteUrl} from '../../../_metronic/helpers'
 import {Link} from 'react-router-dom'
 import dayjs from 'dayjs'
 import {Toolbar1} from '../../../_metronic/layout/components/toolbar/Toolbar1'
-import {PageTitle} from '../../../_metronic/layout/core'
 import {useIntl} from 'react-intl'
 type Props = {
   className: string
@@ -90,6 +89,7 @@ const OrderPage: React.FC<Props> = ({className}) => {
   const intl = useIntl()
   return (
     <>
+      <Toolbar1 />
       <div className={`card ${className}`}>
         {/* Header */}
         <div className='card-title'>

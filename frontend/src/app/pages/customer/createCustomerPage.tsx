@@ -1,6 +1,7 @@
 import * as React from 'react'
 import {useState, useEffect} from 'react'
 import CustomFormLayout from '../../components/CustomFormLayout'
+import {Toolbar1} from '../../../_metronic/layout/components/toolbar/Toolbar1'
 const CreateCustomer = () => {
   const [customerAdd, setCustomerAdd] = useState({
     Name: '',
@@ -27,6 +28,7 @@ const CreateCustomer = () => {
 
   return (
     <React.Fragment>
+      <Toolbar1 />
       <CustomFormLayout
         title={
           <>

@@ -14,7 +14,7 @@ import {Toolbar1} from '../../../_metronic/layout/components/toolbar/Toolbar1'
 
 const DashboardPage: FC = () => (
   <>
-    <Toolbar1 Title='Dashboard' />
+    <Toolbar1 />
     {/* begin::Row */}
     <div className='row gy-5 g-xl-8'>
       <div className='col-xxl-4'>
