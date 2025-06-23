@@ -5,7 +5,7 @@ import {KTSVG, toAbsoluteUrl} from '../../../_metronic/helpers'
 import {useState} from 'react'
 import {Link} from 'react-router-dom'
 import {Toolbar1} from '../../../_metronic/layout/components/toolbar/Toolbar1'
-import {Edit_CustomerModal} from '../../modals/edit_CustomerModal'
+import {ReusableModal} from '../../modals/reusableModal'
 import Swal from 'sweetalert2'
 import {title} from 'process'
 
@@ -311,7 +311,7 @@ const CustomerPage: React.FC<Props> = ({className}) => {
         </div>
         {/* begin::Body */}
       </div>
-      <Edit_CustomerModal show={showModal} onClose={() => setShowModal(false)}>
+      <ReusableModal show={showModal} onClose={() => setShowModal(false)}>
         <CustomFormLayout
           title={
             <>
@@ -422,7 +422,7 @@ const CustomerPage: React.FC<Props> = ({className}) => {
             ],
           ]}
         />
-      </Edit_CustomerModal>
+      </ReusableModal>
     </>
   )
 }

@@ -9,7 +9,7 @@ type Props = {
   onApply?: () => void
 }
 
-const Edit_CustomerModal: FC<Props> = ({show, children, onClose, onApply}) => {
+const ReusableModal: FC<Props> = ({show, children, onClose, onApply}) => {
   return (
     <Modal show={show} onHide={onClose} dialogClassName='modal-lg' backdrop='static' centered>
       <div className='modal-content'>
@@ -36,4 +36,4 @@ const Edit_CustomerModal: FC<Props> = ({show, children, onClose, onApply}) => {
   )
 }
 
-export {Edit_CustomerModal}
+export {ReusableModal}
