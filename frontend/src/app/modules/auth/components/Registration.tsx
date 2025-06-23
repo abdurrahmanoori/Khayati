@@ -63,7 +63,11 @@ export function Registration() {
         )
         saveAuth(auth)
         const {data: user} = await getUserByToken(auth.api_token)
-        setCurrentUser(user)
+        setCurrentUser({
+          ...user,
+          username: user.email, // use email as username if username does not exist
+          password: '', // set password as empty string since it's not returned from API
+        })
       } catch (error) {
         console.error(error)
         saveAuth(undefined)

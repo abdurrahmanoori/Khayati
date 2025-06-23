@@ -10,6 +10,14 @@ export const REQUEST_PASSWORD_URL = `${API_URL}/forgot_password`
 
 // Server should return AuthModel
 export function login(email: string, password: string) {
+  if (!navigator.onLine) {
+    return Promise.resolve({
+      data: {
+        api_token: 'offline-mock-token',
+        refresh_token: 'offline-mock-refresh-token',
+      },
+    })
+  }
   return axios.post<AuthModel>(LOGIN_URL, {
     email,
     password,
@@ -41,6 +49,17 @@ export function requestPassword(email: string) {
 }
 
 export function getUserByToken(token: string) {
+  if (!navigator.onLine) {
+    // Simulate user data when offline
+    return Promise.resolve({
+      data: {
+        id: 1,
+        email: 'admin@demo.com',
+        first_name: 'Offline',
+        last_name: 'User',
+      },
+    })
+  }
   return axios.post<UserModel>(GET_USER_BY_ACCESSTOKEN_URL, {
     api_token: token,
   })

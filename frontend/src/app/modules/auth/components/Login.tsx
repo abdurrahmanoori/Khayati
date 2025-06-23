@@ -44,7 +44,11 @@ export function Login() {
         const {data: auth} = await login(values.email, values.password)
         saveAuth(auth)
         const {data: user} = await getUserByToken(auth.api_token)
-        setCurrentUser(user)
+        setCurrentUser({
+          ...user,
+          username: user.email, // use email as username since username does not exist
+          password: '', // or any default/empty value, since password is usually not returned from API
+        })
       } catch (error) {
         console.error(error)
         saveAuth(undefined)
