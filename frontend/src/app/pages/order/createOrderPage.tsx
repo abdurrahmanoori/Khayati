@@ -173,7 +173,7 @@ const CreateOrderPage = () => {
                   <label htmlFor='Status' className='form-label'>
                     Customer:
                   </label>{' '}
-                  <Link to='/customer-create'>Create</Link>
+                  <Link to='/customer-create'>+</Link>
                   <CustomSelect
                     id='CustomerSelect'
                     name='CustomerSelect'

@@ -2,149 +2,106 @@ import React, {useState, FormEvent} from 'react'
 import {KTSVG} from '../../../_metronic/helpers'
 import {Link} from 'react-router-dom'
 import {Toolbar1} from '../../../_metronic/layout/components/toolbar/Toolbar1'
-import {ReusableModal} from '../../modals/reusableModal'
-import CustomFormLayout from '../../components/CustomFormLayout'
-import CustomSelect from '../../components/CustomSelect'
-import {SingleValue} from 'react-select'
+import EmbellishmentModal from '../../modals/EmbellishmentModal'
 import Swal from 'sweetalert2'
 type Embellishment = {
   Id: number
   Name: string
   TypeName: string
   Description: string
-}
-type EmbellishmentTypeForm = {
-  Name: string
-  SortOrder: string
-  Description: string
-  Type: string
+  SortNo: number
 }
 type Props = {
   className: string
 }
 
 const EmbellishmentPage: React.FC<Props> = ({className}) => {
-  const [formData, setFormData] = useState<EmbellishmentTypeForm>({
-    Name: '',
-    SortOrder: '',
-    Description: '',
-    Type: '',
-  })
-
-  const types = ['Neck', 'Pocket', 'Dress', 'Pants']
-
-  const [errors, setErrors] = useState<Partial<EmbellishmentTypeForm>>({})
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    })
-  }
-
-  const handleSelectChange = (selected: SingleValue<{label: string; value: string}>) => {
-    setFormData({
-      ...formData,
-      Type: selected?.value || '',
-    })
-  }
-
-  const validate = () => {
-    const newErrors: Partial<EmbellishmentTypeForm> = {}
-    if (!formData.Name.trim()) newErrors.Name = 'Name is required'
-    // add other validations as needed
-    return newErrors
-  }
-
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault()
-    const validationErrors = validate()
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors)
-      return
-    }
-    setErrors({})
-    // Submit logic here
-    console.log('Form submitted', formData)
-  }
-
   // Prepare options for CustomSelect
-  const typeOptions = types.map((t) => ({value: t, label: t}))
-  // Original full data
+  const [updateEmbellishment, setUpdateEmbellishment] = useState<Embellishment>()
   const [showModal, setShowModal] = useState(false)
-  const allEmbellishmentTypes: Embellishment[] = [
+  const allEmbellishments: Embellishment[] = [
     {
       Id: 1,
       Name: 'Neck',
       TypeName: 'Neck',
       Description: 'Various neck styles',
+      SortNo: 1,
     },
     {
       Id: 2,
       Name: 'Sleeve',
       TypeName: 'Sleeve',
       Description: 'Different sleeve designs and lengths',
+      SortNo: 2,
     },
     {
       Id: 3,
       Name: 'Cuff',
       TypeName: 'Cuff',
       Description: 'Cuff designs and finishes',
+      SortNo: 3,
     },
     {
       Id: 4,
       Name: 'Hem',
       TypeName: 'Hem',
       Description: 'Styles for garment hems',
+      SortNo: 4,
     },
     {
       Id: 5,
       Name: 'Pocket',
       TypeName: 'Pocket',
       Description: 'Pocket designs and placements',
+      SortNo: 5,
     },
     {
       Id: 6,
       Name: 'Button',
       TypeName: 'Button',
       Description: 'Button styles and placements',
+      SortNo: 6,
     },
     {
       Id: 7,
       Name: 'Embroidery',
       TypeName: 'Embroidery',
       Description: 'Decorative embroidery work',
+      SortNo: 7,
     },
     {
       Id: 8,
       Name: 'Patch',
       TypeName: 'Patch',
       Description: 'Fabric patches for decoration',
+      SortNo: 8,
     },
     {
       Id: 9,
       Name: 'Beading',
       TypeName: 'Beading',
       Description: 'Beadwork for embellishment',
+      SortNo: 9,
     },
     {
       Id: 10,
       Name: 'Lace',
       TypeName: 'Lace',
       Description: 'Lace detailing and borders',
+      SortNo: 10,
     },
   ]
 
-  const [embellishmentType, setEmbellishmentType] = useState(allEmbellishmentTypes)
+  const [embellishment, setEmbellishment] = useState(allEmbellishments)
 
   const search = (value: string) => {
     if (value.trim() === '') {
-      setEmbellishmentType(allEmbellishmentTypes)
+      setEmbellishment(allEmbellishments)
     } else {
-      const filtered = allEmbellishmentTypes.filter((c) =>
+      const filtered = allEmbellishments.filter((c) =>
         c.Name.toLowerCase().includes(value.toLowerCase())
       )
-      setEmbellishmentType(filtered)
+      setEmbellishment(filtered)
     }
   }
   const handleDelete = (Id: number) => {
@@ -158,14 +115,17 @@ const EmbellishmentPage: React.FC<Props> = ({className}) => {
       confirmButtonText: 'Yes, Delete it!',
     }).then((result) => {
       if (result) {
-        const updatedTypes = allEmbellishmentTypes.filter((t) => t.Id != Id)
-        setEmbellishmentType(updatedTypes)
+        const updatedTypes = allEmbellishments.filter((t) => t.Id != Id)
+        setEmbellishment(updatedTypes)
       }
     })
   }
   const handleEdit = (Id: number) => {
-    const updateType = allEmbellishmentTypes.filter((t) => t.Id)
-    //setFormData(updateType)
+    const updateEmbellishment = allEmbellishments.find((t) => t.Id === Id)
+    if (updateEmbellishment) {
+      setUpdateEmbellishment(updateEmbellishment)
+    }
+    setShowModal(true)
   }
   return (
     <>
@@ -234,7 +194,7 @@ const EmbellishmentPage: React.FC<Props> = ({className}) => {
 
               {/* begin::Table body */}
               <tbody>
-                {embellishmentType.map((c, index) => (
+                {embellishment.map((c, index) => (
                   <tr key={c.Id}>
                     <td className='text-end'>
                       <div className='d-flex flex-column w-100 me-2'>
@@ -271,7 +231,7 @@ const EmbellishmentPage: React.FC<Props> = ({className}) => {
                           className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
                           aria-label='Edit'
                           onClick={() => {
-                            handleEdit(index)
+                            handleEdit(c.Id)
                           }}
                         >
                           <KTSVG
@@ -284,7 +244,7 @@ const EmbellishmentPage: React.FC<Props> = ({className}) => {
                           className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm'
                           aria-label='Delete'
                           onClick={() => {
-                            handleDelete(index)
+                            handleDelete(c.Id)
                           }}
                         >
                           <KTSVG
@@ -305,84 +265,12 @@ const EmbellishmentPage: React.FC<Props> = ({className}) => {
         </div>
         {/* end::Body */}
       </div>
-      <ReusableModal show={showModal} onClose={() => setShowModal(false)}>
-        <CustomFormLayout
-          title={
-            <>
-              <i className='fas fa-plus text-dark m-2 mt-1 mb-1 img-size-30' /> Create Embellishment
-            </>
-          }
-          onSubmit={handleSubmit}
-          submitLabel='Add Type'
-          rows={[
-            [
-              <div key='name' className='mb-3'>
-                <label htmlFor='Name' className='form-label'>
-                  Name
-                </label>
-                <input
-                  name='Name'
-                  id='Name'
-                  type='text'
-                  className={`form-control border-primary border-2 ${
-                    errors.Name ? 'is-invalid' : ''
-                  }`}
-                  placeholder='Enter design name'
-                  value={formData.Name}
-                  onChange={handleChange}
-                />
-                {errors.Name && <div className='invalid-feedback'>{errors.Name}</div>}
-              </div>,
-
-              <div key='sortorder' className='mb-3'>
-                <label htmlFor='SortOrder' className='form-label'>
-                  Number
-                </label>
-                <input
-                  name='SortOrder'
-                  id='SortOrder'
-                  type='text'
-                  className='form-control border-primary border-2'
-                  placeholder='Enter number for sorting'
-                  value={formData.SortOrder}
-                  onChange={handleChange}
-                />
-              </div>,
-
-              <div key='type' className='mb-3'>
-                <label htmlFor='Type' className='form-label'>
-                  Type
-                </label>
-                <CustomSelect
-                  id='Type'
-                  name='Type'
-                  options={typeOptions}
-                  value={typeOptions.find((opt) => opt.value === formData.Type) || null}
-                  onChange={handleSelectChange}
-                  placeholder='Select Type'
-                  className='form-control border-primary border-2'
-                />
-              </div>,
-            ],
-            [
-              <div key='description' className='mb-3 col-md-12'>
-                <label htmlFor='Description' className='form-label'>
-                  Description
-                </label>
-                <textarea
-                  name='Description'
-                  id='Description'
-                  className='form-control border-primary border-2'
-                  rows={5}
-                  placeholder='Enter description'
-                  value={formData.Description}
-                  onChange={handleChange}
-                />
-              </div>,
-            ],
-          ]}
-        />
-      </ReusableModal>
+      <EmbellishmentModal
+        showModal={showModal}
+        setShowModal={() => setShowModal(false)}
+        update={true}
+        updateEmbellishment={updateEmbellishment}
+      />
     </>
   )
 }

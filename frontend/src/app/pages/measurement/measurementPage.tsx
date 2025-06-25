@@ -2,13 +2,148 @@ import React, {useState} from 'react'
 import {KTSVG, toAbsoluteUrl} from '../../../_metronic/helpers'
 import {Link} from 'react-router-dom'
 import {Toolbar1} from '../../../_metronic/layout/components/toolbar/Toolbar1'
+import MeasurementModal from '../../modals/MeasurementModal'
+import Swal from 'sweetalert2'
 type Props = {
   className: string
 }
-
+type Measurement = {
+  ArmLength: string
+  Chest: string
+  Height: string
+  Leg: string
+  Neck: string
+  Sleeve: string
+  Waist: string
+  ShoulderWidth: string
+  CustomerId: string
+  trousers: string
+}
 const MeasurementPage: React.FC<Props> = ({className}) => {
   // Original full data
-
+  const allMeasurements: Measurement[] = [
+    {
+      ArmLength: '60',
+      Chest: '95',
+      Height: '175',
+      Leg: '100',
+      Neck: '39',
+      Sleeve: '60',
+      Waist: '85',
+      ShoulderWidth: '45',
+      CustomerId: '1',
+      trousers: '95',
+    },
+    {
+      ArmLength: '62',
+      Chest: '100',
+      Height: '180',
+      Leg: '105',
+      Neck: '41',
+      Sleeve: '62',
+      Waist: '90',
+      ShoulderWidth: '47',
+      CustomerId: '2',
+      trousers: '100',
+    },
+    {
+      ArmLength: '58',
+      Chest: '92',
+      Height: '168',
+      Leg: '98',
+      Neck: '38',
+      Sleeve: '58',
+      Waist: '82',
+      ShoulderWidth: '44',
+      CustomerId: '3',
+      trousers: '94',
+    },
+    {
+      ArmLength: '65',
+      Chest: '110',
+      Height: '185',
+      Leg: '110',
+      Neck: '43',
+      Sleeve: '65',
+      Waist: '95',
+      ShoulderWidth: '48',
+      CustomerId: '4',
+      trousers: '105',
+    },
+    {
+      ArmLength: '61',
+      Chest: '98',
+      Height: '172',
+      Leg: '102',
+      Neck: '40',
+      Sleeve: '61',
+      Waist: '88',
+      ShoulderWidth: '46',
+      CustomerId: '5',
+      trousers: '98',
+    },
+    {
+      ArmLength: '59',
+      Chest: '94',
+      Height: '170',
+      Leg: '99',
+      Neck: '39',
+      Sleeve: '59',
+      Waist: '84',
+      ShoulderWidth: '44',
+      CustomerId: '6',
+      trousers: '96',
+    },
+    {
+      ArmLength: '63',
+      Chest: '105',
+      Height: '178',
+      Leg: '106',
+      Neck: '42',
+      Sleeve: '63',
+      Waist: '92',
+      ShoulderWidth: '47',
+      CustomerId: '7',
+      trousers: '101',
+    },
+    {
+      ArmLength: '57',
+      Chest: '90',
+      Height: '165',
+      Leg: '95',
+      Neck: '37',
+      Sleeve: '57',
+      Waist: '80',
+      ShoulderWidth: '43',
+      CustomerId: '8',
+      trousers: '92',
+    },
+    {
+      ArmLength: '66',
+      Chest: '112',
+      Height: '188',
+      Leg: '112',
+      Neck: '44',
+      Sleeve: '66',
+      Waist: '98',
+      ShoulderWidth: '49',
+      CustomerId: '9',
+      trousers: '108',
+    },
+    {
+      ArmLength: '60',
+      Chest: '97',
+      Height: '174',
+      Leg: '101',
+      Neck: '39',
+      Sleeve: '60',
+      Waist: '86',
+      ShoulderWidth: '45',
+      CustomerId: '10',
+      trousers: '97',
+    },
+  ]
+  const [measurement, setMeasurement] = useState<Measurement>()
   const [customers, setCustomer] = useState([
     {
       Id: 1,
@@ -82,7 +217,7 @@ const MeasurementPage: React.FC<Props> = ({className}) => {
     },
   ])
   const [allCustomers, setAllCustomers] = useState(customers)
-
+  const [showModal, setShowModal] = useState(false)
   const search = (value: string) => {
     if (value === '') {
       setCustomer(allCustomers)
@@ -93,12 +228,24 @@ const MeasurementPage: React.FC<Props> = ({className}) => {
       setCustomer(filteredcustomers)
     }
   }
-  const handleDelete = (Id: number) => {
-    alert('Measurement with id ' + Id + 'is deleted')
+  const handleDelete = (Id: string) => {
+    Swal.fire({
+      title: 'Delete!',
+      text: 'Are you sure want to delete?',
+      icon: 'warning',
+      showCancelButton: true,
+      showCloseButton: true,
+      showConfirmButton: true,
+      confirmButtonText: 'Yes, Delete it!',
+    }).then((result) => {
+      const c = customers.filter((c) => c.Id.toString() != Id)
+      setCustomer(c)
+    })
   }
-  const handleEdit = (Id: number) => {
-    console.log('Edit clicked for id:', Id)
-    alert('Measurement with id ' + Id + 'is edited')
+  const handleEdit = (Id: string) => {
+    const updateMeasurement = allMeasurements.find((m) => m.CustomerId == Id)
+    setMeasurement(updateMeasurement)
+    setShowModal(true)
   }
 
   return (
@@ -192,7 +339,7 @@ const MeasurementPage: React.FC<Props> = ({className}) => {
                           className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
                           aria-label='Edit'
                           onClick={() => {
-                            handleEdit(index)
+                            handleEdit(c.Id.toString())
                           }}
                         >
                           <KTSVG
@@ -205,7 +352,7 @@ const MeasurementPage: React.FC<Props> = ({className}) => {
                           className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm'
                           aria-label='Delete'
                           onClick={() => {
-                            handleDelete(index)
+                            handleDelete(c.Id.toString())
                           }}
                         >
                           <KTSVG
@@ -226,6 +373,12 @@ const MeasurementPage: React.FC<Props> = ({className}) => {
         </div>
         {/* end::Body */}
       </div>
+      <MeasurementModal
+        show={showModal}
+        setShow={() => setShowModal(false)}
+        title='Update Measurement'
+        updatemeasurement={measurement}
+      />
     </>
   )
 }

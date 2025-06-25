@@ -5,6 +5,8 @@ import {Link} from 'react-router-dom'
 import dayjs from 'dayjs'
 import {Toolbar1} from '../../../_metronic/layout/components/toolbar/Toolbar1'
 import {useIntl} from 'react-intl'
+import OrderModal from '../../modals/OrderModal'
+import Swal from 'sweetalert2'
 type Props = {
   className: string
 }
@@ -21,7 +23,8 @@ type Order = {
 
 const OrderPage: React.FC<Props> = ({className}) => {
   const formatCurrency = (value: number) => (value !== undefined ? `$${value.toFixed(2)}` : 'N/A')
-
+  const [showModal, setShowModal] = useState(false)
+  const [updateOrder, setUpdateOrder] = useState<Order>()
   const getStatusBadgeClass = (status: string) => {
     switch (status.toLowerCase()) {
       case 'completed':
@@ -41,7 +44,7 @@ const OrderPage: React.FC<Props> = ({className}) => {
       OrderDate: '2020-02-20',
       ExpectedCompletionDate: '2020-03-01',
       TotalCost: 120.5,
-      PaymentStatus: 'Pending',
+      PaymentStatus: 'Paid',
       OrderStatus: 'In Progress', // NEW
     },
     {
@@ -50,7 +53,7 @@ const OrderPage: React.FC<Props> = ({className}) => {
       OrderDate: '2021-03-15',
       ExpectedCompletionDate: '2021-04-01',
       TotalCost: 200,
-      PaymentStatus: 'Completed',
+      PaymentStatus: 'Not paid',
       OrderStatus: 'Completed', // NEW
     },
     {
@@ -59,7 +62,7 @@ const OrderPage: React.FC<Props> = ({className}) => {
       OrderDate: '2022-05-10',
       ExpectedCompletionDate: '2022-06-05',
       TotalCost: 350,
-      PaymentStatus: 'PartialPayment',
+      PaymentStatus: 'Partial paid',
       OrderStatus: 'Cancelled', // NEW
     },
   ])
@@ -80,11 +83,32 @@ const OrderPage: React.FC<Props> = ({className}) => {
   }
 
   const handleDelete = (OrderId: number) => {
-    alert(`Order with id ${OrderId} is deleted`)
+    Swal.fire({
+      title: 'Delete',
+      text: 'Are you sure you want to delete?',
+      icon: 'warning',
+      showCancelButton: true,
+      showCloseButton: true,
+      showConfirmButton: true,
+      confirmButtonText: 'Yes, Delete it!',
+    }).then((result) => {
+      if (result) {
+        const newOrders = orders.filter((o) => o.OrderId != OrderId)
+        setOrders(newOrders)
+      }
+
+      Swal.fire({
+        title: 'Deleted Successfully',
+        icon: 'success',
+        showConfirmButton: true,
+        timer: 2000,
+      })
+    })
   }
   const handleEdit = (OrderId: number) => {
-    console.log('Edit clicked for id:', OrderId)
-    alert(`Order with id ${OrderId} is edited`)
+    const order = orders.find((o) => o.OrderId == OrderId)
+    setUpdateOrder(order)
+    setShowModal(true)
   }
   const intl = useIntl()
   return (
@@ -229,6 +253,8 @@ const OrderPage: React.FC<Props> = ({className}) => {
           </div>
         </div>
       </div>
+
+      <OrderModal showModal={showModal} setShowModal={setShowModal} updateorder={updateOrder} />
     </>
   )
 }
