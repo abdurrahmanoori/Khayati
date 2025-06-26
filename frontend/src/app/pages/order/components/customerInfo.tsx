@@ -2,52 +2,19 @@ import * as React from 'react'
 import {Link} from 'react-router-dom'
 import CustomSelect from '../../../components/CustomSelect'
 import {SingleValue} from 'react-select'
-
-type Type = {
-  value: string
-  label: string
-}
-
-type UpdateOrder = {
-  OrderId: number
-  CustomerName?: string
-  OrderDate: string
-  ExpectedCompletionDate?: string
-  TotalCost?: number
-  PaymentStatus: string
-  OrderStatus: string
-}
+import {OptionType, Order} from '../../../types/commonTypes'
 
 type Props = {
-  customerOptions: Type[]
+  customerOptions: OptionType[]
   setOrder: Function
   handleChange: React.ChangeEventHandler<HTMLInputElement>
-  updateorder: UpdateOrder | undefined
-  priorityOptions: Type[]
+  priorityOptions: OptionType[]
   order: Order
 }
-type Order = {
-  OrderDate: string
-  CustomerName: string
-  Status: string
-  TotalCost: number
-  PaidAmount: number
-  IsEmbellished: boolean
-  embellishmentType: string
-  embellishment: string
-  orderPriority: string
-  garment: string
-  fabric: string
-  color: string
-  payment: string
-  description: string
-}
-
 const CustomerInfo: React.FC<Props> = ({
   customerOptions,
   setOrder,
   handleChange,
-  updateorder,
   priorityOptions,
   order,
 }) => {
@@ -72,9 +39,9 @@ const CustomerInfo: React.FC<Props> = ({
             id='CustomerSelect'
             name='CustomerSelect'
             options={customerOptions}
-            value={customerOptions.find((opt) => opt.value === updateorder?.CustomerName) || null}
-            onChange={(selected: SingleValue<Type> | null) =>
-              setOrder((prev: UpdateOrder) => ({
+            value={customerOptions.find((opt) => opt.value === order?.CustomerName) || null}
+            onChange={(selected: SingleValue<OptionType> | null) =>
+              setOrder((prev: Order) => ({
                 ...prev,
                 CustomerName: selected?.value || '',
               }))
@@ -88,11 +55,11 @@ const CustomerInfo: React.FC<Props> = ({
             Delivery Date:
           </label>
           <input
-            id='OrderDate'
-            name='OrderDate'
+            id='DeliveryDate'
+            name='DeliveryDate'
             type='date'
             className='form-control text-muted fw-bold'
-            value={updateorder?.ExpectedCompletionDate || ''}
+            value={order?.DeliveryDate || ''}
             onChange={handleChange}
             required
           />
@@ -109,8 +76,8 @@ const CustomerInfo: React.FC<Props> = ({
             name='OrderPriority'
             options={priorityOptions}
             value={priorityOptions.find((opt) => opt.value === order.orderPriority) || null}
-            onChange={(selected: SingleValue<Type>) =>
-              setOrder((prev: UpdateOrder) => ({...prev, orderPriority: selected?.value || ''}))
+            onChange={(selected: SingleValue<OptionType>) =>
+              setOrder((prev: Order) => ({...prev, orderPriority: selected?.value || ''}))
             }
             placeholder='Select Order Priority'
           />

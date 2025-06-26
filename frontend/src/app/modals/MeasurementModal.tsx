@@ -2,18 +2,7 @@ import * as React from 'react'
 import {useState, useEffect} from 'react'
 import {ReusableModal} from './reusableModal'
 import CustomFormLayout from '../components/CustomFormLayout'
-type Measurement = {
-  ArmLength: string
-  Chest: string
-  Height: string
-  Leg: string
-  Neck: string
-  Sleeve: string
-  Waist: string
-  ShoulderWidth: string
-  CustomerId: string
-  trousers: string
-}
+import {Measurement} from '../types/commonTypes'
 type Props = {
   show: boolean
   setShow: Function

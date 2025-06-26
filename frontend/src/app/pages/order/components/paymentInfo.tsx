@@ -2,52 +2,15 @@ import * as React from 'react'
 import {useState, useEffect} from 'react'
 import CustomSelect from '../../../components/CustomSelect'
 import {SingleValue} from 'react-select'
-
-type Type = {
-  value: string
-  label: string
-}
-
-type UpdateOrder = {
-  OrderId: number
-  CustomerName?: string
-  OrderDate: string
-  ExpectedCompletionDate?: string
-  TotalCost?: number
-  PaymentStatus: string
-  OrderStatus: string
-}
-
+import {Order, OptionType as Type} from '../../../types/commonTypes'
 type Props = {
   setOrder: Function
   handleChange: React.ChangeEventHandler<HTMLInputElement>
-  updateorder?: UpdateOrder | undefined
   paymentOptions: Type[]
   order: Order
+  update?: boolean
 }
-type Order = {
-  OrderDate: string
-  CustomerName: string
-  Status: string
-  TotalCost: number
-  PaidAmount: number
-  IsEmbellished: boolean
-  embellishmentType: string
-  embellishment: string
-  orderPriority: string
-  garment: string
-  fabric: string
-  color: string
-  payment: string
-  description: string
-}
-const PaymentInfo: React.FC<Props> = ({
-  order,
-  updateorder,
-  handleChange,
-  setOrder,
-  paymentOptions,
-}) => {
+const PaymentInfo: React.FC<Props> = ({order, handleChange, setOrder, paymentOptions, update}) => {
   return (
     <React.Fragment>
       <div className='row mb-3'>
@@ -82,9 +45,9 @@ const PaymentInfo: React.FC<Props> = ({
             id='PaymentStatus'
             name='PaymentStatus'
             options={paymentOptions}
-            value={paymentOptions.find((opt) => opt.value === updateorder?.PaymentStatus) || null}
+            value={paymentOptions.find((opt) => opt.value === order?.PaymentStatus) || null}
             onChange={(selected: SingleValue<Type>) =>
-              setOrder((prev: Order) => ({...prev, payment: selected?.value || ''}))
+              setOrder((prev: Order) => ({...prev, PaymentStatus: selected?.value || ''}))
             }
             placeholder='Select Payment status'
           />
@@ -128,7 +91,7 @@ const PaymentInfo: React.FC<Props> = ({
       </div>
       <div className='text-end mt-3'>
         <button type='submit' className='btn btn-outline-success'>
-          update Order
+          {update ? 'update Order' : 'Add Order'}
         </button>
       </div>
     </React.Fragment>

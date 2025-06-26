@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom'
 import {Toolbar1} from '../../../_metronic/layout/components/toolbar/Toolbar1'
 import EmbellishmentModal from '../../modals/EmbellishmentModal'
 import Swal from 'sweetalert2'
+import {mockEmbellishments} from './mockEmbellishments'
 type Embellishment = {
   Id: number
   Name: string
@@ -19,80 +20,9 @@ const EmbellishmentPage: React.FC<Props> = ({className}) => {
   // Prepare options for CustomSelect
   const [updateEmbellishment, setUpdateEmbellishment] = useState<Embellishment>()
   const [showModal, setShowModal] = useState(false)
-  const allEmbellishments: Embellishment[] = [
-    {
-      Id: 1,
-      Name: 'Neck',
-      TypeName: 'Neck',
-      Description: 'Various neck styles',
-      SortNo: 1,
-    },
-    {
-      Id: 2,
-      Name: 'Sleeve',
-      TypeName: 'Sleeve',
-      Description: 'Different sleeve designs and lengths',
-      SortNo: 2,
-    },
-    {
-      Id: 3,
-      Name: 'Cuff',
-      TypeName: 'Cuff',
-      Description: 'Cuff designs and finishes',
-      SortNo: 3,
-    },
-    {
-      Id: 4,
-      Name: 'Hem',
-      TypeName: 'Hem',
-      Description: 'Styles for garment hems',
-      SortNo: 4,
-    },
-    {
-      Id: 5,
-      Name: 'Pocket',
-      TypeName: 'Pocket',
-      Description: 'Pocket designs and placements',
-      SortNo: 5,
-    },
-    {
-      Id: 6,
-      Name: 'Button',
-      TypeName: 'Button',
-      Description: 'Button styles and placements',
-      SortNo: 6,
-    },
-    {
-      Id: 7,
-      Name: 'Embroidery',
-      TypeName: 'Embroidery',
-      Description: 'Decorative embroidery work',
-      SortNo: 7,
-    },
-    {
-      Id: 8,
-      Name: 'Patch',
-      TypeName: 'Patch',
-      Description: 'Fabric patches for decoration',
-      SortNo: 8,
-    },
-    {
-      Id: 9,
-      Name: 'Beading',
-      TypeName: 'Beading',
-      Description: 'Beadwork for embellishment',
-      SortNo: 9,
-    },
-    {
-      Id: 10,
-      Name: 'Lace',
-      TypeName: 'Lace',
-      Description: 'Lace detailing and borders',
-      SortNo: 10,
-    },
-  ]
+  const allEmbellishments: Embellishment[] = mockEmbellishments
 
-  const [embellishment, setEmbellishment] = useState(allEmbellishments)
+  const [embellishment, setEmbellishment] = useState(mockEmbellishments)
 
   const search = (value: string) => {
     if (value.trim() === '') {

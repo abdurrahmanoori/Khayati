@@ -2,15 +2,7 @@ import * as React from 'react'
 import {useState, useEffect} from 'react'
 import {ReusableModal} from './reusableModal'
 import CustomFormLayout from '../components/CustomFormLayout'
-type Customer = {
-  Id: number
-  Name: string
-  Address: string
-  EmailAddress: string
-  NationalID: string
-  DateOfBirth: string
-  PhoneNumber: string
-}
+import {Customer} from '../types/commonTypes'
 
 type Props = {
   showModal: boolean

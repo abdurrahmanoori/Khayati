@@ -6,7 +6,7 @@ import {Link} from 'react-router-dom'
 import {Toolbar1} from '../../../_metronic/layout/components/toolbar/Toolbar1'
 import Swal from 'sweetalert2'
 import CustomerModal from '../../modals/CustomerModal'
-
+import {mockCustomers} from './mockCustomers'
 type Props = {
   className: string
 }
@@ -23,92 +23,7 @@ const CustomerPage: React.FC<Props> = ({className}) => {
     PhoneNumber: '',
   })
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const {name, value} = e.target
-    setCustomerUpdate((prev) => ({
-      ...prev,
-      [name]: value,
-    }))
-  }
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    // TODO: Submit form data to your API or backend here
-    console.log('Form submitted:', customerUpdate)
-  }
-
-  const [customers, setCustomer] = useState([
-    {
-      Id: 1,
-      Name: 'Abubakr',
-      Date: '2/20/2020',
-      Phone: '0747627648',
-      Email: 'abubakr.kaakar.2016@gmail.com',
-    },
-    {
-      Id: 2,
-      Name: 'Ahmad',
-      Date: '3/15/2021',
-      Phone: '0747123456',
-      Email: 'ahmad@example.com',
-    },
-    {
-      Id: 3,
-      Name: 'Fatima',
-      Date: '5/10/2022',
-      Phone: '0747987654',
-      Email: 'fatima@example.com',
-    },
-    {
-      Id: 4,
-      Name: 'Zainab',
-      Date: '7/18/2020',
-      Phone: '0747888888',
-      Email: 'zainab@example.com',
-    },
-    {
-      Id: 5,
-      Name: 'Omar',
-      Date: '9/12/2023',
-      Phone: '0747555544',
-      Email: 'omar@example.com',
-    },
-    {
-      Id: 6,
-      Name: 'Yusuf',
-      Date: '11/25/2021',
-      Phone: '0747666777',
-      Email: 'yusuf@example.com',
-    },
-    {
-      Id: 7,
-      Name: 'Maryam',
-      Date: '1/8/2022',
-      Phone: '0747000011',
-      Email: 'maryam@example.com',
-    },
-    {
-      Id: 8,
-      Name: 'Ayesha',
-      Date: '6/3/2020',
-      Phone: '0747222233',
-      Email: 'ayesha@example.com',
-    },
-    {
-      Id: 9,
-      Name: 'Bilal',
-      Date: '10/30/2022',
-      Phone: '0747333444',
-      Email: 'bilal@example.com',
-    },
-    {
-      Id: 10,
-      Name: 'Sara',
-      Date: '12/12/2023',
-      Phone: '0747444555',
-      Email: 'sara@example.com',
-    },
-  ])
+  const [customers, setCustomer] = useState(mockCustomers)
   const [allCustomers, setAllCustomers] = useState(customers)
 
   const search = (value: string) => {

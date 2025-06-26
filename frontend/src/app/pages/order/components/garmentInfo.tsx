@@ -2,22 +2,7 @@ import * as React from 'react'
 import {useState, useEffect} from 'react'
 import CustomSelect from '../../../components/CustomSelect'
 import {SingleValue} from 'react-select'
-type Embellishment = {
-  type: string
-  name: string
-}
-type Type = {
-  label: string
-  value: string
-}
-type Garment = {
-  id: number
-  garment: string
-  fabric: string
-  color: string
-  isEmbellished: boolean
-  embellishments: Embellishment[]
-}
+import {Order, Embellishment, Garment, OptionType as Type} from '../../../types/commonTypes'
 type Props = {
   garments: Garment[]
   garmentOptions: Type[]
@@ -29,6 +14,7 @@ type Props = {
   embellishmentOptions: Type[]
   addEmbellishment: Function
   addGarment: Function
+  order?: Order
 }
 const GarmentInfo: React.FC<Props> = ({
   garments,
@@ -41,6 +27,7 @@ const GarmentInfo: React.FC<Props> = ({
   addEmbellishment,
   removeGarment,
   addGarment,
+  order,
 }) => {
   return (
     <React.Fragment>
