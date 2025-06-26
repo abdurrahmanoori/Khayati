@@ -1,7 +1,11 @@
-import React, {useState} from 'react'
+import React, {useState, FormEvent} from 'react'
+import CustomFormLayout from '../../components/CustomFormLayout'
 import {KTSVG} from '../../../_metronic/helpers'
 import {Link} from 'react-router-dom'
 import {Toolbar1} from '../../../_metronic/layout/components/toolbar/Toolbar1'
+import EmbellishmentTypeModal from '../../modals/EmbellishmentTypeModal'
+import Swal from 'sweetalert2'
+import {mockEmbellishmentTypes} from './mockEmbellishmentTypes'
 type EmbellishmentType = {
   Id: number
   Name: string
@@ -15,15 +19,9 @@ type Props = {
 
 const EmbellishmentTypePage: React.FC<Props> = ({className}) => {
   // Original full data
-  const allEmbellishmentTypes: EmbellishmentType[] = [
-    {
-      Id: 1,
-      Name: 'Neck',
-      SortValue: '54',
-      Description: 'Various neck styles',
-    },
-    // Add more if needed
-  ]
+  const [updateEmbellishmentType, setUpdateEmbellishmentType] = useState<EmbellishmentType>()
+  const [showModal, setShowModal] = useState(false)
+  const allEmbellishmentTypes: EmbellishmentType[] = mockEmbellishmentTypes
 
   const [embellishmentType, setEmbellishmentType] = useState(allEmbellishmentTypes)
 
@@ -38,11 +36,35 @@ const EmbellishmentTypePage: React.FC<Props> = ({className}) => {
     }
   }
   const handleDelete = (Id: number) => {
-    alert('Measurement with id ' + Id + 'is deleted')
+    Swal.fire({
+      title: 'Delete!',
+      text: 'Are you sure want to delete?',
+      icon: 'warning',
+      showCancelButton: true,
+      showCloseButton: true,
+      showConfirmButton: true,
+      confirmButtonText: 'Yes, Delete it!',
+    }).then((result) => {
+      if (result) {
+        const updatedTypes = allEmbellishmentTypes.filter((t) => t.Id != Id)
+        if (updatedTypes) {
+          setEmbellishmentType(updatedTypes)
+          Swal.fire({
+            title: 'Deleted Successfully!',
+            icon: 'success',
+            showConfirmButton: true,
+            timer: 2000,
+          })
+        }
+      }
+    })
   }
   const handleEdit = (Id: number) => {
-    console.log('Edit clicked for id:', Id)
-    alert('Measurement with id ' + Id + 'is edited')
+    const updateType = allEmbellishmentTypes.find((e) => e.Id === Id)
+    if (updateType) {
+      setUpdateEmbellishmentType(updateType)
+    }
+    setShowModal(true)
   }
   return (
     <>
@@ -148,7 +170,7 @@ const EmbellishmentTypePage: React.FC<Props> = ({className}) => {
                           className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
                           aria-label='Edit'
                           onClick={() => {
-                            handleEdit(index)
+                            handleEdit(c.Id)
                           }}
                         >
                           <KTSVG
@@ -161,7 +183,7 @@ const EmbellishmentTypePage: React.FC<Props> = ({className}) => {
                           className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm'
                           aria-label='Delete'
                           onClick={() => {
-                            handleDelete(index)
+                            handleDelete(c.Id)
                           }}
                         >
                           <KTSVG
@@ -182,6 +204,12 @@ const EmbellishmentTypePage: React.FC<Props> = ({className}) => {
         </div>
         {/* end::Body */}
       </div>
+      <EmbellishmentTypeModal
+        showModal={showModal}
+        setShowModal={() => setShowModal(false)}
+        update={true}
+        embellishmentType={updateEmbellishmentType}
+      />
     </>
   )
 }

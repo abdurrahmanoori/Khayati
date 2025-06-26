@@ -34,24 +34,28 @@ export function AsideMenuMain() {
         title='Customers'
         fontIcon='bi-person'
       />
-      <AsideMenuItem
-        to='/embellishmentType'
-        icon='/media/icons/duotune/art/art003.svg'
-        title='Embellishment Types'
-        fontIcon='bi-brush'
-      />
+      <AsideMenuItemWithSub to='' title='Embellishment' icon='/media/icons/duotune/art/art001.svg'>
+        <AsideMenuItem
+          to='/embellishment'
+          icon='/media/icons/duotune/art/art001.svg'
+          title='Embellishments'
+          fontIcon='bi-patch-check'
+        />
+        <AsideMenuItem
+          to='/embellishmentType'
+          icon='/media/icons/duotune/art/art003.svg'
+          title='Embellishment Types'
+          fontIcon='bi-brush'
+        />
+      </AsideMenuItemWithSub>
+
       <AsideMenuItem
         to='/measurement'
         icon='/media/icons/duotune/general/gen028.svg'
         title='Measurements'
         fontIcon='bi-rulers'
       />
-      <AsideMenuItem
-        to='/embellishment'
-        icon='/media/icons/duotune/art/art001.svg'
-        title='Embellishments'
-        fontIcon='bi-patch-check'
-      />
+
       <AsideMenuItem
         to=''
         icon='/media/icons/duotune/communication/com005.svg'

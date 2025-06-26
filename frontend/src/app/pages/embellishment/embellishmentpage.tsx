@@ -1,48 +1,61 @@
-import React, {useState} from 'react'
+import React, {useState, FormEvent} from 'react'
 import {KTSVG} from '../../../_metronic/helpers'
 import {Link} from 'react-router-dom'
 import {Toolbar1} from '../../../_metronic/layout/components/toolbar/Toolbar1'
+import EmbellishmentModal from '../../modals/EmbellishmentModal'
+import Swal from 'sweetalert2'
+import {mockEmbellishments} from './mockEmbellishments'
 type Embellishment = {
   Id: number
   Name: string
   TypeName: string
   Description: string
+  SortNo: number
 }
-
 type Props = {
   className: string
 }
 
 const EmbellishmentPage: React.FC<Props> = ({className}) => {
-  // Original full data
-  const allEmbellishmentTypes: Embellishment[] = [
-    {
-      Id: 1,
-      Name: 'Neck',
-      TypeName: 'Neck',
-      Description: 'Various neck styles',
-    },
-    // Add more if needed
-  ]
+  // Prepare options for CustomSelect
+  const [updateEmbellishment, setUpdateEmbellishment] = useState<Embellishment>()
+  const [showModal, setShowModal] = useState(false)
+  const allEmbellishments: Embellishment[] = mockEmbellishments
 
-  const [embellishmentType, setEmbellishmentType] = useState(allEmbellishmentTypes)
+  const [embellishment, setEmbellishment] = useState(mockEmbellishments)
 
   const search = (value: string) => {
     if (value.trim() === '') {
-      setEmbellishmentType(allEmbellishmentTypes)
+      setEmbellishment(allEmbellishments)
     } else {
-      const filtered = allEmbellishmentTypes.filter((c) =>
+      const filtered = allEmbellishments.filter((c) =>
         c.Name.toLowerCase().includes(value.toLowerCase())
       )
-      setEmbellishmentType(filtered)
+      setEmbellishment(filtered)
     }
   }
   const handleDelete = (Id: number) => {
-    alert('Measurement with id ' + Id + 'is deleted')
+    Swal.fire({
+      title: 'Are you sure you want delete?',
+      text: 'this type would be deleted!',
+      icon: 'warning',
+      showCancelButton: true,
+      cancelButtonText: 'Cancel',
+      showConfirmButton: true,
+      confirmButtonText: 'Yes, Delete it!',
+    }).then((result) => {
+      if (result) {
+        const updatedTypes = allEmbellishments.filter((t) => t.Id != Id)
+        setEmbellishment(updatedTypes)
+      }
+    })
   }
   const handleEdit = (Id: number) => {
-    console.log('Edit clicked for id:', Id)
-    alert('Measurement with id ' + Id + 'is edited')
+    const updateEmbellishment = allEmbellishments.find((t) => t.Id === Id)
+    if (updateEmbellishment) {
+      setUpdateEmbellishment(updateEmbellishment)
+    }
+    setShowModal(true)
   }
   return (
     <>
@@ -111,7 +124,7 @@ const EmbellishmentPage: React.FC<Props> = ({className}) => {
 
               {/* begin::Table body */}
               <tbody>
-                {embellishmentType.map((c, index) => (
+                {embellishment.map((c, index) => (
                   <tr key={c.Id}>
                     <td className='text-end'>
                       <div className='d-flex flex-column w-100 me-2'>
@@ -148,7 +161,7 @@ const EmbellishmentPage: React.FC<Props> = ({className}) => {
                           className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
                           aria-label='Edit'
                           onClick={() => {
-                            handleEdit(index)
+                            handleEdit(c.Id)
                           }}
                         >
                           <KTSVG
@@ -161,7 +174,7 @@ const EmbellishmentPage: React.FC<Props> = ({className}) => {
                           className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm'
                           aria-label='Delete'
                           onClick={() => {
-                            handleDelete(index)
+                            handleDelete(c.Id)
                           }}
                         >
                           <KTSVG
@@ -182,6 +195,12 @@ const EmbellishmentPage: React.FC<Props> = ({className}) => {
         </div>
         {/* end::Body */}
       </div>
+      <EmbellishmentModal
+        showModal={showModal}
+        setShowModal={() => setShowModal(false)}
+        update={true}
+        updateEmbellishment={updateEmbellishment}
+      />
     </>
   )
 }
