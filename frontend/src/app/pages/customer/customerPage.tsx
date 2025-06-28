@@ -1,87 +1,29 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
-// import {KTSVG, toAbsoluteUrl} from '../../../helpers'
 import {KTSVG, toAbsoluteUrl} from '../../../_metronic/helpers'
 import {useState} from 'react'
 import {Link} from 'react-router-dom'
 import {Toolbar1} from '../../../_metronic/layout/components/toolbar/Toolbar1'
+import Swal from 'sweetalert2'
+import CustomerModal from '../../modals/CustomerModal'
+import {mockCustomers} from './mockCustomers'
 type Props = {
   className: string
 }
 
 const CustomerPage: React.FC<Props> = ({className}) => {
-  const [customers, setCustomer] = useState([
-    {
-      Id: 1,
-      Name: 'Abubakr',
-      Date: '2/20/2020',
-      Phone: '0747627648',
-      Email: 'abubakr.kaakar.2016@gmail.com',
-    },
-    {
-      Id: 2,
-      Name: 'Ahmad',
-      Date: '3/15/2021',
-      Phone: '0747123456',
-      Email: 'ahmad@example.com',
-    },
-    {
-      Id: 3,
-      Name: 'Fatima',
-      Date: '5/10/2022',
-      Phone: '0747987654',
-      Email: 'fatima@example.com',
-    },
-    {
-      Id: 4,
-      Name: 'Zainab',
-      Date: '7/18/2020',
-      Phone: '0747888888',
-      Email: 'zainab@example.com',
-    },
-    {
-      Id: 5,
-      Name: 'Omar',
-      Date: '9/12/2023',
-      Phone: '0747555544',
-      Email: 'omar@example.com',
-    },
-    {
-      Id: 6,
-      Name: 'Yusuf',
-      Date: '11/25/2021',
-      Phone: '0747666777',
-      Email: 'yusuf@example.com',
-    },
-    {
-      Id: 7,
-      Name: 'Maryam',
-      Date: '1/8/2022',
-      Phone: '0747000011',
-      Email: 'maryam@example.com',
-    },
-    {
-      Id: 8,
-      Name: 'Ayesha',
-      Date: '6/3/2020',
-      Phone: '0747222233',
-      Email: 'ayesha@example.com',
-    },
-    {
-      Id: 9,
-      Name: 'Bilal',
-      Date: '10/30/2022',
-      Phone: '0747333444',
-      Email: 'bilal@example.com',
-    },
-    {
-      Id: 10,
-      Name: 'Sara',
-      Date: '12/12/2023',
-      Phone: '0747444555',
-      Email: 'sara@example.com',
-    },
-  ])
+  const [show, setShowModal] = useState(false)
+  const [customerUpdate, setCustomerUpdate] = useState({
+    Id: 0,
+    Name: '',
+    Address: '',
+    EmailAddress: '',
+    NationalID: '',
+    DateOfBirth: '',
+    PhoneNumber: '',
+  })
+
+  const [customers, setCustomer] = useState(mockCustomers)
   const [allCustomers, setAllCustomers] = useState(customers)
 
   const search = (value: string) => {
@@ -95,11 +37,41 @@ const CustomerPage: React.FC<Props> = ({className}) => {
     }
   }
   const handleDelete = (Id: number) => {
-    alert('Measurement with id ' + Id + 'is deleted')
+    Swal.fire({
+      title: 'Are you sure you want to delete?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'Cancel',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // If user confirmed deletion:
+        const updatedCustomers = customers.filter((c) => c.Id !== Id)
+        setCustomer(updatedCustomers)
+
+        Swal.fire('Deleted!', 'The customer has been deleted.', 'success')
+      }
+    })
   }
+
   const handleEdit = (Id: number) => {
-    console.log('Edit clicked for id:', Id)
-    alert('Measurement with id ' + Id + 'is edited')
+    const updatedCustomer = customers.find((c) => c.Id == Id)
+
+    if (!updatedCustomer) {
+      // Handle invalid index, e.g. return or show error
+      return
+    }
+
+    setCustomerUpdate({
+      Id: updatedCustomer.Id, // no ? because now we are sure updatedCustomer exists
+      Name: updatedCustomer.Name || '',
+      EmailAddress: updatedCustomer.Email || '',
+      DateOfBirth: updatedCustomer.Date || '',
+      PhoneNumber: updatedCustomer.Phone || '',
+      Address: 'Default', // if you have a real address, use it
+      NationalID: '54652154654', // or real value
+    })
+    setShowModal(true)
   }
 
   return (
@@ -217,7 +189,7 @@ const CustomerPage: React.FC<Props> = ({className}) => {
                           className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
                           aria-label='Edit'
                           onClick={() => {
-                            handleEdit(index)
+                            handleEdit(c.Id)
                           }}
                         >
                           <KTSVG
@@ -230,7 +202,7 @@ const CustomerPage: React.FC<Props> = ({className}) => {
                           className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm'
                           aria-label='Delete'
                           onClick={() => {
-                            handleDelete(index)
+                            handleDelete(c.Id)
                           }}
                         >
                           <KTSVG
@@ -252,6 +224,12 @@ const CustomerPage: React.FC<Props> = ({className}) => {
         </div>
         {/* begin::Body */}
       </div>
+      <CustomerModal
+        showModal={show}
+        setShowModal={setShowModal}
+        customerUpdate={customerUpdate}
+        setCustomerUpdate={setCustomerUpdate}
+      />
     </>
   )
 }
