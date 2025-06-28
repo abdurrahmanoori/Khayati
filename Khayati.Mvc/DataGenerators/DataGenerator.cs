@@ -16,9 +16,9 @@ namespace Khayati.Mvc.DataGenerators
                 .RuleFor(c => c.PhoneNumber, f => f.Phone.PhoneNumber())
                 .RuleFor(c => c.EmailAddress, f => f.Internet.Email())
                 .RuleFor(c => c.NationalID, f => f.Random.Replace("#####-######-###"))
-                .RuleFor(c => c.DateOfBirth, f => f.Date.Past(30, DateTime.Now.AddYears(-18)))
-                .RuleFor(c => c.CustomerSince, f => f.Date.Past(5))
-                .RuleFor(c => c.CustomerType, f => f.PickRandom(new[] { "Regular", "Premium", "VIP" }));
+                .RuleFor(c => c.DateOfBirth, f => f.Date.Past(30, DateTime.Now.AddYears(-18)));
+                //.RuleFor(c => c.CustomerSince, f => f.Date.Past(5))
+                //.RuleFor(c => c.CustomerType, f => f.PickRandom(new[] { "Regular", "Premium", "VIP" }));
 
             return customerFaker.Generate();
         }

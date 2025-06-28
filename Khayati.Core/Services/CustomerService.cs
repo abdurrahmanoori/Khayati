@@ -45,15 +45,16 @@ namespace Khayati.Service
             return Result<CustomerResponseDto>.SuccessResult(_mapper.Map<CustomerResponseDto>(entity));
         }
 
+
         public async Task<Result<List<CustomerResponseDto>>> GetCustomerList( )
         {
             var list = await _unitOfWork.CustomerRepository.GetAll(includeProperties: "Orders,Measurements,Relatives");
-            if (!list.Any()) return Result<List<CustomerResponseDto>>.EmptyResult(nameof(Customer));
 
+            if (!list.Any()) return Result<List<CustomerResponseDto>>.EmptyResult(nameof(Customer));
             return Result<List<CustomerResponseDto>>.SuccessResult(_mapper.Map<List<CustomerResponseDto>>(list));
         }
 
-        public async Task<Result<bool>> UpdateCustomer(int id, CustomerResponseDto dto)
+        public async Task<Result<bool>> UpdateCustomer(int id, CustomerAddDto dto)
         {
             var entity = await _unitOfWork.CustomerRepository.GetById(id);
             if (entity == null) return Result<bool>.NotFoundResult(id);

@@ -30,7 +30,7 @@ namespace Khayati.Api.Controllers
             HandleResultResponse(await _customerService.GetCustomerById(id));
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<bool>> Update(int id, CustomerResponseDto dto) =>
+        public async Task<ActionResult<bool>> Update(int id, CustomerAddDto dto) =>    
             HandleResultResponse(await _customerService.UpdateCustomer(id, dto));
 
         [HttpDelete("{id}")]

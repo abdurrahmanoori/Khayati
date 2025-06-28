@@ -18,7 +18,7 @@ namespace Khayati.Core.DTO.Measurements
         public int? Leg { get; set; }
         public int? FabricId { get; set; }
         public int CustomerId { get; set; }
-        public CustomerDto? Customer { get; set; }
+        //public CustomerDto? Customer { get; set; }
     }
 }
 
