@@ -2,6 +2,8 @@ import * as React from 'react'
 import {useState, useEffect} from 'react'
 import CustomFormLayout from '../../components/CustomFormLayout'
 import {Toolbar1} from '../../../_metronic/layout/components/toolbar/Toolbar1'
+import axios from 'axios'
+import Swal from 'sweetalert2'
 const CreateCustomer = () => {
   const [customerAdd, setCustomerAdd] = useState({
     Name: '',
@@ -10,6 +12,8 @@ const CreateCustomer = () => {
     NationalID: '',
     DateOfBirth: '',
     PhoneNumber: '',
+    CustomerSince: new Date().toISOString().split('T')[0], // Default to today's date
+    CustomerType: 'Individual', // Default type
   })
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -20,8 +24,39 @@ const CreateCustomer = () => {
     }))
   }
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    try {
+      const response = await axios.post('https://localhost:7016/api/customer/create', customerAdd)
+      if (response.status === 200) {
+        Swal.fire({
+          title: 'Success!',
+          text: 'Customer added successfully.',
+          icon: 'success',
+          confirmButtonText: 'OK',
+        })
+        // Optionally, reset the form or redirect the user
+        setCustomerAdd({
+          Name: '',
+          Address: '',
+          EmailAddress: '',
+          NationalID: '',
+          DateOfBirth: '',
+          PhoneNumber: '',
+          CustomerSince: new Date().toISOString().split('T')[0],
+          CustomerType: 'Individual',
+        })
+      } else {
+        Swal.fire({
+          title: 'Error!',
+          text: 'Failed to add customer. Please try again.',
+          icon: 'error',
+          confirmButtonText: 'OK',
+        })
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error)
+    }
     // TODO: Submit form data to your API or backend here
     console.log('Form submitted:', customerAdd)
   }

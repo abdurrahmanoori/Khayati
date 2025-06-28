@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
+
 namespace Khayati.Core.Extention
 {
     public static class ApplicationServiceRegistration
@@ -21,6 +22,7 @@ namespace Khayati.Core.Extention
             services.AddScoped<IOrderDesignService, OrderDesignService>();
             services.AddScoped<IPaymentService, PaymentService>();
             services.AddScoped<IMeasurementService, MeasurementService>();
+            
             // Optionally, you could use a connection string from configuration:
             // options.UseSqlite(configuration.GetConnectionString("SqlLiteCS"));
 
