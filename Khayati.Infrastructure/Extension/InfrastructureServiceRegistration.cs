@@ -45,7 +45,7 @@ namespace Khayati.Infrastructure.Extension
                 var databaseOptions = serviceProvider.GetService<IOptions<DatabaseOptions>>()!.Value;
                 var interceptor = serviceProvider.GetRequiredService<AuditInterceptor>();
 
-                options.UseLazyLoadingProxies();
+                //options.UseLazyLoadingProxies();
 
                 // Configure SQLite database context
                 options.UseSqlite($"Data Source={dbPath}",

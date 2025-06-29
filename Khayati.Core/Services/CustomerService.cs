@@ -4,6 +4,7 @@ using Khayati.ServiceContracts;
 using Khayati.Core.DTO;
 using RepositoryContracts.Base;
 using Khayati.Core.DTO.Customers;
+using Khayati.Core.Common.Response;
 
 namespace Khayati.Service
 {
@@ -17,70 +18,50 @@ namespace Khayati.Service
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-
-        public async Task<CustomerAddDto> AddCustomer(CustomerAddDto customerAddDto)
+        public async Task<Result<CustomerAddDto>> AddCustomer(CustomerAddDto dto)
         {
-            if (customerAddDto == null)
-            {
-                return null;
-            }
-            Customer customer = customerAddDto.ToCustomer();
-            await _unitOfWork.CustomerRepository.Add(customer);
-            await _unitOfWork.SaveChanges(CancellationToken.None);
-            return customerAddDto;
-
+            var entity = _mapper.Map<Customer>(dto);
+            await _unitOfWork.CustomerRepository.Add(entity);
+            await _unitOfWork.SaveChanges();
+            return Result<CustomerAddDto>.SuccessResult(_mapper.Map<CustomerAddDto>(entity));
         }
 
-        public async Task<CustomerResponseDto> DeleteCustomer(int? customerId)
+        public async Task<Result<bool>> DeleteCustomer(int id)
         {
-            if (!customerId.HasValue)
-            {
-                return null;
-            }
-            Customer? customer = await _unitOfWork.CustomerRepository.GetById((int)customerId);
-            if (customer == null)
-            {
-                return null;
-            }
-            await _unitOfWork.CustomerRepository.Remove(customer);
-            await _unitOfWork.SaveChanges(default);
+            var entity = await _unitOfWork.CustomerRepository.GetById(id);
+            if (entity == null) return Result<bool>.NotFoundResult(id);
 
-            return customer.ToCustomerResponseDto();
+            await _unitOfWork.CustomerRepository.Remove(entity);
+            await _unitOfWork.SaveChanges();
+            return Result<bool>.SuccessResult(true);
+        }
 
+        public async Task<Result<CustomerResponseDto>> GetCustomerById(int id)
+        {
+            var entity = await _unitOfWork.CustomerRepository
+                .GetFirstOrDefault(x => x.CustomerId == id, includeProperties: "Orders,Measurements,Relatives");
+            if (entity == null) return Result<CustomerResponseDto>.NotFoundResult(id);
+
+            return Result<CustomerResponseDto>.SuccessResult(_mapper.Map<CustomerResponseDto>(entity));
         }
 
 
-        public async Task<CustomerResponseDto> GetCustomerById(int? customerId)
+        public async Task<Result<List<CustomerResponseDto>>> GetCustomerList( )
         {
-            if (customerId == null || customerId == 0)
-            {
-                return null;
-            }
-            Customer customer = await _unitOfWork.CustomerRepository
-                .GetFirstOrDefault(x => x.CustomerId == customerId);
+            var list = await _unitOfWork.CustomerRepository.GetAll(includeProperties: "Orders,Measurements,Relatives");
 
-            CustomerResponseDto CustomerResponseDto = customer.ToCustomerResponseDto();
-            return CustomerResponseDto;
-
+            if (!list.Any()) return Result<List<CustomerResponseDto>>.EmptyResult(nameof(Customer));
+            return Result<List<CustomerResponseDto>>.SuccessResult(_mapper.Map<List<CustomerResponseDto>>(list));
         }
 
-        public async Task<IEnumerable<CustomerResponseDto>> GetCustomerList()
+        public async Task<Result<bool>> UpdateCustomer(int id, CustomerAddDto dto)
         {
-            IEnumerable<Customer> customers = await _unitOfWork.CustomerRepository
-                .GetAll(x=>x.IsDeleted == false, includeProperties: "Measurements");
-            if (customers is null)
-            {
-                return null;
-            }
+            var entity = await _unitOfWork.CustomerRepository.GetById(id);
+            if (entity == null) return Result<bool>.NotFoundResult(id);
 
-            var customerResponseDtos = _mapper.Map<IEnumerable<CustomerResponseDto>>(customers);
-
-            //IEnumerable<CustomerResponseDto> customerResponseDtos = customers
-            //    .Select(temp => temp.ToCustomerResponseDto());
-
-            return customerResponseDtos;
-
+            _mapper.Map(dto, entity);
+            await _unitOfWork.SaveChanges();
+            return Result<bool>.SuccessResult(true);
         }
-
     }
 }

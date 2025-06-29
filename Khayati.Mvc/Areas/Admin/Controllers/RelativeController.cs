@@ -29,7 +29,7 @@ public class RelativeController : Controller
     [HttpGet]
     public async Task<IActionResult> Create( )
     {
-        ViewBag.Customers = new SelectList(await _customerService.GetCustomerList(), nameof(CustomerResponseDto.CustomerId), nameof(CustomerResponseDto.Name));
+        ViewBag.Customers = new SelectList( _customerService.GetCustomerList().Result.Response, nameof(CustomerResponseDto.CustomerId), nameof(CustomerResponseDto.Name));
         return View();
     }
 
@@ -48,7 +48,7 @@ public class RelativeController : Controller
         {
             return NotFound();
         }
-        ViewBag.Customers = new SelectList(await _customerService.GetCustomerList(), nameof(CustomerResponseDto.CustomerId), nameof(CustomerResponseDto.Name));
+        ViewBag.Customers = new SelectList(_customerService.GetCustomerList().Result.Response, nameof(CustomerResponseDto.CustomerId), nameof(CustomerResponseDto.Name));
         return View(result.Response);
 
     }

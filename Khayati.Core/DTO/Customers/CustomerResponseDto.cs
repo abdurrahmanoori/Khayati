@@ -1,10 +1,4 @@
-﻿using Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mail;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Khayati.Core.DTO.Measurements;
 
 namespace Khayati.Core.DTO.Customers
 {
@@ -22,25 +16,25 @@ namespace Khayati.Core.DTO.Customers
         public DateTime CustomerSince { get; set; }
         public string CustomerType { get; set; }
 
-        public List<Measurement> Measurements { get; set; }
+        public List<MeasurementDto> Measurements { get; set; }
     }
 
-    public static class CustomerExtention
-    {
-        public static CustomerResponseDto ToCustomerResponseDto(this Customer customer)
-        {
-            return new CustomerResponseDto
-            {
-                CustomerId = customer.CustomerId,
-                Name = customer.Name,
-                Address = customer.Address,
-                PhoneNumber = customer.PhoneNumber,
-                //CustomerSince = customer.CustomerSince,
-                DateOfBirth = customer.DateOfBirth,
-                //CustomerType = customer.CustomerType,
-                NationalID = customer.NationalID,
-                EmailAddress = customer.EmailAddress
-            };
-        }
-    }
+    //public static class CustomerExtention
+    //{
+    //    public static CustomerResponseDto ToCustomerResponseDto(this Customer customer)
+    //    {
+    //        return new CustomerResponseDto
+    //        {
+    //            CustomerId = customer.CustomerId,
+    //            Name = customer.Name,
+    //            Address = customer.Address,
+    //            PhoneNumber = customer.PhoneNumber,
+    //            //CustomerSince = customer.CustomerSince,
+    //            DateOfBirth = customer.DateOfBirth,
+    //            //CustomerType = customer.CustomerType,
+    //            NationalID = customer.NationalID,
+    //            EmailAddress = customer.EmailAddress
+    //        };
+    //    }
+    //}
 }

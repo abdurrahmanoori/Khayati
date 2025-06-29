@@ -50,8 +50,8 @@
                 @foreach (var item in Model)
                 {
                     <tr class="table-row" onclick="redirectToEdit('@item.MeasurementId')">
-                        <td>@item.Customer?.Name</td>
-                        <td>@item.Customer?.LastName</td>
+                  @*       <td>@item.Customer?.Name</td>
+                        <td>@item.Customer?.LastName</td> *@
                         <td>@item.Chest</td>
                         <td>@item.ArmLength</td>
                         <td>

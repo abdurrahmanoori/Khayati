@@ -5,7 +5,6 @@ namespace RepositoryContracts
 {
     public interface ICustomerRepository : IGenericRepository<Customer>
     {
-        Task<Customer> GetByEmail(string email);
-
+      
     }
 }

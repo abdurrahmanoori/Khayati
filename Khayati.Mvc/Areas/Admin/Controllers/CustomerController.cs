@@ -21,7 +21,7 @@ public class CustomerController : Controller
 
     public async Task<IActionResult> Index()
     {
-        IEnumerable<CustomerResponseDto> results = await _customerService.GetCustomerList();
+        var results = await _customerService.GetCustomerList();
         return View(results);
     }
     [HttpGet]
@@ -49,7 +49,7 @@ public class CustomerController : Controller
         {
             return NotFound();
         }
-        ViewBag.Customers = new SelectList(await _customerService.GetCustomerList(), 
+        ViewBag.Customers = new SelectList( _customerService.GetCustomerList().Result.Response, 
             nameof(CustomerResponseDto.CustomerId), nameof(CustomerResponseDto.Name));
 
             //return View(result.Response);
