@@ -1,14 +1,30 @@
-# Metronic - Bootstrap 5 HTML, React, Angular, VueJS & Laravel Admin Dashboard Theme
+# Tailor Management System - React TypeScript Based
 
-- The current package includes the React version with Demo 1 only and other demos can be downloaded online from [Metronic Downloads](//devs.keenthemes.com/metronic)
+This project is a **Tailor Management System** built with **React** and **TypeScript**, designed to simplify and organize the daily operations of a tailoring business.
 
-- For a quick start please check [Online documentation page](//preview.keenthemes.com/metronic8/react/docs/)
+It offers a modern, responsive, and scalable web interface for managing customers, orders, measurements, fabrics, and alterations efficiently.
 
-- For any theme related questions please contact our [Theme Support](//keenthemes.com/support/)
+---
 
-- Using Metronic in a new project or for a new client? Purchase a new license https://1.envato.market/EA4JP or watch https://youtu.be/HJ3RNhoI24A to find out more information about licenses.
+## ✨ Features
 
-- Stay tuned for updates via [Twitter](//www.twitter.com/keenthemes) and [Instagram](//www.instagram.com/keenthemes) and
-  check our marketplace for more amazing products: [Keenthemes Marketplace](//keenthemes.com/)
+- ✅ **React + TypeScript** for strong typing and scalable architecture
+- ✅ Fully responsive and clean UI
+- ✅ Modular and maintainable codebase
+- ✅ Tailor-specific modules:
+  - Customer Management
+  - Measurement Tracking
+  - Order Management
+  - Fabric & Stock Management
+  - Alteration Tracking
+- ✅ Easy to extend and customize based on business needs
 
-Happy coding with Metronic!
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- **Node.js** (v14 or above recommended)
+- **npm** or **yarn**
+
