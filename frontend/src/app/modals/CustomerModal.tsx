@@ -1,5 +1,4 @@
 import * as React from 'react'
-import {useState, useEffect} from 'react'
 import {ReusableModal} from './reusableModal'
 import CustomFormLayout from '../components/CustomFormLayout'
 import {Customer} from '../types/commonTypes'
@@ -49,11 +48,11 @@ const CustomerModal: React.FC<Props> = ({
                 </label>
                 <input
                   id='Name'
-                  name='Name'
+                  name='name'
                   type='text'
                   className='form-control border-success-subtle'
                   placeholder='Enter your full name'
-                  value={customerUpdate.Name}
+                  value={customerUpdate.name}
                   onChange={handleChange}
                 />
               </div>,
@@ -64,11 +63,11 @@ const CustomerModal: React.FC<Props> = ({
                 </label>
                 <input
                   id='Address'
-                  name='Address'
+                  name='address'
                   type='text'
                   className='form-control border-success-subtle'
                   placeholder='Enter your address'
-                  value={customerUpdate.Address}
+                  value={customerUpdate.address}
                   onChange={handleChange}
                   required
                 />
@@ -82,11 +81,11 @@ const CustomerModal: React.FC<Props> = ({
                 </label>
                 <input
                   id='EmailAddress'
-                  name='EmailAddress'
+                  name='emailAddress'
                   type='email'
                   className='form-control border-success-subtle'
                   placeholder='Enter your email'
-                  value={customerUpdate.EmailAddress}
+                  value={customerUpdate.emailAddress}
                   onChange={handleChange}
                   required
                 />
@@ -98,11 +97,11 @@ const CustomerModal: React.FC<Props> = ({
                 </label>
                 <input
                   id='NationalID'
-                  name='NationalID'
+                  name='nationalID'
                   type='text'
                   className='form-control border-success-subtle'
                   placeholder='Enter your national ID'
-                  value={customerUpdate.NationalID}
+                  value={customerUpdate.nationalID}
                   onChange={handleChange}
                   required
                 />
@@ -116,10 +115,10 @@ const CustomerModal: React.FC<Props> = ({
                 </label>
                 <input
                   id='DateOfBirth'
-                  name='DateOfBirth'
+                  name='dateOfBirth'
                   type='date'
                   className='form-control border-success-subtle'
-                  value={customerUpdate.DateOfBirth}
+                  value={customerUpdate.dateOfBirth}
                   onChange={handleChange}
                   required
                 />
@@ -131,11 +130,11 @@ const CustomerModal: React.FC<Props> = ({
                 </label>
                 <input
                   id='PhoneNumber'
-                  name='PhoneNumber'
+                  name='phoneNumber'
                   type='tel'
                   className='form-control border-success-subtle'
                   placeholder='Enter your phone number'
-                  value={customerUpdate.PhoneNumber}
+                  value={customerUpdate.phoneNumber}
                   onChange={handleChange}
                   required
                 />

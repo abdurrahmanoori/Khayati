@@ -3,20 +3,24 @@ import CustomFormLayout from '../../components/CustomFormLayout'
 import CustomSelect from '../../components/CustomSelect'
 import {SingleValue} from 'react-select'
 import {Toolbar1} from '../../../_metronic/layout/components/toolbar/Toolbar1'
+import axios from 'axios'
+import Swal from 'sweetalert2'
 
 type EmbellishmentTypeForm = {
   Name: string
-  SortOrder: string
+  Cost: number
   Description: string
-  Type: string
+  EmbellishmentTypeId: number
+  IsAcitve: boolean
 }
 
 const CreateEmbellishmentPage: React.FC = () => {
   const [formData, setFormData] = useState<EmbellishmentTypeForm>({
     Name: '',
-    SortOrder: '',
+    Cost: 0,
     Description: '',
-    Type: '',
+    EmbellishmentTypeId: 0,
+    IsAcitve: true,
   })
 
   const types = ['Neck', 'Pocket', 'Dress', 'Pants']
@@ -31,10 +35,26 @@ const CreateEmbellishmentPage: React.FC = () => {
   }
 
   const handleSelectChange = (selected: SingleValue<{label: string; value: string}>) => {
-    setFormData({
-      ...formData,
-      Type: selected?.value || '',
-    })
+    if (selected?.value === 'Neck')
+      setFormData({
+        ...formData,
+        EmbellishmentTypeId: 1, // Assuming 1 is the ID for Neck
+      })
+    else if (selected?.value === 'Pocket')
+      setFormData({
+        ...formData,
+        EmbellishmentTypeId: 2, // Assuming 2 is the ID for Pocket
+      })
+    else if (selected?.value === 'Dress')
+      setFormData({
+        ...formData,
+        EmbellishmentTypeId: 3, // Assuming 3 is the ID for Dress
+      })
+    else if (selected?.value === 'Pants')
+      setFormData({
+        ...formData,
+        EmbellishmentTypeId: 4, // Assuming 4 is the ID for Pants
+      })
   }
 
   const validate = () => {
@@ -44,12 +64,30 @@ const CreateEmbellishmentPage: React.FC = () => {
     return newErrors
   }
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     const validationErrors = validate()
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors)
       return
+    }
+    const response = await axios.post('https://localhost:7016/api/embellishments', formData)
+    if (response.status === 200) {
+      // Handle success, e.g., show a success message or redirect
+      Swal.fire({
+        title: 'Success',
+        text: 'Embellishment created successfully!',
+        icon: 'success',
+        confirmButtonText: 'OK',
+      })
+    } else {
+      // Handle error, e.g., show an error message
+      Swal.fire({
+        title: 'Error',
+        text: 'Failed to create embellishment.',
+        icon: 'error',
+        confirmButtonText: 'OK',
+      })
     }
     setErrors({})
     // Submit logic here
@@ -57,7 +95,7 @@ const CreateEmbellishmentPage: React.FC = () => {
   }
 
   // Prepare options for CustomSelect
-  const typeOptions = types.map((t) => ({value: t, label: t}))
+  const typeOptions = types.map((t, id) => ({value: t, label: t}))
 
   return (
     <>
@@ -83,7 +121,7 @@ const CreateEmbellishmentPage: React.FC = () => {
                 className={`form-control border-primary border-2 ${
                   errors.Name ? 'is-invalid' : ''
                 }`}
-                placeholder='Enter design name'
+                placeholder='Enter Embellishment name'
                 value={formData.Name}
                 onChange={handleChange}
               />
@@ -92,15 +130,15 @@ const CreateEmbellishmentPage: React.FC = () => {
 
             <div key='sortorder' className='mb-3'>
               <label htmlFor='SortOrder' className='form-label'>
-                Number
+                Cost
               </label>
               <input
-                name='SortOrder'
-                id='SortOrder'
+                name='Cost'
+                id='Cost'
                 type='text'
                 className='form-control border-primary border-2'
-                placeholder='Enter number for sorting'
-                value={formData.SortOrder}
+                placeholder='Enter cost'
+                value={formData.Cost}
                 onChange={handleChange}
               />
             </div>,
@@ -113,7 +151,9 @@ const CreateEmbellishmentPage: React.FC = () => {
                 id='Type'
                 name='Type'
                 options={typeOptions}
-                value={typeOptions.find((opt) => opt.value === formData.Type) || null}
+                value={
+                  typeOptions.find((opt, id) => id + 1 === formData.EmbellishmentTypeId) || null
+                }
                 onChange={handleSelectChange}
                 placeholder='Select Type'
                 className='form-control border-primary border-2'

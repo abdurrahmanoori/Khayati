@@ -50,15 +50,17 @@ export const defaultOrder: Order = {
   description: '',
 }
 export type Customer = {
-  Id: number
-  Name: string
-  Address: string
-  EmailAddress: string
-  NationalID: string
-  DateOfBirth: string
-  PhoneNumber: string
+  customerId: number
+  name: string
+  address: string
+  emailAddress: string
+  nationalID: string
+  dateOfBirth: string
+  phoneNumber: string
+  customerType: string | null
+  customerSince: string
+  measurements: Measurement[]
 }
-
 export type Measurement = {
   ArmLength: string
   Chest: string

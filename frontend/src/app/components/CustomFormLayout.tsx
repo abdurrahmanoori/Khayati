@@ -18,7 +18,7 @@ const FormLayout: React.FC<FormLayoutProps> = ({
   submitLabel = 'Submit',
   submitClassName = 'btn btn-outline-success',
   containerClassName = 'container m-2 p-1',
-  cardClassName = 'card shadow-sm col-lg-12 m-3 mt-1',
+  cardClassName = 'card shadow-sm col-lg-8 m-3 mt-1',
   cardBodyClassName = 'card-body p-4',
 }) => {
   return (
