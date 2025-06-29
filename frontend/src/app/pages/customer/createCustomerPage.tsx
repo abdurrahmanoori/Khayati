@@ -2,6 +2,8 @@ import * as React from 'react'
 import {useState, useEffect} from 'react'
 import CustomFormLayout from '../../components/CustomFormLayout'
 import {Toolbar1} from '../../../_metronic/layout/components/toolbar/Toolbar1'
+import axios from 'axios'
+import Swal from 'sweetalert2'
 const CreateCustomer = () => {
   const [customerAdd, setCustomerAdd] = useState({
     Name: '',
@@ -10,6 +12,7 @@ const CreateCustomer = () => {
     NationalID: '',
     DateOfBirth: '',
     PhoneNumber: '',
+    CustomerType: 'Individual', // Default value
   })
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -20,11 +23,52 @@ const CreateCustomer = () => {
     }))
   }
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    // TODO: Submit form data to your API or backend here
-    console.log('Form submitted:', customerAdd)
+
+    try {
+      const response = await axios.post('https://localhost:7016/api/customer/create', customerAdd)
+
+      if (response.status === 200) {
+        Swal.fire({
+          title: 'Success',
+          text: 'Customer added successfully!',
+          icon: 'success',
+          confirmButtonText: 'OK',
+        })
+        setCustomerAdd({
+          Name: '',
+          Address: '',
+          EmailAddress: '',
+          NationalID: '',
+          DateOfBirth: '',
+          PhoneNumber: '',
+          CustomerType: 'Individual', // Reset to default value
+        })
+      }
+    } catch (error) {
+      console.error('Error adding customer:', error)
+      Swal.fire({
+        title: 'Error',
+        text: 'Failed to add customer.',
+        icon: 'error',
+        confirmButtonText: 'OK',
+      })
+    }
   }
+
+  useEffect(() => {
+    // Reset form on component mount
+    setCustomerAdd({
+      Name: '',
+      Address: '',
+      EmailAddress: '',
+      NationalID: '',
+      DateOfBirth: '',
+      PhoneNumber: '',
+      CustomerType: 'Individual', // Default value
+    })
+  }, [])
 
   return (
     <React.Fragment>
