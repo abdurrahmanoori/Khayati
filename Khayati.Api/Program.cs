@@ -53,6 +53,15 @@ builder.Services.AddHttpClient("ApiClient", client =>
 {
     client.BaseAddress = new Uri("https://localhost:7016");
 });
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowReactApp",
+        policy => policy
+            .WithOrigins("http://localhost:3011")
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials());
+});
 
 
 
@@ -75,6 +84,8 @@ else
 {
     // app.UseMiddleware<ExceptionMiddleware>();
 }
+app.UseCors("AllowReactApp");
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
