@@ -47,7 +47,7 @@ namespace Khayati.Service
 
         public async Task<Result<IEnumerable<EmellishmentResponseDetailsDto>>> GetEmbellishmentList()
         {
-            var entities = await _unitOfWork.EmbellishmentRepository.GetAll();
+            var entities = await _unitOfWork.EmbellishmentRepository.GetAll(includeProperties: "EmbellishmentType");
             if (!entities.Any()) return Result<IEnumerable<EmellishmentResponseDetailsDto>>.EmptyResult(nameof(Embellishment));
 
             return Result<IEnumerable<EmellishmentResponseDetailsDto>>.SuccessResult(_mapper.Map<IEnumerable<EmellishmentResponseDetailsDto>>(entities));
