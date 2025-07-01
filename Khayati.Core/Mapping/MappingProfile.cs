@@ -14,7 +14,7 @@ namespace Khayati.Core.Mapping
 {
     public class MappingProfile : Profile
     {
-        public MappingProfile( )
+        public MappingProfile()
         {
             CreateMap<Customer, CustomerResponseDto>();
             CreateMap<Customer, CustomerAddDto>().ReverseMap();
@@ -43,7 +43,7 @@ namespace Khayati.Core.Mapping
             CreateMap<Measurement, MeasurementAddDto>().ReverseMap();
             CreateMap<Measurement, MeasurementDto>().ReverseMap();
 
-            CreateMap<Payment,PaymentDto>().ReverseMap();
+            CreateMap<Payment, PaymentDto>().ReverseMap();
 
             // CreateMap<EmbellishmentType, EmbellishmentTypeResponseDto>();
 

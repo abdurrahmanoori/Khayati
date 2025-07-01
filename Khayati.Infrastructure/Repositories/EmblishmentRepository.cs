@@ -43,7 +43,7 @@ namespace Repositories
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<EmellishmentResponseDetailsDto>> GetEmellishmentResponseDetailList( )
+        public async Task<IEnumerable<EmellishmentResponseDetailsDto>> GetEmellishmentResponseDetailList()
         {
             var query = await (
                 from e in _dbcontext.Embellishment
@@ -52,9 +52,9 @@ namespace Repositories
                 select new EmellishmentResponseDetailsDto
                 {
                     EmbellishmentId = e.EmbellishmentId,
-                    EmbellishmentName = e.Name,
-                    EmbellishmentDescription = e.Description,
-                    EmbellishmentTypeName = et.Name,
+                    Name = e.Name,
+                    Description = e.Description,
+                    //EmbellishmentTypeName = et.Name,
                     Cost = e.Cost,
                 }).ToListAsync();
             return query;

@@ -1,5 +1,4 @@
-﻿using Entities;
-using Khayati.Core.DTO.EmbellishmentType;
+﻿using Khayati.Core.DTO.EmbellishmentType;
 using Khayati.ServiceContracts;
 using Microsoft.AspNetCore.Mvc;
 

@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Entities;
 using Khayati.Core.Common.Response;
-using Khayati.Core.DTO;
 using Khayati.Core.DTO.Embellishment;
 using Khayati.ServiceContracts;
 using RepositoryContracts.Base;
@@ -37,23 +36,23 @@ namespace Khayati.Service
             return Result<bool>.SuccessResult(true);
         }
 
-        public async Task<Result<EmbellishmentResponseDto>> GetEmbellishmentById(int id)
+        public async Task<Result<EmellishmentResponseDetailsDto>> GetEmbellishmentById(int id)
         {
-            var entity = await _unitOfWork.EmbellishmentRepository.GetFirstOrDefault(x => x.EmbellishmentId == id);
-            if (entity == null) return Result<EmbellishmentResponseDto>.NotFoundResult(id);
+            var entity = await _unitOfWork.EmbellishmentRepository.GetFirstOrDefault(x => x.EmbellishmentId == id, includeProperties: "EmbellishmentType");
+            if (entity == null) return Result<EmellishmentResponseDetailsDto>.NotFoundResult(id);
 
-            return Result<EmbellishmentResponseDto>.SuccessResult(_mapper.Map<EmbellishmentResponseDto>(entity));
+            return Result<EmellishmentResponseDetailsDto>.SuccessResult(_mapper.Map<EmellishmentResponseDetailsDto>(entity));
         }
 
         public async Task<Result<IEnumerable<EmellishmentResponseDetailsDto>>> GetEmbellishmentList()
         {
-            var entities = await _unitOfWork.EmbellishmentRepository.GetAll();
+            var entities = await _unitOfWork.EmbellishmentRepository.GetAll(includeProperties: "EmbellishmentType");
             if (!entities.Any()) return Result<IEnumerable<EmellishmentResponseDetailsDto>>.EmptyResult(nameof(Embellishment));
 
             return Result<IEnumerable<EmellishmentResponseDetailsDto>>.SuccessResult(_mapper.Map<IEnumerable<EmellishmentResponseDetailsDto>>(entities));
         }
 
-        public async Task<Result<bool>> UpdateEmbellishment(int id, EmbellishmentResponseDto dto)
+        public async Task<Result<bool>> UpdateEmbellishment(int id, EmbellishmentUpdateDto dto)
         {
             var entity = await _unitOfWork.EmbellishmentRepository.GetById(id);
             if (entity == null) return Result<bool>.NotFoundResult(id);

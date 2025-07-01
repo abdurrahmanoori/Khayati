@@ -1,6 +1,4 @@
 ﻿using FluentValidation;
-using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 
 public class ExceptionMiddleware

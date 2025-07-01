@@ -16,7 +16,7 @@ namespace Khayati.Mvc.Controllers
 
 
         public TestController(IEmbellishmentService embellishment,
-            ICustomerService customerService, 
+            ICustomerService customerService,
             ICurrentUser currentUser,
             IHttpClientFactory httpClientFactory)
         {
@@ -26,7 +26,7 @@ namespace Khayati.Mvc.Controllers
             _httpClient = httpClientFactory.CreateClient("ApiClient");
         }
 
-      
+
         [HttpGet("test")]
         public async Task<IActionResult> Get()
         {
@@ -41,7 +41,7 @@ namespace Khayati.Mvc.Controllers
             //var cusotmer = _customerService.GetCustomerList();
             //var e = await _embellishment.GetEmbellishmentDetails(1);
 
-            return Ok(await _currentUser.GetUserId(User));
+            return Ok(_currentUser.GetUserId());
         }
     }
 }

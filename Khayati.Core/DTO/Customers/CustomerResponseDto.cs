@@ -14,7 +14,7 @@ namespace Khayati.Core.DTO.Customers
         public DateTime DateOfBirth { get; set; }
         //public bool IsActive { get; set; }
         public DateTime CustomerSince { get; set; }
-        public string CustomerType { get; set; }
+        //public string CustomerType { get; set; }
 
         public List<MeasurementDto> Measurements { get; set; }
     }
