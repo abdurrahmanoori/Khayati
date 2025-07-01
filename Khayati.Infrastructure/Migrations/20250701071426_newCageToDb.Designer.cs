@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Khayati.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250618172848_addProInCus")]
-    partial class addProInCus
+    [Migration("20250701071426_newCageToDb")]
+    partial class newCageToDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
