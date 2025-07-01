@@ -1,9 +1,8 @@
-﻿using Khayati.ServiceContracts;
-using Khayati.Core.DTO;
+﻿using Khayati.Core.DTO.Customers;
+using Khayati.Mvc.ViewModel;
+using Khayati.ServiceContracts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Khayati.Core.DTO.Customers;
-using Khayati.Mvc.ViewModel;
 
 namespace Khayati.Mvc.Areas.Admin.Controllers;
 
@@ -24,14 +23,14 @@ public class CustomerController : Controller
         var results = await _customerService.GetCustomerList();
         return View(results);
     }
-    [HttpGet]
+    //[HttpGet]
     public IActionResult Create()
     {
         return View();
     }
 
 
-    [HttpPost]
+    //[HttpPost]
     public async Task<IActionResult> Create(CustomerAddVM customerAddVM)
     {
         var daata = HttpContext;
@@ -41,7 +40,7 @@ public class CustomerController : Controller
 
     }
 
-    [HttpGet]
+    //[HttpGet]
     public async Task<IActionResult> Edit(int id)
     {
         var result = await _customerService.GetCustomerById(id);
@@ -49,11 +48,11 @@ public class CustomerController : Controller
         {
             return NotFound();
         }
-        ViewBag.Customers = new SelectList( _customerService.GetCustomerList().Result.Response, 
+        ViewBag.Customers = new SelectList(_customerService.GetCustomerList().Result.Response,
             nameof(CustomerResponseDto.CustomerId), nameof(CustomerResponseDto.Name));
 
-            //return View(result.Response);
-            return View(result);
+        //return View(result.Response);
+        return View(result);
 
     }
 
@@ -69,7 +68,7 @@ public class CustomerController : Controller
     //    return RedirectToAction(nameof(Index));
     //}
 
-    [HttpDelete("api/Customer/delete")]
+    //[HttpDelete("api/Customer/delete")]
     public async Task<IActionResult> Delete(int id)
     {
         await _customerService.DeleteCustomer(id);

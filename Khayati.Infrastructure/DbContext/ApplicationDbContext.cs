@@ -1,5 +1,4 @@
-﻿using Khayati.Core.Common;
-using Khayati.Core.Domain.Entities;
+﻿using Khayati.Core.Domain.Entities;
 using Khayati.Core.Domain.UserServiceContracts;
 using Khayati.Infrastructure.DatabaseSeeders;
 using Khayati.Infrastructure.Identity.Entity;
@@ -34,8 +33,8 @@ namespace Entities.Data
             modelBuilder.Entity<Order>()
                 .Property(x => x.OrderPriority)
                 .HasConversion<string>();
-                
-            
+
+
 
             #region Seed Database
             CustomerSeed.DataSeed(modelBuilder);
@@ -56,37 +55,7 @@ namespace Entities.Data
             #endregion
 
         }
-        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
-        {
-            var entries = ChangeTracker.Entries<AuditableEntity>();
-            int? currentUserId = 1;// Convert.ToInt32(_httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier));
-            //_httpContextAccessor.HttpContext?.User?.Identity?.Name ?? "System"; // Replace with your user logic
 
-            foreach (var entry in entries)
-            {
-                switch (entry.State)
-                {
-                    case EntityState.Added:
-                        entry.Entity.CreatedAt = DateTime.UtcNow;
-                        entry.Entity.CreatedBy = currentUserId;
-                        break;
-
-                    case EntityState.Modified:
-                        entry.Entity.UpdatedAt = DateTime.UtcNow;
-                        entry.Entity.UpdatedBy = currentUserId;
-                        break;
-
-                    case EntityState.Deleted:
-                        entry.State = EntityState.Modified; // Soft-delete the entity
-                        entry.Entity.IsDeleted = true;
-                        entry.Entity.DeletedAt = DateTime.UtcNow;
-                        entry.Entity.DeletedBy = currentUserId;
-                        break;
-                }
-            }
-
-            return base.SaveChangesAsync(cancellationToken);
-        }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Measurement> Measurements { get; set; }
         public DbSet<OrderDesign> OrderDesigns { get; set; }
