@@ -58,13 +58,15 @@ const CustomerPage: React.FC<Props> = ({className}) => {
       showCancelButton: true,
       confirmButtonText: 'Yes, delete it!',
       cancelButtonText: 'Cancel',
-    }).then((result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
-        // If user confirmed deletion:
-        const updatedCustomers = customers.filter((c) => c.customerId !== Id)
-        setCustomer(updatedCustomers)
-
-        Swal.fire('Deleted!', 'The customer has been deleted.', 'success')
+        const response = await axios.delete(`https://localhost:7016/api/customer/${Id}`)
+        if (response.status === 200) {
+          fetchCustomers() // Refresh the customer list
+          Swal.fire('Deleted!', 'The customer has been deleted.', 'success')
+        } else {
+          Swal.fire('Error!', 'Failed to delete the customer.', 'error')
+        }
       }
     })
   }
@@ -185,9 +187,16 @@ const CustomerPage: React.FC<Props> = ({className}) => {
                     </td>
                     <td>
                       <span className='fw-semibold d-block fs-7'>
-                        {c.dateOfBirth ? new Date(c.dateOfBirth).toLocaleDateString() : 'N/A'}
+                        {c.dateOfBirth
+                          ? new Date(c.dateOfBirth).toLocaleDateString('en-US', {
+                              year: 'numeric',
+                              month: '2-digit',
+                              day: '2-digit',
+                            })
+                          : 'N/A'}
                       </span>
                     </td>
+
                     <td className='text-end'>
                       <div className='d-flex flex-column w-100 me-2'>
                         <div className='d-flex flex-stack mb-2'>

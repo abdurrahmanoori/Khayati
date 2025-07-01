@@ -2,7 +2,8 @@ import * as React from 'react'
 import {ReusableModal} from './reusableModal'
 import CustomFormLayout from '../components/CustomFormLayout'
 import {Customer} from '../types/commonTypes'
-
+import axios from 'axios'
+import Swal from 'sweetalert2'
 type Props = {
   showModal: boolean
   setShowModal: (val: boolean) => void
@@ -22,10 +23,28 @@ const CustomerModal: React.FC<Props> = ({
       [name]: value,
     })
   }
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    // TODO: Submit form data to your API or backend here
+    const result = await axios.put(
+      `https://localhost:7016/api/customer/${customerUpdate.customerId}`,
+      customerUpdate
+    )
+    if (result.status === 200) {
+      Swal.fire({
+        title: 'Success',
+        text: 'Customer updated successfully!',
+        icon: 'success',
+        confirmButtonText: 'OK',
+      })
+      setShowModal(false)
+    } else {
+      Swal.fire({
+        title: 'Error',
+        text: 'Failed to update customer.',
+        icon: 'error',
+        confirmButtonText: 'OK',
+      })
+    }
     console.log('Form submitted:', customerUpdate)
   }
 
@@ -118,7 +137,7 @@ const CustomerModal: React.FC<Props> = ({
                   name='dateOfBirth'
                   type='date'
                   className='form-control border-success-subtle'
-                  value={customerUpdate.dateOfBirth}
+                  value={customerUpdate.dateOfBirth ? customerUpdate.dateOfBirth.slice(0, 10) : ''}
                   onChange={handleChange}
                   required
                 />

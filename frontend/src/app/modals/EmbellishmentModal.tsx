@@ -10,11 +10,12 @@ type Props = {
   update?: boolean
 }
 type Embellishment = {
-  Id: number
-  Name: string
-  TypeName: string
-  Description: string
-  SortNo: number
+  embellishmentId: number
+  embellishmentName: string
+  embellishmentTypeName: string
+  embellishmentDescription: string
+  embellishmentTypeId?: number
+  Cost: number
 }
 type EmbellishmentTypeForm = {
   Name: string
@@ -29,11 +30,11 @@ const EmbellishmentModal: React.FC<Props> = ({
   update = false,
 }) => {
   const [formData, setFormData] = useState<Embellishment>({
-    Id: 0,
-    Name: '',
-    SortNo: 0,
-    Description: '',
-    TypeName: '',
+    embellishmentId: 0,
+    embellishmentName: '',
+    Cost: 0,
+    embellishmentDescription: '',
+    embellishmentTypeName: '',
   })
 
   useEffect(() => {
@@ -63,13 +64,13 @@ const EmbellishmentModal: React.FC<Props> = ({
   const handleSelectChange = (selected: SingleValue<{label: string; value: string}>) => {
     setFormData({
       ...formData,
-      TypeName: selected?.value || '',
+      embellishmentTypeName: selected?.value || '',
     })
   }
 
   const validate = () => {
     const newErrors: Partial<EmbellishmentTypeForm> = {}
-    if (!formData.Name.trim()) newErrors.Name = 'Name is required'
+    if (!formData.embellishmentName.trim()) newErrors.Name = 'Name is required'
     // add other validations as needed
     return newErrors
   }
@@ -116,7 +117,7 @@ const EmbellishmentModal: React.FC<Props> = ({
                     errors.Name ? 'is-invalid' : ''
                   }`}
                   placeholder='Enter design name'
-                  value={formData.Name}
+                  value={formData.embellishmentName}
                   onChange={handleChange}
                 />
                 {errors.Name && <div className='invalid-feedback'>{errors.Name}</div>}
@@ -132,7 +133,7 @@ const EmbellishmentModal: React.FC<Props> = ({
                   type='text'
                   className='form-control border-primary border-2'
                   placeholder='Enter number for sorting'
-                  value={formData.SortNo}
+                  value={formData.Cost}
                   onChange={handleChange}
                 />
               </div>,
@@ -145,7 +146,9 @@ const EmbellishmentModal: React.FC<Props> = ({
                   id='TypeName'
                   name='TypeName'
                   options={typeOptions}
-                  value={typeOptions.find((opt) => opt.value === formData.TypeName) || null}
+                  value={
+                    typeOptions.find((opt) => opt.value === formData.embellishmentTypeName) || null
+                  }
                   onChange={handleSelectChange}
                   placeholder='Select Type'
                   className='form-control border-primary border-2'
@@ -163,7 +166,7 @@ const EmbellishmentModal: React.FC<Props> = ({
                   className='form-control border-primary border-2'
                   rows={5}
                   placeholder='Enter description'
-                  value={formData.Description}
+                  value={formData.embellishmentDescription}
                   onChange={handleChange}
                 />
               </div>,
