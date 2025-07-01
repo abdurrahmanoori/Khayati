@@ -1,14 +1,27 @@
 export type OptionType = {value: string; label: string}
 
-export type Embellishment = {type: string; name: string}
-
 export type Garment = {
   id: number
   garment: string
   fabric: string
   color: string
   isEmbellished: boolean
-  embellishments: Embellishment[]
+  embellishments: {type: string; name: string}[]
+}
+export type EmbellishmentType = {
+  embellishmentTypeId: number
+  name: string
+  sortOrder: number
+  description: string
+}
+
+export type Embellishment = {
+  embellishmentId: number
+  name: string
+  embellishmentType: EmbellishmentType
+  description: string
+  embellishmentTypeId: number
+  cost: number
 }
 
 export type Order = {
@@ -52,6 +65,7 @@ export const defaultOrder: Order = {
 export type Customer = {
   customerId: number
   name: string
+  lastName: string
   address: string
   emailAddress: string
   nationalID: string

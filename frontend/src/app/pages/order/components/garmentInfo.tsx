@@ -2,7 +2,7 @@ import * as React from 'react'
 import {useState, useEffect} from 'react'
 import CustomSelect from '../../../components/CustomSelect'
 import {SingleValue} from 'react-select'
-import {Order, Embellishment, Garment, OptionType as Type} from '../../../types/commonTypes'
+import {Order, Garment, OptionType as Type} from '../../../types/commonTypes'
 type Props = {
   garments: Garment[]
   garmentOptions: Type[]

@@ -6,8 +6,7 @@ import {Toolbar1} from '../../../_metronic/layout/components/toolbar/Toolbar1'
 import CustomerInfo from './components/customerInfo'
 import GarmentInfo from './components/garmentInfo'
 import PaymentInfo from './components/paymentInfo'
-import {Link} from 'react-router-dom'
-import {OptionType, Embellishment, Garment, Order, defaultOrder} from '../../types/commonTypes'
+import {OptionType, Garment, Order, defaultOrder} from '../../types/commonTypes'
 import {
   customerOptions,
   priorityOptions,
