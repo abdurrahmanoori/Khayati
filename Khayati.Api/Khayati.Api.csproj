@@ -20,7 +20,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Khayati.Core\Khayati.Core.csproj" />
     <ProjectReference Include="..\Khayati.Infrastructure\Khayati.Infrastructure.csproj" />
-    <ProjectReference Include="..\Khayati.Mvc\Khayati.Mvc.csproj" />
   </ItemGroup>
 
   <ItemGroup>
