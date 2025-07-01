@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Entities;
 using Khayati.Core.Common.Response;
-using Khayati.Core.DTO;
 using Khayati.Core.DTO.Embellishment;
 using Khayati.ServiceContracts;
 using RepositoryContracts.Base;
@@ -53,7 +52,7 @@ namespace Khayati.Service
             return Result<IEnumerable<EmellishmentResponseDetailsDto>>.SuccessResult(_mapper.Map<IEnumerable<EmellishmentResponseDetailsDto>>(entities));
         }
 
-        public async Task<Result<bool>> UpdateEmbellishment(int id, EmbellishmentResponseDto dto)
+        public async Task<Result<bool>> UpdateEmbellishment(int id, EmbellishmentUpdateDto dto)
         {
             var entity = await _unitOfWork.EmbellishmentRepository.GetById(id);
             if (entity == null) return Result<bool>.NotFoundResult(id);

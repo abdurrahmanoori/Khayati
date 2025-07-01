@@ -1,5 +1,4 @@
-﻿using Khayati.Core.DTO;
-using Khayati.Core.DTO.Embellishment;
+﻿using Khayati.Core.DTO.Embellishment;
 using Khayati.ServiceContracts;
 using Microsoft.AspNetCore.Mvc;
 
@@ -34,7 +33,7 @@ namespace Khayati.Api.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<bool>> Update(int id, [FromBody] EmbellishmentResponseDto dto)
+        public async Task<ActionResult<bool>> Update(int id, [FromBody] EmbellishmentUpdateDto dto)
         {
             return HandleResultResponse(await _embellishmentService.UpdateEmbellishment(id, dto));
         }
