@@ -1,37 +1,52 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from 'react'
+import React, {useEffect} from 'react'
 import {KTSVG, toAbsoluteUrl} from '../../../_metronic/helpers'
 import {useState} from 'react'
 import {Link} from 'react-router-dom'
 import {Toolbar1} from '../../../_metronic/layout/components/toolbar/Toolbar1'
 import Swal from 'sweetalert2'
 import CustomerModal from '../../modals/CustomerModal'
-import {mockCustomers} from './mockCustomers'
+import {Customer} from '../../types/commonTypes'
+import axios from 'axios'
 type Props = {
   className: string
 }
 
 const CustomerPage: React.FC<Props> = ({className}) => {
   const [show, setShowModal] = useState(false)
-  const [customerUpdate, setCustomerUpdate] = useState({
-    Id: 0,
-    Name: '',
-    Address: '',
-    EmailAddress: '',
-    NationalID: '',
-    DateOfBirth: '',
-    PhoneNumber: '',
+  const [customerUpdate, setCustomerUpdate] = useState<Customer>({
+    customerId: 0,
+    name: '',
+    emailAddress: '',
+    dateOfBirth: '',
+    phoneNumber: '',
+    address: 'Default',
+    nationalID: '54652154654',
+    customerType: 'VIP',
+    customerSince: '2023-10-01',
+    measurements: [],
   })
 
-  const [customers, setCustomer] = useState(mockCustomers)
+  const [customers, setCustomer] = useState<Customer[]>([])
   const [allCustomers, setAllCustomers] = useState(customers)
+
+  const fetchCustomers = async () => {
+    const response = await axios.get('https://localhost:7016/api/customer')
+    if (response.status === 200) {
+      setCustomer(response.data)
+    }
+  }
+
+  useEffect(() => {
+    fetchCustomers()
+  }, [])
 
   const search = (value: string) => {
     if (value === '') {
       setCustomer(allCustomers)
     } else {
       const filteredcustomers = customers.filter((c) =>
-        c.Name.toLowerCase().includes(value.toLowerCase())
+        c.name.toLowerCase().includes(value.toLowerCase())
       )
       setCustomer(filteredcustomers)
     }
@@ -43,19 +58,21 @@ const CustomerPage: React.FC<Props> = ({className}) => {
       showCancelButton: true,
       confirmButtonText: 'Yes, delete it!',
       cancelButtonText: 'Cancel',
-    }).then((result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
-        // If user confirmed deletion:
-        const updatedCustomers = customers.filter((c) => c.Id !== Id)
-        setCustomer(updatedCustomers)
-
-        Swal.fire('Deleted!', 'The customer has been deleted.', 'success')
+        const response = await axios.delete(`https://localhost:7016/api/customer/${Id}`)
+        if (response.status === 200) {
+          fetchCustomers() // Refresh the customer list
+          Swal.fire('Deleted!', 'The customer has been deleted.', 'success')
+        } else {
+          Swal.fire('Error!', 'Failed to delete the customer.', 'error')
+        }
       }
     })
   }
 
   const handleEdit = (Id: number) => {
-    const updatedCustomer = customers.find((c) => c.Id == Id)
+    const updatedCustomer = customers.find((c) => c.customerId == Id)
 
     if (!updatedCustomer) {
       // Handle invalid index, e.g. return or show error
@@ -63,13 +80,16 @@ const CustomerPage: React.FC<Props> = ({className}) => {
     }
 
     setCustomerUpdate({
-      Id: updatedCustomer.Id, // no ? because now we are sure updatedCustomer exists
-      Name: updatedCustomer.Name || '',
-      EmailAddress: updatedCustomer.Email || '',
-      DateOfBirth: updatedCustomer.Date || '',
-      PhoneNumber: updatedCustomer.Phone || '',
-      Address: 'Default', // if you have a real address, use it
-      NationalID: '54652154654', // or real value
+      customerId: updatedCustomer.customerId, // no ? because now we are sure updatedCustomer exists
+      name: updatedCustomer.name || '',
+      emailAddress: updatedCustomer.emailAddress || '',
+      dateOfBirth: updatedCustomer.dateOfBirth || '',
+      phoneNumber: updatedCustomer.phoneNumber || '',
+      address: 'Default', // if you have a real address, use it
+      nationalID: '54652154654', // or real value
+      customerType: 'VIP', // or real value
+      customerSince: '2023-10-01', // or real value
+      measurements: [], // or real value
     })
     setShowModal(true)
   }
@@ -160,25 +180,34 @@ const CustomerPage: React.FC<Props> = ({className}) => {
                         </div>
                         <div className='d-flex justify-content-start flex-column'>
                           <a href='#' className='text-dark fw-bold text-hover-primary fs-6'>
-                            {c.Name}
+                            {c.name}
                           </a>
                         </div>
                       </div>
                     </td>
                     <td>
-                      <span className='fw-semibold d-block fs-7'>{c.Date}</span>
+                      <span className='fw-semibold d-block fs-7'>
+                        {c.dateOfBirth
+                          ? new Date(c.dateOfBirth).toLocaleDateString('en-US', {
+                              year: 'numeric',
+                              month: '2-digit',
+                              day: '2-digit',
+                            })
+                          : 'N/A'}
+                      </span>
                     </td>
+
                     <td className='text-end'>
                       <div className='d-flex flex-column w-100 me-2'>
                         <div className='d-flex flex-stack mb-2'>
-                          <span className=' me-2 fs-7 fw-semibold'>{c.Phone}</span>
+                          <span className=' me-2 fs-7 fw-semibold'>{c.phoneNumber}</span>
                         </div>
                       </div>
                     </td>
                     <td className='text-end'>
                       <div className='d-flex flex-column w-100 me-2'>
                         <div className='d-flex flex-stack mb-2'>
-                          <span className='me-2 fs-7 fw-semibold'>{c.Email}</span>
+                          <span className='me-2 fs-7 fw-semibold'>{c.emailAddress}</span>
                         </div>
                       </div>
                     </td>
@@ -189,7 +218,7 @@ const CustomerPage: React.FC<Props> = ({className}) => {
                           className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
                           aria-label='Edit'
                           onClick={() => {
-                            handleEdit(c.Id)
+                            handleEdit(c.customerId)
                           }}
                         >
                           <KTSVG
@@ -202,7 +231,7 @@ const CustomerPage: React.FC<Props> = ({className}) => {
                           className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm'
                           aria-label='Delete'
                           onClick={() => {
-                            handleDelete(c.Id)
+                            handleDelete(c.customerId)
                           }}
                         >
                           <KTSVG
@@ -227,7 +256,7 @@ const CustomerPage: React.FC<Props> = ({className}) => {
       <CustomerModal
         showModal={show}
         setShowModal={setShowModal}
-        customerUpdate={customerUpdate}
+        customerUpdate={customerUpdate!}
         setCustomerUpdate={setCustomerUpdate}
       />
     </>

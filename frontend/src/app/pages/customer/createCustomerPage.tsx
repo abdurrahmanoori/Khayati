@@ -12,7 +12,6 @@ const CreateCustomer = () => {
     NationalID: '',
     DateOfBirth: '',
     PhoneNumber: '',
-    CustomerType: 'Individual', // Default value
   })
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,7 +26,7 @@ const CreateCustomer = () => {
     e.preventDefault()
 
     try {
-      const response = await axios.post('https://localhost:7016/api/customer/create', customerAdd)
+      const response = await axios.post('https://localhost:7016/api/customer', customerAdd)
 
       if (response.status === 200) {
         Swal.fire({
@@ -43,7 +42,6 @@ const CreateCustomer = () => {
           NationalID: '',
           DateOfBirth: '',
           PhoneNumber: '',
-          CustomerType: 'Individual', // Reset to default value
         })
       }
     } catch (error) {
@@ -66,7 +64,6 @@ const CreateCustomer = () => {
       NationalID: '',
       DateOfBirth: '',
       PhoneNumber: '',
-      CustomerType: 'Individual', // Default value
     })
   }, [])
 

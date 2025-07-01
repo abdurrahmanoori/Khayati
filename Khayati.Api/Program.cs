@@ -64,9 +64,16 @@ builder.Services.AddCors(options =>
 });
 
 
-
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowReactApp",
+        policy => policy
+            .WithOrigins("http://localhost:3011")
+            .AllowAnyMethod()
+            .AllowAnyHeader());
+});
 
 builder.Services.ConfigureApplicationService(builder.Configuration);
 builder.Services.ConfigureInfrastructureService();
@@ -85,7 +92,6 @@ else
     // app.UseMiddleware<ExceptionMiddleware>();
 }
 app.UseCors("AllowReactApp");
-
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

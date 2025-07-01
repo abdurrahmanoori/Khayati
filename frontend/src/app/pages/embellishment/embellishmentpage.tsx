@@ -1,16 +1,18 @@
-import React, {useState, FormEvent} from 'react'
+import React, {useState, FormEvent, useEffect} from 'react'
 import {KTSVG} from '../../../_metronic/helpers'
 import {Link} from 'react-router-dom'
 import {Toolbar1} from '../../../_metronic/layout/components/toolbar/Toolbar1'
 import EmbellishmentModal from '../../modals/EmbellishmentModal'
+import axios from 'axios'
 import Swal from 'sweetalert2'
 import {mockEmbellishments} from './mockEmbellishments'
 type Embellishment = {
-  Id: number
-  Name: string
-  TypeName: string
-  Description: string
-  SortNo: number
+  embellishmentId: number
+  embellishmentName: string
+  embellishmentTypeName: string
+  embellishmentDescription: string
+  embellishmentTypeId: number
+  Cost: number
 }
 type Props = {
   className: string
@@ -29,7 +31,7 @@ const EmbellishmentPage: React.FC<Props> = ({className}) => {
       setEmbellishment(allEmbellishments)
     } else {
       const filtered = allEmbellishments.filter((c) =>
-        c.Name.toLowerCase().includes(value.toLowerCase())
+        c.embellishmentName.toLowerCase().includes(value.toLowerCase())
       )
       setEmbellishment(filtered)
     }
@@ -45,13 +47,26 @@ const EmbellishmentPage: React.FC<Props> = ({className}) => {
       confirmButtonText: 'Yes, Delete it!',
     }).then((result) => {
       if (result) {
-        const updatedTypes = allEmbellishments.filter((t) => t.Id != Id)
+        const updatedTypes = allEmbellishments.filter((t) => t.embellishmentId != Id)
         setEmbellishment(updatedTypes)
       }
     })
   }
+  const fetchEmbellishments = async () => {
+    try {
+      const response = await axios.get<Embellishment[]>('https://localhost:7016/api/embellishments')
+      if (response.status === 200) {
+        setEmbellishment(response.data)
+      }
+    } catch (error) {
+      console.error('Error fetching embellishments:', error)
+    }
+  }
+  useEffect(() => {
+    fetchEmbellishments()
+  }, [])
   const handleEdit = (Id: number) => {
-    const updateEmbellishment = allEmbellishments.find((t) => t.Id === Id)
+    const updateEmbellishment = allEmbellishments.find((t) => t.embellishmentId === Id)
     if (updateEmbellishment) {
       setUpdateEmbellishment(updateEmbellishment)
     }
@@ -125,32 +140,34 @@ const EmbellishmentPage: React.FC<Props> = ({className}) => {
               {/* begin::Table body */}
               <tbody>
                 {embellishment.map((c, index) => (
-                  <tr key={c.Id}>
+                  <tr key={c.embellishmentId}>
                     <td className='text-end'>
                       <div className='d-flex flex-column w-100 me-2'>
                         <div className='d-flex flex-stack mb-2'>
-                          <span className='me-2 fs-7 fw-semibold'>{c.Id}</span>
+                          <span className='me-2 fs-7 fw-semibold'>{c.embellishmentId}</span>
                         </div>
                       </div>
                     </td>
                     <td className='text-end'>
                       <div className='d-flex flex-column w-100 me-2'>
                         <div className='d-flex flex-stack mb-2'>
-                          <span className='me-2 fs-7 fw-semibold'>{c.Name}</span>
+                          <span className='me-2 fs-7 fw-semibold'>{c.embellishmentName}</span>
                         </div>
                       </div>
                     </td>
                     <td className='text-end'>
                       <div className='d-flex flex-column w-100 me-2'>
                         <div className='d-flex flex-stack mb-2'>
-                          <span className=' me-2 fs-7 fw-semibold'>{c.TypeName}</span>
+                          <span className=' me-2 fs-7 fw-semibold'>{c.embellishmentTypeName}</span>
                         </div>
                       </div>
                     </td>
                     <td className='text-end'>
                       <div className='d-flex flex-column w-100 me-2'>
                         <div className='d-flex flex-stack mb-2'>
-                          <span className='me-2 fs-7 fw-semibold'>{c.Description}</span>
+                          <span className='me-2 fs-7 fw-semibold'>
+                            {c.embellishmentDescription}
+                          </span>
                         </div>
                       </div>
                     </td>
@@ -161,7 +178,7 @@ const EmbellishmentPage: React.FC<Props> = ({className}) => {
                           className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
                           aria-label='Edit'
                           onClick={() => {
-                            handleEdit(c.Id)
+                            handleEdit(c.embellishmentId)
                           }}
                         >
                           <KTSVG
@@ -174,7 +191,7 @@ const EmbellishmentPage: React.FC<Props> = ({className}) => {
                           className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm'
                           aria-label='Delete'
                           onClick={() => {
-                            handleDelete(c.Id)
+                            handleDelete(c.embellishmentId)
                           }}
                         >
                           <KTSVG
