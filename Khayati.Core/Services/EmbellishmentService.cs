@@ -37,12 +37,12 @@ namespace Khayati.Service
             return Result<bool>.SuccessResult(true);
         }
 
-        public async Task<Result<EmbellishmentResponseDto>> GetEmbellishmentById(int id)
+        public async Task<Result<EmellishmentResponseDetailsDto>> GetEmbellishmentById(int id)
         {
-            var entity = await _unitOfWork.EmbellishmentRepository.GetFirstOrDefault(x => x.EmbellishmentId == id);
-            if (entity == null) return Result<EmbellishmentResponseDto>.NotFoundResult(id);
+            var entity = await _unitOfWork.EmbellishmentRepository.GetFirstOrDefault(x => x.EmbellishmentId == id, includeProperties: "EmbellishmentType");
+            if (entity == null) return Result<EmellishmentResponseDetailsDto>.NotFoundResult(id);
 
-            return Result<EmbellishmentResponseDto>.SuccessResult(_mapper.Map<EmbellishmentResponseDto>(entity));
+            return Result<EmellishmentResponseDetailsDto>.SuccessResult(_mapper.Map<EmellishmentResponseDetailsDto>(entity));
         }
 
         public async Task<Result<IEnumerable<EmellishmentResponseDetailsDto>>> GetEmbellishmentList()

@@ -8,7 +8,7 @@ namespace Khayati.ServiceContracts
     {
         Task<Result<EmbellishmentAddDto>> AddEmbellishment(EmbellishmentAddDto dto);
         Task<Result<bool>> UpdateEmbellishment(int id, EmbellishmentResponseDto dto);
-        Task<Result<EmbellishmentResponseDto>> GetEmbellishmentById(int id);
+        Task<Result<EmellishmentResponseDetailsDto>> GetEmbellishmentById(int id);
         Task<Result<IEnumerable<EmellishmentResponseDetailsDto>>> GetEmbellishmentList();
         Task<Result<bool>> DeleteEmbellishment(int id);
     }
