@@ -362,3 +362,6 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /Khayati.Mvc/Databases/mydatabase.db-shm
+/frontend/src/app/pages/customer/createCustomerPage.tsx
+/Khayati.Api/Program.cs
+/Khayati.Core/Domain/Entities/Customer.cs
