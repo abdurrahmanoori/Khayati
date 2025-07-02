@@ -85,7 +85,7 @@ namespace Khayati.Service
             return Result<IEnumerable<CustomerOrderResponseDto>>.SuccessResult(customerOrderList!);
         }
 
-        public async Task<decimal?>
+        public async Task<Result<decimal?>>
             CalculateTotalCost(int orderId)
         {
             var order = await _unitOfWork.OrderRepository.GetOrderWithDetailsAsync(orderId);
@@ -99,7 +99,7 @@ namespace Khayati.Service
             // Total cost calculation
             decimal? totalCost = measurementCost + designCost;
 
-            return totalCost;
+            return Result<decimal?>.SuccessResult(totalCost);
         }
 
         // Helper method to calculate measurement-based cost
