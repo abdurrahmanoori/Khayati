@@ -22,6 +22,7 @@ namespace Khayati.Core.Extention
             services.AddScoped<IOrderDesignService, OrderDesignService>();
             services.AddScoped<IPaymentService, PaymentService>();
             services.AddScoped<IMeasurementService, MeasurementService>();
+            services.AddScoped<IGarmentService, GarmentService>();
             
             // Optionally, you could use a connection string from configuration:
             // options.UseSqlite(configuration.GetConnectionString("SqlLiteCS"));

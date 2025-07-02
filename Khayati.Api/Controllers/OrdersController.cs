@@ -64,7 +64,7 @@ namespace Khayati.Api.Controllers
         //        //    var Orders = await _unitOfWork.OrderRepository.GetFirstOrDefault(x => x.OrdersId == id);
         //        //    if (Orders == null)
         //        //    {
-       //        //        return NotFound("There is no on by this Id.");
+       //        //        return NotFound("There is no on by this GarmentId.");
         //        //    }
         //        //    await _unitOfWork.OrderRepository.Update(Orders);
 

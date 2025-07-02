@@ -65,6 +65,7 @@ namespace Entities.Data
         public DbSet<EmbellishmentType> EmbellishmentTypes { get; set; }
         public DbSet<Translation> Translations { get; set; }
         public DbSet<Fabric> Fabrics { get; set; }
+        public DbSet<Garment> Garments { get; set; }
     }
 
 }
