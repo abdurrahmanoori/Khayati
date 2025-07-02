@@ -17,8 +17,13 @@ const CreateMeasurementPage = () => {
     trousers: '',
     Garment: '',
   })
-
+  const [fieldName, setFieldName] = useState('')
+  const [tempMeasurement, setTempMeasurement] = useState<Record<string, string>[]>([])
+  const AddNewField = (name: string) => {
+    setTempMeasurement((prev) => [...prev, {[name]: ''}])
+  }
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    setTempMeasurement([...tempMeasurement])
     const {name, value} = e.target
     setMeasurement((prev) => ({
       ...prev,
@@ -43,6 +48,57 @@ const CreateMeasurementPage = () => {
         onSubmit={handleSubmit}
         submitLabel='Save Measurement'
         rows={[
+          [
+            <div key='FieldName' className='mb-3'>
+              <label htmlFor='FieldName' className='form-label'>
+                Field Name:
+              </label>
+              <input
+                type='text'
+                id='FieldName'
+                name='FieldName'
+                className='form-control'
+                value={fieldName}
+                onChange={(e) => setFieldName(e.target.value)}
+              />
+              <button
+                type='button'
+                className='btn btn-primary mt-2'
+                onClick={() => AddNewField(fieldName)}
+              >
+                Add Field
+              </button>
+            </div>,
+            <div key='TempMeasurement' className='mb-3'>
+              <label htmlFor='TempMeasurement' className='form-label'>
+                Temporary Measurement:
+              </label>
+              {tempMeasurement.map((fieldObj, idx) => {
+                const key = Object.keys(fieldObj)[0]
+                return (
+                  <div key={key + idx} className='mb-3'>
+                    <label htmlFor={key} className='form-label'>
+                      {key}:
+                    </label>
+                    <input
+                      type='number'
+                      id={key}
+                      name={key}
+                      className='form-control'
+                      value={fieldObj[key]}
+                      onChange={(e) =>
+                        setTempMeasurement((prev) => {
+                          const updated = [...prev]
+                          updated[idx] = {[key]: e.target.value}
+                          return updated
+                        })
+                      }
+                    />
+                  </div>
+                )
+              })}
+            </div>,
+          ],
           [
             <div key='CustomerId' className='mb-3'>
               <label htmlFor='CustomerId' className='form-label'>

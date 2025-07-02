@@ -40,7 +40,7 @@ const CustomerPage: React.FC<Props> = ({className}) => {
 
   useEffect(() => {
     fetchCustomers()
-  }, [customers])
+  }, [])
 
   const search = (value: string) => {
     if (value === '') {
