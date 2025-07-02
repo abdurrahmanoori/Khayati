@@ -113,7 +113,7 @@ namespace Khayati.Service
 
             if (measurement == null) throw new Exception("Measurement not found");
 
-            return measurement.Cost ?? 0;
+            return default;
         }
 
         // Helper method to calculate embellishment cost

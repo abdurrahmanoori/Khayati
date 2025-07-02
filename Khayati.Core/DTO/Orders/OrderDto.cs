@@ -12,6 +12,7 @@ namespace Khayati.Core.DTO.Orders
         /// This property indicates when the tailor is expected to complete the sewing.
         /// </summary>
         public DateTime? ExpectedCompletionDate { get; set; }
+        public decimal? Cost { get; set; }
 
         public decimal? TotalCost { get; set; }
         public DateTime OrderDate { get; set; }
@@ -29,6 +30,6 @@ namespace Khayati.Core.DTO.Orders
         //public virtual ICollection<OrderDesign> OrderDesigns { get; set; }
 
 
-      
+
     }
 }

@@ -15,6 +15,10 @@ namespace Entities
         /// </summary>
         public DateTime? ExpectedCompletionDate { get; set; }
 
+        /// <summary>
+        /// The cost charged by the tailor for sewing the clothes.
+        /// </summary>
+        public decimal? Cost { get; set; }
         public decimal? TotalCost { get; set; }
         public DateTime OrderDate { get; set; }
 
@@ -26,7 +30,7 @@ namespace Entities
 
         public OrderStatus OrderStatus { get; set; }
 
-        public PaymentStatus PaymentStatus { get; set; } 
+        public PaymentStatus PaymentStatus { get; set; }
 
         public OrderPriority OrderPriority { get; set; } = OrderPriority.Normal;
 
@@ -35,12 +39,12 @@ namespace Entities
         public virtual ICollection<Payment>? Payments { get; set; }
         public virtual ICollection<OrderDesign> OrderDesigns { get; set; }
 
-        public void CalculateOrderStatus( )
+        public void CalculateOrderStatus()
         {
 
         }
 
-        public void CalculatePaymentStatus( )
+        public void CalculatePaymentStatus()
         {
             if (AmountPaid == 0)
             {
@@ -61,7 +65,7 @@ namespace Entities
             }
         }
 
-        public bool IsValidOrderForPayment( )
+        public bool IsValidOrderForPayment()
         {
             if (TotalCost == 0 && OrderStatus != OrderStatus.Completed)
                 return true;

@@ -1,28 +1,20 @@
 ﻿using Khayati.Core.Common;
 using Khayati.Core.Domain.Entities;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Entities
 {
     /// <summary>
     /// Represents the Measurements entity, responsible for storing and handling customer measurement details.
     /// </summary>
-    public class Measurement: AuditableEntity
+    public class Measurement : AuditableEntity
     {
         /// <summary>
         /// Unique identifier for the measurement.
         /// </summary>
         public int MeasurementId { get; set; }
-        /// <summary>
-        /// The cost charged by the tailor for sewing the clothes.
-        /// </summary>
-        public decimal? Cost { get; set; }
+
 
         /// <summary>
         /// Foreign key reference to the customer who owns the measurement.
@@ -70,7 +62,7 @@ namespace Entities
         /// </summary>
         public double Waist { get; set; }
 
-        
+
         /// <summary>
         /// Customer's trousers (تنبان) measurement.
         /// </summary>
@@ -81,7 +73,7 @@ namespace Entities
         /// </summary>
         public double Leg { get; set; }
 
-        [Required(AllowEmptyStrings =true)]
+        [Required(AllowEmptyStrings = true)]
         public int? FabricId { get; set; }
 
 
