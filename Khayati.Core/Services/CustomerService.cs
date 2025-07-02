@@ -18,12 +18,12 @@ namespace Khayati.Service
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-        public async Task<Result<CustomerAddDto>> AddCustomer(CustomerAddDto dto)
+        public async Task<Result<CustomerDto>> AddCustomer(CustomerAddDto dto)
         {
             var entity = _mapper.Map<Customer>(dto);
             await _unitOfWork.CustomerRepository.Add(entity);
             await _unitOfWork.SaveChanges();
-            return Result<CustomerAddDto>.SuccessResult(_mapper.Map<CustomerAddDto>(entity));
+            return Result<CustomerDto>.SuccessResult(_mapper.Map<CustomerDto>(entity));
         }
 
         public async Task<Result<bool>> DeleteCustomer(int id)
@@ -54,7 +54,7 @@ namespace Khayati.Service
             return Result<List<CustomerResponseDto>>.SuccessResult(_mapper.Map<List<CustomerResponseDto>>(list));
         }
 
-        public async Task<Result<bool>> UpdateCustomer(int id, CustomerAddDto dto)
+        public async Task<Result<bool>> UpdateCustomer(int id, CustomerDto dto)
         {
             var entity = await _unitOfWork.CustomerRepository.GetById(id);
             if (entity == null) return Result<bool>.NotFoundResult(id);

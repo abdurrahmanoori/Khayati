@@ -21,13 +21,9 @@ namespace Khayati.Api.Controllers
             _paymentService = paymentService;
         }
 
-        [HttpPost("Api/Create")]
+        [HttpPost]
         public async Task<IActionResult> Create(OrdersAddDto ordersAddDto)
         {
-
-
-
-
             //var customer = DataGenerator.GenerateCustomer();
             //var measurment = DataGenerator.GenerateMeasurement();
             //var order = DataGenerator.GenerateOrder();
@@ -38,14 +34,15 @@ namespace Khayati.Api.Controllers
 
         }
 
-        [HttpGet("getCustomerOrders{customerId}")]
+        [Route("/api/customers/{customerId}/orders")]
+        [HttpGet]
         public async Task<IActionResult> GetCustomerOrders(int customerId)
         {
             var result = await _orderService.GetOrdersByCustomerId(customerId);
             return Ok(result);
         }
 
-        [HttpGet("getTotalCost{orderId}")]
+        [HttpGet("{orderId}")]
         public async Task<IActionResult> GetTotalCost(int orderId)
         {
             var result = await _orderService.CalculateTotalCost(orderId);

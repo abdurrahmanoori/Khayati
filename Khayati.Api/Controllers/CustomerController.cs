@@ -18,7 +18,7 @@ namespace Khayati.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<CustomerAddDto>> Create(CustomerAddDto dto) =>
+        public async Task<ActionResult<CustomerDto>> Create(CustomerAddDto dto) =>
          HandleResultResponse(await _customerService.AddCustomer(dto));
 
         [HttpGet]
@@ -30,7 +30,7 @@ namespace Khayati.Api.Controllers
             HandleResultResponse(await _customerService.GetCustomerById(id));
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<bool>> Update(int id, CustomerAddDto dto) =>    
+        public async Task<ActionResult<bool>> Update(int id, CustomerDto dto) =>    
             HandleResultResponse(await _customerService.UpdateCustomer(id, dto));
 
         [HttpDelete("{id}")]
