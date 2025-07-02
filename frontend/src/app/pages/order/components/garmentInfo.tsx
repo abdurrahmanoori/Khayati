@@ -1,5 +1,4 @@
 import * as React from 'react'
-import {useState, useEffect} from 'react'
 import CustomSelect from '../../../components/CustomSelect'
 import {SingleValue} from 'react-select'
 import {Order, Garment, OptionType as Type} from '../../../types/commonTypes'

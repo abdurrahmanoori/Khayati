@@ -2,6 +2,7 @@ import * as React from 'react'
 import {useState} from 'react'
 import CustomFormLayout from '../../components/CustomFormLayout'
 import {Toolbar1} from '../../../_metronic/layout/components/toolbar/Toolbar1'
+import CustomSelect from '../../components/CustomSelect'
 const CreateMeasurementPage = () => {
   const [measurement, setMeasurement] = useState({
     ArmLength: '',
@@ -14,6 +15,7 @@ const CreateMeasurementPage = () => {
     ShoulderWidth: '',
     CustomerId: '',
     trousers: '',
+    Garment: '',
   })
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -41,6 +43,64 @@ const CreateMeasurementPage = () => {
         onSubmit={handleSubmit}
         submitLabel='Save Measurement'
         rows={[
+          [
+            <div key='CustomerId' className='mb-3'>
+              <label htmlFor='CustomerId' className='form-label'>
+                Customer:
+              </label>
+              <CustomSelect
+                id='CustomerId'
+                name='CustomerId'
+                className='form-control'
+                value={
+                  [
+                    {value: '', label: 'Select Customer'},
+                    {value: '1', label: 'John Doe'},
+                    {value: '2', label: 'Jane Smith'},
+                  ].find((option) => option.value === measurement.CustomerId) || null
+                }
+                onChange={(selected) => {
+                  setMeasurement((prev) => ({
+                    ...prev,
+                    CustomerId: selected ? selected.value : '',
+                  }))
+                }}
+                options={[
+                  {value: '', label: 'Select Customer'},
+                  {value: '1', label: 'John Doe'},
+                  {value: '2', label: 'Jane Smith'},
+                ]}
+              />
+            </div>,
+            <div key='Garment' className='mb-3'>
+              <label htmlFor='Garment' className='form-label'>
+                Garment:
+              </label>
+              <CustomSelect
+                id='Garment'
+                name='Garment'
+                className='form-control'
+                value={
+                  [
+                    {value: '', label: 'Select Garment'},
+                    {value: 'shirt', label: 'Shirt'},
+                    {value: 'trousers', label: 'Trousers'},
+                  ].find((option) => option.value === measurement.Garment) || null
+                }
+                onChange={(selected) => {
+                  setMeasurement((prev) => ({
+                    ...prev,
+                    Garment: selected ? selected.value : '',
+                  }))
+                }}
+                options={[
+                  {value: '', label: 'Select Garment'},
+                  {value: 'shirt', label: 'Shirt'},
+                  {value: 'trousers', label: 'Trousers'},
+                ]}
+              />
+            </div>,
+          ],
           [
             <div key='ArmLength' className='mb-3'>
               <label htmlFor='ArmLength' className='form-label'>
