@@ -5,6 +5,7 @@ using Khayati.Core.DTO;
 using Khayati.Core.DTO.Customers;
 using Khayati.Core.DTO.Embellishment;
 using Khayati.Core.DTO.EmbellishmentType;
+using Khayati.Core.DTO.Garments;
 using Khayati.Core.DTO.Measurements;
 using Khayati.Core.DTO.OrderDesign;
 using Khayati.Core.DTO.Payment;
@@ -44,6 +45,8 @@ namespace Khayati.Core.Mapping
             CreateMap<Measurement, MeasurementDto>().ReverseMap();
 
             CreateMap<Payment, PaymentDto>().ReverseMap();
+            CreateMap<Garment, GarmentDto>().ReverseMap();
+            CreateMap<Garment, GarmentAddDto>().ReverseMap();
 
             // CreateMap<EmbellishmentType, EmbellishmentTypeResponseDto>();
 
@@ -54,10 +57,10 @@ namespace Khayati.Core.Mapping
             //CreateMap<Doctor, DoctorDetailsDto>()
             //    .ForMember(dest => dest.ProvinceName, opt => opt.MapFrom(src => src.Province.Name))
             //    .ForMember(dest => dest.DistrictName, opt => opt.MapFrom(src => src.District.Name))
-            //    .ForMember(dest => dest.CurrentProvinceName, opt => opt.MapFrom(src => src.Province.Id == src.CurrentProvinceId ? src.Province.Name : ""))
-            //    .ForMember(dest => dest.CurrentDistrictName, opt => opt.MapFrom(src => src.District.Id == src.CurrentDistrictId ? "test": src.District.Name))
-            //    .ForMember(dest => dest.ProvinceId, opt => opt.MapFrom(src => src.Province.Id))
-            //    .ForMember(dest => dest.DistrictId, opt => opt.MapFrom(src => src.District.Id))
+            //    .ForMember(dest => dest.CurrentProvinceName, opt => opt.MapFrom(src => src.Province.GarmentId == src.CurrentProvinceId ? src.Province.Name : ""))
+            //    .ForMember(dest => dest.CurrentDistrictName, opt => opt.MapFrom(src => src.District.GarmentId == src.CurrentDistrictId ? "test": src.District.Name))
+            //    .ForMember(dest => dest.ProvinceId, opt => opt.MapFrom(src => src.Province.GarmentId))
+            //    .ForMember(dest => dest.DistrictId, opt => opt.MapFrom(src => src.District.GarmentId))
             //    .ForMember(dest => dest.CurrentProvinceId, opt => opt.MapFrom(src => src.CurrentProvinceId))
             //    .ForMember(dest => dest.CurrentDistrictId, opt => opt.MapFrom(src => src.CurrentDistrictId))
             //    .ReverseMap();

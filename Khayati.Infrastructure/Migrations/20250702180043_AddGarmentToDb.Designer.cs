@@ -3,6 +3,7 @@ using System;
 using Entities.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Khayati.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250702180043_AddGarmentToDb")]
+    partial class AddGarmentToDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.0");
@@ -297,10 +299,6 @@ namespace Khayati.Infrastructure.Migrations
                     b.Property<int?>("FabricId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("GarmentId")
-                        .IsRequired()
-                        .HasColumnType("INTEGER");
-
                     b.Property<double>("Height")
                         .HasColumnType("REAL");
 
@@ -336,8 +334,6 @@ namespace Khayati.Infrastructure.Migrations
                     b.HasIndex("CustomerId");
 
                     b.HasIndex("FabricId");
-
-                    b.HasIndex("GarmentId");
 
                     b.ToTable("Measurements");
                 });
@@ -845,17 +841,9 @@ namespace Khayati.Infrastructure.Migrations
                         .WithMany()
                         .HasForeignKey("FabricId");
 
-                    b.HasOne("Khayati.Core.Domain.Entities.Garment", "Garment")
-                        .WithMany("Measurements")
-                        .HasForeignKey("GarmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Customer");
 
                     b.Navigation("Fabric");
-
-                    b.Navigation("Garment");
                 });
 
             modelBuilder.Entity("Entities.Order", b =>
@@ -1003,11 +991,6 @@ namespace Khayati.Infrastructure.Migrations
                     b.Navigation("OrderDesigns");
 
                     b.Navigation("Payments");
-                });
-
-            modelBuilder.Entity("Khayati.Core.Domain.Entities.Garment", b =>
-                {
-                    b.Navigation("Measurements");
                 });
 #pragma warning restore 612, 618
         }

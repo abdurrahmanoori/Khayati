@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using Entities;
-using Khayati.ServiceContracts;
-using Khayati.Core.DTO;
-using RepositoryContracts.Base;
-using Khayati.Core.DTO.Customers;
 using Khayati.Core.Common.Response;
+using Khayati.Core.DTO;
+using Khayati.Core.DTO.Customers;
+using Khayati.ServiceContracts;
+using RepositoryContracts.Base;
 
 namespace Khayati.Service
 {
@@ -18,12 +18,12 @@ namespace Khayati.Service
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-        public async Task<Result<CustomerAddDto>> AddCustomer(CustomerAddDto dto)
+        public async Task<Result<CustomerDto>> AddCustomer(CustomerAddDto dto)
         {
             var entity = _mapper.Map<Customer>(dto);
             await _unitOfWork.CustomerRepository.Add(entity);
             await _unitOfWork.SaveChanges();
-            return Result<CustomerAddDto>.SuccessResult(_mapper.Map<CustomerAddDto>(entity));
+            return Result<CustomerDto>.SuccessResult(_mapper.Map<CustomerDto>(entity));
         }
 
         public async Task<Result<bool>> DeleteCustomer(int id)
@@ -39,22 +39,22 @@ namespace Khayati.Service
         public async Task<Result<CustomerResponseDto>> GetCustomerById(int id)
         {
             var entity = await _unitOfWork.CustomerRepository
-                .GetFirstOrDefault(x => x.CustomerId == id, includeProperties: "Orders,Measurements,Relatives");
+                .GetFirstOrDefault(x => x.CustomerId == id && !x.IsDeleted, includeProperties: "Measurements");
             if (entity == null) return Result<CustomerResponseDto>.NotFoundResult(id);
 
             return Result<CustomerResponseDto>.SuccessResult(_mapper.Map<CustomerResponseDto>(entity));
         }
 
 
-        public async Task<Result<List<CustomerResponseDto>>> GetCustomerList( )
+        public async Task<Result<List<CustomerResponseDto>>> GetCustomerList()
         {
-            var list = await _unitOfWork.CustomerRepository.GetAll(includeProperties: "Orders,Measurements,Relatives");
+            var list = await _unitOfWork.CustomerRepository.GetAll(x => !x.IsDeleted, includeProperties: "Measurements");
 
             if (!list.Any()) return Result<List<CustomerResponseDto>>.EmptyResult(nameof(Customer));
             return Result<List<CustomerResponseDto>>.SuccessResult(_mapper.Map<List<CustomerResponseDto>>(list));
         }
 
-        public async Task<Result<bool>> UpdateCustomer(int id, CustomerAddDto dto)
+        public async Task<Result<bool>> UpdateCustomer(int id, CustomerDto dto)
         {
             var entity = await _unitOfWork.CustomerRepository.GetById(id);
             if (entity == null) return Result<bool>.NotFoundResult(id);

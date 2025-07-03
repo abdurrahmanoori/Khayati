@@ -7,12 +7,12 @@ namespace Repositories.Base
     public class UnitOfWork : IUnitOfWork
     {
         private readonly ApplicationDbContext _db;
-        
+
 
         public UnitOfWork(ApplicationDbContext db)
         {
             _db = db;
-           //CustomerRepository = new CustomerRepository(db);
+            //CustomerRepository = new CustomerRepository(db);
             MeasurementRepository = new MeasurementRepository(db);
             //EmbellishmentTypeRepository = new EmbellishmentTypeRepository(db);
             EmbellishmentRepository = new EmbellishmentRepository(db);
@@ -20,26 +20,30 @@ namespace Repositories.Base
             OrderDesignRepository = new OrderDesignRepository(db);
             OrderRepository = new OrderRepository(db);
             PaymentRepository = new PaymentRepository(db);
-            
+
         }
 
         private ICustomerRepository _customerRepository;
+        private IGarmentRepository _garmentRepository;
         public IMeasurementRepository MeasurementRepository { get; private set; }
-         public IEmbellishmentRepository EmbellishmentRepository { get; private set; }
-         public IRelativeRepository RelativeRepository { get; private set; }
-         public IOrderDesignRepository OrderDesignRepository { get; private set; }
-         public IEmbellishmentTypeRepository _embellishmentTypeRepository { get; private set; }
-         public IOrderRepository OrderRepository { get; private set; }
-         public IPaymentRepository PaymentRepository { get; private set; }
-         
+        public IEmbellishmentRepository EmbellishmentRepository { get; private set; }
+        public IRelativeRepository RelativeRepository { get; private set; }
+        public IOrderDesignRepository OrderDesignRepository { get; private set; }
+        public IEmbellishmentTypeRepository _embellishmentTypeRepository { get; private set; }
+        public IOrderRepository OrderRepository { get; private set; }
+        public IPaymentRepository PaymentRepository { get; private set; }
+
         public IEmbellishmentTypeRepository EmbellishmentTypeRepository =>
             this._embellishmentTypeRepository ??= new EmbellishmentTypeRepository(_db);
 
         public ICustomerRepository CustomerRepository =>
-       _customerRepository ??= new CustomerRepository(_db);
+            _customerRepository ??= new CustomerRepository(_db);
+
+        public IGarmentRepository GarmentRepository =>
+            _garmentRepository ??= new GarmentRepository(_db);
 
 
-        public async Task SaveChanges(CancellationToken cancellationToken =default)
+        public async Task SaveChanges(CancellationToken cancellationToken = default)
         {
 
 

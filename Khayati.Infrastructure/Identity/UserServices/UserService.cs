@@ -74,7 +74,7 @@ namespace Khayati.Infrastructure.Identity.UserServices
         //{
         //    var claims = new List<Claim>
         //    {
-        //        new Claim(JwtRegisteredClaimNames.Sub, user.Id),
+        //        new Claim(JwtRegisteredClaimNames.Sub, user.GarmentId),
         //        new Claim(JwtRegisteredClaimNames.Email, user.Email),
         //        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
         //    };

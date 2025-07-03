@@ -63,7 +63,7 @@ namespace Khayati.Api.Controllers
         //    var Measurements = await _unitOfWork.MeasurementRepository.GetFirstOrDefault(x => x.MeasurementID == id);
         //    if (Measurements == null)
         //    {
-        //        return NotFound("There is no on by this Id.");
+        //        return NotFound("There is no on by this GarmentId.");
         //    }
         //    await _unitOfWork.MeasurementRepository.Update(Measurements);
 

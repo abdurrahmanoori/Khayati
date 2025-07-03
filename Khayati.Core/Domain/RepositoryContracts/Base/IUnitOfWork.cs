@@ -11,6 +11,7 @@
         IEmbellishmentTypeRepository EmbellishmentTypeRepository { get; }
         IOrderRepository OrderRepository { get; }
         IPaymentRepository PaymentRepository { get; }
+        IGarmentRepository GarmentRepository { get; }
 
         Task SaveChanges(CancellationToken cancellationToken= default);
     }

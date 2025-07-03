@@ -6,8 +6,8 @@ namespace Khayati.ServiceContracts
 {
     public interface ICustomerService
     {
-        Task<Result<CustomerAddDto>> AddCustomer(CustomerAddDto dto);
-        Task<Result<bool>> UpdateCustomer(int id, CustomerAddDto dto);
+        Task<Result<CustomerDto>> AddCustomer(CustomerAddDto dto);
+        Task<Result<bool>> UpdateCustomer(int id, CustomerDto dto);
         Task<Result<CustomerResponseDto>> GetCustomerById(int id);
         Task<Result<List<CustomerResponseDto>>> GetCustomerList( );
         Task<Result<bool>> DeleteCustomer(int id);
