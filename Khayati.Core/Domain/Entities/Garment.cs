@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Entities;
 
 namespace Khayati.Core.Domain.Entities
 {
@@ -13,5 +9,7 @@ namespace Khayati.Core.Domain.Entities
         public string Name { get; set; } = string.Empty;
 
         public int Cost { get; set; }
+
+        public ICollection<Measurement> Measurements { get; set; }
     }
 }

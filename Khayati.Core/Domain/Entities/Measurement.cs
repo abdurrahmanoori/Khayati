@@ -15,6 +15,7 @@ namespace Entities
         /// </summary>
         public int MeasurementId { get; set; }
 
+        public int? GarmentId { get; set; }
 
         /// <summary>
         /// Foreign key reference to the customer who owns the measurement.
@@ -91,5 +92,8 @@ namespace Entities
 
         [ForeignKey(nameof(FabricId))]
         public virtual Fabric Fabric { get; set; }
+
+        [ForeignKey(nameof(GarmentId))]
+        public Garment Garment { get; set; }
     }
 }
