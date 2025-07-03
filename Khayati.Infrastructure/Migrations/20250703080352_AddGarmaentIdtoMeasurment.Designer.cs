@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Khayati.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250703074226_AddGarmaentIdtoMeasurment")]
+    [Migration("20250703080352_AddGarmaentIdtoMeasurment")]
     partial class AddGarmaentIdtoMeasurment
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
