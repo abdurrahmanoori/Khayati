@@ -5,15 +5,7 @@ import {Toolbar1} from '../../../_metronic/layout/components/toolbar/Toolbar1'
 import EmbellishmentModal from '../../modals/EmbellishmentModal'
 import axios from 'axios'
 import Swal from 'sweetalert2'
-import {mockEmbellishments} from './mockEmbellishments'
-type Embellishment = {
-  embellishmentId: number
-  embellishmentName: string
-  embellishmentTypeName: string
-  embellishmentDescription: string
-  embellishmentTypeId: number
-  Cost: number
-}
+import {Embellishment} from '../../types/commonTypes'
 type Props = {
   className: string
 }
@@ -22,16 +14,16 @@ const EmbellishmentPage: React.FC<Props> = ({className}) => {
   // Prepare options for CustomSelect
   const [updateEmbellishment, setUpdateEmbellishment] = useState<Embellishment>()
   const [showModal, setShowModal] = useState(false)
-  const allEmbellishments: Embellishment[] = mockEmbellishments
+  const [allEmbellishments, setAllEmbellishment] = useState<Embellishment[]>([])
 
-  const [embellishment, setEmbellishment] = useState(mockEmbellishments)
+  const [embellishment, setEmbellishment] = useState<Embellishment[]>()
 
   const search = (value: string) => {
     if (value.trim() === '') {
       setEmbellishment(allEmbellishments)
     } else {
       const filtered = allEmbellishments.filter((c) =>
-        c.embellishmentName.toLowerCase().includes(value.toLowerCase())
+        c.name.toLowerCase().includes(value.toLowerCase())
       )
       setEmbellishment(filtered)
     }
@@ -45,8 +37,22 @@ const EmbellishmentPage: React.FC<Props> = ({className}) => {
       cancelButtonText: 'Cancel',
       showConfirmButton: true,
       confirmButtonText: 'Yes, Delete it!',
-    }).then((result) => {
+    }).then(async (result) => {
       if (result) {
+        const response = await axios.delete(`https://localhost:7016/api/embellishments/${Id}`)
+        if (response.status === 200) {
+          Swal.fire({
+            title: 'Deleted!',
+            text: 'Embellishment has been deleted.',
+            icon: 'success',
+          })
+        } else {
+          Swal.fire({
+            title: 'Error!',
+            text: 'There was an error deleting the embellishment.',
+            icon: 'error',
+          })
+        }
         const updatedTypes = allEmbellishments.filter((t) => t.embellishmentId != Id)
         setEmbellishment(updatedTypes)
       }
@@ -57,6 +63,7 @@ const EmbellishmentPage: React.FC<Props> = ({className}) => {
       const response = await axios.get<Embellishment[]>('https://localhost:7016/api/embellishments')
       if (response.status === 200) {
         setEmbellishment(response.data)
+        setAllEmbellishment(response.data)
       }
     } catch (error) {
       console.error('Error fetching embellishments:', error)
@@ -66,7 +73,7 @@ const EmbellishmentPage: React.FC<Props> = ({className}) => {
     fetchEmbellishments()
   }, [])
   const handleEdit = (Id: number) => {
-    const updateEmbellishment = allEmbellishments.find((t) => t.embellishmentId === Id)
+    const updateEmbellishment = embellishment?.find((t) => t.embellishmentId === Id)
     if (updateEmbellishment) {
       setUpdateEmbellishment(updateEmbellishment)
     }
@@ -132,6 +139,7 @@ const EmbellishmentPage: React.FC<Props> = ({className}) => {
                   <th className='min-w-150px'>Name</th>
                   <th className='min-w-140px'>Type Name</th>
                   <th className='min-w-120px'>Description</th>
+                  <th className='min-w-120px'>Cost</th>
                   <th className='min-w-100px text-end'>Actions</th>
                 </tr>
               </thead>
@@ -139,7 +147,7 @@ const EmbellishmentPage: React.FC<Props> = ({className}) => {
 
               {/* begin::Table body */}
               <tbody>
-                {embellishment.map((c, index) => (
+                {embellishment?.map((c, index) => (
                   <tr key={c.embellishmentId}>
                     <td className='text-end'>
                       <div className='d-flex flex-column w-100 me-2'>
@@ -151,23 +159,30 @@ const EmbellishmentPage: React.FC<Props> = ({className}) => {
                     <td className='text-end'>
                       <div className='d-flex flex-column w-100 me-2'>
                         <div className='d-flex flex-stack mb-2'>
-                          <span className='me-2 fs-7 fw-semibold'>{c.embellishmentName}</span>
+                          <span className='me-2 fs-7 fw-semibold'>{c.name}</span>
                         </div>
                       </div>
                     </td>
                     <td className='text-end'>
                       <div className='d-flex flex-column w-100 me-2'>
                         <div className='d-flex flex-stack mb-2'>
-                          <span className=' me-2 fs-7 fw-semibold'>{c.embellishmentTypeName}</span>
-                        </div>
-                      </div>
-                    </td>
-                    <td className='text-end'>
-                      <div className='d-flex flex-column w-100 me-2'>
-                        <div className='d-flex flex-stack mb-2'>
-                          <span className='me-2 fs-7 fw-semibold'>
-                            {c.embellishmentDescription}
+                          <span className=' me-2 fs-7 fw-semibold'>
+                            {c.embellishmentType?.name}
                           </span>
+                        </div>
+                      </div>
+                    </td>
+                    <td className='text-end'>
+                      <div className='d-flex flex-column w-100 me-2'>
+                        <div className='d-flex flex-stack mb-2'>
+                          <span className='me-2 fs-7 fw-semibold'>{c.description}</span>
+                        </div>
+                      </div>
+                    </td>
+                    <td className='text-end'>
+                      <div className='d-flex flex-column w-100 me-2'>
+                        <div className='d-flex flex-stack mb-2'>
+                          <span className='me-2 fs-7 fw-semibold'>{c.cost}</span>
                         </div>
                       </div>
                     </td>

@@ -35,7 +35,7 @@ namespace Khayati.Api.Controllers
 
         }
         [HttpDelete("{id}")]
-        public async Task<ActionResult<bool>> DeleteEmbellishmentType([FromQuery] int id)
+        public async Task<ActionResult<bool>> DeleteEmbellishmentType(int id)
         {
             return HandleResultResponse(await _embellishmentTypeService.DeleteEmbellishmentType(id));
 

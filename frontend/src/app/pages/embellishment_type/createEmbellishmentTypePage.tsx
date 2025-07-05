@@ -1,6 +1,8 @@
 import React, {useState, FormEvent} from 'react'
 import CustomFormLayout from '../../components/CustomFormLayout'
 import {Toolbar1} from '../../../_metronic/layout/components/toolbar/Toolbar1'
+import axios from 'axios'
+import Swal from 'sweetalert2'
 type EmbellishmentTypeForm = {
   Name: string
   SortOrder: string
@@ -29,7 +31,7 @@ const CreateEmbellishmentTypePage: React.FC = () => {
     return newErrors
   }
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     const validationErrors = validate()
     if (Object.keys(validationErrors).length > 0) {
@@ -37,6 +39,21 @@ const CreateEmbellishmentTypePage: React.FC = () => {
       return
     }
     setErrors({})
+    const response = await axios.post('https://localhost:7016/api/embellishmenttype', formData)
+    if (response.status === 200) {
+      Swal.fire({
+        title: 'Success!',
+        text: 'Embellishment type created successfully.',
+        icon: 'success',
+      })
+      setFormData({Name: '', SortOrder: '', Description: ''}) // Reset form
+    } else {
+      Swal.fire({
+        title: 'Error!',
+        text: 'Failed to create embellishment type.',
+        icon: 'error',
+      })
+    }
     // submit logic here
     console.log('Form submitted:', formData)
   }

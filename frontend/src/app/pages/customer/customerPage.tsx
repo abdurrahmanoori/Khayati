@@ -17,6 +17,7 @@ const CustomerPage: React.FC<Props> = ({className}) => {
   const [customerUpdate, setCustomerUpdate] = useState<Customer>({
     customerId: 0,
     name: '',
+    lastName: '',
     emailAddress: '',
     dateOfBirth: '',
     phoneNumber: '',
@@ -82,6 +83,7 @@ const CustomerPage: React.FC<Props> = ({className}) => {
     setCustomerUpdate({
       customerId: updatedCustomer.customerId, // no ? because now we are sure updatedCustomer exists
       name: updatedCustomer.name || '',
+      lastName: '',
       emailAddress: updatedCustomer.emailAddress || '',
       dateOfBirth: updatedCustomer.dateOfBirth || '',
       phoneNumber: updatedCustomer.phoneNumber || '',

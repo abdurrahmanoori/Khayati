@@ -25,27 +25,42 @@ const CustomerModal: React.FC<Props> = ({
   }
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const result = await axios.put(
-      `https://localhost:7016/api/customer/${customerUpdate.customerId}`,
-      customerUpdate
-    )
-    if (result.status === 200) {
-      Swal.fire({
-        title: 'Success',
-        text: 'Customer updated successfully!',
-        icon: 'success',
-        confirmButtonText: 'OK',
-      })
-      setShowModal(false)
-    } else {
+
+    const payload = {
+      customerId: customerUpdate.customerId,
+      name: customerUpdate.name,
+      lastName: customerUpdate.lastName,
+      address: customerUpdate.address,
+      emailAddress: customerUpdate.emailAddress,
+      nationalID: customerUpdate.nationalID,
+      dateOfBirth: customerUpdate.dateOfBirth,
+      phoneNumber: customerUpdate.phoneNumber,
+    }
+
+    try {
+      const result = await axios.put(
+        `https://localhost:7016/api/customer/${customerUpdate.customerId}`,
+        payload
+      )
+
+      if (result.status === 200) {
+        Swal.fire({
+          title: 'Success',
+          text: 'Customer updated successfully!',
+          icon: 'success',
+          confirmButtonText: 'OK',
+        })
+        setShowModal(false)
+      }
+    } catch (error) {
       Swal.fire({
         title: 'Error',
         text: 'Failed to update customer.',
         icon: 'error',
         confirmButtonText: 'OK',
       })
+      console.error('Update error:', error)
     }
-    console.log('Form submitted:', customerUpdate)
   }
 
   return (

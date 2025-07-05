@@ -3,6 +3,9 @@ import {ReusableModal} from './reusableModal'
 import CustomFormLayout from '../components/CustomFormLayout'
 import CustomSelect from '../components/CustomSelect'
 import {SingleValue} from 'react-select'
+import {EmbellishmentType} from '../types/commonTypes'
+import axios from 'axios'
+import Swal from 'sweetalert2'
 type Props = {
   showModal: boolean
   setShowModal: Function
@@ -11,11 +14,11 @@ type Props = {
 }
 type Embellishment = {
   embellishmentId: number
-  embellishmentName: string
-  embellishmentTypeName: string
-  embellishmentDescription: string
+  name: string
+  embellishmentType: EmbellishmentType
+  description: string
   embellishmentTypeId?: number
-  Cost: number
+  cost: number
 }
 type EmbellishmentTypeForm = {
   Name: string
@@ -31,15 +34,15 @@ const EmbellishmentModal: React.FC<Props> = ({
 }) => {
   const [formData, setFormData] = useState<Embellishment>({
     embellishmentId: 0,
-    embellishmentName: '',
-    Cost: 0,
-    embellishmentDescription: '',
-    embellishmentTypeName: '',
+    name: '',
+    cost: 0,
+    description: '',
+    embellishmentType: {embellishmentTypeId: 0, name: '', description: '', sortOrder: 0},
   })
 
   useEffect(() => {
     if (updateEmbellishment) setFormData(updateEmbellishment)
-  })
+  }, [updateEmbellishment])
   const types = [
     'Neck',
     'Pocket',
@@ -64,18 +67,20 @@ const EmbellishmentModal: React.FC<Props> = ({
   const handleSelectChange = (selected: SingleValue<{label: string; value: string}>) => {
     setFormData({
       ...formData,
-      embellishmentTypeName: selected?.value || '',
+      embellishmentType: selected
+        ? {embellishmentTypeId: 0, name: selected.value, description: '', sortOrder: 0}
+        : {embellishmentTypeId: 0, name: '', description: '', sortOrder: 0},
     })
   }
 
   const validate = () => {
     const newErrors: Partial<EmbellishmentTypeForm> = {}
-    if (!formData.embellishmentName.trim()) newErrors.Name = 'Name is required'
+    if (!formData.name.trim()) newErrors.Name = 'Name is required'
     // add other validations as needed
     return newErrors
   }
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     const validationErrors = validate()
     if (Object.keys(validationErrors).length > 0) {
@@ -83,6 +88,25 @@ const EmbellishmentModal: React.FC<Props> = ({
       return
     }
     setErrors({})
+    const response = await axios.put<Embellishment>(
+      `https://localhost:7016/api/embellishments/${formData.embellishmentId}`,
+      formData
+    )
+    if (response.status === 200) {
+      Swal.fire({
+        title: 'Success',
+        text: update ? 'Embellishment updated successfully' : 'Embellishment created successfully',
+        icon: 'success',
+      })
+      setShowModal(false)
+    } else {
+      Swal.fire({
+        title: 'Error',
+        text: 'Failed to save embellishment',
+        icon: 'error',
+      })
+    }
+
     // Submit logic here
     console.log('Form submitted', formData)
   }
@@ -110,14 +134,14 @@ const EmbellishmentModal: React.FC<Props> = ({
                   Name
                 </label>
                 <input
-                  name='Name'
-                  id='Name'
+                  name='name'
+                  id='name'
                   type='text'
                   className={`form-control border-primary border-2 ${
                     errors.Name ? 'is-invalid' : ''
                   }`}
                   placeholder='Enter design name'
-                  value={formData.embellishmentName}
+                  value={formData.name}
                   onChange={handleChange}
                 />
                 {errors.Name && <div className='invalid-feedback'>{errors.Name}</div>}
@@ -125,15 +149,15 @@ const EmbellishmentModal: React.FC<Props> = ({
 
               <div key='sortorder' className='mb-3'>
                 <label htmlFor='SortOrder' className='form-label'>
-                  Number
+                  Cost
                 </label>
                 <input
-                  name='SortNo'
-                  id='SortNo'
+                  name='cost'
+                  id='cost'
                   type='text'
                   className='form-control border-primary border-2'
-                  placeholder='Enter number for sorting'
-                  value={formData.Cost}
+                  placeholder='Enter cost'
+                  value={formData.cost}
                   onChange={handleChange}
                 />
               </div>,
@@ -147,7 +171,7 @@ const EmbellishmentModal: React.FC<Props> = ({
                   name='TypeName'
                   options={typeOptions}
                   value={
-                    typeOptions.find((opt) => opt.value === formData.embellishmentTypeName) || null
+                    typeOptions.find((opt) => opt.value === formData.embellishmentType.name) || null
                   }
                   onChange={handleSelectChange}
                   placeholder='Select Type'
@@ -161,12 +185,12 @@ const EmbellishmentModal: React.FC<Props> = ({
                   Description
                 </label>
                 <textarea
-                  name='Description'
-                  id='Description'
+                  name='description'
+                  id='description'
                   className='form-control border-primary border-2'
                   rows={5}
                   placeholder='Enter description'
-                  value={formData.embellishmentDescription}
+                  value={formData.description}
                   onChange={handleChange}
                 />
               </div>,
