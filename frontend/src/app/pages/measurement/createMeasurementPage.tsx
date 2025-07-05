@@ -114,7 +114,7 @@ const CreateMeasurementPage = () => {
               {tempMeasurement.length > 0 ? (
                 <div className='row mb-3 mt-3'>
                   <label htmlFor='TempMeasurement' className='form-label'>
-                    Temporary Measurement:
+                    Measurement:
                   </label>
                 </div>
               ) : (

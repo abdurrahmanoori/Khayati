@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from 'react'
-import {SingleValue} from 'react-select'
 import {ThemeModeComponent} from '../../../_metronic/assets/ts/layout'
-import CustomSelect from '../../components/CustomSelect'
 import {Toolbar1} from '../../../_metronic/layout/components/toolbar/Toolbar1'
+import axios from 'axios'
 import CustomerInfo from './components/customerInfo'
 import GarmentInfo from './components/garmentInfo'
 import PaymentInfo from './components/paymentInfo'
@@ -72,7 +71,30 @@ const CreateOrderPage = () => {
   ]
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    console.log('Order submitted:', order)
+    const orderData = {
+      customerId: order.CustomerName,
+      orderDate: new Date().toISOString(),
+      expectedCompletionDate: order.DeliveryDate,
+      orderStatus: order.OrderStatus,
+      paymentStatus: order.PaymentStatus,
+      totalCost: order.TotalCost,
+      isPaid: order.PaidAmount > 0,
+      cost: order.TotalCost,
+      orderPriority: order.orderPriority,
+      orderDesigns: garments.map((g) => ({
+        DesignId: g.id,
+        FabricId: g.fabric,
+        CustomerId: order.CustomerName,
+        OrderId: order.OrderId,
+        Details: g.garment,
+        MeasurementId: 0, // Assuming MeasurementId is not used here
+        EmbellishmentId: g.isEmbellished ? g.embellishments.map((e) => e.name).join(', ') : '',
+      })),
+      note: order.description,
+      Payments: [
+        {amount: order.TotalCost, paymentDate: new Date().toISOString(), orderId: order.OrderId},
+      ],
+    }
   }
   return (
     <>

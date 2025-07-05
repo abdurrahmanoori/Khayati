@@ -8,6 +8,15 @@ export type Garment = {
   isEmbellished: boolean
   embellishments: {type: string; name: string}[]
 }
+export type OrderDesign = {
+  DesignId: number
+  FabricId: number
+  CustomerId: number
+  OrderId: number
+  Details: string
+  MeasurementId: number
+  EmbellishmentId: number
+}
 export type EmbellishmentType = {
   embellishmentTypeId: number
   name: string
@@ -62,6 +71,7 @@ export const defaultOrder: Order = {
   payment: '',
   description: '',
 }
+
 export type Customer = {
   customerId: number
   name: string

@@ -20,6 +20,7 @@ namespace Entities
         /// customizations applied, a CostAtTimeOfOrder field in the OrderDesigns table is useful. 
         /// This allows for flexibility in pricing models where designs might have additional costs.
         /// </summary>
+        /// 
         public decimal? CostAtTimeOfOrder { get; set; }
         /// <summary>
         /// You could add a foreign key to MeasurementId if each design
@@ -27,10 +28,8 @@ namespace Entities
         /// </summary>
         public int? MeasurementId { get; set; }
         public int? EmbellishmentId { get; set; }
-
         public string? Notes { get; set; }
-
-
+      
         [ForeignKey(nameof(CustomerId))]
         public virtual Customer? Customer { get; set; }
         //public Measurements Measurements { get; set; }
