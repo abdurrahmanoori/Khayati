@@ -1,10 +1,10 @@
-﻿using Entities;
-
-namespace Khayati.Core.DTO.Measurements
+﻿namespace Khayati.Core.DTO.Measurements
 {
     public class MeasurementAddDto
     {
         //public int CustomerId { get; set; }
+        public int GarmentId { get; set; }
+
         public int Height { get; set; }
         public int Chest { get; set; }
         public int Waist { get; set; }

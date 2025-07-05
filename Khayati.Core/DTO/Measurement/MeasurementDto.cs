@@ -1,10 +1,10 @@
-﻿using Khayati.Core.DTO.Customers;
-
-namespace Khayati.Core.DTO.Measurements
+﻿namespace Khayati.Core.DTO.Measurements
 {
     public class MeasurementDto
     {
         public int MeasurementId { get; set; }
+        public int GarmentId { get; set; }
+
         public int? Cost { get; set; }
         // public DateTime DateTaken { get; set; }
         public int? Height { get; set; }
