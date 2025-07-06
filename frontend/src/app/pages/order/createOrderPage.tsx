@@ -5,9 +5,16 @@ import axios from 'axios'
 import CustomerInfo from './components/customerInfo'
 import GarmentInfo from './components/garmentInfo'
 import PaymentInfo from './components/paymentInfo'
-import {OptionType, Garment, Order, defaultOrder} from '../../types/commonTypes'
+import Swal from 'sweetalert2'
 import {
-  customerOptions,
+  OptionType,
+  Garment,
+  Order,
+  defaultOrder,
+  Customer,
+  Embellishment,
+} from '../../types/commonTypes'
+import {
   priorityOptions,
   paymentOptions,
   garmentOptions,
@@ -28,6 +35,78 @@ const CreateOrderPage = () => {
       embellishments: [{type: '', name: ''}],
     },
   ])
+  const [embellishments, setEmbellishments] = useState<Embellishment[]>([])
+  const [customerOptions, setCustomerOptions] = useState<OptionType[]>([])
+  const [Customers, setCustomers] = useState<Customer[]>([])
+  const [embellishmentOptions, setEmbellishmentOptions] = useState<OptionType[]>([])
+  const [embellishmentTypeOptions, setEmbellishmentTypeOptions] = useState<OptionType[]>([])
+  const fetchCustomers = async () => {
+    try {
+      const response = await axios.get('https://localhost:7016/api/customer')
+      if (response.status === 200) {
+        setCustomers(response.data)
+        const options = response.data.map((customer: Customer) => ({
+          value: customer.customerId,
+          label: `${customer.name}`,
+        }))
+        setCustomerOptions(options)
+      }
+    } catch (error) {
+      console.error('Error fetching customers:', error)
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Failed to fetch customers. Please try again later.',
+      })
+    }
+  }
+  const fetchEmbellishments = async () => {
+    try {
+      const response = await axios.get('https://localhost:7016/api/embellishments')
+      if (response.status === 200) {
+        setEmbellishments(response.data)
+        setEmbellishmentOptions(
+          response.data.map((embellishment: any) => ({
+            value: embellishment.embellishmentId,
+            label: `${embellishment.name}`,
+          }))
+        )
+      }
+    } catch (error) {
+      console.error('Error fetching embellishments:', error)
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Failed to fetch embellishments. Please try again later.',
+      })
+    }
+  }
+  const fetchEmbellishmentTypes = async () => {
+    try {
+      const response = await axios.get('https://localhost:7016/api/embellishmenttype')
+      if (response.status === 200) {
+        setEmbellishmentTypeOptions(
+          response.data.map((type: any) => ({
+            value: type.embellishmentTypeId,
+            label: `${type.name}`,
+          }))
+        )
+      }
+    } catch (error) {
+      console.error('Error fetching embellishment types:', error)
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Failed to fetch embellishment types. Please try again later.',
+      })
+    }
+  }
+
+  useEffect(() => {
+    fetchCustomers()
+    fetchEmbellishments()
+    fetchEmbellishmentTypes()
+  }, [])
   const addGarment = () => {
     const i = garments.length
     const newGarments = [
@@ -72,7 +151,7 @@ const CreateOrderPage = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const orderData = {
-      customerId: order.CustomerName,
+      customerId: order.CustomerId,
       orderDate: new Date().toISOString(),
       expectedCompletionDate: order.DeliveryDate,
       orderStatus: order.OrderStatus,
@@ -84,7 +163,7 @@ const CreateOrderPage = () => {
       orderDesigns: garments.map((g) => ({
         DesignId: g.id,
         FabricId: g.fabric,
-        CustomerId: order.CustomerName,
+        CustomerId: order.CustomerId,
         OrderId: order.OrderId,
         Details: g.garment,
         MeasurementId: 0, // Assuming MeasurementId is not used here
@@ -95,6 +174,7 @@ const CreateOrderPage = () => {
         {amount: order.TotalCost, paymentDate: new Date().toISOString(), orderId: order.OrderId},
       ],
     }
+    console.log('obj:', orderData)
   }
   return (
     <>
@@ -128,6 +208,7 @@ const CreateOrderPage = () => {
                 fabricOptions={fabricOptions}
                 addGarment={addGarment}
                 order={order}
+                embellishments={embellishments}
               />
               <PaymentInfo
                 setOrder={setOrder}

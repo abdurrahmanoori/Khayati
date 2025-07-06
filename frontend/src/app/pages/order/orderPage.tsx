@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {KTSVG, toAbsoluteUrl} from '../../../_metronic/helpers'
 import {Link} from 'react-router-dom'
 import dayjs from 'dayjs'
@@ -7,8 +7,9 @@ import {Toolbar1} from '../../../_metronic/layout/components/toolbar/Toolbar1'
 import {useIntl} from 'react-intl'
 import OrderModal from '../../modals/OrderModal'
 import Swal from 'sweetalert2'
-import {Order} from '../../types/commonTypes'
+import {Order, Customer} from '../../types/commonTypes'
 import {mockOrders} from './mockOrders'
+
 type Props = {
   className: string
 }
@@ -28,17 +29,37 @@ const OrderPage: React.FC<Props> = ({className}) => {
     }
   }
   const [orders, setOrders] = useState<Order[]>(mockOrders)
-
+  const [Customers, setCustomers] = useState<Customer[]>([])
   const [allOrders] = useState(orders)
 
+  const fetchCustomers = async () => {
+    try {
+      const response = await fetch('https://localhost:7016/api/customer')
+      if (response.ok || response.status === 200) {
+        const data = await response.json()
+        setCustomers(data)
+      } else {
+        throw new Error('Failed to fetch customers')
+      }
+    } catch (error) {
+      console.error('Error fetching customers:', error)
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Failed to fetch customers. Please try again later.',
+      })
+    }
+  }
+  useEffect(() => {
+    fetchCustomers()
+  }, [])
   const search = (value: string) => {
     if (value === '') {
       setOrders(allOrders)
     } else {
-      const filteredOrders = allOrders.filter(
-        (o) =>
-          o.CustomerName?.toLowerCase().includes(value.toLowerCase()) ||
-          o.OrderId.toString().includes(value)
+      const filteredOrders = allOrders.filter((o) =>
+        // o.CustomerId?.toLowerCase().includes(value.toLowerCase()) ||
+        o.OrderId.toString().includes(value)
       )
       setOrders(filteredOrders)
     }
@@ -146,7 +167,7 @@ const OrderPage: React.FC<Props> = ({className}) => {
                       <div className='d-flex align-items-center'>
                         <div className='d-flex justify-content-start flex-column'>
                           <a href='#' className='text-dark fw-bold text-hover-primary fs-6'>
-                            {order.CustomerName || 'Unknown'}
+                            {order.CustomerId || 'Unknown'}
                           </a>
                         </div>
                       </div>

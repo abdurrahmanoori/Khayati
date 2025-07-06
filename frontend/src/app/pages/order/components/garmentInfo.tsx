@@ -1,7 +1,14 @@
 import * as React from 'react'
 import CustomSelect from '../../../components/CustomSelect'
 import {SingleValue} from 'react-select'
-import {Order, Garment, OptionType as Type} from '../../../types/commonTypes'
+import {
+  Order,
+  Garment,
+  OptionType as Type,
+  Embellishment,
+  EmbellishmentType,
+} from '../../../types/commonTypes'
+import axios from 'axios'
 type Props = {
   garments: Garment[]
   garmentOptions: Type[]
@@ -14,6 +21,7 @@ type Props = {
   addEmbellishment: Function
   addGarment: Function
   order?: Order
+  embellishments?: Embellishment[]
 }
 const GarmentInfo: React.FC<Props> = ({
   garments,
@@ -27,7 +35,9 @@ const GarmentInfo: React.FC<Props> = ({
   removeGarment,
   addGarment,
   order,
+  embellishments = [],
 }) => {
+  const [selectedType, setSelectedType] = React.useState<Number>(0)
   return (
     <React.Fragment>
       <div className='row mb-3'>
@@ -125,6 +135,7 @@ const GarmentInfo: React.FC<Props> = ({
                       onChange={(selected: SingleValue<Type>) =>
                         setGarments((prev: Garment[]) => {
                           const updated = [...prev]
+                          setSelectedType(selected ? Number(selected.value) : 0)
                           updated[gIndex].embellishments[eIndex].type = selected?.value || ''
                           return updated
                         })

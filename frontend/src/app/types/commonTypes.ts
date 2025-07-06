@@ -37,7 +37,7 @@ export type Order = {
   OrderId: number
   OrderDate: string
   DeliveryDate: string
-  CustomerName: string
+  CustomerId: number
   OrderStatus: string
   PaymentStatus: string
   TotalCost: number
@@ -56,7 +56,7 @@ export const defaultOrder: Order = {
   OrderId: 0,
   OrderDate: '',
   DeliveryDate: '',
-  CustomerName: '',
+  CustomerId: 0,
   OrderStatus: '',
   PaymentStatus: '',
   TotalCost: 0,
