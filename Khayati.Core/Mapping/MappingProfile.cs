@@ -5,6 +5,7 @@ using Khayati.Core.DTO;
 using Khayati.Core.DTO.Customers;
 using Khayati.Core.DTO.Embellishment;
 using Khayati.Core.DTO.EmbellishmentType;
+using Khayati.Core.DTO.Fabric;
 using Khayati.Core.DTO.Garments;
 using Khayati.Core.DTO.Measurements;
 using Khayati.Core.DTO.OrderDesign;
@@ -47,6 +48,10 @@ namespace Khayati.Core.Mapping
             CreateMap<Payment, PaymentDto>().ReverseMap();
             CreateMap<Garment, GarmentDto>().ReverseMap();
             CreateMap<Garment, GarmentAddDto>().ReverseMap();
+
+            //For Fabric 
+            CreateMap<Fabric, FabricAddDto>().ReverseMap();
+            CreateMap<Fabric, FabricResponseDto>().ReverseMap();
 
             // CreateMap<EmbellishmentType, EmbellishmentTypeResponseDto>();
 

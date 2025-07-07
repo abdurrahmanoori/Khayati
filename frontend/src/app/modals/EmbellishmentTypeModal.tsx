@@ -1,12 +1,9 @@
 import React, {useState, FormEvent, useEffect} from 'react'
 import CustomFormLayout from '../components/CustomFormLayout'
 import {ReusableModal} from './reusableModal'
-type EmbellishmentType = {
-  Id: number
-  Name: string
-  SortValue: string
-  Description: string
-}
+import axios from 'axios'
+import Swal from 'sweetalert2'
+import {EmbellishmentType} from '../types/commonTypes'
 type Props = {
   showModal: boolean
   setShowModal: Function
@@ -20,10 +17,10 @@ const EmbellishmentTypeModal: React.FC<Props> = ({
   update = false,
 }) => {
   const [formData, setFormData] = useState<EmbellishmentType>({
-    Id: 0,
-    Name: '',
-    SortValue: '',
-    Description: '',
+    embellishmentTypeId: 0,
+    name: '',
+    sortOrder: 0,
+    description: '',
   })
 
   useEffect(() => {
@@ -41,11 +38,11 @@ const EmbellishmentTypeModal: React.FC<Props> = ({
 
   const validate = () => {
     const newErrors: Partial<EmbellishmentType> = {}
-    if (!formData.Name.trim()) newErrors.Name = 'Name is required'
+    if (!formData.name.trim()) newErrors.name = 'Name is required'
     return newErrors
   }
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     const validationErrors = validate()
     if (Object.keys(validationErrors).length > 0) {
@@ -53,8 +50,28 @@ const EmbellishmentTypeModal: React.FC<Props> = ({
       return
     }
     setErrors({})
-    // submit logic here
-    console.log('Form submitted:', formData)
+    const result = await axios.put(
+      `https://localhost:7016/api/embellishmenttype/${formData.embellishmentTypeId}`,
+      formData
+    )
+    if (result.status === 200) {
+      Swal.fire({
+        title: update ? 'Updated Successfully!' : 'Added Successfully!',
+        icon: 'success',
+        showCloseButton: true,
+        showConfirmButton: true,
+      }).then(() => {
+        setShowModal(false)
+      })
+    } else {
+      Swal.fire({
+        title: 'Error',
+        text: 'Failed to save embellishment type',
+        icon: 'error',
+        showCloseButton: true,
+        showConfirmButton: true,
+      })
+    }
   }
 
   return (
@@ -77,30 +94,30 @@ const EmbellishmentTypeModal: React.FC<Props> = ({
                   Name
                 </label>
                 <input
-                  name='Name'
-                  id='Name'
+                  name='name'
+                  id='name'
                   type='text'
                   className={`form-control border-primary border-2 ${
-                    errors.Name ? 'is-invalid' : ''
+                    errors.name ? 'is-invalid' : ''
                   }`}
                   placeholder='Enter design name'
-                  value={formData.Name}
+                  value={formData.name}
                   onChange={handleChange}
                 />
-                {errors.Name && <div className='invalid-feedback'>{errors.Name}</div>}
+                {errors.name && <div className='invalid-feedback'>{errors.name}</div>}
               </div>,
 
               <div key='sortorder' className='mb-3'>
                 <label htmlFor='SortOrder' className='form-label'>
-                  Number
+                  Sort Order
                 </label>
                 <input
-                  name='SortOrder'
-                  id='SortOrder'
+                  name='sortOrder'
+                  id='sortOrder'
                   type='number'
                   className='form-control border-primary border-2'
                   placeholder='Enter number for sorting'
-                  value={formData.SortValue}
+                  value={formData.sortOrder}
                   onChange={handleChange}
                 />
               </div>,
@@ -111,12 +128,12 @@ const EmbellishmentTypeModal: React.FC<Props> = ({
                   Description
                 </label>
                 <textarea
-                  name='Description'
-                  id='Description'
+                  name='description'
+                  id='description'
                   className='form-control border-primary border-2'
                   rows={5}
                   placeholder='Enter description'
-                  value={formData.Description}
+                  value={formData.description}
                   onChange={handleChange}
                 />
               </div>,

@@ -1,27 +1,21 @@
-import React, {useState, FormEvent} from 'react'
+import React, {useState, FormEvent, useEffect} from 'react'
 import CustomFormLayout from '../../components/CustomFormLayout'
 import {KTSVG} from '../../../_metronic/helpers'
 import {Link} from 'react-router-dom'
 import {Toolbar1} from '../../../_metronic/layout/components/toolbar/Toolbar1'
 import EmbellishmentTypeModal from '../../modals/EmbellishmentTypeModal'
 import Swal from 'sweetalert2'
-import {mockEmbellishmentTypes} from './mockEmbellishmentTypes'
-type EmbellishmentType = {
-  Id: number
-  Name: string
-  SortValue: string
-  Description: string
-}
+import axios from 'axios'
+import {EmbellishmentType} from '../../types/commonTypes'
 
 type Props = {
   className: string
 }
-
 const EmbellishmentTypePage: React.FC<Props> = ({className}) => {
   // Original full data
   const [updateEmbellishmentType, setUpdateEmbellishmentType] = useState<EmbellishmentType>()
   const [showModal, setShowModal] = useState(false)
-  const allEmbellishmentTypes: EmbellishmentType[] = mockEmbellishmentTypes
+  const [allEmbellishmentTypes, setAllEmbellishmentType] = useState<EmbellishmentType[]>([])
 
   const [embellishmentType, setEmbellishmentType] = useState(allEmbellishmentTypes)
 
@@ -30,11 +24,27 @@ const EmbellishmentTypePage: React.FC<Props> = ({className}) => {
       setEmbellishmentType(allEmbellishmentTypes)
     } else {
       const filtered = allEmbellishmentTypes.filter((c) =>
-        c.Name.toLowerCase().includes(value.toLowerCase())
+        c.name.toLowerCase().includes(value.toLowerCase())
       )
       setEmbellishmentType(filtered)
     }
   }
+  const fetchEmbellishmentTypes = async () => {
+    try {
+      const response = await axios.get('https://localhost:7016/api/embellishmenttype')
+      if (response.status === 200) {
+        setEmbellishmentType(response.data)
+        setAllEmbellishmentType(response.data)
+      } else {
+        console.error('Failed to fetch embellishment types')
+      }
+    } catch (error) {
+      console.error('Error fetching embellishment types:', error)
+    }
+  }
+  useEffect(() => {
+    fetchEmbellishmentTypes()
+  }, [])
   const handleDelete = (Id: number) => {
     Swal.fire({
       title: 'Delete!',
@@ -44,11 +54,11 @@ const EmbellishmentTypePage: React.FC<Props> = ({className}) => {
       showCloseButton: true,
       showConfirmButton: true,
       confirmButtonText: 'Yes, Delete it!',
-    }).then((result) => {
+    }).then(async (result) => {
       if (result) {
-        const updatedTypes = allEmbellishmentTypes.filter((t) => t.Id != Id)
-        if (updatedTypes) {
-          setEmbellishmentType(updatedTypes)
+        const response = await axios.delete(`https://localhost:7016/api/embellishmenttype/${Id}`)
+        if (response.status === 200) {
+          fetchEmbellishmentTypes()
           Swal.fire({
             title: 'Deleted Successfully!',
             icon: 'success',
@@ -60,7 +70,7 @@ const EmbellishmentTypePage: React.FC<Props> = ({className}) => {
     })
   }
   const handleEdit = (Id: number) => {
-    const updateType = allEmbellishmentTypes.find((e) => e.Id === Id)
+    const updateType = allEmbellishmentTypes.find((e) => e.embellishmentTypeId === Id)
     if (updateType) {
       setUpdateEmbellishmentType(updateType)
     }
@@ -134,32 +144,32 @@ const EmbellishmentTypePage: React.FC<Props> = ({className}) => {
               {/* begin::Table body */}
               <tbody>
                 {embellishmentType.map((c, index) => (
-                  <tr key={c.Id}>
+                  <tr key={c.embellishmentTypeId}>
                     <td>
                       <div className='d-flex flex-column w-100 me-2'>
                         <div className='d-flex flex-stack mb-2'>
-                          <span className=' me-2 fs-7 fw-semibold'>{c.Id}</span>
+                          <span className=' me-2 fs-7 fw-semibold'>{c.embellishmentTypeId}</span>
                         </div>
                       </div>
                     </td>
                     <td className='text-end'>
                       <div className='d-flex flex-column w-100 me-2'>
                         <div className='d-flex flex-stack mb-2'>
-                          <span className=' me-2 fs-7 fw-semibold'>{c.Name}</span>
+                          <span className=' me-2 fs-7 fw-semibold'>{c.name}</span>
                         </div>
                       </div>
                     </td>
                     <td className='text-end'>
                       <div className='d-flex flex-column w-100 me-2'>
                         <div className='d-flex flex-stack mb-2'>
-                          <span className=' me-2 fs-7 fw-semibold'>{c.SortValue}</span>
+                          <span className=' me-2 fs-7 fw-semibold'>{c.sortOrder}</span>
                         </div>
                       </div>
                     </td>
                     <td className='text-end'>
                       <div className='d-flex flex-column w-100 me-2'>
                         <div className='d-flex flex-stack mb-2'>
-                          <span className='me-2 fs-7 fw-semibold'>{c.Description}</span>
+                          <span className='me-2 fs-7 fw-semibold'>{c.description}</span>
                         </div>
                       </div>
                     </td>
@@ -170,7 +180,7 @@ const EmbellishmentTypePage: React.FC<Props> = ({className}) => {
                           className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
                           aria-label='Edit'
                           onClick={() => {
-                            handleEdit(c.Id)
+                            handleEdit(c.embellishmentTypeId)
                           }}
                         >
                           <KTSVG
@@ -183,7 +193,7 @@ const EmbellishmentTypePage: React.FC<Props> = ({className}) => {
                           className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm'
                           aria-label='Delete'
                           onClick={() => {
-                            handleDelete(c.Id)
+                            handleDelete(c.embellishmentTypeId)
                           }}
                         >
                           <KTSVG
@@ -208,10 +218,9 @@ const EmbellishmentTypePage: React.FC<Props> = ({className}) => {
         showModal={showModal}
         setShowModal={() => setShowModal(false)}
         update={true}
-        embellishmentType={updateEmbellishmentType}
+        embellishmentType={updateEmbellishmentType!}
       />
     </>
   )
 }
-
 export default EmbellishmentTypePage

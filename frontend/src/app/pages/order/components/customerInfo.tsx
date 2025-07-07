@@ -39,11 +39,11 @@ const CustomerInfo: React.FC<Props> = ({
             id='CustomerSelect'
             name='CustomerSelect'
             options={customerOptions}
-            value={customerOptions.find((opt) => opt.value === order?.CustomerName) || null}
+            value={customerOptions.find((opt) => Number(opt.value) === order?.CustomerId) || null}
             onChange={(selected: SingleValue<OptionType> | null) =>
               setOrder((prev: Order) => ({
                 ...prev,
-                CustomerName: selected?.value || '',
+                CustomerId: selected?.value || 0,
               }))
             }
             placeholder='Select Customer'

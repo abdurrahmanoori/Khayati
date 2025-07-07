@@ -1,8 +1,14 @@
 import * as React from 'react'
-import {useState, useEffect} from 'react'
 import CustomSelect from '../../../components/CustomSelect'
 import {SingleValue} from 'react-select'
-import {Order, Embellishment, Garment, OptionType as Type} from '../../../types/commonTypes'
+import {
+  Order,
+  Garment,
+  OptionType as Type,
+  Embellishment,
+  EmbellishmentType,
+} from '../../../types/commonTypes'
+import axios from 'axios'
 type Props = {
   garments: Garment[]
   garmentOptions: Type[]
@@ -15,6 +21,9 @@ type Props = {
   addEmbellishment: Function
   addGarment: Function
   order?: Order
+  embellishments?: Embellishment[]
+  allEmbellishmentsOptions?: Type[][][]
+  setTypes?: (type: string, index?: number, eindex?: number) => void
 }
 const GarmentInfo: React.FC<Props> = ({
   garments,
@@ -28,7 +37,10 @@ const GarmentInfo: React.FC<Props> = ({
   removeGarment,
   addGarment,
   order,
+  setTypes = () => {},
+  allEmbellishmentsOptions = [],
 }) => {
+  React.useEffect(() => {}, [allEmbellishmentsOptions])
   return (
     <React.Fragment>
       <div className='row mb-3'>
@@ -126,6 +138,7 @@ const GarmentInfo: React.FC<Props> = ({
                       onChange={(selected: SingleValue<Type>) =>
                         setGarments((prev: Garment[]) => {
                           const updated = [...prev]
+                          setTypes(selected?.value || '', gIndex, eIndex)
                           updated[gIndex].embellishments[eIndex].type = selected?.value || ''
                           return updated
                         })
@@ -136,8 +149,12 @@ const GarmentInfo: React.FC<Props> = ({
                   <div className='col-md-5'>
                     <label className='form-label'>Embellishment:</label>
                     <CustomSelect
-                      options={embellishmentOptions}
-                      value={embellishmentOptions.find((opt) => opt.value === emb.name) || null}
+                      options={allEmbellishmentsOptions[gIndex]?.[eIndex] || []}
+                      value={
+                        allEmbellishmentsOptions[gIndex]?.[eIndex]?.find(
+                          (opt) => opt.value === emb.name
+                        ) || null
+                      }
                       onChange={(selected: SingleValue<Type>) =>
                         setGarments((prev: Garment[]) => {
                           const updated = [...prev]
