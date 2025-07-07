@@ -1,4 +1,6 @@
-﻿namespace RepositoryContracts.Base
+﻿using Khayati.Core.Domain.RepositoryContracts;
+
+namespace RepositoryContracts.Base
 {
     public interface IUnitOfWork
     {
@@ -12,7 +14,7 @@
         IOrderRepository OrderRepository { get; }
         IPaymentRepository PaymentRepository { get; }
         IGarmentRepository GarmentRepository { get; }
-
+        IFabricRepository FabricRepository { get; }
         Task SaveChanges(CancellationToken cancellationToken= default);
     }
 }
