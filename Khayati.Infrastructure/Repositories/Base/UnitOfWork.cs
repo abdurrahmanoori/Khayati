@@ -1,4 +1,6 @@
 ﻿using Entities.Data;
+using Khayati.Core.Domain.RepositoryContracts;
+using Khayati.Infrastructure.Repositories;
 using RepositoryContracts;
 using RepositoryContracts.Base;
 
@@ -25,6 +27,7 @@ namespace Repositories.Base
 
         private ICustomerRepository _customerRepository;
         private IGarmentRepository _garmentRepository;
+        private IFabricRepository _fabricRepository;
         public IMeasurementRepository MeasurementRepository { get; private set; }
         public IEmbellishmentRepository EmbellishmentRepository { get; private set; }
         public IRelativeRepository RelativeRepository { get; private set; }
@@ -41,6 +44,9 @@ namespace Repositories.Base
 
         public IGarmentRepository GarmentRepository =>
             _garmentRepository ??= new GarmentRepository(_db);
+
+        public IFabricRepository FabricRepository =>_fabricRepository ??=
+            new FabricRepository(_db);
 
 
         public async Task SaveChanges(CancellationToken cancellationToken = default)

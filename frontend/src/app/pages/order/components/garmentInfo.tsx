@@ -22,6 +22,8 @@ type Props = {
   addGarment: Function
   order?: Order
   embellishments?: Embellishment[]
+  allEmbellishmentsOptions?: Type[][][]
+  setTypes?: (type: string, index?: number, eindex?: number) => void
 }
 const GarmentInfo: React.FC<Props> = ({
   garments,
@@ -35,9 +37,10 @@ const GarmentInfo: React.FC<Props> = ({
   removeGarment,
   addGarment,
   order,
-  embellishments = [],
+  setTypes = () => {},
+  allEmbellishmentsOptions = [],
 }) => {
-  const [selectedType, setSelectedType] = React.useState<Number>(0)
+  React.useEffect(() => {}, [allEmbellishmentsOptions])
   return (
     <React.Fragment>
       <div className='row mb-3'>
@@ -135,7 +138,7 @@ const GarmentInfo: React.FC<Props> = ({
                       onChange={(selected: SingleValue<Type>) =>
                         setGarments((prev: Garment[]) => {
                           const updated = [...prev]
-                          setSelectedType(selected ? Number(selected.value) : 0)
+                          setTypes(selected?.value || '', gIndex, eIndex)
                           updated[gIndex].embellishments[eIndex].type = selected?.value || ''
                           return updated
                         })
@@ -146,8 +149,12 @@ const GarmentInfo: React.FC<Props> = ({
                   <div className='col-md-5'>
                     <label className='form-label'>Embellishment:</label>
                     <CustomSelect
-                      options={embellishmentOptions}
-                      value={embellishmentOptions.find((opt) => opt.value === emb.name) || null}
+                      options={allEmbellishmentsOptions[gIndex]?.[eIndex] || []}
+                      value={
+                        allEmbellishmentsOptions[gIndex]?.[eIndex]?.find(
+                          (opt) => opt.value === emb.name
+                        ) || null
+                      }
                       onChange={(selected: SingleValue<Type>) =>
                         setGarments((prev: Garment[]) => {
                           const updated = [...prev]

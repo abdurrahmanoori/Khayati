@@ -1,5 +1,7 @@
 ﻿using Entities;
 using FluentValidation;
+using Khayati.Core.ServiceContracts;
+using Khayati.Core.Services;
 using Khayati.Service;
 using Khayati.ServiceContracts;
 using Microsoft.Extensions.Configuration;
@@ -23,7 +25,8 @@ namespace Khayati.Core.Extention
             services.AddScoped<IPaymentService, PaymentService>();
             services.AddScoped<IMeasurementService, MeasurementService>();
             services.AddScoped<IGarmentService, GarmentService>();
-            
+            services.AddScoped<IFabricService, FabricService>();
+
             // Optionally, you could use a connection string from configuration:
             // options.UseSqlite(configuration.GetConnectionString("SqlLiteCS"));
 
