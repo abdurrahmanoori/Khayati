@@ -11,8 +11,9 @@ const CreateMeasurementPage = () => {
     Garment: '',
   })
   const [showModal, setShowModal] = useState(false)
-  const [garment, setGarment] =
-    useState<{GarmentId: number; GarmentName: string; GarmentFields: string[]}[]>(mockGarments)
+  const [garment, setGarment] = useState<
+    {GarmentId: number; GarmentName: string; GarmentFields: string[]}[]
+  >([])
   const [tempMeasurement, setTempMeasurement] = useState<Record<string, string>[]>([])
 
   const handleFieldChange = (fields: string[]) => {

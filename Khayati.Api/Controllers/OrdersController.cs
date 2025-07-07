@@ -34,6 +34,7 @@ namespace Khayati.Api.Controllers
                  HandleResultResponse(await _orderService.CalculateTotalCost(orderId));
 
 
+       
         //[HttpGet("Api/GetAll")]
         //public async Task<IActionResult> GetOrdersList( )
         //{

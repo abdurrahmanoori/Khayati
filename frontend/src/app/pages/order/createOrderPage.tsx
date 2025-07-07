@@ -186,9 +186,9 @@ const CreateOrderPage = () => {
       expectedCompletionDate: order.DeliveryDate,
       orderStatus: order.OrderStatus,
       paymentStatus: order.PaymentStatus,
-      totalCost: order.TotalCost,
+      totalCost: Number(order.TotalCost),
       isPaid: order.PaidAmount === order.TotalCost,
-      cost: order.TotalCost,
+      cost: Number(order.TotalCost),
       orderPriority: order.orderPriority,
       orderDesigns: garments.map((g) => ({
         DesignId: g.id,
@@ -199,7 +199,7 @@ const CreateOrderPage = () => {
         EmbellishmentId: g.isEmbellished ? g.embellishments[0] : null, // Assuming only one embellishment per garment
       })),
       note: order.description,
-      Payments: [{amount: order.TotalCost, paymentDate: new Date().toISOString()}],
+      Payments: [{amount: Number(order.TotalCost), paymentDate: new Date().toISOString()}],
     }
     axios
       .post('https://localhost:7016/api/orders', orderData)
