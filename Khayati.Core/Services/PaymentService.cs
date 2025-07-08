@@ -88,7 +88,7 @@ namespace Khayati.Service
                     TotalCost = 0, // Since we don't know the cost yet
                     IsPaid = false,
                     OrderStatus = OrderStatus.Pending,
-                    PaymentStatus = PaymentStatus.PartialPayment
+                    PaymentStatus = PaymentStatus.Partial
                 };
                 await _unitOfWork.OrderRepository.Add(order);
 
@@ -123,15 +123,15 @@ namespace Khayati.Service
         {
             if (amountPaid >= outstandingAmount)
             {
-                order.PaymentStatus = PaymentStatus.Completed;
+                order.PaymentStatus = PaymentStatus.Paid;
                 order.IsPaid = true;
                 order.OrderStatus = OrderStatus.Completed;
             }
             else
             {
-                order.PaymentStatus = PaymentStatus.PartialPayment;
+                order.PaymentStatus = PaymentStatus.Partial;
                 order.IsPaid = false;
-                order.OrderStatus = OrderStatus.Progress;
+                order.OrderStatus = OrderStatus.Processing;
             }
         }
 
