@@ -24,6 +24,8 @@ type Props = {
   embellishments?: Embellishment[]
   allEmbellishmentsOptions?: Type[][][]
   setTypes?: (type: string, index?: number, eindex?: number) => void
+  setFabric?: (name: string, color: string, index: number) => void
+  setColor?: (FabricName: string) => void
 }
 const GarmentInfo: React.FC<Props> = ({
   garments,
@@ -39,8 +41,11 @@ const GarmentInfo: React.FC<Props> = ({
   order,
   setTypes = () => {},
   allEmbellishmentsOptions = [],
+  setFabric = () => {},
+  setColor = () => {},
 }) => {
   React.useEffect(() => {}, [allEmbellishmentsOptions])
+  const [FabricName, setFabricName] = React.useState<string>('')
   return (
     <React.Fragment>
       <div className='row mb-3'>
@@ -77,6 +82,8 @@ const GarmentInfo: React.FC<Props> = ({
                   setGarments((prev: Garment[]) => {
                     const updated = [...prev]
                     updated[gIndex].fabric = selected?.value || ''
+                    setFabricName(selected?.label || '')
+                    setColor(selected?.label || '')
                     return updated
                   })
                 }
@@ -95,6 +102,7 @@ const GarmentInfo: React.FC<Props> = ({
                   setGarments((prev: Garment[]) => {
                     const updated = [...prev]
                     updated[gIndex].color = selected?.value || ''
+                    setFabric(FabricName, selected?.value || '', gIndex)
                     return updated
                   })
                 }

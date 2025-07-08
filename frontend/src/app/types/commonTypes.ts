@@ -32,6 +32,16 @@ export type Embellishment = {
   embellishmentTypeId: number
   cost: number
 }
+export type Fabric = {
+  fabricId: number
+  fabricType: string
+  color: string
+  requiredMeters: number
+  pattern: string
+  thickness: number
+  durability: string
+  costPerMeter: number
+}
 
 export type Order = {
   OrderId: number
