@@ -1,13 +1,7 @@
 import * as React from 'react'
 import CustomSelect from '../../../components/CustomSelect'
 import {SingleValue} from 'react-select'
-import {
-  Order,
-  Garment,
-  OptionType as Type,
-  Embellishment,
-  EmbellishmentType,
-} from '../../../types/commonTypes'
+import {Order, Garment, OptionType as Type, Embellishment} from '../../../types/commonTypes'
 import axios from 'axios'
 type Props = {
   garments: Garment[]
@@ -20,7 +14,6 @@ type Props = {
   embellishmentOptions: Type[]
   addEmbellishment: Function
   addGarment: Function
-  order?: Order
   embellishments?: Embellishment[]
   allEmbellishmentsOptions?: Type[][][]
   setTypes?: (type: string, index?: number, eindex?: number) => void
@@ -34,11 +27,9 @@ const GarmentInfo: React.FC<Props> = ({
   fabricOptions,
   colorOptions,
   embellishmentTypeOptions,
-  embellishmentOptions,
   addEmbellishment,
   removeGarment,
   addGarment,
-  order,
   setTypes = () => {},
   allEmbellishmentsOptions = [],
   setFabric = () => {},
@@ -77,16 +68,11 @@ const GarmentInfo: React.FC<Props> = ({
               <label className='form-label'>Select Fabric:</label>
               <CustomSelect
                 options={fabricOptions}
-                value={fabricOptions.find((opt) => opt.value === g.fabric) || null}
-                onChange={(selected: SingleValue<Type>) =>
-                  setGarments((prev: Garment[]) => {
-                    const updated = [...prev]
-                    updated[gIndex].fabric = selected?.value || ''
-                    setFabricName(selected?.label || '')
-                    setColor(selected?.label || '')
-                    return updated
-                  })
-                }
+                value={fabricOptions.find((opt) => opt.label === FabricName) || null}
+                onChange={(selected: SingleValue<Type>) => {
+                  setFabricName(selected?.label || '')
+                  setColor(selected?.label || '')
+                }}
                 placeholder='Select Fabric'
               />
             </div>

@@ -2,7 +2,6 @@ import * as React from 'react'
 import {useEffect, useState} from 'react'
 import {Toolbar1} from '../../../_metronic/layout/components/toolbar/Toolbar1'
 import CustomSelect from '../../components/CustomSelect'
-import {mockGarments} from './mockGarments'
 import GarmentModal from '../../modals/GarmentModal'
 import {Link} from 'react-router-dom'
 const CreateMeasurementPage = () => {

@@ -31,6 +31,7 @@ const CreateOrderPage = () => {
       embellishments: [{type: '', name: ''}],
     },
   ])
+  const [garmentOption, setGarmentOption] = useState<OptionType[]>([])
   const [embellishments, setEmbellishments] = useState<Embellishment[]>([])
   const [customerOptions, setCustomerOptions] = useState<OptionType[]>([])
   const [Customers, setCustomers] = useState<Customer[]>([])
@@ -40,6 +41,27 @@ const CreateOrderPage = () => {
   const [colorOptions, setColorOptions] = useState<OptionType[]>([])
   const [allFabrics, setAllFabrics] = useState<Fabric[]>([])
   const [fabricOptions, setFabricOptions] = useState<OptionType[]>([])
+
+  const fetchGarments = async () => {
+    try {
+      const response = await axios.get('https://localhost:7016/api/garment')
+      if (response.status === 200) {
+        setGarmentOption(
+          response.data.map((garment: any) => ({
+            value: garment.garmentId,
+            label: `${garment.name}`,
+          }))
+        )
+      }
+    } catch (error) {
+      console.error('Error fetching garments:', error)
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Backend Connection Failed. Please try again later.',
+      })
+    }
+  }
   const fetchCustomers = async () => {
     try {
       const response = await axios.get('https://localhost:7016/api/customer')
@@ -53,11 +75,6 @@ const CreateOrderPage = () => {
       }
     } catch (error) {
       console.error('Error fetching customers:', error)
-      Swal.fire({
-        icon: 'error',
-        title: 'Error',
-        text: 'Failed to fetch customers. Please try again later.',
-      })
     }
   }
   const setFabric = (name: string, color: string, gIndex: number) => {
@@ -102,11 +119,6 @@ const CreateOrderPage = () => {
       }
     } catch (error) {
       console.error('Error fetching fabrics:', error)
-      Swal.fire({
-        icon: 'error',
-        title: 'Error',
-        text: 'Failed to fetch fabrics. Please try again later.',
-      })
     }
   }
   const setTypes = (type: string, gindex?: number, eIndex?: number) => {
@@ -145,11 +157,6 @@ const CreateOrderPage = () => {
       }
     } catch (error) {
       console.error('Error fetching embellishments:', error)
-      Swal.fire({
-        icon: 'error',
-        title: 'Error',
-        text: 'Failed to fetch embellishments. Please try again later.',
-      })
     }
   }
   const fetchEmbellishmentTypes = async () => {
@@ -165,17 +172,13 @@ const CreateOrderPage = () => {
       }
     } catch (error) {
       console.error('Error fetching embellishment types:', error)
-      Swal.fire({
-        icon: 'error',
-        title: 'Error',
-        text: 'Failed to fetch embellishment types. Please try again later.',
-      })
     }
   }
   const [themeMode, setThemeMode] = useState<'light' | 'dark' | 'system'>(
     ThemeModeComponent.getMode()
   )
   useEffect(() => {
+    fetchGarments()
     fetchCustomers()
     fetchEmbellishments()
     fetchEmbellishmentTypes()
@@ -249,37 +252,37 @@ const CreateOrderPage = () => {
       note: order.description,
       Payments: [{amount: Number(order.TotalCost), paymentDate: new Date().toISOString()}],
     }
-    // axios
-    //   .post('https://localhost:7016/api/orders', orderData)
-    //   .then((response) => {
-    //     if (response.status === 200) {
-    //       Swal.fire({
-    //         icon: 'success',
-    //         title: 'Order Created',
-    //         text: 'Your order has been successfully created.',
-    //         timer: 2000,
-    //       })
-    //       setOrder(defaultOrder)
-    //       setGarments([
-    //         {
-    //           id: 0,
-    //           garment: '',
-    //           color: '',
-    //           fabric: '',
-    //           isEmbellished: false,
-    //           embellishments: [{type: '', name: ''}],
-    //         },
-    //       ])
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.error('Error creating order:', error)
-    //     Swal.fire({
-    //       icon: 'error',
-    //       title: 'Error',
-    //       text: 'Failed to create order. Please try again later.',
-    //     })
-    //   })
+    axios
+      .post('https://localhost:7016/api/orders', orderData)
+      .then((response) => {
+        if (response.status === 200) {
+          Swal.fire({
+            icon: 'success',
+            title: 'Order Created',
+            text: 'Your order has been successfully created.',
+            timer: 2000,
+          })
+          setOrder(defaultOrder)
+          setGarments([
+            {
+              id: 0,
+              garment: '',
+              color: '',
+              fabric: '',
+              isEmbellished: false,
+              embellishments: [{type: '', name: ''}],
+            },
+          ])
+        }
+      })
+      .catch((error) => {
+        console.error('Error creating order:', error)
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Failed to create order. Please try again later.',
+        })
+      })
 
     console.log('obj:', orderData)
   }
@@ -305,7 +308,7 @@ const CreateOrderPage = () => {
               />
               <GarmentInfo
                 garments={garments}
-                garmentOptions={garmentOptions}
+                garmentOptions={garmentOption}
                 setGarments={setGarments}
                 addEmbellishment={addEmbellishment}
                 removeGarment={removeGarment}
@@ -314,7 +317,6 @@ const CreateOrderPage = () => {
                 colorOptions={colorOptions}
                 fabricOptions={fabricOptions}
                 addGarment={addGarment}
-                order={order}
                 embellishments={embellishments}
                 allEmbellishmentsOptions={allEmbellishmentsOptions}
                 setTypes={setTypes}

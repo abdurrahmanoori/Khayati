@@ -111,7 +111,6 @@ const OrderModal: React.FC<Props> = ({showModal, setShowModal, updateorder}) => 
                 colorOptions={colorOptions}
                 fabricOptions={fabricOptions}
                 addGarment={addGarment}
-                order={order}
               />
               <PaymentInfo
                 setOrder={setOrder}

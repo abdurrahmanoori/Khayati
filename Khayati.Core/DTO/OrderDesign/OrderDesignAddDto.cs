@@ -2,7 +2,7 @@
 {
     public class OrderDesignAddDto
     {
-        public int DesignId { get; set; }
+        public int GarmentId { get; set; }
         public int CustomerId { get; set; }
         public int? FabricId { get; set; }
         public int OrderId { get; set; }

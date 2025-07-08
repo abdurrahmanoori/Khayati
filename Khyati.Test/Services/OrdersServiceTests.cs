@@ -98,7 +98,7 @@ namespace Khayati.Tests.Services
 
             // Assert
             result.Success.Should().BeTrue();
-            orderEntity.PaymentStatus.Should().Be(PaymentStatus.Completed);
+            orderEntity.PaymentStatus.Should().Be(PaymentStatus.Paid);
             orderEntity.IsPaid.Should().BeTrue();
         }
     }
