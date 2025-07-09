@@ -9,7 +9,7 @@ type Props = {
   setGarments: Function
   removeGarment: Function
   fabricOptions: Type[]
-  colorOptions: Type[]
+  colorOptions: Type[][]
   embellishmentTypeOptions: Type[]
   embellishmentOptions: Type[]
   addEmbellishment: Function
@@ -18,7 +18,7 @@ type Props = {
   allEmbellishmentsOptions?: Type[][][]
   setTypes?: (type: string, index?: number, eindex?: number) => void
   setFabric?: (name: string, color: string, index: number) => void
-  setColor?: (FabricName: string) => void
+  setColor?: (FabricName: string, gIndex: number) => void
 }
 const GarmentInfo: React.FC<Props> = ({
   garments,
@@ -36,7 +36,7 @@ const GarmentInfo: React.FC<Props> = ({
   setColor = () => {},
 }) => {
   React.useEffect(() => {}, [allEmbellishmentsOptions])
-  const [FabricName, setFabricName] = React.useState<string>('')
+  const [FabricName, setFabricName] = React.useState<string[]>([])
   return (
     <React.Fragment>
       <div className='row mb-3'>
@@ -68,10 +68,14 @@ const GarmentInfo: React.FC<Props> = ({
               <label className='form-label'>Select Fabric:</label>
               <CustomSelect
                 options={fabricOptions}
-                value={fabricOptions.find((opt) => opt.label === FabricName) || null}
+                value={fabricOptions.find((opt) => opt.label === FabricName[gIndex]) || null}
                 onChange={(selected: SingleValue<Type>) => {
-                  setFabricName(selected?.label || '')
-                  setColor(selected?.label || '')
+                  setFabricName((prev) => {
+                    const updated = [...prev]
+                    updated[gIndex] = selected?.label || ''
+                    return updated
+                  })
+                  setColor(selected?.label || '', gIndex)
                 }}
                 placeholder='Select Fabric'
               />
@@ -82,13 +86,15 @@ const GarmentInfo: React.FC<Props> = ({
             <div className='col-md-6'>
               <label className='form-label'>Select Color:</label>
               <CustomSelect
-                options={colorOptions}
-                value={colorOptions.find((opt) => opt.value === g.color) || null}
+                options={colorOptions[gIndex] || []}
+                value={colorOptions[gIndex]?.find((opt) => opt.value === g.color) || null}
                 onChange={(selected: SingleValue<Type>) =>
                   setGarments((prev: Garment[]) => {
                     const updated = [...prev]
-                    updated[gIndex].color = selected?.value || ''
-                    setFabric(FabricName, selected?.value || '', gIndex)
+                    if (updated[gIndex]) {
+                      updated[gIndex].color = selected?.value || ''
+                      setFabric(FabricName[gIndex], selected?.value || '', gIndex)
+                    }
                     return updated
                   })
                 }

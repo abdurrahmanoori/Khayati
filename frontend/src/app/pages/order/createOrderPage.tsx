@@ -38,17 +38,18 @@ const CreateOrderPage = () => {
   const [embellishmentOptions, setEmbellishmentOptions] = useState<OptionType[]>([])
   const [allEmbellishmentsOptions, setAllEmbellishmentsOptions] = useState<OptionType[][][]>([])
   const [embellishmentTypeOptions, setEmbellishmentTypeOptions] = useState<OptionType[]>([])
-  const [colorOptions, setColorOptions] = useState<OptionType[]>([])
+  const [colorOptions, setColorOptions] = useState<OptionType[][]>([])
   const [allFabrics, setAllFabrics] = useState<Fabric[]>([])
   const [fabricOptions, setFabricOptions] = useState<OptionType[]>([])
-
+  const [allGarments, setAllGarments] = useState<Garment[]>([])
   const fetchGarments = async () => {
     try {
       const response = await axios.get('https://localhost:7016/api/garment')
       if (response.status === 200) {
+        setAllGarments(response.data)
         setGarmentOption(
           response.data.map((garment: any) => ({
-            value: garment.garmentId,
+            value: garment.garmentId.toString(),
             label: `${garment.name}`,
           }))
         )
@@ -90,13 +91,17 @@ const CreateOrderPage = () => {
     } else {
     }
   }
-  const setColor = (Fabricname: string) => {
+  const setColor = (Fabricname: string, gIndex: number) => {
     const filteredFabrics = allFabrics.filter((fabric) => fabric.fabricType === Fabricname)
     const options = filteredFabrics.map((fabric: Fabric) => ({
       value: fabric.color,
       label: `${fabric.color}`,
     }))
-    setColorOptions(options)
+    setColorOptions((prev) => {
+      const updated = [...prev]
+      updated[gIndex] = options
+      return updated
+    })
   }
   const fetchFabrics = async () => {
     const FabricTypes: string[] = []
@@ -230,8 +235,6 @@ const CreateOrderPage = () => {
   ]
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const EmId = Number(garments[0].embellishments[0].name) || 2 // Default to 2 if no embellishment selected
-
     const orderData = {
       customerId: order.CustomerId,
       orderDate: new Date().toISOString(),
@@ -243,6 +246,7 @@ const CreateOrderPage = () => {
       cost: Number(order.TotalCost),
       orderPriority: Number(order.orderPriority) || 2, // Default to 2 if not set
       orderDesigns: garments.map((g, index) => ({
+        GarmentId: Number(g.garment) || 1, // Default to 1 if no garment selected
         FabricId: Number(g.fabric) || 1, // Default to 1 if no fabric selected
         CustomerId: order.CustomerId,
         Details: g.garment,
