@@ -24,6 +24,7 @@ namespace Khayati.ServiceContracts
 
         public Task<decimal?> CalculateDesignCost(int orderId);
         Task<Result<IEnumerable<CustomerOrderResponseDto>>> GetOrdersByCustomerId(int customerId);
+        Task<Result<IEnumerable<OrderDto>>> GetOrders( );
         //public Task<decimal> CalculateTotalCost (Order order);
 
         //public Task<OrdersAddDto> AddOrders(OrdersAddDto addOrdersDto);

@@ -365,3 +365,5 @@ FodyWeavers.xsd
 /frontend/src/app/pages/customer/createCustomerPage.tsx
 /Khayati.Api/Program.cs
 /Khayati.Core/Domain/Entities/Customer.cs
+/Khayati.Api/Properties/launchSettings.json
+

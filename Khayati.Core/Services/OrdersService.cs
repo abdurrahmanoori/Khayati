@@ -36,7 +36,7 @@ namespace Khayati.Service
             return Result<OrdersAddDto>.SuccessResult(orderDto);
 
         }
-            
+
 
 
         private async Task<bool> IsPaidOrder(OrdersAddDto ordersAddDto)
@@ -84,6 +84,21 @@ namespace Khayati.Service
             }
 
             return Result<IEnumerable<CustomerOrderResponseDto>>.SuccessResult(customerOrderList!);
+        }
+
+        
+        public async Task<Result<IEnumerable<OrderDto>>> GetOrders( )
+        {
+            var orders = await _unitOfWork.OrderRepository.GetAll();
+            if (orders.Any() == false)
+            {
+                return Result<IEnumerable<OrderDto>>.EmptyResult();
+            }
+
+            var ordersDto = _mapper.Map<IEnumerable<OrderDto>>(orders);
+
+            return Result<IEnumerable<OrderDto>>.SuccessResult(ordersDto);
+
         }
 
         public async Task<Result<decimal?>>
@@ -138,6 +153,9 @@ namespace Khayati.Service
 
             return orderDesigns.Sum(d => d.CostAtTimeOfOrder);
         }
+
+
+
 
         // Example method to create an order
         //public async Task CreateOrderAsync(OrderDto orderDto)
