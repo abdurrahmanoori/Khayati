@@ -7,7 +7,6 @@
         public int? FabricId { get; set; }
         public int OrderId { get; set; }
         public decimal? CostAtTimeOfOrder { get; set; }
-        public int? MeasurementId { get; set; }
         public int? EmbellishmentId { get; set; }
 
         public string? Notes { get; set; }

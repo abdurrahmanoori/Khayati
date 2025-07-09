@@ -27,7 +27,6 @@ namespace Entities
         /// You could add a foreign key to MeasurementId if each design
         /// is based on specific customer measurements.
         /// </summary>
-        public int? MeasurementId { get; set; }
         public int? EmbellishmentId { get; set; }
         public string? Notes { get; set; }
         //public Measurements Measurements { get; set; }
@@ -39,9 +38,6 @@ namespace Entities
 
         [ForeignKey(nameof(FabricId))]
         public virtual Fabric Fabric { get; set; }
-
-        [ForeignKey(nameof(MeasurementId))]
-        public virtual Measurement Measurement { get; set; }
     }
 
 }

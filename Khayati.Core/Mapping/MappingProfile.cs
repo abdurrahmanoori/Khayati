@@ -6,6 +6,7 @@ using Khayati.Core.DTO.Customers;
 using Khayati.Core.DTO.Embellishment;
 using Khayati.Core.DTO.EmbellishmentType;
 using Khayati.Core.DTO.Fabric;
+using Khayati.Core.DTO.GarmentField;
 using Khayati.Core.DTO.Garments;
 using Khayati.Core.DTO.Measurements;
 using Khayati.Core.DTO.OrderDesign;
@@ -53,40 +54,8 @@ namespace Khayati.Core.Mapping
             CreateMap<Fabric, FabricAddDto>().ReverseMap();
             CreateMap<Fabric, FabricResponseDto>().ReverseMap();
 
-            // CreateMap<EmbellishmentType, EmbellishmentTypeResponseDto>();
-
-
-
-
-
-            //CreateMap<Doctor, DoctorDetailsDto>()
-            //    .ForMember(dest => dest.ProvinceName, opt => opt.MapFrom(src => src.Province.Name))
-            //    .ForMember(dest => dest.DistrictName, opt => opt.MapFrom(src => src.District.Name))
-            //    .ForMember(dest => dest.CurrentProvinceName, opt => opt.MapFrom(src => src.Province.GarmentId == src.CurrentProvinceId ? src.Province.Name : ""))
-            //    .ForMember(dest => dest.CurrentDistrictName, opt => opt.MapFrom(src => src.District.GarmentId == src.CurrentDistrictId ? "test": src.District.Name))
-            //    .ForMember(dest => dest.ProvinceId, opt => opt.MapFrom(src => src.Province.GarmentId))
-            //    .ForMember(dest => dest.DistrictId, opt => opt.MapFrom(src => src.District.GarmentId))
-            //    .ForMember(dest => dest.CurrentProvinceId, opt => opt.MapFrom(src => src.CurrentProvinceId))
-            //    .ForMember(dest => dest.CurrentDistrictId, opt => opt.MapFrom(src => src.CurrentDistrictId))
-            //    .ReverseMap();
-
-            //CreateMap<Doctor, DoctorDetailsDto>()
-            //  .ForMember(dest => dest.CurrentProvinceName, opt => opt.MapFrom(src => src.Province.Name))
-            //  .ForMember(dest => dest.CurrentDistrictName, opt => opt.MapFrom(src => src.District.Name))
-            //  .ReverseMap();
-
-            //// Mapping from DTO to Entity
-            ////CreateMap<CustomerAddDto, Customer>().ReverseMap(); // Add this line
-            //CreateMap<MeasurementAddDto, Measurements>(); // Add this line
-            //CreateMap<OrdersAddDto, Order>(); // Add this line
-
-            //// Mapping from Entity to DTO and vice versa
-            ////CreateMap<Customer, CustomerResponseDto>();
-            ////CreateMap<Customer, CustomerAddDto>().ReverseMap(); // ReverseMap for bidirectional mapping
-            //CreateMap<EmbellishmentType, EmbellishmentTypeResponseDto>().ReverseMap();
-            //CreateMap<Order, OrdersAddDto>().ReverseMap();
-            //CreateMap<OrderDesign, OrderDesignAddDto>().ReverseMap();
-            //CreateMap<Measurements, MeasurementAddDto>().ReverseMap();
+            CreateMap<GarmentFieldAddDto, GarmentField>().ReverseMap();
+            CreateMap<GarmentField, GarmentFieldResponseDto>().ReverseMap();
         }
     }
 }

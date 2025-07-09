@@ -18,23 +18,4 @@ namespace Khayati.Core.DTO.Customers
 
         public List<MeasurementDto> Measurements { get; set; }
     }
-
-    //public static class CustomerExtention
-    //{
-    //    public static CustomerResponseDto ToCustomerResponseDto(this Customer customer)
-    //    {
-    //        return new CustomerResponseDto
-    //        {
-    //            CustomerId = customer.CustomerId,
-    //            Name = customer.Name,
-    //            Address = customer.Address,
-    //            PhoneNumber = customer.PhoneNumber,
-    //            //CustomerSince = customer.CustomerSince,
-    //            DateOfBirth = customer.DateOfBirth,
-    //            //CustomerType = customer.CustomerType,
-    //            NationalID = customer.NationalID,
-    //            EmailAddress = customer.EmailAddress
-    //        };
-    //    }
-    //}
 }

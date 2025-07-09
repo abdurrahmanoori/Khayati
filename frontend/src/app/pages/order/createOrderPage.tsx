@@ -250,7 +250,6 @@ const CreateOrderPage = () => {
         FabricId: Number(g.fabric) || 1, // Default to 1 if no fabric selected
         CustomerId: order.CustomerId,
         Details: g.garment,
-        MeasurementId: 2, // Assuming MeasurementId is not used here
         EmbellishmentId: Number(garments[index].embellishments[0].name) || 2, // Assuming only one embellishment per garment
       })),
       note: order.description,

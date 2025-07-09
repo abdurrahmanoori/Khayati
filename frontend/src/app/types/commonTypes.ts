@@ -93,7 +93,7 @@ export type Customer = {
   phoneNumber: string
   customerType: string | null
   customerSince: string
-  measurements: Measurement[]
+  measurements: []
 }
 export type Measurement = {
   ArmLength: string
