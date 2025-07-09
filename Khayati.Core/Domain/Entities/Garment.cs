@@ -10,6 +10,8 @@ namespace Khayati.Core.Domain.Entities
 
         public int Cost { get; set; }
 
-        public ICollection<Measurement> Measurements { get; set; }
+        public ICollection<Measurement> Measurements { get; set; } = new List<Measurement>();
+        public virtual ICollection<GarmentField> GarmentFields { get; set; } = new List<GarmentField>();
+
     }
 }

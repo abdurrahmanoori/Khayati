@@ -2,17 +2,25 @@ import * as React from 'react'
 import {useEffect, useState} from 'react'
 import {Toolbar1} from '../../../_metronic/layout/components/toolbar/Toolbar1'
 import CustomSelect from '../../components/CustomSelect'
-import {mockGarments} from './mockGarments'
 import GarmentModal from '../../modals/GarmentModal'
 import {Link} from 'react-router-dom'
+import axios from 'axios'
+import Swal from 'sweetalert2'
 const CreateMeasurementPage = () => {
   const [measurement, setMeasurement] = useState({
-    CustomerId: '',
-    Garment: '',
+    CustomerId: 0,
+    GarmentId: 0,
   })
   const [showModal, setShowModal] = useState(false)
-  const [garment, setGarment] =
-    useState<{GarmentId: number; GarmentName: string; GarmentFields: string[]}[]>(mockGarments)
+  const [garment, setGarment] = useState<
+    {
+      garmentId: number
+      name: string
+      garmentFields: {fieldName: string}[]
+    }[]
+  >([])
+  const [customerOptions, setCustomerOptions] = useState<{value: string; label: string}[]>([])
+
   const [tempMeasurement, setTempMeasurement] = useState<Record<string, string>[]>([])
 
   const handleFieldChange = (fields: string[]) => {
@@ -20,20 +28,72 @@ const CreateMeasurementPage = () => {
     setTempMeasurement(updatedMeasurements)
   }
 
-  useEffect(() => {}, [tempMeasurement])
+  const fetchGarments = async () => {
+    try {
+      const response = await axios.get('https://localhost:7016/api/Garment')
+      setGarment(response.data)
+    } catch (error) {
+      console.error('Error fetching garments:', error)
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Failed to fetch garments. Please try again later.',
+      })
+    }
+  }
+  const fetchCustomers = async () => {
+    try {
+      const response = await axios.get('https://localhost:7016/api/Customer')
+      const customerOptions = response.data.map((customer: any) => ({
+        value: customer?.customerId.toString(),
+        label: customer?.name,
+      }))
+      setCustomerOptions(customerOptions)
+    } catch (error) {
+      console.error('Error fetching customers:', error)
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Failed to fetch customers. Please try again later.',
+      })
+    }
+  }
+  useEffect(() => {
+    fetchCustomers()
+    fetchGarments()
+  }, [tempMeasurement])
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const mergedFields = tempMeasurement.reduce((acc, fieldObj) => ({...acc, ...fieldObj}), {})
-    setMeasurement((prev) => ({
-      ...prev,
+    const newMeasurement = {
+      ...measurement,
       ...mergedFields,
-    }))
-    console.log('Measurement submitted:', measurement)
+    }
+    const reponse = axios.post('https://localhost:7016/api/Measurement', newMeasurement)
+    reponse
+      .then((res) => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Success',
+          text: 'Measurement added successfully!',
+        })
+      })
+      .catch((error) => {
+        console.error('Error submitting measurement:', error)
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Failed to add measurement. Please try again later.',
+        })
+      })
+    // Reset the form after submission
+    setMeasurement(newMeasurement)
+    console.log('Measurement submitted:', newMeasurement)
   }
 
   const GarmentOptions = [
     {value: '', label: 'Select Garment'},
-    ...garment.map((g) => ({value: g.GarmentName, label: g.GarmentName})),
+    ...garment.map((g) => ({value: g.garmentId.toString(), label: g.name})),
   ]
   return (
     <>
@@ -58,23 +118,17 @@ const CreateMeasurementPage = () => {
                     name='CustomerId'
                     className='form-control'
                     value={
-                      [
-                        {value: '', label: 'Select Customer'},
-                        {value: '1', label: 'John Doe'},
-                        {value: '2', label: 'Jane Smith'},
-                      ].find((option) => option.value === measurement.CustomerId) || null
+                      customerOptions.find(
+                        (option) => option.value === measurement.CustomerId.toString()
+                      ) || null
                     }
                     onChange={(selected) => {
                       setMeasurement((prev) => ({
                         ...prev,
-                        CustomerId: selected ? selected.value : '',
+                        CustomerId: selected ? Number(selected.value) : 0,
                       }))
                     }}
-                    options={[
-                      {value: '', label: 'Select Customer'},
-                      {value: '1', label: 'John Doe'},
-                      {value: '2', label: 'Jane Smith'},
-                    ]}
+                    options={customerOptions}
                   />
                 </div>
                 <div className='col-md-5'>
@@ -88,19 +142,22 @@ const CreateMeasurementPage = () => {
                       name='Garment'
                       className='form-control'
                       value={
-                        GarmentOptions.find((option) => option.value === measurement.Garment) ||
-                        null
+                        GarmentOptions.find(
+                          (option) => option.value === measurement.GarmentId.toString()
+                        ) || null
                       }
                       onChange={(selected) => {
                         setMeasurement((prev) => ({
                           ...prev,
-                          Garment: selected ? selected.value : '',
+                          GarmentId: selected ? Number(selected.value) : 0,
                         }))
                         const selectedGarment = garment.find(
-                          (g) => g.GarmentName === selected?.value
+                          (g) => g.garmentId.toString() === selected?.value
                         )
                         if (selectedGarment) {
-                          handleFieldChange(selectedGarment.GarmentFields)
+                          handleFieldChange(
+                            selectedGarment.garmentFields.map((field) => field.fieldName)
+                          )
                         }
                       }}
                       options={GarmentOptions}

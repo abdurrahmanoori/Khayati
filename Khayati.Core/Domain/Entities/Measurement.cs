@@ -5,95 +5,53 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entities
 {
-    /// <summary>
-    /// Represents the Measurements entity, responsible for storing and handling customer measurement details.
-    /// </summary>
     public class Measurement : AuditableEntity
     {
-        /// <summary>
-        /// Unique identifier for the measurement.
-        /// </summary>
         public int MeasurementId { get; set; }
 
         public int? GarmentId { get; set; }
 
-        /// <summary>
-        /// Foreign key reference to the customer who owns the measurement.
-        /// </summary>
         public int CustomerId { get; set; }
 
+        // General body measurements (all in cm/inches as per standard)
+        public double? Height { get; set; }
+        public double? ArmLength { get; set; }
+        public double? Sleeve { get; set; }
+        public double? ShoulderWidth { get; set; }
+        public double? Neck { get; set; }
+        public double? Chest { get; set; }
+        public double? Waist { get; set; }
+        public double? Trousers { get; set; }
+        public double? Leg { get; set; }
 
-        /// <summary>
-        /// The date when the measurement was taken.
-        /// </summary>
-       // public DateTime DateTaken { get; set; }
-
-        /// <summary>
-        /// Customer's height (قد) measurement.
-        /// </summary>
-
-        public double Height { get; set; }
-        /// <summary>
-        /// Customer's arm length (آستین) measurement.
-        /// </summary>
-        public double ArmLength { get; set; }
-        /// <summary>
-        /// Customer's Sleeve (دهن آستین) measurement.
-        /// </summary>
-        public double Sleeve { get; set; }
-
-        /// <summary>
-        /// Customer's shoulder width (شانه) measurement.
-        /// </summary>
-        public double ShoulderWidth { get; set; }
-
-        /// <summary>
-        /// Customer's Neck (یخن) measurement.
-        /// </summary>
-        public double Neck { get; set; }
-
-
-        /// <summary>
-        /// Customer's chest(سینه/بغل ) measurement.
-        /// </summary>
-        public double Chest { get; set; }
-
-        /// <summary>
-        /// Customer's waist (دامن) measurement.
-        /// </summary>
-        public double Waist { get; set; }
-
-
-        /// <summary>
-        /// Customer's trousers (تنبان) measurement.
-        /// </summary>
-        public double trousers { get; set; }
-
-        /// <summary>
-        /// Customer's Leg (پاچه) measurement.
-        /// </summary>
-        public double Leg { get; set; }
-
-        [Required(AllowEmptyStrings = true)]
-        public int? FabricId { get; set; }
-
+        // Extended measurements
+        public double? Hip { get; set; }
+        public double? Inseam { get; set; }
+        public double? Thigh { get; set; }
+        public double? Knee { get; set; }
+        public double? Bicep { get; set; }
+        public double? Wrist { get; set; }
+        public double? Ankle { get; set; }
+        public double? Bust { get; set; }          // For female clothing
+        public double? UnderBust { get; set; }
+        public double? BackWidth { get; set; }
+        public double? FrontLength { get; set; }
+        public double? TorsoLength { get; set; }
+        public double? SkirtLength { get; set; }   // For dresses/skirts
+        public double? ShoulderToBust { get; set; }
+        public double? ShoulderToWaist { get; set; }
+        public double? WaistToHip { get; set; }
+        public double? WaistToFloor { get; set; }
+        public double? Armhole { get; set; }
+        public double? Calf { get; set; }
+        public double? NeckToWaist { get; set; }
 
         public string? Description { get; set; }
-        /// <summary>
-        /// Indicates the date when this measurement was created. Useful for tracking the most recent measurement of a customer.
-        /// </summary>
-       // public DateTime DateCreated { get; set; }
 
-        /// <summary>
-        /// Navigation property for the related Customer entity.
-        /// </summary>
         [ForeignKey(nameof(CustomerId))]
         public virtual Customer Customer { get; set; }
 
-        [ForeignKey(nameof(FabricId))]
-        public virtual Fabric Fabric { get; set; }
-
         [ForeignKey(nameof(GarmentId))]
-        public Garment Garment { get; set; }
+        public virtual Garment Garment { get; set; }
     }
 }

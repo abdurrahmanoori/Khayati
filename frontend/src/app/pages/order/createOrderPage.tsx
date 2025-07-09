@@ -1,11 +1,14 @@
 import React, {useEffect, useState} from 'react'
-import {ThemeModeComponent} from '../../../_metronic/assets/ts/layout'
-import {Toolbar1} from '../../../_metronic/layout/components/toolbar/Toolbar1'
-import axios from 'axios'
-import CustomerInfo from './components/customerInfo'
-import GarmentInfo from './components/garmentInfo'
-import PaymentInfo from './components/paymentInfo'
-import Swal from 'sweetalert2'
+import {
+  ThemeModeComponent,
+  axios,
+  CustomerInfo,
+  GarmentInfo,
+  PaymentInfo,
+  Swal,
+  Toolbar1,
+} from '../../components'
+
 import {
   OptionType,
   Garment,
@@ -13,14 +16,9 @@ import {
   defaultOrder,
   Customer,
   Embellishment,
+  Fabric,
 } from '../../types/commonTypes'
-import {
-  priorityOptions,
-  paymentOptions,
-  garmentOptions,
-  fabricOptions,
-  colorOptions,
-} from './options'
+import {priorityOptions, paymentOptions, garmentOptions} from './options'
 const CreateOrderPage = () => {
   const [order, setOrder] = useState<Order>(defaultOrder)
   const [garments, setGarments] = useState<Garment[]>([
@@ -33,12 +31,38 @@ const CreateOrderPage = () => {
       embellishments: [{type: '', name: ''}],
     },
   ])
+  const [garmentOption, setGarmentOption] = useState<OptionType[]>([])
   const [embellishments, setEmbellishments] = useState<Embellishment[]>([])
   const [customerOptions, setCustomerOptions] = useState<OptionType[]>([])
   const [Customers, setCustomers] = useState<Customer[]>([])
   const [embellishmentOptions, setEmbellishmentOptions] = useState<OptionType[]>([])
   const [allEmbellishmentsOptions, setAllEmbellishmentsOptions] = useState<OptionType[][][]>([])
   const [embellishmentTypeOptions, setEmbellishmentTypeOptions] = useState<OptionType[]>([])
+  const [colorOptions, setColorOptions] = useState<OptionType[][]>([])
+  const [allFabrics, setAllFabrics] = useState<Fabric[]>([])
+  const [fabricOptions, setFabricOptions] = useState<OptionType[]>([])
+  const [allGarments, setAllGarments] = useState<Garment[]>([])
+  const fetchGarments = async () => {
+    try {
+      const response = await axios.get('https://localhost:7016/api/garment')
+      if (response.status === 200) {
+        setAllGarments(response.data)
+        setGarmentOption(
+          response.data.map((garment: any) => ({
+            value: garment.garmentId.toString(),
+            label: `${garment.name}`,
+          }))
+        )
+      }
+    } catch (error) {
+      console.error('Error fetching garments:', error)
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Backend Connection Failed. Please try again later.',
+      })
+    }
+  }
   const fetchCustomers = async () => {
     try {
       const response = await axios.get('https://localhost:7016/api/customer')
@@ -52,11 +76,54 @@ const CreateOrderPage = () => {
       }
     } catch (error) {
       console.error('Error fetching customers:', error)
-      Swal.fire({
-        icon: 'error',
-        title: 'Error',
-        text: 'Failed to fetch customers. Please try again later.',
+    }
+  }
+  const setFabric = (name: string, color: string, gIndex: number) => {
+    const filteredFabric = allFabrics.find(
+      (fabric) => fabric.fabricType === name && fabric.color === color
+    )
+    if (filteredFabric) {
+      setGarments((prev: Garment[]) => {
+        const updated = [...prev]
+        updated[gIndex].fabric = filteredFabric.fabricId.toString() || ''
+        return updated
       })
+    } else {
+    }
+  }
+  const setColor = (Fabricname: string, gIndex: number) => {
+    const filteredFabrics = allFabrics.filter((fabric) => fabric.fabricType === Fabricname)
+    const options = filteredFabrics.map((fabric: Fabric) => ({
+      value: fabric.color,
+      label: `${fabric.color}`,
+    }))
+    setColorOptions((prev) => {
+      const updated = [...prev]
+      updated[gIndex] = options
+      return updated
+    })
+  }
+  const fetchFabrics = async () => {
+    const FabricTypes: string[] = []
+    try {
+      const response = await axios.get('https://localhost:7016/api/fabric')
+      if (response.status === 200) {
+        setAllFabrics(response.data)
+        const uniqueFabrics = response.data.filter((fabric: Fabric) => {
+          if (!FabricTypes.includes(fabric.fabricType)) {
+            FabricTypes.push(fabric.fabricType)
+            return true
+          }
+          return false
+        })
+        const options = uniqueFabrics?.map((fabric: Fabric) => ({
+          value: fabric.fabricId.toString(),
+          label: `${fabric.fabricType}`,
+        }))
+        setFabricOptions(options)
+      }
+    } catch (error) {
+      console.error('Error fetching fabrics:', error)
     }
   }
   const setTypes = (type: string, gindex?: number, eIndex?: number) => {
@@ -79,17 +146,6 @@ const CreateOrderPage = () => {
 
       setAllEmbellishmentsOptions(newList)
     }
-
-    console.log(
-      'Filtered Embellishments:',
-      filteredEmbellishments,
-      'Type:',
-      type,
-      'gIndex:',
-      gindex,
-      'All Embellishments:',
-      allEmbellishmentsOptions
-    )
   }
 
   const fetchEmbellishments = async () => {
@@ -106,11 +162,6 @@ const CreateOrderPage = () => {
       }
     } catch (error) {
       console.error('Error fetching embellishments:', error)
-      Swal.fire({
-        icon: 'error',
-        title: 'Error',
-        text: 'Failed to fetch embellishments. Please try again later.',
-      })
     }
   }
   const fetchEmbellishmentTypes = async () => {
@@ -126,20 +177,17 @@ const CreateOrderPage = () => {
       }
     } catch (error) {
       console.error('Error fetching embellishment types:', error)
-      Swal.fire({
-        icon: 'error',
-        title: 'Error',
-        text: 'Failed to fetch embellishment types. Please try again later.',
-      })
     }
   }
   const [themeMode, setThemeMode] = useState<'light' | 'dark' | 'system'>(
     ThemeModeComponent.getMode()
   )
   useEffect(() => {
+    fetchGarments()
     fetchCustomers()
     fetchEmbellishments()
     fetchEmbellishmentTypes()
+    fetchFabrics()
     const updateTheme = () => setThemeMode(ThemeModeComponent.getMode())
     const interval = setInterval(updateTheme, 1000)
     return () => clearInterval(interval)
@@ -150,7 +198,14 @@ const CreateOrderPage = () => {
     const i = garments.length
     const newGarments = [
       ...garments,
-      {id: i, garment: '', color: '', fabric: '', isEmbellished: false, embellishments: []},
+      {
+        id: i,
+        garment: '',
+        color: '',
+        fabric: '',
+        isEmbellished: false,
+        embellishments: [{type: '', name: ''}],
+      },
     ]
     setGarments(newGarments)
   }
@@ -173,33 +228,32 @@ const CreateOrderPage = () => {
   }
 
   const statusOptions: OptionType[] = [
-    {value: 'Pending', label: 'Pending'},
-    {value: 'Processing', label: 'Processing'},
-    {value: 'Completed', label: 'Completed'},
-    {value: 'Cancelled', label: 'Cancelled'},
+    {value: '1', label: 'Pending'},
+    {value: '2', label: 'Processing'},
+    {value: '3', label: 'Completed'},
+    {value: '4', label: 'Cancelled'},
   ]
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const orderData = {
       customerId: order.CustomerId,
       orderDate: new Date().toISOString(),
-      expectedCompletionDate: order.DeliveryDate,
-      orderStatus: order.OrderStatus,
-      paymentStatus: order.PaymentStatus,
-      totalCost: order.TotalCost,
+      expectedCompletionDate: new Date(order.DeliveryDate).toISOString(),
+      orderStatus: Number(order.OrderStatus) || 1, // Default to 1 if not set
+      paymentStatus: Number(order.PaymentStatus) || 3, // Default to 3 if not set
+      totalCost: Number(order.TotalCost),
       isPaid: order.PaidAmount === order.TotalCost,
-      cost: order.TotalCost,
-      orderPriority: order.orderPriority,
-      orderDesigns: garments.map((g) => ({
-        DesignId: g.id,
-        FabricId: g.fabric,
+      cost: Number(order.TotalCost),
+      orderPriority: Number(order.orderPriority) || 2, // Default to 2 if not set
+      orderDesigns: garments.map((g, index) => ({
+        GarmentId: Number(g.garment) || 1, // Default to 1 if no garment selected
+        FabricId: Number(g.fabric) || 1, // Default to 1 if no fabric selected
         CustomerId: order.CustomerId,
         Details: g.garment,
-        MeasurementId: 0, // Assuming MeasurementId is not used here
-        EmbellishmentId: g.isEmbellished ? g.embellishments[0] : null, // Assuming only one embellishment per garment
+        EmbellishmentId: Number(garments[index].embellishments[0].name) || 2, // Assuming only one embellishment per garment
       })),
       note: order.description,
-      Payments: [{amount: order.TotalCost, paymentDate: new Date().toISOString()}],
+      Payments: [{amount: Number(order.TotalCost), paymentDate: new Date().toISOString()}],
     }
     axios
       .post('https://localhost:7016/api/orders', orderData)
@@ -209,6 +263,7 @@ const CreateOrderPage = () => {
             icon: 'success',
             title: 'Order Created',
             text: 'Your order has been successfully created.',
+            timer: 2000,
           })
           setOrder(defaultOrder)
           setGarments([
@@ -256,7 +311,7 @@ const CreateOrderPage = () => {
               />
               <GarmentInfo
                 garments={garments}
-                garmentOptions={garmentOptions}
+                garmentOptions={garmentOption}
                 setGarments={setGarments}
                 addEmbellishment={addEmbellishment}
                 removeGarment={removeGarment}
@@ -265,10 +320,11 @@ const CreateOrderPage = () => {
                 colorOptions={colorOptions}
                 fabricOptions={fabricOptions}
                 addGarment={addGarment}
-                order={order}
                 embellishments={embellishments}
                 allEmbellishmentsOptions={allEmbellishmentsOptions}
                 setTypes={setTypes}
+                setFabric={setFabric}
+                setColor={setColor}
               />
               <PaymentInfo
                 setOrder={setOrder}

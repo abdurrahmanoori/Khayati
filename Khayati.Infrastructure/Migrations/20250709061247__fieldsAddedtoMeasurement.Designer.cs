@@ -3,6 +3,7 @@ using System;
 using Entities.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Khayati.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250709061247__fieldsAddedtoMeasurement")]
+    partial class _fieldsAddedtoMeasurement
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.0");
@@ -586,25 +588,6 @@ namespace Khayati.Infrastructure.Migrations
                     b.ToTable("Garments");
                 });
 
-            modelBuilder.Entity("Khayati.Core.Domain.Entities.GarmentField", b =>
-                {
-                    b.Property<int>("GarmentFieldId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("FieldName")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("GarmentId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("GarmentFieldId");
-
-                    b.HasIndex("GarmentId");
-
-                    b.ToTable("GarmentFields");
-                });
-
             modelBuilder.Entity("Khayati.Core.Domain.Entities.Relative", b =>
                 {
                     b.Property<int>("RelativeId")
@@ -958,17 +941,6 @@ namespace Khayati.Infrastructure.Migrations
                     b.Navigation("Order");
                 });
 
-            modelBuilder.Entity("Khayati.Core.Domain.Entities.GarmentField", b =>
-                {
-                    b.HasOne("Khayati.Core.Domain.Entities.Garment", "Garment")
-                        .WithMany("GarmentFields")
-                        .HasForeignKey("GarmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Garment");
-                });
-
             modelBuilder.Entity("Khayati.Core.Domain.Entities.Relative", b =>
                 {
                     b.HasOne("Entities.Customer", "Customer")
@@ -1059,8 +1031,6 @@ namespace Khayati.Infrastructure.Migrations
 
             modelBuilder.Entity("Khayati.Core.Domain.Entities.Garment", b =>
                 {
-                    b.Navigation("GarmentFields");
-
                     b.Navigation("Measurements");
                 });
 #pragma warning restore 612, 618

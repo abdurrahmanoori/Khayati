@@ -4,23 +4,26 @@ import {Link} from 'react-router-dom'
 import {Toolbar1} from '../../../_metronic/layout/components/toolbar/Toolbar1'
 import MeasurementModal from '../../modals/MeasurementModal'
 import Swal from 'sweetalert2'
-import {Measurement} from '../../types/commonTypes'
+import {Measurement, Customer} from '../../types/commonTypes'
 import {mockCustomers, mockMeasurements} from './mockMeasurements'
+import axios from 'axios'
+
 type Props = {
   className: string
 }
 const MeasurementPage: React.FC<Props> = ({className}) => {
   const allMeasurements: Measurement[] = mockMeasurements
   const [measurement, setMeasurement] = useState<Measurement>()
-  const [customers, setCustomer] = useState(mockCustomers)
-  const [allCustomers, setAllCustomers] = useState(customers)
+  const [customers, setCustomer] = useState<Customer[]>([])
+  const [allCustomers, setAllCustomers] = useState<Customer[]>([])
+  const [customerToUpdate, setCustomerToUpdate] = useState<Customer>()
   const [showModal, setShowModal] = useState(false)
   const search = (value: string) => {
     if (value === '') {
       setCustomer(allCustomers)
     } else {
       const filteredcustomers = customers.filter((c) =>
-        c.Name.toLowerCase().includes(value.toLowerCase())
+        c.name.toLowerCase().includes(value.toLowerCase())
       )
       setCustomer(filteredcustomers)
     }
@@ -35,13 +38,35 @@ const MeasurementPage: React.FC<Props> = ({className}) => {
       showConfirmButton: true,
       confirmButtonText: 'Yes, Delete it!',
     }).then((result) => {
-      const c = customers.filter((c) => c.Id.toString() != Id)
+      const c = customers.filter((c) => c.customerId.toString() != Id)
       setCustomer(c)
     })
   }
-  const handleEdit = (Id: string) => {
-    const updateMeasurement = allMeasurements.find((m) => m.CustomerId == Id)
-    setMeasurement(updateMeasurement)
+  const fetchCustomers = async () => {
+    try {
+      const response = await axios.get('https://localhost:7016/api/Customer')
+      const MeasuredCustomers = response.data.filter((c: any) => c.measurements.length > 0)
+      console.log('MeasuredCustomers:', MeasuredCustomers)
+      const customerOptions = MeasuredCustomers?.map((customer: any) => ({
+        value: customer?.customerId.toString(),
+        label: customer?.name,
+      }))
+      setCustomer(MeasuredCustomers)
+      setAllCustomers(MeasuredCustomers)
+    } catch (error) {
+      console.error('Error fetching customers:', error)
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Failed to fetch customers. Please try again later.',
+      })
+    }
+  }
+  React.useEffect(() => {
+    fetchCustomers()
+  }, [])
+  const handleEdit = (c: Customer) => {
+    setCustomerToUpdate(c)
     setShowModal(true)
   }
 
@@ -111,10 +136,10 @@ const MeasurementPage: React.FC<Props> = ({className}) => {
               {/* begin::Table body */}
               <tbody>
                 {customers.map((c, index) => (
-                  <tr key={c.Id}>
+                  <tr key={c.customerId ?? index}>
                     <td>
                       <div className='form-check form-check-sm form-check-custom form-check-solid'>
-                        <span className=' mt-1 fw-semibold fs-7'>{index + 1}</span>
+                        <span className=' mt-1 fw-semibold fs-7'>{c.customerId}</span>
                       </div>
                     </td>
                     <td>
@@ -124,7 +149,7 @@ const MeasurementPage: React.FC<Props> = ({className}) => {
                         </div>
                         <div className='d-flex justify-content-start flex-column'>
                           <a href='#' className='text-dark fw-bold text-hover-primary fs-6'>
-                            {c.Name}
+                            {c.name}
                           </a>
                         </div>
                       </div>
@@ -136,7 +161,7 @@ const MeasurementPage: React.FC<Props> = ({className}) => {
                           className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
                           aria-label='Edit'
                           onClick={() => {
-                            handleEdit(c.Id.toString())
+                            handleEdit(c)
                           }}
                         >
                           <KTSVG
@@ -149,7 +174,7 @@ const MeasurementPage: React.FC<Props> = ({className}) => {
                           className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm'
                           aria-label='Delete'
                           onClick={() => {
-                            handleDelete(c.Id.toString())
+                            handleDelete(c.customerId.toString())
                           }}
                         >
                           <KTSVG
@@ -174,7 +199,7 @@ const MeasurementPage: React.FC<Props> = ({className}) => {
         show={showModal}
         setShow={() => setShowModal(false)}
         title='Update Measurement'
-        updatemeasurement={measurement}
+        customer={customerToUpdate}
       />
     </>
   )

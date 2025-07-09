@@ -66,6 +66,7 @@ namespace Entities.Data
         public DbSet<Translation> Translations { get; set; }
         public DbSet<Fabric> Fabrics { get; set; }
         public DbSet<Garment> Garments { get; set; }
+        public DbSet<GarmentField> GarmentFields { get; set; }
     }
 
 }

@@ -32,6 +32,16 @@ export type Embellishment = {
   embellishmentTypeId: number
   cost: number
 }
+export type Fabric = {
+  fabricId: number
+  fabricType: string
+  color: string
+  requiredMeters: number
+  pattern: string
+  thickness: number
+  durability: string
+  costPerMeter: number
+}
 
 export type Order = {
   OrderId: number
@@ -83,7 +93,7 @@ export type Customer = {
   phoneNumber: string
   customerType: string | null
   customerSince: string
-  measurements: Measurement[]
+  measurements: []
 }
 export type Measurement = {
   ArmLength: string

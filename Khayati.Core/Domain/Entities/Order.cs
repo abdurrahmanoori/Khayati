@@ -48,18 +48,18 @@ namespace Entities
         {
             if (AmountPaid == 0)
             {
-                PaymentStatus = PaymentStatus.Pending;
+                PaymentStatus = PaymentStatus.Unpaid;
                 IsPaid = false;
             }
             else if (AmountPaid >= TotalCost)
             {
-                PaymentStatus = PaymentStatus.Completed;
+                PaymentStatus = PaymentStatus.Paid;
                 IsPaid = true;
                 //OrderDate = DateTime.UtcNow;
             }
             else
             {
-                PaymentStatus = PaymentStatus.PartialPayment;
+                PaymentStatus = PaymentStatus.Partial;
                 IsPaid = false;
                 //OrderDate = DateTime.UtcNow;
             }

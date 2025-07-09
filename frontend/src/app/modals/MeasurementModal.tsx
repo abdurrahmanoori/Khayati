@@ -1,193 +1,215 @@
-import * as React from 'react'
-import {useState, useEffect} from 'react'
+import React, {useState, useEffect} from 'react'
 import {ReusableModal} from './reusableModal'
 import CustomFormLayout from '../components/CustomFormLayout'
-import {Measurement} from '../types/commonTypes'
+import {Measurement, Customer, Garment} from '../types/commonTypes'
+import GarmentModal from './GarmentModal'
+import CustomSelect from '../components/CustomSelect'
+import axios from 'axios'
+import Swal from 'sweetalert2'
+import {Link} from 'react-router-dom'
+
 type Props = {
   show: boolean
   setShow: Function
   title?: string
-  updatemeasurement?: Measurement
+  customer?: Customer
 }
-const MeasurementModal: React.FC<Props> = ({show, setShow, title, updatemeasurement}) => {
+
+const MeasurementModal: React.FC<Props> = ({show, setShow, title, customer}) => {
   const [measurement, setMeasurement] = useState({
-    ArmLength: '',
-    Chest: '',
-    Height: '',
-    Leg: '',
-    Neck: '',
-    Sleeve: '',
-    Waist: '',
-    ShoulderWidth: '',
-    CustomerId: '',
-    trousers: '',
+    CustomerId: customer?.customerId,
+    GarmentId: 0,
   })
-  useEffect(() => {
-    if (updatemeasurement) {
-      setMeasurement(updatemeasurement)
-    }
-  }, [updatemeasurement])
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const {name, value} = e.target
-    setMeasurement((prev) => ({
-      ...prev,
-      [name]: value,
-    }))
+
+  const [showModal, setShowModal] = useState(false)
+  const [garment, setGarment] = useState<
+    {
+      garmentId: number
+      name: string
+      garmentFields: {fieldName: string}[]
+    }[]
+  >([])
+
+  const [tempMeasurement, setTempMeasurement] = useState<Record<string, string>[]>([])
+
+  const handleFieldChange = (fields: string[]) => {
+    const updatedMeasurements = fields.map((field) => ({[field]: ''}))
+    setTempMeasurement(updatedMeasurements)
   }
+
+  const fetchGarments = async () => {
+    try {
+      const response = await axios.get('https://localhost:7016/api/Garment')
+      setGarment(response.data)
+    } catch (error) {
+      console.error('Error fetching garments:', error)
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Failed to fetch garments. Please try again later.',
+      })
+    }
+  }
+
+  useEffect(() => {
+    if (show) {
+      fetchGarments()
+
+      // const GarmentToUpdate= garment.filter((g)=>{
+      //       customer?.measurements.map((m)=>{
+      //       g.garmentId=m?.garmentId
+
+      //       })
+
+      // })
+    }
+  }, [show])
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    console.log('Measurement submitted:', measurement)
+    const mergedFields = tempMeasurement.reduce((acc, fieldObj) => ({...acc, ...fieldObj}), {})
+    const newMeasurement = {
+      ...measurement,
+      ...mergedFields,
+    }
+
+    axios
+      .put('https://localhost:7016/api/Measurement', newMeasurement)
+      .then(() => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Success',
+          text: 'Measurement update successfully!',
+        })
+        setMeasurement({
+          CustomerId: customer?.customerId,
+          GarmentId: 0,
+        })
+        setTempMeasurement([])
+      })
+      .catch((error) => {
+        console.error('Error submitting measurement:', error)
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Failed to update measurement. Please try again later.',
+        })
+      })
+
+    console.log('Measurement submitted:', newMeasurement)
   }
 
+  const GarmentOptions = [
+    {value: '', label: 'Select Garment'},
+    ...garment.map((g) => ({value: g.garmentId.toString(), label: g.name})),
+  ]
+
   return (
-    <>
-      <ReusableModal show={show} onClose={() => setShow(false)}>
-        <CustomFormLayout
-          title={
-            <>
-              <i className='fas fa-plus text-dark m-2 mt-1 mb-1' />{' '}
-              {title != '' ? title : 'Add Measurement'}
-            </>
-          }
-          onSubmit={handleSubmit}
-          submitLabel={title != '' ? 'Save Measurement' : 'Add Measurement'}
-          rows={[
-            [
-              <div key='ArmLength' className='mb-3'>
-                <label htmlFor='ArmLength' className='form-label'>
-                  Arm Length:
+    <ReusableModal
+      show={show}
+      onClose={() => {
+        setShow(false)
+        setGarment([])
+        setTempMeasurement([])
+      }}
+    >
+      <div className='card shadow-sm col-lg-12 m-3 mt-1'>
+        <div className='card-body p-4'>
+          <form onSubmit={handleSubmit}>
+            <div className='row mb-3'>
+              <div className='col-md-5'>
+                <label htmlFor='CustomerName' className='form-label'>
+                  Customer:
                 </label>
-                <input
-                  type='number'
-                  id='ArmLength'
-                  name='ArmLength'
-                  className='form-control'
-                  value={parseInt(measurement.ArmLength)}
-                  onChange={handleChange}
-                />
-              </div>,
+                <input type='text' className='form-control' value={customer?.name} disabled />
+              </div>
 
-              <div key='Chest' className='mb-3'>
-                <label htmlFor='Chest' className='form-label'>
-                  Chest:
+              <div className='col-md-5'>
+                <label htmlFor='Garment' className='form-label'>
+                  Garment:
                 </label>
-                <input
-                  type='number'
-                  id='Chest'
-                  name='Chest'
-                  className='form-control'
-                  value={parseInt(measurement.Chest)}
-                  onChange={handleChange}
-                />
-              </div>,
-            ],
-            [
-              <div key='Height' className='mb-3'>
-                <label htmlFor='Height' className='form-label'>
-                  Height:
-                </label>
-                <input
-                  type='number'
-                  id='Height'
-                  name='Height'
-                  className='form-control'
-                  value={parseInt(measurement.Height)}
-                  onChange={handleChange}
-                />
-              </div>,
 
-              <div key='Leg' className='mb-3'>
-                <label htmlFor='Leg' className='form-label'>
-                  Leg:
-                </label>
-                <input
-                  type='number'
-                  id='Leg'
-                  name='Leg'
-                  className='form-control'
-                  value={parseInt(measurement.Leg)}
-                  onChange={handleChange}
-                />
-              </div>,
-            ],
-            [
-              <div key='Neck' className='mb-3'>
-                <label htmlFor='Neck' className='form-label'>
-                  Neck:
-                </label>
-                <input
-                  type='number'
-                  id='Neck'
-                  name='Neck'
-                  className='form-control'
-                  value={parseInt(measurement.Neck)}
-                  onChange={handleChange}
-                />
-              </div>,
+                <div className='d-flex gap-2'>
+                  <CustomSelect
+                    id='Garment'
+                    name='Garment'
+                    className='form-control'
+                    value={
+                      GarmentOptions.find(
+                        (option) => option.value === measurement.GarmentId.toString()
+                      ) || null
+                    }
+                    onChange={(selected) => {
+                      setMeasurement((prev) => ({
+                        ...prev,
+                        GarmentId: selected ? Number(selected.value) : 0,
+                      }))
+                      const selectedGarment = garment.find(
+                        (g) => g.garmentId.toString() === selected?.value
+                      )
+                      if (selectedGarment) {
+                        handleFieldChange(
+                          selectedGarment.garmentFields.map((field) => field.fieldName)
+                        )
+                      }
+                    }}
+                    options={GarmentOptions}
+                  />
+                  <Link to='' onClick={() => setShowModal(true)} className='mt-4'>
+                    create
+                  </Link>
+                </div>
+              </div>
+            </div>
 
-              <div key='Sleeve' className='mb-3'>
-                <label htmlFor='Sleeve' className='form-label'>
-                  Sleeve:
-                </label>
-                <input
-                  type='number'
-                  id='Sleeve'
-                  name='Sleeve'
-                  className='form-control'
-                  value={parseInt(measurement.Sleeve)}
-                  onChange={handleChange}
-                />
-              </div>,
-            ],
-            [
-              <div key='Waist' className='mb-3'>
-                <label htmlFor='Waist' className='form-label'>
-                  Waist:
-                </label>
-                <input
-                  type='number'
-                  id='Waist'
-                  name='Waist'
-                  className='form-control'
-                  value={parseInt(measurement.Waist)}
-                  onChange={handleChange}
-                />
-              </div>,
+            {tempMeasurement.length > 0 && (
+              <>
+                <div className='row mb-3 mt-3'>
+                  <label htmlFor='TempMeasurement' className='form-label'>
+                    Measurement Fields:
+                  </label>
+                </div>
 
-              <div key='ShoulderWidth' className='mb-3'>
-                <label htmlFor='ShoulderWidth' className='form-label'>
-                  Shoulder Width:
-                </label>
-                <input
-                  type='number'
-                  id='ShoulderWidth'
-                  name='ShoulderWidth'
-                  className='form-control'
-                  value={parseInt(measurement.ShoulderWidth)}
-                  onChange={handleChange}
-                />
-              </div>,
-            ],
-            [
-              <div key='trousers' className='mb-3 col-md-6'>
-                <label htmlFor='trousers' className='form-label'>
-                  Trousers:
-                </label>
-                <input
-                  type='number'
-                  id='trousers'
-                  name='trousers'
-                  className='form-control'
-                  value={parseInt(measurement.trousers)}
-                  onChange={handleChange}
-                />
-              </div>,
-            ],
-          ]}
-        />
-      </ReusableModal>
-    </>
+                <div className='row'>
+                  {tempMeasurement.map((fieldObj, idx) => {
+                    const key = Object.keys(fieldObj)[0]
+                    return (
+                      <div key={key + idx} className='mb-3 col-md-6'>
+                        <label htmlFor={key} className='form-label'>
+                          {key}:
+                        </label>
+                        <input
+                          type='number'
+                          id={key}
+                          name={key}
+                          className='form-control'
+                          value={fieldObj[key]}
+                          onChange={(e) =>
+                            setTempMeasurement((prev) => {
+                              const updated = [...prev]
+                              updated[idx] = {[key]: e.target.value}
+                              return updated
+                            })
+                          }
+                        />
+                      </div>
+                    )
+                  })}
+                </div>
+              </>
+            )}
+
+            <div className='text-end mt-3'>
+              <button type='submit' className='btn btn-outline-success'>
+                Submit
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <GarmentModal showModal={showModal} setShowModal={setShowModal} />
+    </ReusableModal>
   )
 }
 

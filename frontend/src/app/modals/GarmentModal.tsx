@@ -2,13 +2,14 @@ import * as React from 'react'
 import Select from 'react-select'
 import {ReusableModal} from './reusableModal'
 import CustomMultiSelect from '../components/CustomMultiSelect'
-
+import axios from 'axios'
+import Swal from 'sweetalert2'
 type OptionType = {label: string; value: string}
 
 type Garment = {
-  GarmentName: string
-  GarmentFields: OptionType[]
-  Cost: string
+  Name: string
+  GarmentFields: {fieldName: string}[]
+  Cost: number
 }
 
 type Props = {
@@ -18,34 +19,68 @@ type Props = {
 
 const GarmentModal: React.FC<Props> = ({showModal, setShowModal}) => {
   const [garment, setGarment] = React.useState<Garment>({
-    GarmentName: '',
+    Name: '',
     GarmentFields: [],
-    Cost: '',
+    Cost: 0,
   })
 
   const availableFields: OptionType[] = [
-    {value: 'Neck', label: 'Neck'},
+    {value: 'Height', label: 'Height'},
     {value: 'Chest', label: 'Chest'},
     {value: 'Waist', label: 'Waist'},
-    {value: 'Hips', label: 'Hips'},
-    {value: 'Shoulder', label: 'Shoulder'},
-    {value: 'Sleeve Length', label: 'Sleeve Length'},
+    {value: 'Leg', label: 'Leg'},
+    {value: 'Trousers', label: 'Trousers'},
+    {value: 'Neck', label: 'Neck'},
+    {value: 'Sleeve', label: 'Sleeve'},
+    {value: 'ShoulderWidth', label: 'Shoulder Width'},
+    {value: 'ArmLength', label: 'Arm Length'},
+    {value: 'Hip', label: 'Hip'},
+    {value: 'Inseam', label: 'Inseam'},
     {value: 'Thigh', label: 'Thigh'},
     {value: 'Knee', label: 'Knee'},
+    {value: 'Bicep', label: 'Bicep'},
+    {value: 'Wrist', label: 'Wrist'},
     {value: 'Ankle', label: 'Ankle'},
-    {value: 'Height', label: 'Height'},
-    {value: 'Leg', label: 'Leg'},
+    {value: 'Bust', label: 'Bust'},
+    {value: 'UnderBust', label: 'Under Bust'},
+    {value: 'BackWidth', label: 'Back Width'},
+    {value: 'FrontLength', label: 'Front Length'},
+    {value: 'TorsoLength', label: 'Torso Length'},
+    {value: 'SkirtLength', label: 'Skirt Length'},
+    {value: 'ShoulderToBust', label: 'Shoulder to Bust'},
+    {value: 'ShoulderToWaist', label: 'Shoulder to Waist'},
+    {value: 'WaistToHip', label: 'Waist to Hip'},
+    {value: 'WaistToFloor', label: 'Waist to Floor'},
+    {value: 'Armhole', label: 'Armhole'},
+    {value: 'Calf', label: 'Calf'},
+    {value: 'NeckToWaist', label: 'Neck to Waist'},
   ]
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     console.log({
-      garmentName: garment.GarmentName,
-      selectedFields: garment.GarmentFields.map((f) => f.value),
+      garmentName: garment.Name,
+      selectedFields: garment.GarmentFields.map((f) => f.fieldName),
       cost: garment.Cost,
     })
-    setShowModal(false)
-    setGarment({GarmentName: '', GarmentFields: [], Cost: ''})
+    const response = await axios.post('https://localhost:7016/api/Garment', garment)
+    if (response.status === 200) {
+      console.log('Garment added successfully:', response.data)
+      Swal.fire({
+        icon: 'success',
+        title: 'Garment Added',
+        text: 'The garment has been added successfully.',
+      })
+      setShowModal(false)
+      setGarment({Name: '', GarmentFields: [], Cost: 0})
+    } else {
+      console.error('Failed to add garment:', response.data)
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Failed to add garment. Please try again later.',
+      })
+    }
   }
 
   return (
@@ -53,7 +88,7 @@ const GarmentModal: React.FC<Props> = ({showModal, setShowModal}) => {
       show={showModal}
       onClose={() => {
         setShowModal(false)
-        setGarment({GarmentName: '', GarmentFields: [], Cost: ''})
+        setGarment({Name: '', GarmentFields: [], Cost: 0})
       }}
     >
       <div className='modal-header justify-content-center'>
@@ -71,8 +106,8 @@ const GarmentModal: React.FC<Props> = ({showModal, setShowModal}) => {
                 className='form-control'
                 id='garmentName'
                 name='garmentName'
-                value={garment.GarmentName}
-                onChange={(e) => setGarment((prev) => ({...prev, GarmentName: e.target.value}))}
+                value={garment.Name}
+                onChange={(e) => setGarment((prev) => ({...prev, Name: e.target.value}))}
               />
             </div>
             <div className='col-md-6 mb-3'>
@@ -80,9 +115,16 @@ const GarmentModal: React.FC<Props> = ({showModal, setShowModal}) => {
               <CustomMultiSelect
                 isMulti={true}
                 options={availableFields}
-                value={garment.GarmentFields}
+                value={garment.GarmentFields.map((field) => ({
+                  value: field.fieldName,
+                  label: field.fieldName,
+                }))}
+                placeholder='Select Fields'
                 onChange={(selected: any) =>
-                  setGarment((prev) => ({...prev, GarmentFields: selected as OptionType[]}))
+                  setGarment((prev) => ({
+                    ...prev,
+                    GarmentFields: selected.map((option: any) => ({fieldName: option.value})),
+                  }))
                 }
               />
             </div>
@@ -98,7 +140,7 @@ const GarmentModal: React.FC<Props> = ({showModal, setShowModal}) => {
                 id='Cost'
                 name='Cost'
                 value={garment.Cost}
-                onChange={(e) => setGarment((prev) => ({...prev, Cost: e.target.value}))}
+                onChange={(e) => setGarment((prev) => ({...prev, Cost: Number(e.target.value)}))}
               />
             </div>
           </div>

@@ -49,7 +49,7 @@ namespace Khayati.Service
 
         public async Task<Result<List<GarmentDto>>> GetGarmentList()
         {
-            var list = await _unitOfWork.GarmentRepository.GetAll();
+            var list = await _unitOfWork.GarmentRepository.GetAll(includeProperties: "GarmentFields");
 
             if (!list.Any()) return Result<List<GarmentDto>>.EmptyResult(nameof(Garment));
             return Result<List<GarmentDto>>.SuccessResult(_mapper.Map<List<GarmentDto>>(list));

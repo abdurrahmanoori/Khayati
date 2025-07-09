@@ -8,7 +8,7 @@ namespace Khayati.Infrastructure.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<Measurement> builder)
         {
-            builder.Property(f => f.FabricId).IsRequired(false);
+           
             //builder.HasOne(c=>c.Customer)
             //    .WithMany(o=>o.Measurements)
             //    .HasForeignKey(c=>c.CustomerId)

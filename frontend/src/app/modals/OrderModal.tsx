@@ -5,7 +5,7 @@ import {ThemeModeComponent} from '../../_metronic/assets/ts/layout'
 import CustomerInfo from '../pages/order/components/customerInfo'
 import GarmentInfo from '../pages/order/components/garmentInfo'
 import PaymentInfo from '../pages/order/components/paymentInfo'
-import {Order, Garment, defaultOrder} from '../types/commonTypes'
+import {Order, Garment, defaultOrder, OptionType} from '../types/commonTypes'
 import {
   customerOptions,
   priorityOptions,
@@ -38,7 +38,7 @@ const OrderModal: React.FC<Props> = ({showModal, setShowModal, updateorder}) => 
   const [themeMode, setThemeMode] = useState<'light' | 'dark' | 'system'>(
     ThemeModeComponent.getMode()
   )
-
+  const [colorOptions, setColorOptions] = useState<OptionType[][]>([])
   useEffect(() => {
     if (updateorder) setOrder(updateorder)
     const interval = setInterval(() => setThemeMode(ThemeModeComponent.getMode()), 1000)
@@ -111,7 +111,6 @@ const OrderModal: React.FC<Props> = ({showModal, setShowModal, updateorder}) => 
                 colorOptions={colorOptions}
                 fabricOptions={fabricOptions}
                 addGarment={addGarment}
-                order={order}
               />
               <PaymentInfo
                 setOrder={setOrder}
