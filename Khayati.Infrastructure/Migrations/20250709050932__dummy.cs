@@ -4,12 +4,14 @@
 
 namespace Khayati.Infrastructure.Migrations
 {
-    public partial class _FabricColorIsRemovedFromOrderDesign : Migration
+    public partial class _dummy : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+          
+
             migrationBuilder.AddColumn<int>(
-                name: "CustomerId",
+                name: "GarmentId",
                 table: "OrderDesigns",
                 type: "INTEGER",
                 nullable: false,
@@ -19,7 +21,7 @@ namespace Khayati.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "CustomerId",
+                name: "GarmentId",
                 table: "OrderDesigns");
         }
     }

@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Khayati.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250709043446___bullish")]
-    partial class __bullish
+    [Migration("20250709050932__dummy")]
+    partial class _dummy
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -399,9 +399,6 @@ namespace Khayati.Infrastructure.Migrations
                     b.Property<int>("CustomerId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Details")
-                        .HasColumnType("TEXT");
-
                     b.Property<int?>("EmbellishmentId")
                         .HasColumnType("INTEGER");
 
@@ -422,8 +419,6 @@ namespace Khayati.Infrastructure.Migrations
                         .HasColumnType("INTEGER");
 
                     b.HasKey("DesignId");
-
-                    b.HasIndex("CustomerId");
 
                     b.HasIndex("EmbellishmentId");
 
@@ -873,12 +868,6 @@ namespace Khayati.Infrastructure.Migrations
 
             modelBuilder.Entity("Entities.OrderDesign", b =>
                 {
-                    b.HasOne("Entities.Customer", "Customer")
-                        .WithMany()
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Entities.Embellishment", "Embellishment")
                         .WithMany("OrderDesigns")
                         .HasForeignKey("EmbellishmentId");
@@ -898,8 +887,6 @@ namespace Khayati.Infrastructure.Migrations
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Customer");
 
                     b.Navigation("Embellishment");
 
