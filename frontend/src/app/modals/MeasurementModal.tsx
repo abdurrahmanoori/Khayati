@@ -54,14 +54,6 @@ const MeasurementModal: React.FC<Props> = ({show, setShow, title, customer}) => 
   useEffect(() => {
     if (show) {
       fetchGarments()
-
-      // const GarmentToUpdate= garment.filter((g)=>{
-      //       customer?.measurements.map((m)=>{
-      //       g.garmentId=m?.garmentId
-
-      //       })
-
-      // })
     }
   }, [show])
 
