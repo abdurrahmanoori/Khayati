@@ -4,16 +4,13 @@ import {Link} from 'react-router-dom'
 import {Toolbar1} from '../../../_metronic/layout/components/toolbar/Toolbar1'
 import MeasurementModal from '../../modals/MeasurementModal'
 import Swal from 'sweetalert2'
-import {Measurement, Customer} from '../../types/commonTypes'
-import {mockCustomers, mockMeasurements} from './mockMeasurements'
+import {Customer} from '../../types/commonTypes'
 import axios from 'axios'
 
 type Props = {
   className: string
 }
 const MeasurementPage: React.FC<Props> = ({className}) => {
-  const allMeasurements: Measurement[] = mockMeasurements
-  const [measurement, setMeasurement] = useState<Measurement>()
   const [customers, setCustomer] = useState<Customer[]>([])
   const [allCustomers, setAllCustomers] = useState<Customer[]>([])
   const [customerToUpdate, setCustomerToUpdate] = useState<Customer>()
@@ -47,10 +44,6 @@ const MeasurementPage: React.FC<Props> = ({className}) => {
       const response = await axios.get('https://localhost:7016/api/Customer')
       const MeasuredCustomers = response.data.filter((c: any) => c.measurements.length > 0)
       console.log('MeasuredCustomers:', MeasuredCustomers)
-      const customerOptions = MeasuredCustomers?.map((customer: any) => ({
-        value: customer?.customerId.toString(),
-        label: customer?.name,
-      }))
       setCustomer(MeasuredCustomers)
       setAllCustomers(MeasuredCustomers)
     } catch (error) {

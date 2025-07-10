@@ -1,12 +1,11 @@
 import * as React from 'react'
 import CustomSelect from '../../../components/CustomSelect'
 import {SingleValue} from 'react-select'
-import {Order, Garment, OptionType as Type, Embellishment} from '../../../types/commonTypes'
-import axios from 'axios'
+import {Garment, OptionType as Type, Embellishment} from '../../../types/commonTypes'
 type Props = {
   garments: Garment[]
   garmentOptions: Type[]
-  setGarments: Function
+  setGarments: React.Dispatch<React.SetStateAction<any[]>>
   removeGarment: Function
   fabricOptions: Type[]
   colorOptions: Type[][]
@@ -17,7 +16,12 @@ type Props = {
   embellishments?: Embellishment[]
   allEmbellishmentsOptions?: Type[][][]
   setTypes?: (type: string, index?: number, eindex?: number) => void
-  setFabric?: (name: string, color: string, index: number) => void
+  setFabric?: (
+    name: string,
+    color: string,
+    index: number,
+    setGarments: React.Dispatch<React.SetStateAction<any[]>>
+  ) => void
   setColor?: (FabricName: string, gIndex: number) => void
 }
 const GarmentInfo: React.FC<Props> = ({
@@ -93,7 +97,7 @@ const GarmentInfo: React.FC<Props> = ({
                     const updated = [...prev]
                     if (updated[gIndex]) {
                       updated[gIndex].color = selected?.value || ''
-                      setFabric(FabricName[gIndex], selected?.value || '', gIndex)
+                      setFabric(FabricName[gIndex], selected?.value || '', gIndex, setGarments)
                     }
                     return updated
                   })
