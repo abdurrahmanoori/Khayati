@@ -31,46 +31,46 @@ namespace Khayati.Api.Controllers
                    HandleResultResponse(await _orderService.GetOrdersByCustomerId(customerId));
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<OrderDto>>> GetOrders() =>
+        public async Task<ActionResult<IEnumerable<OrderDto>>> GetOrders( ) =>
                    HandleResultResponse(await _orderService.GetOrders());
         [HttpGet("mock-orders")]
         public async Task<ActionResult<IEnumerable<OrderDto>>> GetOrders1( )
         {
             var mockOrders = new List<OrderDto>
-    {
-        new OrderDto
-        {
-            OrderId = 101,
-            CustomerId = 501,
-            ExpectedCompletionDate = DateTime.Parse("2025-07-15"),
-            Cost = 120.00m,
-            TotalCost = 150.00m,
-            OrderDate = DateTime.Parse("2025-06-22T10:30:00"),
-            IsPaid = false,
-            AmountPaid = 50.00m,
-            RemainingAmount = 100.00m,
-            CustomerDto = new CustomerDto
+               {
+            new OrderDto
             {
+                OrderId = 101,
                 CustomerId = 501,
-                Name = "Ali",
-                LastName = "Rahimi",
-                Address = "No. 12, Street 5, Kabul",
-                Gender = "Male",
-                PhoneNumber = "+93 700 123 456",
-                EmailAddress = "ali.rahimi@example.com",
-                NationalID = "1234567890123",
-                DateOfBirth = DateTime.Parse("1990-03-15")
-            },
-            PaymentDtos = new List<PaymentDto>
-            {
-                new PaymentDto
+                ExpectedCompletionDate = DateTime.Parse("2025-07-15"),
+                Cost = 120.00m,
+                TotalCost = 150.00m,
+                OrderDate = DateTime.Parse("2025-06-22T10:30:00"),
+                IsPaid = false,
+                AmountPaid = 50.00m,
+                RemainingAmount = 100.00m,
+                CustomerDto = new CustomerDto
                 {
-                    Amount = 50.00m,
-                    PaymentDate = DateTime.Parse("2025-06-22T11:00:00"),
-                    OrderId = 101
+                    CustomerId = 501,
+                    Name = "Ali",
+                    LastName = "Rahimi",
+                    Address = "No. 12, Street 5, Kabul",
+                    Gender = "Male",
+                    PhoneNumber = "+93 700 123 456",
+                    EmailAddress = "ali.rahimi@example.com",
+                    NationalID = "1234567890123",
+                    DateOfBirth = DateTime.Parse("1990-03-15")
+                },
+                PaymentDtos = new List<PaymentDto>
+                {
+                    new PaymentDto
+                    {
+                        Amount = 50.00m,
+                        PaymentDate = DateTime.Parse("2025-06-22T11:00:00"),
+                        OrderId = 101
+                    }
                 }
             }
-        }
     };
 
             return Ok(mockOrders);
@@ -84,7 +84,7 @@ namespace Khayati.Api.Controllers
                  HandleResultResponse(await _orderService.CalculateTotalCost(orderId));
 
 
-       
+
         //[HttpGet("Api/GetAll")]
         //public async Task<IActionResult> GetOrdersList( )
         //{
@@ -115,7 +115,7 @@ namespace Khayati.Api.Controllers
         //        //    var Orders = await _unitOfWork.OrderRepository.GetFirstOrDefault(x => x.OrdersId == id);
         //        //    if (Orders == null)
         //        //    {
-       //        //        return NotFound("There is no on by this GarmentId.");
+        //        //        return NotFound("There is no on by this GarmentId.");
         //        //    }
         //        //    await _unitOfWork.OrderRepository.Update(Orders);
 
