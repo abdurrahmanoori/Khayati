@@ -1,4 +1,3 @@
-import * as React from 'react'
 import {useEffect, useState} from 'react'
 import {Toolbar1} from '../../../_metronic/layout/components/toolbar/Toolbar1'
 import CustomSelect from '../../components/CustomSelect'
@@ -6,6 +5,7 @@ import GarmentModal from '../../modals/GarmentModal'
 import {Link} from 'react-router-dom'
 import axios from 'axios'
 import Swal from 'sweetalert2'
+import {useCreateMeasurement} from './hooks/useCreateMeasurement'
 const CreateMeasurementPage = () => {
   const [measurement, setMeasurement] = useState({
     CustomerId: 0,
@@ -62,35 +62,7 @@ const CreateMeasurementPage = () => {
     fetchCustomers()
     fetchGarments()
   }, [tempMeasurement])
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    const mergedFields = tempMeasurement.reduce((acc, fieldObj) => ({...acc, ...fieldObj}), {})
-    const newMeasurement = {
-      ...measurement,
-      ...mergedFields,
-    }
-    const reponse = axios.post('https://localhost:7016/api/Measurement', newMeasurement)
-    reponse
-      .then((res) => {
-        Swal.fire({
-          icon: 'success',
-          title: 'Success',
-          text: 'Measurement added successfully!',
-        })
-      })
-      .catch((error) => {
-        console.error('Error submitting measurement:', error)
-        Swal.fire({
-          icon: 'error',
-          title: 'Error',
-          text: 'Failed to add measurement. Please try again later.',
-        })
-      })
-    // Reset the form after submission
-    setMeasurement(newMeasurement)
-    console.log('Measurement submitted:', newMeasurement)
-  }
-
+  const {handleSubmit} = useCreateMeasurement()
   const GarmentOptions = [
     {value: '', label: 'Select Garment'},
     ...garment.map((g) => ({value: g.garmentId.toString(), label: g.name})),
@@ -107,7 +79,11 @@ const CreateMeasurementPage = () => {
 
         <div className='card shadow-sm col-lg-8 m-3 mt-1'>
           <div className='card-body p-4'>
-            <form onSubmit={handleSubmit}>
+            <form
+              onSubmit={(e) =>
+                handleSubmit(e, measurement, tempMeasurement, setTempMeasurement, setMeasurement)
+              }
+            >
               <div className='row mb-3'>
                 <div className='col-md-5'>
                   <label htmlFor='CustomerId' className='form-label'>

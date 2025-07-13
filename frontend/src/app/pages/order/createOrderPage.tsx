@@ -1,24 +1,22 @@
 import React, {useEffect, useState} from 'react'
+import {useGarmentHelpers} from '../order/hooks/useGarmentHelpers'
 import {
   ThemeModeComponent,
-  axios,
   CustomerInfo,
   GarmentInfo,
   PaymentInfo,
-  Swal,
   Toolbar1,
 } from '../../components'
-
 import {
-  OptionType,
-  Garment,
-  Order,
-  defaultOrder,
-  Customer,
-  Embellishment,
-  Fabric,
-} from '../../types/commonTypes'
-import {priorityOptions, paymentOptions, garmentOptions} from './options'
+  useFetchGarments,
+  useFetchCustomers,
+  useFetchFabrics,
+  useFetchEmbellishments,
+  useFetchEmbellishmentTypes,
+} from '../order/hooks/useFetchData'
+import {useCreateOrder} from './hooks/useCreateOrder'
+import {OptionType, Garment, Order, defaultOrder, Customer} from '../../types/commonTypes'
+import {priorityOptions, paymentOptions} from './options'
 const CreateOrderPage = () => {
   const [order, setOrder] = useState<Order>(defaultOrder)
   const [garments, setGarments] = useState<Garment[]>([
@@ -31,168 +29,29 @@ const CreateOrderPage = () => {
       embellishments: [{type: '', name: ''}],
     },
   ])
-  const [garmentOption, setGarmentOption] = useState<OptionType[]>([])
-  const [embellishments, setEmbellishments] = useState<Embellishment[]>([])
-  const [customerOptions, setCustomerOptions] = useState<OptionType[]>([])
-  const [Customers, setCustomers] = useState<Customer[]>([])
-  const [embellishmentOptions, setEmbellishmentOptions] = useState<OptionType[]>([])
-  const [allEmbellishmentsOptions, setAllEmbellishmentsOptions] = useState<OptionType[][][]>([])
-  const [embellishmentTypeOptions, setEmbellishmentTypeOptions] = useState<OptionType[]>([])
-  const [colorOptions, setColorOptions] = useState<OptionType[][]>([])
-  const [allFabrics, setAllFabrics] = useState<Fabric[]>([])
-  const [fabricOptions, setFabricOptions] = useState<OptionType[]>([])
-  const [allGarments, setAllGarments] = useState<Garment[]>([])
-  const fetchGarments = async () => {
-    try {
-      const response = await axios.get('https://localhost:7016/api/garment')
-      if (response.status === 200) {
-        setAllGarments(response.data)
-        setGarmentOption(
-          response.data.map((garment: any) => ({
-            value: garment.garmentId.toString(),
-            label: `${garment.name}`,
-          }))
-        )
-      }
-    } catch (error) {
-      console.error('Error fetching garments:', error)
-      Swal.fire({
-        icon: 'error',
-        title: 'Error',
-        text: 'Backend Connection Failed. Please try again later.',
-      })
-    }
-  }
-  const fetchCustomers = async () => {
-    try {
-      const response = await axios.get('https://localhost:7016/api/customer')
-      if (response.status === 200) {
-        setCustomers(response.data)
-        const options = response.data.map((customer: Customer) => ({
-          value: customer.customerId,
-          label: `${customer.name}`,
-        }))
-        setCustomerOptions(options)
-      }
-    } catch (error) {
-      console.error('Error fetching customers:', error)
-    }
-  }
-  const setFabric = (name: string, color: string, gIndex: number) => {
-    const filteredFabric = allFabrics.find(
-      (fabric) => fabric.fabricType === name && fabric.color === color
-    )
-    if (filteredFabric) {
-      setGarments((prev: Garment[]) => {
-        const updated = [...prev]
-        updated[gIndex].fabric = filteredFabric.fabricId.toString() || ''
-        return updated
-      })
-    } else {
-    }
-  }
-  const setColor = (Fabricname: string, gIndex: number) => {
-    const filteredFabrics = allFabrics.filter((fabric) => fabric.fabricType === Fabricname)
-    const options = filteredFabrics.map((fabric: Fabric) => ({
-      value: fabric.color,
-      label: `${fabric.color}`,
-    }))
-    setColorOptions((prev) => {
-      const updated = [...prev]
-      updated[gIndex] = options
-      return updated
-    })
-  }
-  const fetchFabrics = async () => {
-    const FabricTypes: string[] = []
-    try {
-      const response = await axios.get('https://localhost:7016/api/fabric')
-      if (response.status === 200) {
-        setAllFabrics(response.data)
-        const uniqueFabrics = response.data.filter((fabric: Fabric) => {
-          if (!FabricTypes.includes(fabric.fabricType)) {
-            FabricTypes.push(fabric.fabricType)
-            return true
-          }
-          return false
-        })
-        const options = uniqueFabrics?.map((fabric: Fabric) => ({
-          value: fabric.fabricId.toString(),
-          label: `${fabric.fabricType}`,
-        }))
-        setFabricOptions(options)
-      }
-    } catch (error) {
-      console.error('Error fetching fabrics:', error)
-    }
-  }
-  const setTypes = (type: string, gindex?: number, eIndex?: number) => {
-    const filteredEmbellishments: Embellishment[] = embellishments.filter(
-      (embellishment) => embellishment.embellishmentTypeId === Number(type)
-    )
 
-    if (gindex !== undefined && eIndex !== undefined) {
-      const newList = [...allEmbellishmentsOptions]
+  const {garmentOptions} = useFetchGarments()
+  const {customerOptions} = useFetchCustomers()
+  const {fabricOptions, allFabrics} = useFetchFabrics()
+  const {embellishments, embellishmentOptions} = useFetchEmbellishments()
+  const {embellishmentTypeOptions} = useFetchEmbellishmentTypes()
+  const {setColor, setFabric, setTypes, colorOptions, allEmbellishmentsOptions} = useGarmentHelpers(
+    allFabrics,
+    embellishments
+  )
 
-      // Initialize inner array if it doesn't exist
-      if (!newList[gindex]) {
-        newList[gindex] = []
-      }
-
-      newList[gindex][eIndex] = filteredEmbellishments.map((embellishment: any) => ({
-        value: embellishment.embellishmentId,
-        label: `${embellishment.name}`,
-      }))
-
-      setAllEmbellishmentsOptions(newList)
-    }
-  }
-
-  const fetchEmbellishments = async () => {
-    try {
-      const response = await axios.get('https://localhost:7016/api/embellishments')
-      if (response.status === 200) {
-        setEmbellishments(response.data)
-        setEmbellishmentOptions(
-          response.data.map((embellishment: any) => ({
-            value: embellishment.embellishmentId,
-            label: `${embellishment.name}`,
-          }))
-        )
-      }
-    } catch (error) {
-      console.error('Error fetching embellishments:', error)
-    }
-  }
-  const fetchEmbellishmentTypes = async () => {
-    try {
-      const response = await axios.get('https://localhost:7016/api/embellishmenttype')
-      if (response.status === 200) {
-        setEmbellishmentTypeOptions(
-          response.data.map((type: any) => ({
-            value: type.embellishmentTypeId,
-            label: `${type.name}`,
-          }))
-        )
-      }
-    } catch (error) {
-      console.error('Error fetching embellishment types:', error)
-    }
-  }
   const [themeMode, setThemeMode] = useState<'light' | 'dark' | 'system'>(
     ThemeModeComponent.getMode()
   )
   useEffect(() => {
-    fetchGarments()
-    fetchCustomers()
-    fetchEmbellishments()
-    fetchEmbellishmentTypes()
-    fetchFabrics()
     const updateTheme = () => setThemeMode(ThemeModeComponent.getMode())
     const interval = setInterval(updateTheme, 1000)
     return () => clearInterval(interval)
   }, [])
-
+  const {handleSubmit} = useCreateOrder(order, garments, () => {
+    setOrder(defaultOrder)
+    setGarments([])
+  })
   const isDark = themeMode === 'dark'
   const addGarment = () => {
     const i = garments.length
@@ -226,69 +85,12 @@ const CreateOrderPage = () => {
     const {name, value} = e.target
     setOrder((prev) => ({...prev, [name]: value}))
   }
-
   const statusOptions: OptionType[] = [
     {value: '1', label: 'Pending'},
     {value: '2', label: 'Processing'},
     {value: '3', label: 'Completed'},
     {value: '4', label: 'Cancelled'},
   ]
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    const orderData = {
-      customerId: order.CustomerId,
-      orderDate: new Date().toISOString(),
-      expectedCompletionDate: new Date(order.DeliveryDate).toISOString(),
-      orderStatus: Number(order.OrderStatus) || 1, // Default to 1 if not set
-      paymentStatus: Number(order.PaymentStatus) || 3, // Default to 3 if not set
-      totalCost: Number(order.TotalCost),
-      isPaid: order.PaidAmount === order.TotalCost,
-      cost: Number(order.TotalCost),
-      orderPriority: Number(order.orderPriority) || 2, // Default to 2 if not set
-      orderDesigns: garments.map((g, index) => ({
-        GarmentId: Number(g.garment) || 1, // Default to 1 if no garment selected
-        FabricId: Number(g.fabric) || 1, // Default to 1 if no fabric selected
-        CustomerId: order.CustomerId,
-        Details: g.garment,
-        EmbellishmentId: Number(garments[index].embellishments[0].name) || 2, // Assuming only one embellishment per garment
-      })),
-      note: order.description,
-      Payments: [{amount: Number(order.TotalCost), paymentDate: new Date().toISOString()}],
-    }
-    axios
-      .post('https://localhost:7016/api/orders', orderData)
-      .then((response) => {
-        if (response.status === 200) {
-          Swal.fire({
-            icon: 'success',
-            title: 'Order Created',
-            text: 'Your order has been successfully created.',
-            timer: 2000,
-          })
-          setOrder(defaultOrder)
-          setGarments([
-            {
-              id: 0,
-              garment: '',
-              color: '',
-              fabric: '',
-              isEmbellished: false,
-              embellishments: [{type: '', name: ''}],
-            },
-          ])
-        }
-      })
-      .catch((error) => {
-        console.error('Error creating order:', error)
-        Swal.fire({
-          icon: 'error',
-          title: 'Error',
-          text: 'Failed to create order. Please try again later.',
-        })
-      })
-
-    console.log('obj:', orderData)
-  }
   return (
     <>
       <Toolbar1 />
@@ -311,7 +113,7 @@ const CreateOrderPage = () => {
               />
               <GarmentInfo
                 garments={garments}
-                garmentOptions={garmentOption}
+                garmentOptions={garmentOptions}
                 setGarments={setGarments}
                 addEmbellishment={addEmbellishment}
                 removeGarment={removeGarment}
