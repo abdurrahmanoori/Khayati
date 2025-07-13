@@ -5,9 +5,6 @@
         public int MeasurementId { get; set; }
 
         public int? GarmentId { get; set; }
-
-        public int? Cost { get; set; }
-
         public double? Height { get; set; }
         public double? ArmLength { get; set; }
         public double? Sleeve { get; set; }
@@ -43,8 +40,5 @@
         public int CustomerId { get; set; }
 
         public string? Description { get; set; }
-
-        // Optional: include customer details if needed
-        // public CustomerDto? Customer { get; set; }
     }
 }

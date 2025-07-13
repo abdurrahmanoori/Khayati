@@ -15,6 +15,13 @@ const MeasurementPage: React.FC<Props> = ({className}) => {
   const [allCustomers, setAllCustomers] = useState<Customer[]>([])
   const [customerToUpdate, setCustomerToUpdate] = useState<Customer>()
   const [showModal, setShowModal] = useState(false)
+  const [isEditable, setIsEditable] = useState<boolean>(false)
+  const handleView = (c: Customer) => {
+    //setTitle('')
+    setIsEditable(false)
+    setCustomerToUpdate(c)
+    setShowModal(true)
+  }
   const search = (value: string) => {
     if (value === '') {
       setCustomer(allCustomers)
@@ -25,6 +32,7 @@ const MeasurementPage: React.FC<Props> = ({className}) => {
       setCustomer(filteredcustomers)
     }
   }
+
   const handleDelete = (Id: string) => {
     Swal.fire({
       title: 'Delete!',
@@ -34,16 +42,25 @@ const MeasurementPage: React.FC<Props> = ({className}) => {
       showCloseButton: true,
       showConfirmButton: true,
       confirmButtonText: 'Yes, Delete it!',
-    }).then((result) => {
+    }).then(async (result) => {
       const c = customers.filter((c) => c.customerId.toString() != Id)
       setCustomer(c)
+      const response = await axios.delete(`https://localhost:7016/api/Measurement/${Id}`)
+      if (response.status == 200) {
+        Swal.fire({
+          title: 'Deleted!',
+          text: 'Measurement successfully deleted!',
+          icon: 'success',
+          showConfirmButton: true,
+          timer: 2000,
+        })
+      }
     })
   }
   const fetchCustomers = async () => {
     try {
       const response = await axios.get('https://localhost:7016/api/Customer')
       const MeasuredCustomers = response.data.filter((c: any) => c.measurements.length > 0)
-      console.log('MeasuredCustomers:', MeasuredCustomers)
       setCustomer(MeasuredCustomers)
       setAllCustomers(MeasuredCustomers)
     } catch (error) {
@@ -59,8 +76,13 @@ const MeasurementPage: React.FC<Props> = ({className}) => {
     fetchCustomers()
   }, [])
   const handleEdit = (c: Customer) => {
+    setIsEditable(true)
     setCustomerToUpdate(c)
-    setShowModal(true)
+
+    // Delay showing modal to allow title to update
+    setTimeout(() => {
+      setShowModal(true)
+    }, 0)
   }
 
   return (
@@ -129,7 +151,15 @@ const MeasurementPage: React.FC<Props> = ({className}) => {
               {/* begin::Table body */}
               <tbody>
                 {customers.map((c, index) => (
-                  <tr key={c.customerId ?? index}>
+                  <tr
+                    key={c.customerId ?? index}
+                    onClick={(e: any) => {
+                      handleView(c)
+                    }}
+                    style={{
+                      cursor: 'pointer',
+                    }}
+                  >
                     <td>
                       <div className='form-check form-check-sm form-check-custom form-check-solid'>
                         <span className=' mt-1 fw-semibold fs-7'>{c.customerId}</span>
@@ -153,7 +183,8 @@ const MeasurementPage: React.FC<Props> = ({className}) => {
                           type='button'
                           className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
                           aria-label='Edit'
-                          onClick={() => {
+                          onClick={(e) => {
+                            e.stopPropagation()
                             handleEdit(c)
                           }}
                         >
@@ -166,7 +197,8 @@ const MeasurementPage: React.FC<Props> = ({className}) => {
                           type='button'
                           className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm'
                           aria-label='Delete'
-                          onClick={() => {
+                          onClick={(e) => {
+                            e.stopPropagation()
                             handleDelete(c.customerId.toString())
                           }}
                         >
@@ -190,9 +222,11 @@ const MeasurementPage: React.FC<Props> = ({className}) => {
       </div>
       <MeasurementModal
         show={showModal}
-        setShow={() => setShowModal(false)}
-        title='Update Measurement'
+        setShow={() => {
+          setShowModal(false)
+        }}
         customer={customerToUpdate}
+        IsEditable={isEditable}
       />
     </>
   )
