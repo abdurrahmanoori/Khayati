@@ -5,7 +5,7 @@ import GarmentModal from '../../modals/GarmentModal'
 import {Link} from 'react-router-dom'
 import axios from 'axios'
 import Swal from 'sweetalert2'
-import {useCreateMeasurement} from './hooks/useCreateMeasurement'
+import {useMeasurementHelper} from './hooks/useMeasurementHelper'
 const CreateMeasurementPage = () => {
   const [measurement, setMeasurement] = useState({
     CustomerId: 0,
@@ -62,7 +62,7 @@ const CreateMeasurementPage = () => {
     fetchCustomers()
     fetchGarments()
   }, [tempMeasurement])
-  const {handleSubmit} = useCreateMeasurement()
+  const {handleSubmit} = useMeasurementHelper()
   const GarmentOptions = [
     {value: '', label: 'Select Garment'},
     ...garment.map((g) => ({value: g.garmentId.toString(), label: g.name})),

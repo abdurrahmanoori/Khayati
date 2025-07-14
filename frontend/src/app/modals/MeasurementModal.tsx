@@ -7,22 +7,33 @@ import CustomSelect from '../components/CustomSelect'
 import axios from 'axios'
 import Swal from 'sweetalert2'
 import {Link} from 'react-router-dom'
+import {useMeasurementHelper} from '../pages/measurement/hooks/useMeasurementHelper'
+import {KTSVG} from '../../_metronic/helpers'
 
 type Props = {
   show: boolean
   setShow: Function
   customer?: Customer
   IsEditable?: boolean
+  IsDeletable?: boolean
 }
 
-const MeasurementModal: React.FC<Props> = ({show, setShow, customer, IsEditable}) => {
+const MeasurementModal: React.FC<Props> = ({
+  show,
+  setShow,
+  customer,
+  IsEditable,
+  IsDeletable = false,
+}) => {
   const [measurement, setMeasurement] = useState({
     CustomerId: customer?.customerId,
     GarmentId: 0,
   })
   const [isEditable, setIsEditable] = useState<boolean>(IsEditable!)
+  const [isDeletable, setIsDeletable] = useState<boolean>(IsDeletable)
   const [title, setTitle] = useState<string>('')
   const [showModal, setShowModal] = useState(false)
+  const [garmentToDelete, setGarmentToDelete] = useState<number>()
   const [garment, setGarment] = useState<
     {
       garmentId: number
@@ -30,7 +41,7 @@ const MeasurementModal: React.FC<Props> = ({show, setShow, customer, IsEditable}
       garmentFields: {fieldName: string}[]
     }[]
   >([])
-
+  const {handleDelete, fetchGarments, handleUpdate} = useMeasurementHelper()
   const [tempMeasurement, setTempMeasurement] = useState<
     {gId: number; values: Record<string, string>[]}[]
   >([])
@@ -38,29 +49,6 @@ const MeasurementModal: React.FC<Props> = ({show, setShow, customer, IsEditable}
     {value: '', label: 'Select Garment'},
     ...garment.map((g) => ({value: g.garmentId.toString(), label: g.name})),
   ])
-  // const handleFieldChange = (fields: string[], gId: number) => {
-  //   const matchedMeasurement = customer?.measurements.find((m: any) => m.garmentId === gId)
-
-  //   const updatedMeasurements = fields.map((field) => {
-  //     console.log('Field name:', field, 'value:', matchedMeasurement?.[field])
-  //     const value = matchedMeasurement?.[field] ?? ''
-  //     return {[field]: value}
-  //   })
-
-  //   setTempMeasurement((prev) => {
-  //     const existing = prev.find((entry) => entry.gId === gId)
-
-  //     if (existing) {
-  //       // Update existing
-  //       return prev.map((entry) =>
-  //         entry.gId === gId ? {...entry, values: updatedMeasurements} : entry
-  //       )
-  //     } else {
-  //       // Add new entry
-  //       return [...prev, {gId, values: updatedMeasurements}]
-  //     }
-  //   })
-  // }
   const handleFieldChange = (fields: string[], gId: number) => {
     const matchedMeasurement = customer?.measurements.find((m: any) => m.garmentId === gId)
 
@@ -73,92 +61,14 @@ const MeasurementModal: React.FC<Props> = ({show, setShow, customer, IsEditable}
     setTempMeasurement([{gId, values: updatedMeasurements}])
   }
 
-  const fetchGarments = async () => {
-    try {
-      const response = await axios.get('https://localhost:7016/api/Garment')
-      const filteredGarment = response.data.filter((g: any) => {
-        return customer?.measurements?.some((m: any) => {
-          return m.garmentId === g.garmentId
-        })
-      })
-      setGarment(filteredGarment)
-      setGarmentsOptions([
-        {value: '', label: 'Select Garment'},
-        ...filteredGarment.map((g: any) => ({value: g.garmentId.toString(), label: g.name})),
-      ])
-    } catch (error) {
-      console.error('Error fetching garments:', error)
-      Swal.fire({
-        icon: 'error',
-        title: 'Error',
-        text: 'Failed to fetch garments. Please try again later.',
-      })
-    }
-  }
-
   useEffect(() => {
-    if (IsEditable) {
+    if (isEditable) {
       setTitle('Update Measurement')
     } else setTitle('')
     if (show) {
-      fetchGarments()
+      fetchGarments(setGarment, setGarmentsOptions, customer!)
     }
-  }, [show, isEditable])
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    const Measurements = customer?.measurements
-    const updatedMeasurements = Measurements?.map((m: any) => {
-      // Find matching tempMeasurement by garment ID
-      const match = tempMeasurement.find((t) => t.gId === m.garmentId)
-
-      if (!match) return m // No updates for this garment
-
-      // Merge all fields in match.values into a single object
-      const mergedFields = match.values.reduce((acc, fieldObj) => ({...acc, ...fieldObj}), {})
-
-      return {
-        ...m,
-        ...mergedFields,
-      }
-    })
-    if (updatedMeasurements && updatedMeasurements.length > 0) {
-      Promise.all(
-        updatedMeasurements.map((m) => {
-          console.log('measurementID:', m.measurementId, 'measurement:', m)
-          axios.put(`https://localhost:7016/api/Measurement/${m.measurementId}`, m)
-        })
-      )
-        .then(() => {
-          Swal.fire({
-            icon: 'success',
-            title: 'Success',
-            text: 'All measurements updated successfully!',
-          })
-          setMeasurement({
-            CustomerId: customer?.customerId,
-            GarmentId: 0,
-          })
-          setTempMeasurement([])
-        })
-        .catch((error) => {
-          console.error('Error submitting measurements:', error)
-          Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'Failed to update one or more measurements. Please try again later.',
-          })
-        })
-    } else {
-      Swal.fire({
-        icon: 'warning',
-        title: 'No Measurements',
-        text: 'No measurements to update.',
-      })
-    }
-
-    console.log('Updated Measurement submitted:', updatedMeasurements)
-  }
+  }, [show, isEditable, isDeletable])
 
   return (
     <ReusableModal
@@ -168,14 +78,57 @@ const MeasurementModal: React.FC<Props> = ({show, setShow, customer, IsEditable}
         setGarment([])
         setTempMeasurement([])
         setIsEditable(false)
+        setIsDeletable(false)
+        setIsEditable(false)
       }}
     >
       <div className='card shadow-sm col-lg-12 m-3 mt-1'>
         <div className='modal-header justify-content-center'>
           <h5 className='modal-title'>{title}</h5>
         </div>
+
         <div className='card-body p-4'>
-          <form onSubmit={handleSubmit}>
+          <div className='row mt-3'>
+            <div className='col-md-6 form-check'>
+              <input
+                type='radio'
+                id='editable'
+                name='mode'
+                className='form-check-input'
+                checked={isEditable}
+                onChange={() => {
+                  setIsEditable(true)
+                  setIsDeletable(false)
+                }}
+              />
+              <label htmlFor='editable' className='form-check-label'>
+                <KTSVG path='/media/icons/duotune/art/art005.svg' className='svg-icon-3' />
+              </label>
+            </div>
+
+            <div className='col-md-6 form-check'>
+              <input
+                type='radio'
+                id='deletable'
+                name='mode'
+                className='form-check-input'
+                checked={isDeletable}
+                onChange={() => {
+                  setIsEditable(false)
+                  setIsDeletable(true)
+                }}
+              />
+              <label htmlFor='deletable' className='form-check-label'>
+                <KTSVG path='/media/icons/duotune/general/gen027.svg' className='svg-icon-3' />
+              </label>
+            </div>
+          </div>
+
+          <form
+            onSubmit={(e) =>
+              handleUpdate(e, customer!, tempMeasurement, setMeasurement, setTempMeasurement)
+            }
+          >
             <div className='row mb-3'>
               <div className='col-md-5'>
                 <label htmlFor='CustomerName' className='form-label'>
@@ -208,6 +161,7 @@ const MeasurementModal: React.FC<Props> = ({show, setShow, customer, IsEditable}
                         (g) => g.garmentId.toString() === selected?.value
                       )
                       if (selectedGarment) {
+                        setGarmentToDelete(selectedGarment.garmentId)
                         handleFieldChange(
                           selectedGarment.garmentFields.map((field) => field.fieldName),
                           selectedGarment.garmentId
@@ -216,8 +170,14 @@ const MeasurementModal: React.FC<Props> = ({show, setShow, customer, IsEditable}
                     }}
                     options={GarmentOptions}
                   />
-                  <Link to='' onClick={() => setShowModal(true)} className='mt-4'>
-                    create
+                  <Link
+                    to=''
+                    onClick={() => {
+                      !isDeletable ? setShowModal(true) : handleDelete(customer!, garmentToDelete!)
+                    }}
+                    className='mt-4'
+                  >
+                    {isDeletable ? 'Delete' : 'Create'}
                   </Link>
                 </div>
               </div>
@@ -249,7 +209,7 @@ const MeasurementModal: React.FC<Props> = ({show, setShow, customer, IsEditable}
                               name={key}
                               className='form-control'
                               value={value}
-                              disabled={!IsEditable}
+                              disabled={!isEditable}
                               onChange={(e) => {
                                 const updatedValue = e.target.value
 
@@ -278,7 +238,7 @@ const MeasurementModal: React.FC<Props> = ({show, setShow, customer, IsEditable}
             )}
 
             <div className='text-end mt-3'>
-              {IsEditable && (
+              {isEditable && (
                 <button type='submit' className='btn btn-outline-success'>
                   Submit
                 </button>
