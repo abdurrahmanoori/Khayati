@@ -6,7 +6,6 @@ import MeasurementModal from '../../modals/MeasurementModal'
 import Swal from 'sweetalert2'
 import {Customer} from '../../types/commonTypes'
 import axios from 'axios'
-
 type Props = {
   className: string
 }
@@ -32,31 +31,6 @@ const MeasurementPage: React.FC<Props> = ({className}) => {
       setCustomer(filteredcustomers)
     }
   }
-
-  const handleDelete = (Id: string) => {
-    Swal.fire({
-      title: 'Delete!',
-      text: 'Are you sure want to delete?',
-      icon: 'warning',
-      showCancelButton: true,
-      showCloseButton: true,
-      showConfirmButton: true,
-      confirmButtonText: 'Yes, Delete it!',
-    }).then(async (result) => {
-      const c = customers.filter((c) => c.customerId.toString() != Id)
-      setCustomer(c)
-      const response = await axios.delete(`https://localhost:7016/api/Measurement/${Id}`)
-      if (response.status == 200) {
-        Swal.fire({
-          title: 'Deleted!',
-          text: 'Measurement successfully deleted!',
-          icon: 'success',
-          showConfirmButton: true,
-          timer: 2000,
-        })
-      }
-    })
-  }
   const fetchCustomers = async () => {
     try {
       const response = await axios.get('https://localhost:7016/api/Customer')
@@ -75,15 +49,6 @@ const MeasurementPage: React.FC<Props> = ({className}) => {
   React.useEffect(() => {
     fetchCustomers()
   }, [])
-  const handleEdit = (c: Customer) => {
-    setIsEditable(true)
-    setCustomerToUpdate(c)
-
-    // Delay showing modal to allow title to update
-    setTimeout(() => {
-      setShowModal(true)
-    }, 0)
-  }
 
   return (
     <>
@@ -143,7 +108,6 @@ const MeasurementPage: React.FC<Props> = ({className}) => {
                 <tr className='fw-bold'>
                   <th className='w-25px'>ID</th>
                   <th className='min-w-150px pl-5'>Name</th>
-                  <th className='min-w-100px text-end'>Actions</th>
                 </tr>
               </thead>
               {/* end::Table head */}
@@ -175,38 +139,6 @@ const MeasurementPage: React.FC<Props> = ({className}) => {
                             {c.name}
                           </a>
                         </div>
-                      </div>
-                    </td>
-                    <td>
-                      <div className='d-flex justify-content-end flex-shrink-0'>
-                        <button
-                          type='button'
-                          className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
-                          aria-label='Edit'
-                          onClick={(e) => {
-                            e.stopPropagation()
-                            handleEdit(c)
-                          }}
-                        >
-                          <KTSVG
-                            path='/media/icons/duotune/art/art005.svg'
-                            className='svg-icon-3'
-                          />
-                        </button>
-                        <button
-                          type='button'
-                          className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm'
-                          aria-label='Delete'
-                          onClick={(e) => {
-                            e.stopPropagation()
-                            handleDelete(c.customerId.toString())
-                          }}
-                        >
-                          <KTSVG
-                            path='/media/icons/duotune/general/gen027.svg'
-                            className='svg-icon-3'
-                          />
-                        </button>
                       </div>
                     </td>
                   </tr>
