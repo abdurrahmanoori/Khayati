@@ -367,4 +367,4 @@ FodyWeavers.xsd
 /Khayati.Core/Domain/Entities/Customer.cs
 /Khayati.Api/Properties/launchSettings.json
 /Khayati.Infrastructure/Migrations/
-# /Khayati.Infrastructure/Databases
+/Khayati.Infrastructure/Databases/mydatabase.db
