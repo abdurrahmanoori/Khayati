@@ -37,6 +37,19 @@ namespace Entities.Data
                 .Property(x => x.ProductionStatus)
                 .HasConversion<string>();
 
+            modelBuilder.Entity<OrderDesign>()
+        .HasOne(od => od.Order)
+        .WithMany(o => o.OrderDesigns)
+        .HasForeignKey(od => od.OrderId)
+        .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Payment>()
+     .HasOne(p => p.Order)
+     .WithMany(o => o.Payments)
+     .HasForeignKey(p => p.OrderId)
+     .OnDelete(DeleteBehavior.Cascade);
+
+
 
 
             #region Seed Database

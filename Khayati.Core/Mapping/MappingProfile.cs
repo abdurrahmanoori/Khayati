@@ -89,6 +89,8 @@ namespace Khayati.Core.Mapping
 
             CreateMap<GarmentFieldAddDto, GarmentField>().ReverseMap();
             CreateMap<GarmentField, GarmentFieldResponseDto>().ReverseMap();
+            CreateMap<Order, OrdersResponseDto>().ReverseMap();
+
         }
         private static OrderStatus ParseOrderStatus(string status)
         {
