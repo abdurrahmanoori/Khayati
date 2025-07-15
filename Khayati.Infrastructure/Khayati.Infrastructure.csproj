@@ -28,4 +28,8 @@
     <ProjectReference Include="..\Khayati.Core\Khayati.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Databases\" />
+  </ItemGroup>
+
 </Project>

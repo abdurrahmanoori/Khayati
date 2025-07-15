@@ -147,11 +147,13 @@ namespace Khayati.Service
         public async Task<decimal?>
             CalculateDesignCost(int orderId)
         {
-            var orderDesigns = await _unitOfWork.OrderDesignRepository
-                .GetOrderDesignListByOrderIdAsync(orderId);
-            if (orderDesigns == null) throw new Exception("No designs found");
 
-            return orderDesigns.Sum(d => d.CostAtTimeOfOrder);
+            return default;
+            //var orderDesigns = await _unitOfWork.OrderDesignRepository
+            //    .GetOrderDesignListByOrderIdAsync(orderId);
+            //if (orderDesigns == null) throw new Exception("No designs found");
+
+            //return orderDesigns.Sum(d => d.CostAtTimeOfOrder);
         }
 
 

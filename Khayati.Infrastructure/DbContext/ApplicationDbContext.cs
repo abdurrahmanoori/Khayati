@@ -58,7 +58,6 @@ namespace Entities.Data
 
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Measurement> Measurements { get; set; }
-        public DbSet<OrderDesign> OrderDesigns { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public DbSet<Embellishment> Embellishment { get; set; }

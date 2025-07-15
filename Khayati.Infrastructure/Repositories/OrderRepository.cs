@@ -46,8 +46,6 @@ namespace Repositories
         {
             return await _dbcontext.Orders
                                  .Include(o => o.Payments)
-                                 .Include(o => o.OrderDesigns)
-                                 .ThenInclude(d => d.Embellishment)
                                  .FirstOrDefaultAsync(o => o.OrderId == orderId);
         }
 
