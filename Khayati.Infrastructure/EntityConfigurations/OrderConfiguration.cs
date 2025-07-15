@@ -14,5 +14,6 @@ namespace Khayati.Infrastructure.EntityConfigurations
                 .OnDelete(DeleteBehavior.Cascade);
 
         }
+
     }
 }

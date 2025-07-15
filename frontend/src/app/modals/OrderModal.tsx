@@ -6,25 +6,24 @@ import CustomerInfo from '../pages/order/components/customerInfo'
 import GarmentInfo from '../pages/order/components/garmentInfo'
 import PaymentInfo from '../pages/order/components/paymentInfo'
 import {Order, Garment, defaultOrder, OptionType} from '../types/commonTypes'
+import {priorityOptions, paymentOptions} from '../pages/order/options'
 import {
-  customerOptions,
-  priorityOptions,
-  paymentOptions,
-  garmentOptions,
-  fabricOptions,
-  colorOptions,
-  embellishmentTypeOptions,
-  embellishmentOptions,
-} from '../pages/order/options'
+  useFetchGarments,
+  useFetchCustomers,
+  useFetchFabrics,
+  useFetchEmbellishments,
+  useFetchEmbellishmentTypes,
+} from '../../app/pages/order/hooks/useFetchData'
+import {useGarmentHelpers} from '../pages/order/hooks/useGarmentHelpers'
 
 type Props = {
   showModal: boolean
   setShowModal: Function
-  updateorder?: Order
+  updateorder?: any
 }
 
 const OrderModal: React.FC<Props> = ({showModal, setShowModal, updateorder}) => {
-  const [order, setOrder] = useState<Order>(defaultOrder)
+  const [order, setOrder] = useState<any>(updateorder ?? {})
   const [garments, setGarments] = useState<Garment[]>([
     {
       id: 0,
@@ -35,10 +34,19 @@ const OrderModal: React.FC<Props> = ({showModal, setShowModal, updateorder}) => 
       embellishments: [{type: '', name: ''}],
     },
   ])
+  const {garmentOptions} = useFetchGarments()
+  const {customerOptions} = useFetchCustomers()
+  const {fabricOptions, allFabrics} = useFetchFabrics()
+  const {embellishments, embellishmentOptions} = useFetchEmbellishments()
+  const {embellishmentTypeOptions} = useFetchEmbellishmentTypes()
   const [themeMode, setThemeMode] = useState<'light' | 'dark' | 'system'>(
     ThemeModeComponent.getMode()
   )
-  const [colorOptions, setColorOptions] = useState<OptionType[][]>([])
+  const {setColor, setFabric, setTypes, colorOptions, allEmbellishmentsOptions} = useGarmentHelpers(
+    allFabrics,
+    embellishments
+  )
+
   useEffect(() => {
     if (updateorder) setOrder(updateorder)
     const interval = setInterval(() => setThemeMode(ThemeModeComponent.getMode()), 1000)
@@ -47,33 +55,37 @@ const OrderModal: React.FC<Props> = ({showModal, setShowModal, updateorder}) => 
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {name, value} = e.target
-    setOrder((prev) => ({...prev, [name]: value}))
+    setOrder((prev: any) => ({...prev, [name]: value}))
   }
 
   const addGarment = () => {
-    setGarments((prev) => [
-      ...prev,
+    const i = garments.length
+    const newGarments = [
+      ...garments,
       {
-        id: prev.length,
+        id: i,
         garment: '',
         color: '',
         fabric: '',
         isEmbellished: false,
-        embellishments: [],
+        embellishments: [{type: '', name: ''}],
       },
-    ])
+    ]
+    setGarments(newGarments)
   }
 
   const removeGarment = (gId: number) => {
-    setGarments((prev) => prev.filter((g) => g.id !== gId))
+    const newGarments = garments.filter((g) => g.id != gId)
+    setGarments(newGarments)
   }
 
   const addEmbellishment = (GarmentId: number) => {
-    setGarments((prev) => {
-      const updated = [...prev]
-      updated[GarmentId].embellishments.push({type: '', name: ''})
-      return updated
+    const newGarments = [...garments]
+    newGarments[GarmentId].embellishments.push({
+      type: '',
+      name: '',
     })
+    setGarments(newGarments)
   }
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -108,9 +120,14 @@ const OrderModal: React.FC<Props> = ({showModal, setShowModal, updateorder}) => 
                 removeGarment={removeGarment}
                 embellishmentOptions={embellishmentOptions}
                 embellishmentTypeOptions={embellishmentTypeOptions}
+                allEmbellishmentsOptions={allEmbellishmentsOptions}
                 colorOptions={colorOptions}
                 fabricOptions={fabricOptions}
                 addGarment={addGarment}
+                order={updateorder}
+                setColor={setColor}
+                setFabric={setFabric}
+                setTypes={setTypes}
               />
               <PaymentInfo
                 setOrder={setOrder}

@@ -23,6 +23,8 @@ type Props = {
     setGarments: React.Dispatch<React.SetStateAction<any[]>>
   ) => void
   setColor?: (FabricName: string, gIndex: number) => void
+  order?: any
+  setOrder?: Function
 }
 const GarmentInfo: React.FC<Props> = ({
   garments,
@@ -38,6 +40,8 @@ const GarmentInfo: React.FC<Props> = ({
   allEmbellishmentsOptions = [],
   setFabric = () => {},
   setColor = () => {},
+  order,
+  setOrder = () => {},
 }) => {
   React.useEffect(() => {}, [allEmbellishmentsOptions])
   const [FabricName, setFabricName] = React.useState<string[]>([])

@@ -33,49 +33,18 @@ namespace Khayati.Api.Controllers
         public async Task<ActionResult<decimal?>> GetTotalCost(int orderId) =>
                  HandleResultResponse(await _orderService.CalculateTotalCost(orderId));
 
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<OrdersResponseDto>>> GetAllOrders() =>
+            HandleResultResponse(await _orderService.GetAllOrders());
 
-       
-        //[HttpGet("Api/GetAll")]
-        //public async Task<IActionResult> GetOrdersList( )
-        //{
-        //    IEnumerable<OrdersResponseDto> results = await _OrdersService.GetOrdersList();
-        //    return Ok(results);
+        [HttpDelete("id")]
+        public async Task<ActionResult<bool>> Delete(int Id) => HandleResultResponse(await _orderService.DeleteOrder(Id));
 
-        //}
+        [HttpPut("id")]
 
-        //[HttpPost("Api/GetById")]
-        //public async Task<IActionResult> GitById(int id)
-        //{
-        //    var Orders = await _OrdersService.GetOrdersById(id);
-
-        //    return Ok(Orders);
-
-        //}
-
-        //[HttpDelete]
-        //public async Task<IActionResult> DeleteOrders(int OrdersId)
-        //{
-        //    OrdersResponseDto Orders = await _OrdersService.DeleteOrders(OrdersId);
-        //    return Ok(Orders);
-        //}
-
-        //        //[HttpPost("Api/Edit")]
-        //        //public async Task<IActionResult> Edit(int id)
-        //        //{
-        //        //    var Orders = await _unitOfWork.OrderRepository.GetFirstOrDefault(x => x.OrdersId == id);
-        //        //    if (Orders == null)
-        //        //    {
-       //        //        return NotFound("There is no on by this GarmentId.");
-        //        //    }
-        //        //    await _unitOfWork.OrderRepository.Update(Orders);
-
-        //        //    return Ok(Orders);
-
-        //        //}
-
-
-
-
+        public async Task<ActionResult<bool>> Update(int Id, [FromBody]OrdersAddDto dto)=>
+        
+            HandleResultResponse(await _orderService.UpdateOrder(Id, dto));
 
 
     }
