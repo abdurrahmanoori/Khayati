@@ -36,7 +36,7 @@ namespace Khayati.Service
             return Result<OrdersAddDto>.SuccessResult(orderDto);
 
         }
-            
+
 
 
         private async Task<bool> IsPaidOrder(OrdersAddDto ordersAddDto)
@@ -86,6 +86,21 @@ namespace Khayati.Service
             return Result<IEnumerable<CustomerOrderResponseDto>>.SuccessResult(customerOrderList!);
         }
 
+        
+        public async Task<Result<IEnumerable<OrderDto>>> GetOrders( )
+        {
+            var orders = await _unitOfWork.OrderRepository.GetAll();
+            if (orders.Any() == false)
+            {
+                return Result<IEnumerable<OrderDto>>.EmptyResult();
+            }
+
+            var ordersDto = _mapper.Map<IEnumerable<OrderDto>>(orders);
+
+            return Result<IEnumerable<OrderDto>>.SuccessResult(ordersDto);
+
+        }
+
         public async Task<Result<decimal?>>
             CalculateTotalCost(int orderId)
         {
@@ -132,44 +147,17 @@ namespace Khayati.Service
         public async Task<decimal?>
             CalculateDesignCost(int orderId)
         {
-            var orderDesigns = await _unitOfWork.OrderDesignRepository
-                .GetOrderDesignListByOrderIdAsync(orderId);
-            if (orderDesigns == null) throw new Exception("No designs found");
 
-            return orderDesigns.Sum(d => d.CostAtTimeOfOrder);
+            return default;
+            //var orderDesigns = await _unitOfWork.OrderDesignRepository
+            //    .GetOrderDesignListByOrderIdAsync(orderId);
+            //if (orderDesigns == null) throw new Exception("No designs found");
+
+            //return orderDesigns.Sum(d => d.CostAtTimeOfOrder);
         }
 
-        public async Task<Result<IEnumerable<OrdersResponseDto>>> GetAllOrders()
-        {
-            var Orders = await _unitOfWork.OrderRepository.GetAll();
-            var responsesDtos = _mapper.Map<IEnumerable<OrdersResponseDto>>(Orders);
-            return Result<IEnumerable<OrdersResponseDto>>.SuccessResult(responsesDtos);
-            
-        }
 
-        public async Task<Result<bool>> DeleteOrder(int Id)
-        {
-            var result = await _unitOfWork.OrderRepository.GetById(Id);
 
-            if (result == null)
-                return Result<bool>.NotFoundResult(Id);
-
-         
-                await _unitOfWork.OrderRepository.Remove(result);
-            await _unitOfWork.SaveChanges(cancellationToken: CancellationToken.None);
-
-            return Result<bool>.SuccessResult(true);
-        }
-
-        public async Task<Result<bool>> UpdateOrder(int Id, OrdersAddDto dto)
-        {
-            var result = await _unitOfWork.OrderRepository.GetById(Id);
-            if (result == null)
-                return Result<bool>.NotFoundResult(Id);
-            _mapper.Map(dto, result);
-            await _unitOfWork.SaveChanges(CancellationToken.None);
-            return Result<bool>.SuccessResult(true);
-        }
 
         // Example method to create an order
         //public async Task CreateOrderAsync(OrderDto orderDto)

@@ -18,7 +18,6 @@ namespace Entities
         [ForeignKey(nameof(EmbellishmentTypeId))]
         public virtual EmbellishmentType? EmbellishmentType { get; set; }
 
-        public virtual ICollection<OrderDesign> OrderDesigns { get; set; }
 
         //public virtual ICollection<OrderEmbellishment>? OrderEmbellishmentes { get; set; }
     }

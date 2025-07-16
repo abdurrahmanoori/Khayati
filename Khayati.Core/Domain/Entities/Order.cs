@@ -37,14 +37,15 @@ namespace Entities
         [ForeignKey(nameof(CustomerId))]
         public virtual Customer? Customer { get; set; }
         public virtual ICollection<Payment>? Payments { get; set; }
-        public virtual ICollection<OrderDesign> OrderDesigns { get; set; }
-
-        public void CalculateOrderStatus()
+        public List<OrderEmbellishment>? OrderEmbellishments { get; set; }
+        public List<OrderGarment>? OrderGarments { get; set; }
+        public List<OrderFabric>? OrderFabrics { get; set; }
+        public void CalculateOrderStatus( )
         {
 
         }
 
-        public void CalculatePaymentStatus()
+        public void CalculatePaymentStatus( )
         {
             if (AmountPaid == 0)
             {
@@ -65,7 +66,7 @@ namespace Entities
             }
         }
 
-        public bool IsValidOrderForPayment()
+        public bool IsValidOrderForPayment( )
         {
             if (TotalCost == 0 && OrderStatus != OrderStatus.Completed)
                 return true;

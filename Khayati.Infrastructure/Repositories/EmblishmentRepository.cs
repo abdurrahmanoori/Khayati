@@ -25,19 +25,17 @@ namespace Repositories
             //                                  where od.OrderId == orderId
             //                                  select e.Cost).Sum();
 
-            var embellishmentList = await (from od in _dbcontext.OrderDesigns
-                                           join e in _dbcontext.Embellishment
-                                           on od.EmbellishmentId equals e.EmbellishmentId
-                                           where od.OrderId == orderId &&
-                                           od.EmbellishmentId != null
-                                           select e).ToListAsync();
+            //var embellishmentList = await (from od in _dbcontext.OrderDesigns
+            //                               join e in _dbcontext.Embellishment
+            //                               on od.EmbellishmentId equals e.EmbellishmentId
+            //                               where od.OrderId == orderId &&
+            //                               od.EmbellishmentId != null
+            //                               select e).ToListAsync();
 
-            return embellishmentList;
+            return default;
 
 
-            var totalEmbellishmentCost = _dbcontext.OrderDesigns
-               .Where(od => od.OrderId == orderId && od.EmbellishmentId != null)
-               .SumAsync(od => od.Embellishment.Cost ?? 0);
+          
 
 
             throw new NotImplementedException();

@@ -3,8 +3,8 @@ using RepositoryContracts.Base;
 
 namespace RepositoryContracts
 {
-    public interface IOrderDesignRepository : IGenericRepository<OrderDesign>
+    public interface IOrderEmbellishmentRepository : IGenericRepository<OrderEmbellishment>
     {
-     public Task<IEnumerable<OrderDesign>> GetOrderDesignListByOrderIdAsync(int orderId);
+     public Task<IEnumerable<OrderEmbellishment>> GetOrderEmbellishmentListByOrderIdAsync(int orderId);
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Entities.Enum;
-using Khayati.Core.DTO.OrderDesign;
 using Khayati.Core.DTO.Payment;
 using Khayati.Core.Enums;
 
@@ -25,7 +24,6 @@ namespace Khayati.Core.DTO
 
         public OrderPriority OrderPriority { get; set; } = OrderPriority.Normal;
 
-        public virtual ICollection<OrderDesignAddDto>? OrderDesigns { get; set; }
         public virtual ICollection<PaymentDto>? Payments { get; set; }
 
 

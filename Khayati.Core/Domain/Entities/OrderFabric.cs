@@ -4,15 +4,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entities
 {
-    /// <summary>
-    /// This class connects Order, Customer, and Embellishment
-    /// </summary>
-    public class OrderDesign
+    public class OrderFabric
     {
         [Key]
-        public int DesignId { get; set; }
-        public int GarmentId { get; set; }
-        public int CustomerId { get; set; }
+        public int Id { get; set; }
         public int? FabricId { get; set; }
 
         public int OrderId { get; set; }
@@ -20,24 +15,26 @@ namespace Entities
         /// If different designs can have different prices based on the Embellishment or 
         /// customizations applied, a CostAtTimeOfOrder field in the OrderDesigns table is useful. 
         /// This allows for flexibility in pricing models where designs might have additional costs.
+        /// if Fabric.CostPerMeter changes later, this preserves order's original cost.
         /// </summary>
         /// 
         public decimal? CostAtTimeOfOrder { get; set; }
         /// <summary>
-        /// You could add a foreign key to MeasurementId if each design
-        /// is based on specific customer measurements.
+        /// How many meters (or yards) of the fabric were used in this specific order.
         /// </summary>
-        public int? EmbellishmentId { get; set; }
+        public float? QuantityUsed { get; set; }
+        ///// <summary>
+        ///// Date fabric was cut for this order — useful for production tracking.
+        ///// </summary>
+        //public DateTime? CutDate { get; set; }
+
         public string? Notes { get; set; }
-        //public Measurements Measurements { get; set; }
-        [ForeignKey(nameof(EmbellishmentId))]
-        public virtual Embellishment? Embellishment { get; set; }
 
         [ForeignKey(nameof(OrderId))]
-        public virtual Order? Order { get; set; }
+        public Order? Order { get; set; }
 
         [ForeignKey(nameof(FabricId))]
-        public virtual Fabric Fabric { get; set; }
+        public Fabric? Fabric { get; set; }
     }
 
 }

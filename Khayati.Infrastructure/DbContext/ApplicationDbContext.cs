@@ -71,7 +71,6 @@ namespace Entities.Data
 
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Measurement> Measurements { get; set; }
-        public DbSet<OrderDesign> OrderDesigns { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public DbSet<Embellishment> Embellishment { get; set; }
@@ -80,6 +79,9 @@ namespace Entities.Data
         public DbSet<Fabric> Fabrics { get; set; }
         public DbSet<Garment> Garments { get; set; }
         public DbSet<GarmentField> GarmentFields { get; set; }
+        public DbSet<OrderFabric> OrderFabrics { get; set; }
+        public DbSet<OrderEmbellishment> OrderEmbellishments { get; set; }
+        public DbSet<OrderGarment> OrderGarments { get; set; }
     }
 
 }

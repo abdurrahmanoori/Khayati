@@ -9,7 +9,6 @@ namespace RepositoryContracts.Base
         IMeasurementRepository MeasurementRepository { get; }
         IEmbellishmentRepository EmbellishmentRepository { get; }
         IRelativeRepository RelativeRepository { get; }
-        IOrderDesignRepository OrderDesignRepository { get; }
         IEmbellishmentTypeRepository EmbellishmentTypeRepository { get; }
         IOrderRepository OrderRepository { get; }
         IPaymentRepository PaymentRepository { get; }

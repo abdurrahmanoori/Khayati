@@ -21,7 +21,6 @@ namespace Khayati.Core.Extention
             services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<IEmbellishmentTypeService, EmbellishmentTypeService>();
             services.AddScoped<IOrdersService, OrdersService>();
-            services.AddScoped<IOrderDesignService, OrderDesignService>();
             services.AddScoped<IPaymentService, PaymentService>();
             services.AddScoped<IMeasurementService, MeasurementService>();
             services.AddScoped<IGarmentService, GarmentService>();
