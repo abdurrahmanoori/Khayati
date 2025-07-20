@@ -90,11 +90,11 @@ namespace Khayati.Api.Controllers
         [HttpDelete("id")]
         public async Task<ActionResult<bool>> Delete(int Id) => HandleResultResponse(await _orderService.DeleteOrder(Id));
 
-        [HttpPut("id")]
+        //[HttpPut("id")]
 
-        public async Task<ActionResult<bool>> Update(int Id, [FromBody]OrdersAddDto dto)=>
+        //public async Task<ActionResult<bool>> Update(int Id, [FromBody]OrdersAddDto dto)=>
         
-            HandleResultResponse(await _orderService.UpdateOrder(Id, dto));
+        //    HandleResultResponse(await _orderService.UpdateOrder(Id, dto));
 
 
     }
