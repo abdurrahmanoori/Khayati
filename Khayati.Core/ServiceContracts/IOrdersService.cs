@@ -1,14 +1,7 @@
-﻿using Entities;
+﻿
 using Khayati.Core.Common.Response;
 using Khayati.Core.DTO;
-using Khayati.Core.DTO.Measurements;
 using Khayati.Core.DTO.Orders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Khayati.ServiceContracts
 {
     public interface IOrdersService

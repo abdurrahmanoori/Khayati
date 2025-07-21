@@ -156,6 +156,16 @@ namespace Khayati.Service
             //return orderDesigns.Sum(d => d.CostAtTimeOfOrder);
         }
 
+        public Task<Result<IEnumerable<OrdersResponseDto>>> GetAllOrders()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Result<bool>> DeleteOrder(int Id)
+        {
+            throw new NotImplementedException();
+        }
+
 
 
 
