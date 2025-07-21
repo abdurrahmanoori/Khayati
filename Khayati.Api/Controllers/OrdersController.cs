@@ -23,8 +23,8 @@ namespace Khayati.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<OrdersAddDto>> Create(OrdersAddDto ordersAddDto) =>
-            HandleResultResponse(await _orderService.AddOrderWithDetails(ordersAddDto));
+        public async Task<ActionResult<OrderDto>> Create(OrderDto orderDto) =>
+            HandleResultResponse(await _orderService.AddOrderWithDetails(orderDto));
 
         [HttpGet("/api/customers/{customerId}/orders")]
         public async Task<ActionResult<IEnumerable<CustomerOrderResponseDto>>> GetCustomerOrders(int customerId) =>
@@ -47,21 +47,8 @@ namespace Khayati.Api.Controllers
                 TotalCost = 150.00m,
                 OrderDate = DateTime.Parse("2025-06-22T10:30:00"),
                 IsPaid = false,
-                AmountPaid = 50.00m,
-                RemainingAmount = 100.00m,
-                CustomerDto = new CustomerDto
-                {
-                    CustomerId = 501,
-                    Name = "Ali",
-                    LastName = "Rahimi",
-                    Address = "No. 12, Street 5, Kabul",
-                    Gender = "Male",
-                    PhoneNumber = "+93 700 123 456",
-                    EmailAddress = "ali.rahimi@example.com",
-                    NationalID = "1234567890123",
-                    DateOfBirth = DateTime.Parse("1990-03-15")
-                },
-                PaymentDtos = new List<PaymentDto>
+               
+                Payments = new List<PaymentDto>
                 {
                     new PaymentDto
                     {

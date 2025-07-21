@@ -73,8 +73,7 @@ namespace Entities.Data
         public DbSet<Fabric> Fabrics { get; set; }
         public DbSet<Garment> Garments { get; set; }
         public DbSet<GarmentField> GarmentFields { get; set; }
-        public DbSet<OrderFabric> OrderFabrics { get; set; }
-        public DbSet<OrderEmbellishment> OrderEmbellishments { get; set; }
+        public DbSet<OrderGarmentEmbellishment> OrderGarmentEmbellishments { get; set; }
         public DbSet<OrderGarment> OrderGarments { get; set; }
     }
 

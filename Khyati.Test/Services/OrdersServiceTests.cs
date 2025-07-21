@@ -3,6 +3,7 @@ using Entities;
 using Entities.Enum;
 using FluentAssertions;
 using Khayati.Core.DTO;
+using Khayati.Core.DTO.Orders;
 using Khayati.Core.DTO.Payment;
 using Khayati.Service;
 using Moq;
@@ -27,10 +28,10 @@ namespace Khayati.Tests.Services
         public async Task AddOrderWithDetails_Should_Add_Order_And_Return_Success( )
         {
             // Arrange
-            var orderDto = new OrdersAddDto
+            var orderDto = new OrderDto
             {
                 CustomerId = 1,
-                OrderStatus = OrderStatus.Pending,
+                OrderStatus = "Pending",
                 TotalCost = 100.0m,
                 Payments = new List<PaymentDto>
                 {
@@ -67,10 +68,10 @@ namespace Khayati.Tests.Services
         public async Task AddOrderWithDetails_Should_Calculate_PaymentStatus_When_Order_Is_Completed( )
         {
             // Arrange
-            var orderDto = new OrdersAddDto
+            var orderDto = new OrderDto
             {
                 CustomerId = 2,
-                OrderStatus = OrderStatus.Completed,
+                OrderStatus = "Completed",
                 TotalCost = 200.0m,
                 Payments = new List<PaymentDto>
                 {

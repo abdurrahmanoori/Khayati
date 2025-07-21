@@ -30,16 +30,14 @@ namespace Entities
 
         public OrderStatus OrderStatus { get; set; }
 
-        public PaymentStatus PaymentStatus { get; set; }
+        public PaymentStatus PaymentStatus { get; set; } = PaymentStatus.Unpaid;
 
         public OrderPriority OrderPriority { get; set; } = OrderPriority.Normal;
 
         [ForeignKey(nameof(CustomerId))]
         public virtual Customer? Customer { get; set; }
         public virtual ICollection<Payment>? Payments { get; set; }
-        public List<OrderEmbellishment>? OrderEmbellishments { get; set; }
         public List<OrderGarment>? OrderGarments { get; set; }
-        public List<OrderFabric>? OrderFabrics { get; set; }
         public void CalculateOrderStatus( )
         {
 
