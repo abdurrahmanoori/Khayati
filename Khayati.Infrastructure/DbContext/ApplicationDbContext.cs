@@ -41,6 +41,7 @@ namespace Entities.Data
             EmbellishmentTypeSeed.DataSeed(modelBuilder);
             Embellishmenteed.DataSeed(modelBuilder);
             FabricSeed.DataSeed(modelBuilder);
+            GarmentSeed.DataSeed(modelBuilder);
             //MeasurmentSeed.DataSeed(modelBuilder);
             #endregion
 

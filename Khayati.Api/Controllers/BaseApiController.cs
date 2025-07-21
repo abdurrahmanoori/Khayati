@@ -24,6 +24,11 @@ namespace Khayati.Api.Controllers
                 {
                     return BadRequest(response.Errors);
                 }
+                //// If the list of entites is empty
+                //else if (!response.Success && response.Message != null)
+                //{
+                //    return BadRequest(response.Message);
+                //}
                 else
                 {
                     return NotFound();
@@ -52,6 +57,11 @@ namespace Khayati.Api.Controllers
                 {
                     return BadRequest(response.Errors);
                 }
+                //// If the list of entites is empty
+                //else if (!response.Success && response.Message != null)
+                //{
+                //    return BadRequest(response.Message);
+                //}
                 else
                 {
                     return NotFound();
