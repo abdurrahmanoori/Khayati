@@ -1,4 +1,5 @@
 ﻿using Khayati.Core.Domain.Entities;
+using Khayati.Core.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -16,7 +17,6 @@ namespace Entities
         /// </summary>
         public int? Quantity { get; set; }
 
-        public decimal? CostAtTimeOfOrder { get; set; }
         /// <summary>
         /// Indicates if this is the primary focus of the order (e.g., a wedding dress among accessories). Useful for filtering.
         /// </summary>
@@ -24,7 +24,8 @@ namespace Entities
         /// <summary>
         /// Status tracking like "Pending", "Cutting", "Stitching", "Ready". Improves workflow management.
         /// </summary>
-        public string? ProductionStatus { get; set; }
+        public ProductionStatus ProductionStatus { get; set; } = ProductionStatus.Pending;
+
         /// <summary>
         /// When the garment was cut. Important milestone in production timeline.
         /// </summary>
@@ -48,7 +49,7 @@ namespace Entities
         /// <summary>
         /// How many meters (or yards) of the fabric were used in this specific order.
         /// </summary>
-        public float? FabricQuantityUsed { get; set; }
+        public float? FabricMeterUsed { get; set; }
 
 
 

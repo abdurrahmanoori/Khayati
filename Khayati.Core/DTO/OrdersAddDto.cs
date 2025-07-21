@@ -17,6 +17,8 @@ namespace Khayati.Core.DTO
         public DateTime OrderDate { get; set; }
 
         public bool IsPaid { get; set; }
+        public string? Notes { get; set; }
+
 
         public OrderStatus OrderStatus { get; set; }
 

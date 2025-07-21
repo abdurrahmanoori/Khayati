@@ -23,6 +23,7 @@ namespace Entities
         public DateTime OrderDate { get; set; }
 
         public bool IsPaid { get; set; }
+        public string? Notes { get; set; }
 
         // Sum of all payments made for this order
         public decimal AmountPaid => Payments?.Sum(p => p.Amount) ?? 0;

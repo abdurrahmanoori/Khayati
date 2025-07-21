@@ -33,7 +33,7 @@ namespace Khayati.Service
             await _unitOfWork.OrderRepository.Add(order);
             await _unitOfWork.SaveChanges(default);
 
-            return Result<OrderDto>.SuccessResult(orderDto);
+            return Result<OrderDto>.SuccessResult(_mapper.Map<OrderDto>(order));
 
         }
 

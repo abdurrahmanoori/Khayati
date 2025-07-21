@@ -33,6 +33,9 @@ namespace Entities.Data
             modelBuilder.Entity<Order>()
                 .Property(x => x.OrderPriority)
                 .HasConversion<string>();
+            modelBuilder.Entity<OrderGarment>()
+                .Property(x => x.ProductionStatus)
+                .HasConversion<string>();
 
 
 
