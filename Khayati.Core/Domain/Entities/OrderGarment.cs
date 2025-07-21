@@ -35,7 +35,7 @@ namespace Entities
         public DateTime? ExpectedCompletionDate { get; set; }
         public string? Notes { get; set; }
 
-        public int? FabricId { get; set; }
+        public int FabricId { get; set; }
 
         /// <summary>
         /// If different fabric can have different prices based on the Fabric or 

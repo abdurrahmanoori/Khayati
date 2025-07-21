@@ -21,7 +21,7 @@ namespace Khayati.Service
         }
 
 
-        public async Task<Result<OrdersAddDto>> AddOrderWithDetails(OrdersAddDto orderDto)
+        public async Task<Result<OrderDto>> AddOrderWithDetails(OrderDto orderDto)
         {
 
             var order = _mapper.Map<Order>(orderDto);
@@ -33,7 +33,7 @@ namespace Khayati.Service
             await _unitOfWork.OrderRepository.Add(order);
             await _unitOfWork.SaveChanges(default);
 
-            return Result<OrdersAddDto>.SuccessResult(orderDto);
+            return Result<OrderDto>.SuccessResult(orderDto);
 
         }
 

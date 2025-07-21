@@ -1,6 +1,8 @@
 ﻿
-using Khayati.Core.DTO.Customers;
+using Entities.Enum;
+using Khayati.Core.DTO.OrderGarments;
 using Khayati.Core.DTO.Payment;
+using Khayati.Core.Enums;
 
 namespace Khayati.Core.DTO.Orders
 {
@@ -8,27 +10,17 @@ namespace Khayati.Core.DTO.Orders
     {
         public int OrderId { get; set; }
         public int CustomerId { get; set; }
-        /// <summary>
-        /// This property indicates when the tailor is expected to complete the sewing.
-        /// </summary>
         public DateTime? ExpectedCompletionDate { get; set; }
         public decimal? Cost { get; set; }
-
         public decimal? TotalCost { get; set; }
         public DateTime OrderDate { get; set; }
-
         public bool IsPaid { get; set; }
+        public string OrderStatus { get; set; }
+        public string PaymentStatus { get; set; }
+        public string OrderPriority { get; set; }
 
-        // Sum of all payments made for this order
-        public decimal AmountPaid { get; set; }
-        public decimal? RemainingAmount { get; set; }
-        //public OrderStatus OrderStatus { get; set; }
-
-        //public PaymentStatus PaymentStatus { get; set; }
-        public CustomerDto? CustomerDto { get; set; }
-        public ICollection<PaymentDto>? PaymentDtos { get; set; }
-        //public virtual ICollection<OrderDesign> OrderDesigns { get; set; }
-
+        public List<PaymentDto>? Payments { get; set; }
+        public List<OrderGarmentDto>? OrderGarments { get; set; }
 
 
     }
