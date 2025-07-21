@@ -40,8 +40,9 @@ namespace Entities
         [ForeignKey(nameof(GarmentId))]
         public Garment? Garment { get; set; }
 
+        public List<OrderGarmentEmbellishment> OrderGarmentEmbellishments { get; set; }
 
-
+        public OrderGarmentFabric OrderGarmentFabric { get; set; }
 
 
 

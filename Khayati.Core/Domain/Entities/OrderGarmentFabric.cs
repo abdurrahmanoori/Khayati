@@ -4,13 +4,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entities
 {
-    public class OrderFabric
+    public class OrderGarmentFabric
     {
         [Key]
-        public int Id { get; set; }
+        public int OrderGarmentId { get; set; }
         public int? FabricId { get; set; }
 
-        public int OrderId { get; set; }
         /// <summary>
         /// If different designs can have different prices based on the Embellishment or 
         /// customizations applied, a CostAtTimeOfOrder field in the OrderDesigns table is useful. 
@@ -30,11 +29,12 @@ namespace Entities
 
         public string? Notes { get; set; }
 
-        [ForeignKey(nameof(OrderId))]
-        public Order? Order { get; set; }
 
         [ForeignKey(nameof(FabricId))]
         public Fabric? Fabric { get; set; }
+
+        [ForeignKey(nameof(OrderGarmentId))]
+        public OrderGarment OrderGarment { get; set; }
     }
 
 }
