@@ -83,9 +83,9 @@ namespace Khayati.Api.Controllers
         public async Task<ActionResult<decimal?>> GetTotalCost(int orderId) =>
                  HandleResultResponse(await _orderService.CalculateTotalCost(orderId));
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<OrdersResponseDto>>> GetAllOrders() =>
-            HandleResultResponse(await _orderService.GetAllOrders());
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<OrdersResponseDto>>> GetAllOrders() =>
+        //    HandleResultResponse(await _orderService.GetAllOrders());
 
         [HttpDelete("id")]
         public async Task<ActionResult<bool>> Delete(int Id) => HandleResultResponse(await _orderService.DeleteOrder(Id));
