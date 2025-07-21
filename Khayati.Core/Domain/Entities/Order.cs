@@ -30,7 +30,7 @@ namespace Entities
 
         public OrderStatus OrderStatus { get; set; }
 
-        public PaymentStatus PaymentStatus { get; set; }
+        public PaymentStatus PaymentStatus { get; set; } = PaymentStatus.Unpaid;
 
         public OrderPriority OrderPriority { get; set; } = OrderPriority.Normal;
 

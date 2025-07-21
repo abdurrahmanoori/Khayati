@@ -13,7 +13,7 @@ namespace Entities
 
         public DateTime PaymentDate { get; set; }
 
-        public int? OrderId { get; set; }
+        public int OrderId { get; set; }
 
 
         [ForeignKey(nameof(OrderId))]
