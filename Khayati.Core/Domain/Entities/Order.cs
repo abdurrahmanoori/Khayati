@@ -37,9 +37,7 @@ namespace Entities
         [ForeignKey(nameof(CustomerId))]
         public virtual Customer? Customer { get; set; }
         public virtual ICollection<Payment>? Payments { get; set; }
-        public List<OrderEmbellishment>? OrderEmbellishments { get; set; }
         public List<OrderGarment>? OrderGarments { get; set; }
-        public List<OrderFabric>? OrderFabrics { get; set; }
         public void CalculateOrderStatus( )
         {
 
