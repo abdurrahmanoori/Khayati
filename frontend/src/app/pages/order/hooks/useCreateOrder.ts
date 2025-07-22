@@ -12,20 +12,29 @@ export const useCreateOrder = (order: Order, garments: Garment[], onSuccess: () 
         customerId: order.CustomerId,
         orderDate: new Date().toISOString(),
         expectedCompletionDate: new Date(order.DeliveryDate).toISOString(),
-        orderStatus: Number(order.OrderStatus) || 1,
-        paymentStatus: Number(order.PaymentStatus) || 3,
+        orderStatus: 'Pending',
+        paymentStatus: order.PaymentStatus,
         totalCost: Number(order.TotalCost),
         isPaid: order.PaidAmount === order.TotalCost,
         cost: Number(order.TotalCost),
-        orderPriority: Number(order.orderPriority) || 2,
-        orderDesigns: garments.map((g, index) => ({
+        orderPriority: order.orderPriority,
+        orderGarments: garments.map((g, index) => ({
           GarmentId: Number(g.garment) || 1,
           FabricId: Number(g.fabric) || 1,
-          CustomerId: order.CustomerId,
-          Details: g.garment,
-          EmbellishmentId: Number(garments[index].embellishments[0].name) || 2,
+          Qurantity: 1,
+          IsMainGarment: true,
+          ProductionStatus: 'Pending',
+          CutDate: new Date().toISOString(),
+          ExpectedCompletionDate: new Date(order.DeliveryDate).toISOString(),
+          Notes: '',
+          FabricCostAtTheTimeOfOrder: 0,
+          FabricQuantityUsed: 3,
+          OrderGarmentEmbellishments: garments[index].embellishments.map((e: any) => ({
+            EmbellishmentId: Number(e.name),
+            CustomInstructions: '',
+            CostAtTimeOfOrder: Number(e.name),
+          })),
         })),
-        note: order.description,
         Payments: [
           {
             amount: Number(order.TotalCost),
@@ -33,7 +42,7 @@ export const useCreateOrder = (order: Order, garments: Garment[], onSuccess: () 
           },
         ],
       }
-
+      console.log('Order data: ', orderData)
       axios
         .post('https://localhost:7016/api/orders', orderData)
         .then((response) => {

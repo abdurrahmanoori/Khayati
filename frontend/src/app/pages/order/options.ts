@@ -12,14 +12,14 @@ export const customerOptions: OptionType[] = [
   {value: 'Ayesha Karim', label: 'Ayesha Karim'},
 ]
 export const priorityOptions: OptionType[] = [
-  {value: '1', label: 'High'},
-  {value: '2', label: 'Normal'},
-  {value: '3', label: 'Low'},
+  {value: 'High', label: 'High'},
+  {value: 'Normal', label: 'Normal'},
+  {value: 'Low', label: 'Low'},
 ]
 export const paymentOptions: OptionType[] = [
-  {value: '3', label: 'Unpaid'},
-  {value: '2', label: 'Partial'},
-  {value: '1', label: 'Paid'},
+  {value: 'Unpaid', label: 'Unpaid'},
+  {value: 'Partial', label: 'Partial'},
+  {value: 'Paid', label: 'Paid'},
 ]
 export const garmentOptions: OptionType[] = [
   {value: 'Shalwar Kameez', label: 'Shalwar Kameez'},
