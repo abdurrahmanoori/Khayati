@@ -1,7 +1,7 @@
 ﻿using Khayati.Core.DTO;
 using Khayati.Core.DTO.Customers;
 using Khayati.Core.DTO.Orders;
-using Khayati.Core.DTO.Payment;
+using Khayati.Core.DTO.payment;
 using Khayati.ServiceContracts;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,7 +23,7 @@ namespace Khayati.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<OrderDto>> Create(OrderDto orderDto) =>
+        public async Task<ActionResult<OrderResponseDto>> Create(OrderResponseDto orderDto) =>
             HandleResultResponse(await _orderService.AddOrderWithDetails(orderDto));
 
         [HttpGet("/api/customers/{customerId}/orders")]
@@ -31,14 +31,14 @@ namespace Khayati.Api.Controllers
                    HandleResultResponse(await _orderService.GetOrdersByCustomerId(customerId));
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<OrderDto>>> GetOrders( ) =>
+        public async Task<ActionResult<IEnumerable<OrderResponseDto>>> GetOrders( ) =>
                    HandleResultResponse(await _orderService.GetOrders());
         [HttpGet("mock-orders")]
-        public async Task<ActionResult<IEnumerable<OrderDto>>> GetOrders1( )
+        public async Task<ActionResult<IEnumerable<OrderResponseDto>>> GetOrders1( )
         {
-            var mockOrders = new List<OrderDto>
+            var mockOrders = new List<OrderResponseDto>
                {
-            new OrderDto
+            new OrderResponseDto
             {
                 OrderId = 101,
                 CustomerId = 501,

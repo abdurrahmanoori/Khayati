@@ -21,7 +21,7 @@ export const useCreateOrder = (order: Order, garments: Garment[], onSuccess: () 
         orderGarments: garments.map((g, index) => ({
           GarmentId: Number(g.garment) || 1,
           FabricId: Number(g.fabric) || 1,
-          Qurantity: 1,
+          Quantity: 1,
           IsMainGarment: true,
           ProductionStatus: 'Pending',
           CutDate: new Date().toISOString(),
@@ -29,11 +29,14 @@ export const useCreateOrder = (order: Order, garments: Garment[], onSuccess: () 
           Notes: '',
           FabricCostAtTheTimeOfOrder: 0,
           FabricQuantityUsed: 3,
-          OrderGarmentEmbellishments: garments[index].embellishments.map((e: any) => ({
-            EmbellishmentId: Number(e.name),
-            CustomInstructions: '',
-            CostAtTimeOfOrder: Number(e.name),
-          })),
+          OrderGarmentEmbellishments:
+            garments[index].embellishments
+              ?.filter((e) => e.name != '')
+              .map((e) => ({
+                EmbellishmentId: Number(e.name),
+                CustomInstructions: '',
+                CostAtTimeOfOrder: 0,
+              })) ?? [],
         })),
         Payments: [
           {

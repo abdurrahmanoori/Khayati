@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Khayati.Core.Domain.Entities;
 namespace Khayati.Core.DTO
 {
     public class OrdersResponseDto
@@ -20,7 +20,9 @@ namespace Khayati.Core.DTO
 
         public PaymentStatus PaymentStatus { get; set; }
 
-        public OrderPriority OrderPriority { get; set; } 
-
+        public OrderPriority OrderPriority { get; set; }
+        public Customer? Customer { get; set; }
+        public ICollection<Payment>? Payments { get; set; }
+        public List<OrderGarment>? OrderGarments { get; set; }
     }
 }

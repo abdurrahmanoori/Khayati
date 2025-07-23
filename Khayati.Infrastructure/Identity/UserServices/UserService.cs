@@ -1,4 +1,6 @@
-﻿using Khayati.Core.Domain.UserServiceContracts;
+﻿using Khayati.Core.Common.Response;
+using Khayati.Core.Domain.UserServiceContracts;
+using Khayati.Core.DTO;
 using Khayati.Infrastructure.Identity.Entity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -29,26 +31,33 @@ namespace Khayati.Infrastructure.Identity.UserServices
         }
 
         // User Management
-        public async Task<IdentityResult> CreateUserAsync(string email, string password, string userName)
+        public async Task<Result<UserDto>> CreateUserAsync(UserDto dto)
         {
             var user = new ApplicationUser
             {
-                Email = email,
-                UserName = userName,
+                Email = dto.Email,
+                UserName = dto.UserName,
                 EmailConfirmed = false
             };
-
-            return await _userManager.CreateAsync(user, password);
+            IdentityResult result=await _userManager.CreateAsync(user, dto.Password);
+            var errors = !result.Succeeded ? result.Errors
+    .Select(e => new ValidationError { Code = e.Code, Description = e.Description })
+    .ToList() : [];
+            return result.Succeeded?Result<UserDto>.SuccessResult(dto): Result<UserDto>.WithErrors(errors);
         }
 
-        public async Task<IdentityResult> UpdateUserAsync(string userId, string email, string userName)
+        public async Task<Result<bool>> UpdateUserAsync(string userId,UserDto userDto)
         {
             var user = await _userManager.FindByIdAsync(userId);
-            if (user == null) return IdentityResult.Failed(new IdentityError { Description = "User not found" });
+            if (user == null) return Result<bool>.WithError(new ValidationError { Description = "User not found" });
 
-            user.Email = email;
-            user.UserName = userName;
-            return await _userManager.UpdateAsync(user);
+            user.Email = userDto.Email;
+            user.UserName = userDto.UserName;
+            IdentityResult result = await _userManager.UpdateAsync(user);
+            var errors = !result.Succeeded ? result.Errors
+    .Select(e => new ValidationError { Code = e.Code, Description = e.Description })
+    .ToList() : [];
+            return result.Succeeded ? Result<bool>.SuccessResult(true) : Result<bool>.WithErrors(errors);
         }
 
         public async Task<IdentityResult> DeleteUserAsync(string userId)
@@ -68,6 +77,11 @@ namespace Khayati.Infrastructure.Identity.UserServices
         {
             var user = await GetUserByEmailAsync(email);
             return user != null && await _userManager.CheckPasswordAsync(user, password);
+        }
+
+        Task<Result<bool>> IUserService.DeleteUserAsync(string userId)
+        {
+            throw new NotImplementedException();
         }
 
         //public async Task<string> GenerateJwtTokenAsync(ApplicationUser user)

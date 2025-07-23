@@ -1,4 +1,4 @@
-﻿namespace Khayati.Core.DTO.Payment
+﻿namespace Khayati.Core.DTO.payment
 {
     public class PaymentDto
     {

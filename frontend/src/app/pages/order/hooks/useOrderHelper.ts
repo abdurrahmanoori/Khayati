@@ -1,15 +1,15 @@
 import axios from 'axios'
 import Swal from 'sweetalert2'
 export const useOrderHelper = () => {
-  const getStatusBadgeClass = (status: number): string => {
+  const getStatusBadgeClass = (status: string): string => {
     switch (status) {
-      case 1:
+      case 'Pending':
         return 'badge-light-warning'
-      case 2:
+      case 'In Progress':
         return 'badge-light-info'
-      case 3:
+      case 'Completed':
         return 'badge-light-success'
-      case 4:
+      case 'Cancelled':
         return 'badge-light-danger'
       default:
         return 'badge-light-secondary'
@@ -68,7 +68,7 @@ export const useOrderHelper = () => {
           uniqueCustomers.push(customer)
         }
       })
-
+      console.log('orders: ', orders)
       setCustomers(uniqueCustomers)
       setOrders(orders)
       setAllOrders(orders)

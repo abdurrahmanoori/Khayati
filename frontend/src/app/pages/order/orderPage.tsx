@@ -143,9 +143,7 @@ const OrderPage: React.FC<Props> = ({className}) => {
                       </span>
                     </td>
                     <td>
-                      <span className='fw-semibold d-block fs-7'>
-                        {getPaymentStatusText(order.paymentStatus)}
-                      </span>
+                      <span className='fw-semibold d-block fs-7'>{order.paymentStatus}</span>
                     </td>
                     <td>
                       <span
@@ -153,7 +151,7 @@ const OrderPage: React.FC<Props> = ({className}) => {
                           order.orderStatus
                         )}`}
                       >
-                        {getOrderStatusText(order.orderStatus)}
+                        {order.orderStatus}
                       </span>
                     </td>
                     <td>

@@ -1,5 +1,5 @@
 ﻿using Entities.Enum;
-using Khayati.Core.DTO.Payment;
+using Khayati.Core.DTO.payment;
 using Khayati.Core.Enums;
 
 namespace Khayati.Core.DTO

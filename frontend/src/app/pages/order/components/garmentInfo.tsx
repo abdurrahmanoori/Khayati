@@ -1,8 +1,9 @@
 import * as React from 'react'
 import CustomSelect from '../../../components/CustomSelect'
 import {SingleValue} from 'react-select'
-import {Garment, OptionType as Type, Embellishment} from '../../../types/commonTypes'
+import {Garment, OptionType as Type, Embellishment, Fabric} from '../../../types/commonTypes'
 import {number} from 'yup'
+import {useGarmentHelpers} from '../hooks/useGarmentHelpers'
 type Props = {
   garments: Garment[]
   garmentOptions: Type[]
@@ -28,7 +29,7 @@ type Props = {
   setOrder?: React.Dispatch<React.SetStateAction<any[]>>
   CalculateCost?: Function
   AllGarments?: any[]
-  AllFabrics?: any[]
+  AllFabrics?: Fabric[]
 }
 const GarmentInfo: React.FC<Props> = ({
   garments,
@@ -52,45 +53,14 @@ const GarmentInfo: React.FC<Props> = ({
   React.useEffect(() => {}, [allEmbellishmentsOptions])
   const [FabricName, setFabricName] = React.useState<string[]>([])
   const [prevFabricName, setPrevFabricName] = React.useState<string[]>([])
-  const AddGarmentCost = (id: number) => {
-    const garment = AllGarments?.find((g) => g.garmentId == id)
-    CalculateCost(garment?.cost)
-  }
-  const RemoveGarmentCost = (id: number) => {
-    if (id != 0) {
-      const garment = AllGarments?.find((g) => g.garmentId == id)
-      CalculateCost(-garment?.cost)
-    }
-  }
-  const AddEmbellishmentCost = (id: number) => {
-    const embellishement = embellishments?.find((e) => e.embellishmentId === id)
-    CalculateCost(embellishement?.cost)
-  }
-  const RemoveEmbellishmentCost = (id: number) => {
-    if (id != 0) {
-      const embellishement = embellishments?.find((e) => e.embellishmentId === id)
-      CalculateCost(-(embellishement?.cost ?? 0))
-    }
-  }
-  const AddFabricCost = (fabricType: string, color: string) => {
-    const fabric = AllFabrics?.find(
-      (item) => item.fabricType === fabricType && item.color === color
-    )
-
-    console.log('Adding cost for:', fabricType, color, 'Found fabric:', fabric)
-
-    CalculateCost((fabric?.costPerMeter ?? 0) * 4)
-  }
-  const RemoveFabricCost = (fabricType: string, color: string) => {
-    const fabric = AllFabrics?.find(
-      (item) => item.fabricType === fabricType && item.color === color
-    )
-
-    console.log('Removing cost for:', fabricType, color, 'Found fabric:', fabric)
-
-    CalculateCost(-(fabric?.costPerMeter ?? 0) * 4)
-  }
-
+  const {
+    AddEmbellishmentCost,
+    RemoveEmbellishmentCost,
+    AddFabricCost,
+    RemoveFabricCost,
+    AddGarmentCost,
+    RemoveGarmentCost,
+  } = useGarmentHelpers(AllFabrics ?? [], embellishments ?? [], AllGarments, CalculateCost)
   return (
     <React.Fragment>
       <div className='row mb-3'>

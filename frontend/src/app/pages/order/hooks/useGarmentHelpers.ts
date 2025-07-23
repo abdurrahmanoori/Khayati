@@ -1,7 +1,12 @@
 import {useState} from 'react'
 import {Fabric, Embellishment, OptionType} from '../../../types/commonTypes'
 
-export const useGarmentHelpers = (allFabrics: Fabric[], embellishments: Embellishment[]) => {
+export const useGarmentHelpers = (
+  allFabrics: Fabric[],
+  embellishments: Embellishment[],
+  AllGarments?: any[],
+  CalculateCost?: Function
+) => {
   const [colorOptions, setColorOptions] = useState<OptionType[][]>([])
   const [allEmbellishmentsOptions, setAllEmbellishmentsOptions] = useState<OptionType[][][]>([])
 
@@ -14,6 +19,35 @@ export const useGarmentHelpers = (allFabrics: Fabric[], embellishments: Embellis
       updated[gIndex] = options
       return updated
     })
+  }
+  const AddGarmentCost = (id: number) => {
+    const garment = AllGarments?.find((g) => g.garmentId === id)
+    CalculateCost?.(garment?.cost ?? 0)
+  }
+
+  const RemoveGarmentCost = (id: number) => {
+    const garment = AllGarments?.find((g) => g.garmentId === id)
+    CalculateCost?.(-(garment?.cost ?? 0))
+  }
+
+  const AddEmbellishmentCost = (id: number) => {
+    const embellishment = embellishments?.find((e) => e.embellishmentId === id)
+    CalculateCost?.(embellishment?.cost ?? 0)
+  }
+
+  const RemoveEmbellishmentCost = (id: number) => {
+    const embellishment = embellishments?.find((e) => e.embellishmentId === id)
+    CalculateCost?.(-(embellishment?.cost ?? 0))
+  }
+
+  const AddFabricCost = (fabricType: string, color: string) => {
+    const fabric = allFabrics?.find((f) => f.fabricType === fabricType && f.color === color)
+    CalculateCost?.((fabric?.costPerMeter ?? 0) * 4)
+  }
+
+  const RemoveFabricCost = (fabricType: string, color: string) => {
+    const fabric = allFabrics?.find((f) => f.fabricType === fabricType && f.color === color)
+    CalculateCost?.(-(fabric?.costPerMeter ?? 0) * 4)
   }
 
   const setFabric = (
@@ -52,5 +86,11 @@ export const useGarmentHelpers = (allFabrics: Fabric[], embellishments: Embellis
     setTypes,
     colorOptions,
     allEmbellishmentsOptions,
+    AddFabricCost,
+    AddEmbellishmentCost,
+    AddGarmentCost,
+    RemoveEmbellishmentCost,
+    RemoveFabricCost,
+    RemoveGarmentCost,
   }
 }

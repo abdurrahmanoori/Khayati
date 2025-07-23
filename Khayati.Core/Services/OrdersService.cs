@@ -21,7 +21,7 @@ namespace Khayati.Service
         }
 
 
-        public async Task<Result<OrderDto>> AddOrderWithDetails(OrderDto orderDto)
+        public async Task<Result<OrderResponseDto>> AddOrderWithDetails(OrderResponseDto orderDto)
         {
 
             var order = _mapper.Map<Order>(orderDto);
@@ -33,7 +33,7 @@ namespace Khayati.Service
             await _unitOfWork.OrderRepository.Add(order);
             await _unitOfWork.SaveChanges(default);
 
-            return Result<OrderDto>.SuccessResult(orderDto);
+            return Result<OrderResponseDto>.SuccessResult(orderDto);
 
         }
 
@@ -87,17 +87,17 @@ namespace Khayati.Service
         }
 
         
-        public async Task<Result<IEnumerable<OrderDto>>> GetOrders( )
+        public async Task<Result<IEnumerable<OrderResponseDto>>> GetOrders( )
         {
-            var orders = await _unitOfWork.OrderRepository.GetAll();
+            var orders = await _unitOfWork.OrderRepository.GetAll(includeProperties:"Customer,Payments,OrderGarments");
             if (orders.Any() == false)
             {
-                return Result<IEnumerable<OrderDto>>.EmptyResult();
+                return Result<IEnumerable<OrderResponseDto>>.EmptyResult();
             }
 
-            var ordersDto = _mapper.Map<IEnumerable<OrderDto>>(orders);
+            var ordersDto = _mapper.Map<IEnumerable<OrderResponseDto>>(orders);
 
-            return Result<IEnumerable<OrderDto>>.SuccessResult(ordersDto);
+            return Result<IEnumerable<OrderResponseDto>>.SuccessResult(ordersDto);
 
         }
 

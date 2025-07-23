@@ -13,7 +13,7 @@ using Khayati.Core.DTO.Measurements;
 using Khayati.Core.DTO.OrderGarmentEmbellishments;
 using Khayati.Core.DTO.OrderGarments;
 using Khayati.Core.DTO.Orders;
-using Khayati.Core.DTO.Payment;
+using Khayati.Core.DTO.payment;
 using Khayati.Core.DTO.Relative;
 using Khayati.Core.Enums;
 
@@ -42,7 +42,7 @@ namespace Khayati.Core.Mapping
             CreateMap<Order, OrdersAddDto>().ReverseMap();
 
 
-            CreateMap<Order, OrderDto>()
+            CreateMap<Order, OrderResponseDto>()
                .ForMember(dest => dest.OrderStatus,
                           opt => opt.MapFrom(src => src.OrderStatus.ToString()))
                .ForMember(dest => dest.PaymentStatus,
