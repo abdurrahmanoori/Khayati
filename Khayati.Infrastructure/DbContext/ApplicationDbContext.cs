@@ -33,6 +33,9 @@ namespace Entities.Data
             modelBuilder.Entity<Order>()
                 .Property(x => x.OrderPriority)
                 .HasConversion<string>();
+            modelBuilder.Entity<OrderGarment>()
+                .Property(x => x.ProductionStatus)
+                .HasConversion<string>();
 
             modelBuilder.Entity<Payment>()
      .HasOne(p => p.Order)
@@ -48,6 +51,7 @@ namespace Entities.Data
             EmbellishmentTypeSeed.DataSeed(modelBuilder);
             Embellishmenteed.DataSeed(modelBuilder);
             FabricSeed.DataSeed(modelBuilder);
+            GarmentSeed.DataSeed(modelBuilder);
             //MeasurmentSeed.DataSeed(modelBuilder);
             #endregion
 

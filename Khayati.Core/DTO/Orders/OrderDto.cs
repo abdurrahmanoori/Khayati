@@ -8,13 +8,15 @@ namespace Khayati.Core.DTO.Orders
 {
     public class OrderResponseDto
     {
-        public int OrderId { get; set; }
+        public int? OrderId { get; set; }
         public int CustomerId { get; set; }
         public DateTime? ExpectedCompletionDate { get; set; }
         public decimal? Cost { get; set; }
         public decimal? TotalCost { get; set; }
         public DateTime OrderDate { get; set; }
         public bool IsPaid { get; set; }
+        public string? Notes { get; set; }
+
         public string OrderStatus { get; set; }
         public string PaymentStatus { get; set; }
         public string OrderPriority { get; set; }

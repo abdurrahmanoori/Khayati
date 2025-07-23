@@ -2,8 +2,8 @@
 {
     public class OrderGarmentEmbellishmentDto
     {
-        public int Id { get; set; }
-        public int OrderGarmentId { get; set; }
+        public int? Id { get; set; }
+        public int? OrderGarmentId { get; set; }
         public int EmbellishmentId { get; set; }
         public string? CustomInstructions { get; set; }
         public decimal? CostAtTimeOfOrder { get; set; }

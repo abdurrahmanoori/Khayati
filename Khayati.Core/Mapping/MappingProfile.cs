@@ -21,7 +21,7 @@ namespace Khayati.Core.Mapping
 {
     public class MappingProfile : Profile
     {
-        public MappingProfile()
+        public MappingProfile( )
         {
             CreateMap<Customer, CustomerResponseDto>();
             CreateMap<Customer, CustomerAddDto>().ReverseMap();
@@ -47,6 +47,8 @@ namespace Khayati.Core.Mapping
                           opt => opt.MapFrom(src => src.OrderStatus.ToString()))
                .ForMember(dest => dest.PaymentStatus,
                   opt => opt.MapFrom(src => src.PaymentStatus.ToString()))
+               .ForMember(dest => dest.OrderPriority,
+                  opt => opt.MapFrom(src => src.OrderPriority.ToString()))
            .ReverseMap()
                .ForMember(dest => dest.OrderStatus,
                           opt => opt.MapFrom(src => ParseOrderStatus(src.OrderStatus)))
@@ -68,7 +70,17 @@ namespace Khayati.Core.Mapping
 
             CreateMap<Payment, PaymentDto>().ReverseMap();
             CreateMap<Garment, GarmentDto>().ReverseMap();
-            CreateMap<OrderGarment, OrderGarmentDto>().ReverseMap();
+
+            CreateMap<OrderGarment, OrderGarmentDto>()
+                           .ForMember(dest => dest.ProductionStatus,
+                          opt => opt.MapFrom(src => src.ProductionStatus.ToString()))
+                         .ReverseMap()
+                   .ForMember(dest => dest.ProductionStatus,
+                      opt => opt.MapFrom(src => ParseOrderPriority(src.ProductionStatus)));
+
+
+
+
             CreateMap<Garment, GarmentAddDto>().ReverseMap();
 
             //For Fabric 
@@ -99,6 +111,12 @@ namespace Khayati.Core.Mapping
             return Enum.TryParse<OrderPriority>(status, true, out var result)
                 ? result
                 : OrderPriority.Normal; // or a safe default
+        }
+        private static ProductionStatus ParseProductionStatus(string status)
+        {
+            return Enum.TryParse<ProductionStatus>(status, true, out var result)
+                ? result
+                : ProductionStatus.Pending; // or a safe default
         }
 
 

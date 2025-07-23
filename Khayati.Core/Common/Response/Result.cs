@@ -3,7 +3,7 @@
 namespace Khayati.Core.Common.Response
 {
 
-    public class Result
+    public class Result 
     {
         public long Id { get; set; }
 
@@ -49,7 +49,15 @@ namespace Khayati.Core.Common.Response
             return new Result<T>
             {
                 Success = false,
-                Message = $"The list of entity {entity} is empty.",
+                Errors = new List<ValidationError>
+                {
+                    new ValidationError
+                    {
+                        Code = "EmptyList",
+                        Description = $"The list of entity {entity} is empty.",
+                        Property = "List"
+                    }
+                }
             };
         }
 
