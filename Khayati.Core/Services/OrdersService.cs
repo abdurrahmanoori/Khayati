@@ -165,29 +165,5 @@ namespace Khayati.Service
         {
             throw new NotImplementedException();
         }
-
-
-
-
-        // Example method to create an order
-        //public async Task CreateOrderAsync(OrderDto orderDto)
-        //{
-        //    var order = _mapper.Map<Order>(orderDto);
-
-        //    // Calculate the total cost
-        //    order.TotalCost = await CalculateTotalCost(order.OrderId);
-
-        //    // Save order
-        //    await _orderRepository.AddAsync(order);
-        //    await _unitOfWork.SaveChangesAsync();
-        //}
-
-
-        //Task<decimal> IOrdersService.CalculateMeasurementCost(int customerId)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-
     }
 }
