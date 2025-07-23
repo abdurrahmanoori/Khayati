@@ -415,6 +415,9 @@ namespace Khayati.Infrastructure.Migrations
                     b.Property<bool>("IsPaid")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Notes")
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("TEXT");
 
@@ -440,25 +443,31 @@ namespace Khayati.Infrastructure.Migrations
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("Entities.OrderDesign", b =>
+            modelBuilder.Entity("Entities.OrderGarment", b =>
                 {
-                    b.Property<int>("DesignId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<decimal?>("CostAtTimeOfOrder")
+                    b.Property<DateTime?>("CutDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("CustomerId")
+                    b.Property<DateTime?>("ExpectedCompletionDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal?>("FabricCostAtTimeOfOrder")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("FabricId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("EmbellishmentId")
+                    b.Property<float?>("FabricMeterUsed")
+                        .HasColumnType("REAL");
+
+                    b.Property<int?>("GarmentId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("FabricId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("GarmentId")
+                    b.Property<bool?>("IsMainGarment")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Notes")
@@ -467,15 +476,52 @@ namespace Khayati.Infrastructure.Migrations
                     b.Property<int>("OrderId")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("DesignId");
+                    b.Property<string>("ProductionStatus")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
-                    b.HasIndex("EmbellishmentId");
+                    b.Property<int?>("Quantity")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("FabricId");
 
+                    b.HasIndex("GarmentId");
+
                     b.HasIndex("OrderId");
 
-                    b.ToTable("OrderDesigns");
+                    b.ToTable("OrderGarments");
+                });
+
+            modelBuilder.Entity("Entities.OrderGarmentEmbellishment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("AppliedBy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal?>("CostAtTimeOfOrder")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CustomInstructions")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("EmbellishmentId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("OrderGarmentId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmbellishmentId");
+
+                    b.HasIndex("OrderGarmentId");
+
+                    b.ToTable("OrderGarmentEmbellishments");
                 });
 
             modelBuilder.Entity("Entities.Payment", b =>
@@ -487,7 +533,7 @@ namespace Khayati.Infrastructure.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("OrderId")
+                    b.Property<int>("OrderId")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("PaymentDate")
@@ -584,6 +630,38 @@ namespace Khayati.Infrastructure.Migrations
                     b.HasKey("GarmentId");
 
                     b.ToTable("Garments");
+
+                    b.HasData(
+                        new
+                        {
+                            GarmentId = 1,
+                            Cost = 1500,
+                            Name = "Men's Shirt"
+                        },
+                        new
+                        {
+                            GarmentId = 2,
+                            Cost = 1800,
+                            Name = "Women's Blouse"
+                        },
+                        new
+                        {
+                            GarmentId = 3,
+                            Cost = 2000,
+                            Name = "Men's Trousers"
+                        },
+                        new
+                        {
+                            GarmentId = 4,
+                            Cost = 1700,
+                            Name = "Women's Skirt"
+                        },
+                        new
+                        {
+                            GarmentId = 5,
+                            Cost = 2500,
+                            Name = "Unisex Jacket"
+                        });
                 });
 
             modelBuilder.Entity("Khayati.Core.Domain.Entities.GarmentField", b =>
@@ -926,27 +1004,44 @@ namespace Khayati.Infrastructure.Migrations
                     b.Navigation("Customer");
                 });
 
-            modelBuilder.Entity("Entities.OrderDesign", b =>
+            modelBuilder.Entity("Entities.OrderGarment", b =>
                 {
-                    b.HasOne("Entities.Embellishment", "Embellishment")
-                        .WithMany("OrderDesigns")
-                        .HasForeignKey("EmbellishmentId");
-
                     b.HasOne("Khayati.Core.Domain.Entities.Fabric", "Fabric")
                         .WithMany()
-                        .HasForeignKey("FabricId");
+                        .HasForeignKey("FabricId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Khayati.Core.Domain.Entities.Garment", "Garment")
+                        .WithMany()
+                        .HasForeignKey("GarmentId");
 
                     b.HasOne("Entities.Order", "Order")
-                        .WithMany("OrderDesigns")
+                        .WithMany("OrderGarments")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Embellishment");
-
                     b.Navigation("Fabric");
 
+                    b.Navigation("Garment");
+
                     b.Navigation("Order");
+                });
+
+            modelBuilder.Entity("Entities.OrderGarmentEmbellishment", b =>
+                {
+                    b.HasOne("Entities.Embellishment", "Embellishment")
+                        .WithMany()
+                        .HasForeignKey("EmbellishmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entities.OrderGarment", null)
+                        .WithMany("OrderGarmentEmbellishments")
+                        .HasForeignKey("OrderGarmentId");
+
+                    b.Navigation("Embellishment");
                 });
 
             modelBuilder.Entity("Entities.Payment", b =>
@@ -954,7 +1049,8 @@ namespace Khayati.Infrastructure.Migrations
                     b.HasOne("Entities.Order", "Order")
                         .WithMany("Payments")
                         .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Order");
                 });
@@ -1041,11 +1137,6 @@ namespace Khayati.Infrastructure.Migrations
                     b.Navigation("Relatives");
                 });
 
-            modelBuilder.Entity("Entities.Embellishment", b =>
-                {
-                    b.Navigation("OrderDesigns");
-                });
-
             modelBuilder.Entity("Entities.EmbellishmentType", b =>
                 {
                     b.Navigation("Embellishmentes");
@@ -1053,9 +1144,14 @@ namespace Khayati.Infrastructure.Migrations
 
             modelBuilder.Entity("Entities.Order", b =>
                 {
-                    b.Navigation("OrderDesigns");
+                    b.Navigation("OrderGarments");
 
                     b.Navigation("Payments");
+                });
+
+            modelBuilder.Entity("Entities.OrderGarment", b =>
+                {
+                    b.Navigation("OrderGarmentEmbellishments");
                 });
 
             modelBuilder.Entity("Khayati.Core.Domain.Entities.Garment", b =>

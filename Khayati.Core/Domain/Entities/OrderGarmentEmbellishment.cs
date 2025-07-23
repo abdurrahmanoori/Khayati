@@ -4,11 +4,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entities
 {
-    public class OrderEmbellishment
+    public class OrderGarmentEmbellishment
     {
         [Key]
         public int Id { get; set; }
-        public int OrderDesignId { get; set; }
         public int EmbellishmentId { get; set; }
         /// <summary>
         /// Optional free-form notes from the designer or client (e.g., "Use gold thread"). Provides clarity for custom jobs.
@@ -25,8 +24,7 @@ namespace Entities
         /// Name or ID of the worker/vendor who applied the embellishment. Useful for tracking accountability or quality control.
         /// </summary>
         public int? AppliedBy { get; set; }
-        [ForeignKey(nameof(OrderDesignId))]
-        public OrderDesign? Orderdesign { get; set; }
+     
 
         [ForeignKey(nameof(EmbellishmentId))]
         public Embellishment? Embellishment { get; set; }

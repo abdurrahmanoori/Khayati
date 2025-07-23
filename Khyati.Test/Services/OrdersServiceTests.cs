@@ -4,7 +4,7 @@ using Entities.Enum;
 using FluentAssertions;
 using Khayati.Core.DTO;
 using Khayati.Core.DTO.Orders;
-using Khayati.Core.DTO.Payment;
+using Khayati.Core.DTO.payment;
 using Khayati.Service;
 using Moq;
 using RepositoryContracts.Base;
