@@ -1,20 +1,13 @@
-﻿using Entities;
+﻿
 using Khayati.Core.Common.Response;
 using Khayati.Core.DTO;
-using Khayati.Core.DTO.Measurements;
 using Khayati.Core.DTO.Orders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Khayati.ServiceContracts
 {
     public interface IOrdersService
     {
 
-        Task<Result<OrderDto>> AddOrderWithDetails(OrderDto order);
+        Task<Result<OrderResponseDto>> AddOrderWithDetails(OrderResponseDto order);
 
         public Task<Result< decimal?>> CalculateTotalCost(int orderId);
 
@@ -23,8 +16,10 @@ namespace Khayati.ServiceContracts
         public Task<decimal?> CalculateEmbellishmentCost(int orderId);
 
         public Task<decimal?> CalculateDesignCost(int orderId);
+        public Task<Result<IEnumerable<OrdersResponseDto>>> GetAllOrders();
+        public Task<Result<bool>> DeleteOrder(int Id);
         Task<Result<IEnumerable<CustomerOrderResponseDto>>> GetOrdersByCustomerId(int customerId);
-        Task<Result<IEnumerable<OrderDto>>> GetOrders( );
+        Task<Result<IEnumerable<OrderResponseDto>>> GetOrders( );
         //public Task<decimal> CalculateTotalCost (Order order);
 
         //public Task<OrdersAddDto> AddOrders(OrdersAddDto addOrdersDto);

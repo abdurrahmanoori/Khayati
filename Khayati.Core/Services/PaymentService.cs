@@ -131,7 +131,7 @@ namespace Khayati.Service
             {
                 order.PaymentStatus = PaymentStatus.Partial;
                 order.IsPaid = false;
-                order.OrderStatus = OrderStatus.Processing;
+                order.OrderStatus = OrderStatus.InProgress;
             }
         }
 

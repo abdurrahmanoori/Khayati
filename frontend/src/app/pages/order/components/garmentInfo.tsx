@@ -1,7 +1,9 @@
 import * as React from 'react'
 import CustomSelect from '../../../components/CustomSelect'
 import {SingleValue} from 'react-select'
-import {Garment, OptionType as Type, Embellishment} from '../../../types/commonTypes'
+import {Garment, OptionType as Type, Embellishment, Fabric} from '../../../types/commonTypes'
+import {number} from 'yup'
+import {useGarmentHelpers} from '../hooks/useGarmentHelpers'
 type Props = {
   garments: Garment[]
   garmentOptions: Type[]
@@ -23,6 +25,11 @@ type Props = {
     setGarments: React.Dispatch<React.SetStateAction<any[]>>
   ) => void
   setColor?: (FabricName: string, gIndex: number) => void
+  order?: any
+  setOrder?: React.Dispatch<React.SetStateAction<any[]>>
+  CalculateCost?: Function
+  AllGarments?: any[]
+  AllFabrics?: Fabric[]
 }
 const GarmentInfo: React.FC<Props> = ({
   garments,
@@ -38,9 +45,22 @@ const GarmentInfo: React.FC<Props> = ({
   allEmbellishmentsOptions = [],
   setFabric = () => {},
   setColor = () => {},
+  CalculateCost = () => {},
+  AllGarments,
+  embellishments,
+  AllFabrics,
 }) => {
   React.useEffect(() => {}, [allEmbellishmentsOptions])
   const [FabricName, setFabricName] = React.useState<string[]>([])
+  const [prevFabricName, setPrevFabricName] = React.useState<string[]>([])
+  const {
+    AddEmbellishmentCost,
+    RemoveEmbellishmentCost,
+    AddFabricCost,
+    RemoveFabricCost,
+    AddGarmentCost,
+    RemoveGarmentCost,
+  } = useGarmentHelpers(AllFabrics ?? [], embellishments ?? [], AllGarments, CalculateCost)
   return (
     <React.Fragment>
       <div className='row mb-3'>
@@ -58,13 +78,15 @@ const GarmentInfo: React.FC<Props> = ({
               <CustomSelect
                 options={garmentOptions}
                 value={garmentOptions.find((opt) => opt.value === g.garment) || null}
-                onChange={(selected: SingleValue<Type>) =>
+                onChange={(selected: SingleValue<Type>) => {
+                  RemoveGarmentCost(Number(garments[gIndex].garment ?? 0))
                   setGarments((prev: Garment[]) => {
                     const updated = [...prev]
                     updated[gIndex].garment = selected?.value || ''
                     return updated
                   })
-                }
+                  AddGarmentCost(Number(selected?.value))
+                }}
                 placeholder='Select Garment'
               />
             </div>
@@ -74,12 +96,27 @@ const GarmentInfo: React.FC<Props> = ({
                 options={fabricOptions}
                 value={fabricOptions.find((opt) => opt.label === FabricName[gIndex]) || null}
                 onChange={(selected: SingleValue<Type>) => {
+                  const newLabel = selected?.label || ''
+                  const oldLabel = FabricName[gIndex]
+
+                  // Only update previous if old label exists
+                  if (oldLabel) {
+                    setPrevFabricName((prev) => {
+                      const updated = [...prev]
+                      updated[gIndex] = oldLabel
+                      return updated
+                    })
+                  }
+
+                  // Set new fabric name
                   setFabricName((prev) => {
                     const updated = [...prev]
-                    updated[gIndex] = selected?.label || ''
+                    updated[gIndex] = newLabel
                     return updated
                   })
-                  setColor(selected?.label || '', gIndex)
+
+                  // Update color accordingly
+                  setColor(newLabel, gIndex)
                 }}
                 placeholder='Select Fabric'
               />
@@ -92,16 +129,28 @@ const GarmentInfo: React.FC<Props> = ({
               <CustomSelect
                 options={colorOptions[gIndex] || []}
                 value={colorOptions[gIndex]?.find((opt) => opt.value === g.color) || null}
-                onChange={(selected: SingleValue<Type>) =>
+                onChange={(selected: SingleValue<Type>) => {
+                  const newColor = selected?.value || ''
+                  const oldColor = garments[gIndex]?.color || ''
+                  const fabricName = prevFabricName[gIndex] ?? FabricName[gIndex]
+
+                  // Remove previous cost if any
+                  if (oldColor && fabricName) {
+                    RemoveFabricCost(fabricName, oldColor)
+                  }
+
+                  // Update garments color
                   setGarments((prev: Garment[]) => {
                     const updated = [...prev]
                     if (updated[gIndex]) {
-                      updated[gIndex].color = selected?.value || ''
-                      setFabric(FabricName[gIndex], selected?.value || '', gIndex, setGarments)
+                      updated[gIndex].color = newColor
                     }
                     return updated
                   })
-                }
+                  AddFabricCost(FabricName[gIndex], newColor)
+                  // Apply new fabric selection and update cost
+                  setFabric(fabricName, newColor, gIndex, setGarments)
+                }}
                 placeholder='Select Color'
               />
             </div>
@@ -159,13 +208,17 @@ const GarmentInfo: React.FC<Props> = ({
                           (opt) => opt.value === emb.name
                         ) || null
                       }
-                      onChange={(selected: SingleValue<Type>) =>
+                      onChange={(selected: SingleValue<Type>) => {
+                        RemoveEmbellishmentCost(
+                          Number(garments[gIndex].embellishments[eIndex].name ?? 0)
+                        )
                         setGarments((prev: Garment[]) => {
                           const updated = [...prev]
                           updated[gIndex].embellishments[eIndex].name = selected?.value || ''
                           return updated
                         })
-                      }
+                        AddEmbellishmentCost(Number(selected?.value))
+                      }}
                       placeholder='Select Embellishment'
                     />
                   </div>

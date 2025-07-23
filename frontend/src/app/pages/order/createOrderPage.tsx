@@ -15,7 +15,7 @@ import {
   useFetchEmbellishmentTypes,
 } from '../order/hooks/useFetchData'
 import {useCreateOrder} from './hooks/useCreateOrder'
-import {OptionType, Garment, Order, defaultOrder, Customer} from '../../types/commonTypes'
+import {OptionType, Garment, Order, defaultOrder} from '../../types/commonTypes'
 import {priorityOptions, paymentOptions} from './options'
 const CreateOrderPage = () => {
   const [order, setOrder] = useState<Order>(defaultOrder)
@@ -29,8 +29,7 @@ const CreateOrderPage = () => {
       embellishments: [{type: '', name: ''}],
     },
   ])
-
-  const {garmentOptions} = useFetchGarments()
+  const {garmentOptions, allGarments} = useFetchGarments()
   const {customerOptions} = useFetchCustomers()
   const {fabricOptions, allFabrics} = useFetchFabrics()
   const {embellishments, embellishmentOptions} = useFetchEmbellishments()
@@ -39,6 +38,13 @@ const CreateOrderPage = () => {
     allFabrics,
     embellishments
   )
+
+  const CalculateCost = (cost: number) => {
+    setOrder((prev: Order) => ({
+      ...prev,
+      TotalCost: (prev.TotalCost || 0) + cost,
+    }))
+  }
 
   const [themeMode, setThemeMode] = useState<'light' | 'dark' | 'system'>(
     ThemeModeComponent.getMode()
@@ -50,7 +56,16 @@ const CreateOrderPage = () => {
   }, [])
   const {handleSubmit} = useCreateOrder(order, garments, () => {
     setOrder(defaultOrder)
-    setGarments([])
+    setGarments([
+      {
+        id: 0,
+        garment: '',
+        color: '',
+        fabric: '',
+        isEmbellished: false,
+        embellishments: [{type: '', name: ''}],
+      },
+    ])
   })
   const isDark = themeMode === 'dark'
   const addGarment = () => {
@@ -86,10 +101,10 @@ const CreateOrderPage = () => {
     setOrder((prev) => ({...prev, [name]: value}))
   }
   const statusOptions: OptionType[] = [
-    {value: '1', label: 'Pending'},
-    {value: '2', label: 'Processing'},
-    {value: '3', label: 'Completed'},
-    {value: '4', label: 'Cancelled'},
+    {value: 'Pending', label: 'Pending'},
+    {value: 'Processing', label: 'Processing'},
+    {value: 'Completed', label: 'Completed'},
+    {value: 'Cancelled', label: 'Cancelled'},
   ]
   return (
     <>
@@ -127,6 +142,9 @@ const CreateOrderPage = () => {
                 setTypes={setTypes}
                 setFabric={setFabric}
                 setColor={setColor}
+                CalculateCost={CalculateCost}
+                AllGarments={allGarments}
+                AllFabrics={allFabrics}
               />
               <PaymentInfo
                 setOrder={setOrder}

@@ -1,12 +1,12 @@
 ﻿
 using Entities.Enum;
 using Khayati.Core.DTO.OrderGarments;
-using Khayati.Core.DTO.Payment;
+using Khayati.Core.DTO.payment;
 using Khayati.Core.Enums;
 
 namespace Khayati.Core.DTO.Orders
 {
-    public class OrderDto
+    public class OrderResponseDto
     {
         public int? OrderId { get; set; }
         public int CustomerId { get; set; }
