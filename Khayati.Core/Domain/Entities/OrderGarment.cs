@@ -1,4 +1,5 @@
 ﻿using Khayati.Core.Domain.Entities;
+using Khayati.Core.DTO.OrderGarmentEmbellishments;
 using Khayati.Core.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -69,7 +70,7 @@ namespace Entities
         [ForeignKey(nameof(GarmentId))]
         public Garment? Garment { get; set; }
 
-        public List<OrderGarmentEmbellishment>? OrderGarmentEmbellishments { get; set; }
+        public List<OrderGarmentEmbellishmentDto>? OrderGarmentEmbellishments { get; set; }
 
 
 

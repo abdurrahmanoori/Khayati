@@ -1,10 +1,11 @@
 ﻿using Entities;
+using Khayati.Core.DTO.OrderGarmentEmbellishments;
 using RepositoryContracts.Base;
 
 namespace RepositoryContracts
 {
-    public interface IOrderEmbellishmentRepository : IGenericRepository<OrderGarmentEmbellishment>
+    public interface IOrderEmbellishmentRepository : IGenericRepository<OrderGarmentEmbellishmentDto>
     {
-     public Task<IEnumerable<OrderGarmentEmbellishment>> GetOrderEmbellishmentListByOrderIdAsync(int orderId);
+     public Task<IEnumerable<OrderGarmentEmbellishmentDto>> GetOrderEmbellishmentListByOrderIdAsync(int orderId);
     }
 }

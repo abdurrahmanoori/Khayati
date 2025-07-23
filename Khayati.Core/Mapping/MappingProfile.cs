@@ -58,7 +58,7 @@ namespace Khayati.Core.Mapping
                       opt => opt.MapFrom(src => ParseOrderPriority(src.OrderPriority)));
 
 
-            CreateMap<OrderGarmentEmbellishment, OrderGarmentEmbellishmentDto>().ReverseMap();
+            CreateMap<OrderGarmentEmbellishmentDto, OrderGarmentEmbellishmentDto>().ReverseMap();
 
             CreateMap<Relative, RelativeAddDto>().ReverseMap();
             CreateMap<Relative, RelativeResponseDto>().ReverseMap();
