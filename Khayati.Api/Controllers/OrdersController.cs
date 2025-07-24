@@ -33,37 +33,6 @@ namespace Khayati.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<OrderDto>>> GetOrders( ) =>
                    HandleResultResponse(await _orderService.GetOrders());
-        [HttpGet("mock-orders")]
-        public async Task<ActionResult<IEnumerable<OrderDto>>> GetOrders1( )
-        {
-
-
-            var mockOrders = new List<OrderDto>
-               {
-            new OrderDto
-            {
-                OrderId = 101,
-                CustomerId = 501,
-                ExpectedCompletionDate = DateTime.Parse("2025-07-15"),
-                Cost = 120.00m,
-                TotalCost = 150.00m,
-                OrderDate = DateTime.Parse("2025-06-22T10:30:00"),
-                IsPaid = false,
-               
-                Payments = new List<PaymentDto>
-                {
-                    new PaymentDto
-                    {
-                        Amount = 50.00m,
-                        PaymentDate = DateTime.Parse("2025-06-22T11:00:00"),
-                        OrderId = 101
-                    }
-                }
-            }
-    };
-
-            return Ok(mockOrders);
-        }
 
 
         [HttpGet("total-cost{orderId}")]

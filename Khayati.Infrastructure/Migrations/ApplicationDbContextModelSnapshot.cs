@@ -497,7 +497,6 @@ namespace Khayati.Infrastructure.Migrations
             modelBuilder.Entity("Entities.Payment", b =>
                 {
                     b.Property<int>("PaymentId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
                     b.Property<decimal>("Amount")
@@ -510,8 +509,6 @@ namespace Khayati.Infrastructure.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("PaymentId");
-
-                    b.HasIndex("OrderId");
 
                     b.ToTable("Payments");
                 });
@@ -1031,7 +1028,7 @@ namespace Khayati.Infrastructure.Migrations
                 {
                     b.HasOne("Entities.Order", "Order")
                         .WithMany("Payments")
-                        .HasForeignKey("OrderId")
+                        .HasForeignKey("PaymentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
