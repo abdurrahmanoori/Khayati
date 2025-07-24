@@ -43,43 +43,18 @@ export const useOrderHelper = () => {
     }
   }
 
-  const fetchOrders = async (
-    setCustomers: Function,
-    setOrders: Function,
-    setAllOrders: Function
-  ) => {
+  const fetchOrders = async (setOrders: Function, setAllOrders: Function) => {
     try {
-      const customerResponse = await axios.get('https://localhost:7016/api/customer')
       const orderResponse = await axios.get('https://localhost:7016/api/orders')
 
-      if (customerResponse.status !== 200 || orderResponse.status !== 200) {
-        throw new Error('Failed to fetch customers or orders')
-      }
-
-      const customers = customerResponse.data
       const orders = orderResponse.data
 
-      // Merge orders with customer info (if needed)
-      const uniqueCustomers: any[] = []
-
-      orders.forEach((order: any) => {
-        const customer = customers.find((c: any) => c.customerId === order.customerId)
-        if (customer && !uniqueCustomers.some((c) => c.customerId === customer.customerId)) {
-          uniqueCustomers.push(customer)
-        }
-      })
       console.log('orders: ', orders)
-      setCustomers(uniqueCustomers)
       setOrders(orders)
       setAllOrders(orders)
       // if you want enriched orders
     } catch (error) {
-      console.error('Error fetching customers or orders:', error)
-      Swal.fire({
-        icon: 'error',
-        title: 'Error',
-        text: 'Failed to fetch customers or orders. Please try again later.',
-      })
+      console.error('Error fetching orders:', error)
     }
   }
   const handleDelete = (OrderId: number, setOrders: Function, orders: any[]) => {
@@ -97,7 +72,7 @@ export const useOrderHelper = () => {
         const reponse = await axios.delete(`https://localhost:7016/api/orders/${OrderId}`)
         console.log('Response of the Delete: ', reponse)
         if (reponse.status == 200) {
-          const newOrders = orders.filter((o: any) => o.OrderId != OrderId)
+          const newOrders = orders.filter((o: any) => o.orderId != OrderId)
           setOrders(newOrders)
           Swal.fire({
             title: 'Deleted Successfully',

@@ -19,7 +19,7 @@ const OrderPage: React.FC<Props> = ({className}) => {
   const [Customers, setCustomers] = useState<Customer[]>([])
   const [allOrders, setAllOrders] = useState(orders)
   useEffect(() => {
-    fetchOrders(setCustomers, setOrders, setAllOrders)
+    fetchOrders(setCustomers, setOrders)
   }, [])
   const search = (value: string) => {
     if (value.trim() === '') {
