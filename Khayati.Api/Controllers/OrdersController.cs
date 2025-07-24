@@ -66,8 +66,6 @@ namespace Khayati.Api.Controllers
         }
 
 
-
-
         [HttpGet("total-cost{orderId}")]
         public async Task<ActionResult<decimal?>> GetTotalCost(int orderId) =>
                  HandleResultResponse(await _orderService.CalculateTotalCost(orderId));

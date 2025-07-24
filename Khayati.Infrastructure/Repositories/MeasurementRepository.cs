@@ -1,15 +1,10 @@
 ﻿using Entities;
 using Entities.Data;
+using Khayati.Infrastructure.Repositories.Base;
 using Microsoft.EntityFrameworkCore;
-using Repositories.Base;
 using RepositoryContracts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Repositories
+namespace Khayati.Infrastructure.Repositories
 {
     class MeasurementRepository : GenericRepository<Measurement>, IMeasurementRepository
     {

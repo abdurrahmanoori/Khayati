@@ -1,32 +1,21 @@
 ﻿using Entities;
 using Entities.Data;
 using Khayati.Core.DTO.Orders;
+using Khayati.Infrastructure.Repositories.Base;
 using Microsoft.EntityFrameworkCore;
-using Repositories.Base;
 using RepositoryContracts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Repositories
+namespace Khayati.Infrastructure.Repositories
 {
-    class OrderRepository : GenericRepository<Order>, IOrderRepository
+    internal class OrderRepository(ApplicationDbContext context) : GenericRepository<Order>(context), IOrderRepository
     {
-        private readonly ApplicationDbContext _dbcontext;
+        private readonly ApplicationDbContext _context = context;
 
-        public OrderRepository(ApplicationDbContext dbcontext) : base(dbcontext)
-        {
-            _dbcontext = dbcontext;
-        }
-
-        public async Task<IEnumerable<CustomerOrderResponseDto?>>
-            GetOrderListByCustomerId(int customerId)
+        public async Task<IEnumerable<CustomerOrderResponseDto?>> GetOrderListByCustomerId(int customerId)
         {
             var query = await (
-                from order in _dbcontext.Orders
-                join customer in _dbcontext.Customers on order.CustomerId equals customer.CustomerId
+                from order in _context.Orders
+                join customer in _context.Customers on order.CustomerId equals customer.CustomerId
                 where order.CustomerId == customerId
                 select new CustomerOrderResponseDto
                 {
@@ -44,7 +33,7 @@ namespace Repositories
         // Method to fetch order details with related entities
         public async Task<Order?> GetOrderWithDetailsAsync(int orderId)
         {
-            return await _dbcontext.Orders
+            return await _context.Orders
                                  .Include(o => o.Payments)
                                  .FirstOrDefaultAsync(o => o.OrderId == orderId);
         }

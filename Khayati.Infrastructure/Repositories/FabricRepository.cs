@@ -1,12 +1,12 @@
 ﻿using Entities.Data;
 using Khayati.Core.Domain.Entities;
 using Khayati.Core.Domain.RepositoryContracts;
-using Repositories.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Khayati.Infrastructure.Repositories.Base;
 
 namespace Khayati.Infrastructure.Repositories
 {

@@ -1,9 +1,9 @@
 ﻿using Entities.Data;
 using Khayati.Core.Domain.Entities;
-using Repositories.Base;
+using Khayati.Infrastructure.Repositories.Base;
 using RepositoryContracts;
 
-namespace Repositories
+namespace Khayati.Infrastructure.Repositories
 {
     public class RelativeRepository : GenericRepository<Relative>, IRelativeRepository
     {

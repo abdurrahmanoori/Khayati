@@ -1,11 +1,11 @@
 ﻿using Entities;
 using Entities.Data;
 using Khayati.Core.DTO.Embellishment;
+using Khayati.Infrastructure.Repositories.Base;
 using Microsoft.EntityFrameworkCore;
-using Repositories.Base;
 using RepositoryContracts;
 
-namespace Repositories
+namespace Khayati.Infrastructure.Repositories
 {
     public class EmbellishmentRepository : GenericRepository<Embellishment>, IEmbellishmentRepository
     {

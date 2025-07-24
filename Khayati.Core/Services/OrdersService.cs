@@ -79,10 +79,11 @@ namespace Khayati.Service
 
         }
 
-        // Calculates the total cost of an order
         public async Task<Result<IEnumerable<CustomerOrderResponseDto>>> GetOrdersByCustomerId(int customerId)
         {
             var customerOrderList = await _unitOfWork.OrderRepository.GetOrderListByCustomerId(customerId);
+
+
             if (customerOrderList.Any() == false)
             {
                 return Result<IEnumerable<CustomerOrderResponseDto>>
@@ -108,8 +109,7 @@ namespace Khayati.Service
 
         }
 
-        public async Task<Result<decimal?>>
-            CalculateTotalCost(int orderId)
+        public async Task<Result<decimal?>> CalculateTotalCost(int orderId)
         {
             var order = await _unitOfWork.OrderRepository.GetOrderWithDetailsAsync(orderId);
             if (order == null) throw new Exception("Order not found");

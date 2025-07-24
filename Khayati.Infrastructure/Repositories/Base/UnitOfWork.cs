@@ -1,10 +1,9 @@
 ﻿using Entities.Data;
 using Khayati.Core.Domain.RepositoryContracts;
-using Khayati.Infrastructure.Repositories;
 using RepositoryContracts;
 using RepositoryContracts.Base;
 
-namespace Repositories.Base
+namespace Khayati.Infrastructure.Repositories.Base
 {
     public class UnitOfWork : IUnitOfWork
     {

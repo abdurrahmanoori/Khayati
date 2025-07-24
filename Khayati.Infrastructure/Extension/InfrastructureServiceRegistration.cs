@@ -10,11 +10,11 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using Repositories.Base;
 using RepositoryContracts.Base;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Khayati.Infrastructure.Repositories.Base;
 
 
 namespace Khayati.Infrastructure.Extension
