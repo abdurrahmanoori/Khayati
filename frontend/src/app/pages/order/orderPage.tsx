@@ -122,7 +122,7 @@ const OrderPage: React.FC<Props> = ({className}) => {
                       <div className='d-flex align-items-center'>
                         <div className='d-flex justify-content-start flex-column'>
                           <a href='#' className='text-dark fw-bold text-hover-primary fs-6'>
-                            {Customers[index]?.name || 'Unknown'}
+                            {order.customer.name || 'Unknown'}
                           </a>
                         </div>
                       </div>
