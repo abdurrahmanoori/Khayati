@@ -23,6 +23,13 @@ namespace Khayati.Service
 
         public async Task<Result<OrderResponseDto>> AddOrderWithDetails(OrderResponseDto orderDto)
         {
+            var isDuplicate = await _unitOfWork.OrderRepository
+                .AnyAsync(x => x.CustomerId == orderDto.CustomerId && x.ExpectedCompletionDate == orderDto.ExpectedCompletionDate);
+            if (isDuplicate)
+            {
+                return Result<OrderResponseDto>.FailureResult(DeclareMessage.Duplicate.Code!, DeclareMessage.Duplicate.Description!);
+            }
+
 
             var order = _mapper.Map<Order>(orderDto);
             if (order.OrderStatus == OrderStatus.Completed && order.Payments?.Any() == true)
@@ -86,10 +93,10 @@ namespace Khayati.Service
             return Result<IEnumerable<CustomerOrderResponseDto>>.SuccessResult(customerOrderList!);
         }
 
-        
+
         public async Task<Result<IEnumerable<OrderResponseDto>>> GetOrders( )
         {
-            var orders = await _unitOfWork.OrderRepository.GetAll(includeProperties:"Customer,Payments,OrderGarments");
+            var orders = await _unitOfWork.OrderRepository.GetAll(includeProperties: "Customer,Payments,OrderGarments");
             if (orders.Any() == false)
             {
                 return Result<IEnumerable<OrderResponseDto>>.EmptyResult();
@@ -156,7 +163,7 @@ namespace Khayati.Service
             //return orderDesigns.Sum(d => d.CostAtTimeOfOrder);
         }
 
-        public Task<Result<IEnumerable<OrdersResponseDto>>> GetAllOrders()
+        public Task<Result<IEnumerable<OrdersResponseDto>>> GetAllOrders( )
         {
             throw new NotImplementedException();
         }
@@ -165,5 +172,9 @@ namespace Khayati.Service
         {
             throw new NotImplementedException();
         }
+
+
+
+
     }
 }

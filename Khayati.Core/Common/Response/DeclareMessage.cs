@@ -12,6 +12,7 @@ namespace Khayati.Core.Common.Response
         public static ValidationError InvalidOperation = new() { Code = nameof(InvalidOperation), Description = "This operation is not valid." };
         public static ValidationError BadRequest = new() { Code = nameof(BadRequest), Description = "Bad Request" };
         public static ValidationError EmptyList = new() { Code = nameof(EmptyList), Description = "List is empty" };
+        public static ValidationError Duplicate = new() { Code = nameof(Duplicate), Description = "The item is already exists" };
 
         // public static ValidationError NonEnterprise = new() { Code = nameof(NonEnterprise), Description = "TIN is not Enterprise" };
         // public static ValidationError TinApplicaionNotFound = new() { Code = nameof(TinApplicaionNotFound), Description = "Tin Application Not Found" };
