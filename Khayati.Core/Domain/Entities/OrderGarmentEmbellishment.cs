@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entities
 {
-    public class OrderEmbellishment
+    public class OrderGarmentEmbellishment
     {
         [Key]
         public int Id { get; set; }
