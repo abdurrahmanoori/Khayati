@@ -39,14 +39,16 @@ namespace Khayati.Infrastructure.Identity.UserServices
                 UserName = dto.UserName,
                 EmailConfirmed = false
             };
-            IdentityResult result=await _userManager.CreateAsync(user, dto.Password);
+
+            var result = await _userManager.CreateAsync(user, dto.Password);
+
             var errors = !result.Succeeded ? result.Errors
-    .Select(e => new ValidationError { Code = e.Code, Description = e.Description })
-    .ToList() : [];
-            return result.Succeeded?Result<UserDto>.SuccessResult(dto): Result<UserDto>.WithErrors(errors);
+                .Select(e => new ValidationError { Code = e.Code, Description = e.Description })
+                .ToList() : [];
+            return result.Succeeded ? Result<UserDto>.SuccessResult(dto) : Result<UserDto>.WithErrors(errors);
         }
 
-        public async Task<Result<bool>> UpdateUserAsync(string userId,UserDto userDto)
+        public async Task<Result<bool>> UpdateUserAsync(string userId, UserDto userDto)
         {
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null) return Result<bool>.WithError(new ValidationError { Description = "User not found" });
@@ -70,7 +72,7 @@ namespace Khayati.Infrastructure.Identity.UserServices
 
         public async Task<ApplicationUser> GetUserByEmailAsync(string email) => await _userManager.FindByEmailAsync(email);
 
-        public async Task<IEnumerable<ApplicationUser>>  GetAllUsersAsync( ) =>await _userManager.Users.ToListAsync();
+        public async Task<IEnumerable<ApplicationUser>> GetAllUsersAsync() => await _userManager.Users.ToListAsync();
 
         // Authentication
         public async Task<bool> ValidateUserCredentialsAsync(string email, string password)
