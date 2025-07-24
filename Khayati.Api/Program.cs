@@ -79,7 +79,7 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.ConfigureApplicationService(builder.Configuration);
-builder.Services.ConfigureInfrastructureService();
+builder.Services.ConfigureInfrastructureService(builder.Configuration);
 //builder.Services.ConfigurePresentionService();
 
 var app = builder.Build();
@@ -96,8 +96,6 @@ else
 }
 app.UseCors("AllowReactApp");
 app.UseHttpsRedirection();
-
-app.UseAuthorization();
 
 app.MapControllers();
 

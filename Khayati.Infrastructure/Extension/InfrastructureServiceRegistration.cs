@@ -1,30 +1,34 @@
-﻿using Entities.Data;
+﻿
+
+using System.Text;
+using Entities.Data;
 using Khayati.Core.Domain.UserServiceContracts;
 using Khayati.Infrastructure.Common.Options;
 using Khayati.Infrastructure.Identity.Entity;
+using Khayati.Infrastructure.Identity.IdentityDTO;
 using Khayati.Infrastructure.Identity.UserServices;
 using Khayati.Infrastructure.Interceptors;
+using Khayati.Infrastructure.Repositories.Base;
 using Khayati.Infrastructure.Repositories.UserServices;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using RepositoryContracts.Base;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using Khayati.Infrastructure.Repositories.Base;
-
 
 namespace Khayati.Infrastructure.Extension
 {
     public static class InfrastructureServiceRegistration
     {
-        public static IServiceCollection ConfigureInfrastructureService(this IServiceCollection services)
+        public static IServiceCollection ConfigureInfrastructureService(this IServiceCollection services,IConfiguration configuration)
         {
             services.AddScoped<AuditInterceptor>();
             services.ConfigureOptions<DatabaseOptionsSetup>();
+            services.ConfigureOptions<JwtSettingsOptions>();
 
             services.AddDbContext<ApplicationDbContext>((serviceProvider, options) =>
             {
@@ -68,6 +72,45 @@ namespace Khayati.Infrastructure.Extension
                 .AddDefaultTokenProviders()
                 .AddUserStore<UserStore<ApplicationUser, ApplicationRole, ApplicationDbContext, int>>()
                 .AddRoleStore<RoleStore<ApplicationRole, ApplicationDbContext, int>>();
+            
+
+
+
+
+            services.Configure<JwtSettings>(configuration.GetSection("JwtSettings"));
+
+            var jwtSettings = configuration.GetSection("JwtSettings").Get<JwtSettings>();
+
+            services.AddAuthentication(options =>
+                {
+                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = jwtSettings.Issuer,
+                        ValidAudience = jwtSettings.Audience,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key))
+                    };
+                });
+
+            services.AddAuthorization();
+
+
+
+
+
+
+
+
+
+
 
             // Register services
             services.AddScoped<IUnitOfWork, UnitOfWork>();

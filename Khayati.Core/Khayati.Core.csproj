@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <Folder Include="Common\Interceptors\" />
+    <Folder Include="DTO\ApplicationUsers\" />
     <Folder Include="Exceptions\" />
   </ItemGroup>
 

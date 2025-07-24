@@ -1,19 +1,20 @@
 ﻿using Khayati.Core.Common.Response;
 using Khayati.Core.DTO;
 using Khayati.Infrastructure.Identity.Entity;
+using Khayati.Infrastructure.Identity.IdentityDTO;
 using Microsoft.AspNetCore.Identity;
 
 namespace Khayati.Core.Domain.UserServiceContracts
 {
     public interface IUserService
     {
-        // User Management
-        Task<Result<UserDto>> CreateUserAsync(UserDto dto);
-        Task<Result<bool>> UpdateUserAsync(string userId, UserDto dto);
+        // User ManagementTask<Result<AuthResponseDto>> CreateUserAsync(UserDto dto)        Task<Result<bool>> UpdateUserAsync(string userId, UserDto dto);
         Task<Result<bool>> DeleteUserAsync(string userId);
         Task<ApplicationUser> GetUserByIdAsync(string userId);
         Task<ApplicationUser> GetUserByEmailAsync(string email);
         Task<IEnumerable<ApplicationUser>> GetAllUsersAsync( );
+        public  Task<Result<AuthResponseDto>> CreateUserAsync(UserDto dto)
+
 
         // Authentication
         Task<bool> ValidateUserCredentialsAsync(string email, string password);

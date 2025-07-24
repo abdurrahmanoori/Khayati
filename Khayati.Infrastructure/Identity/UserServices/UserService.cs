@@ -1,10 +1,17 @@
-﻿using Khayati.Core.Common.Response;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Text;
+using Khayati.Core.Common.Response;
 using Khayati.Core.Domain.UserServiceContracts;
 using Khayati.Core.DTO;
 using Khayati.Infrastructure.Identity.Entity;
-using Microsoft.AspNetCore.Identity;
+using Khayati.Infrastructure.Identity.IdentityDTO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
+using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
 
 namespace Khayati.Infrastructure.Identity.UserServices
 {
@@ -13,25 +20,26 @@ namespace Khayati.Infrastructure.Identity.UserServices
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly RoleManager<ApplicationRole> _roleManager;
+        private readonly JwtSettings _jwtSettings;
         //private readonly ILogger<UserService> _logger;
         //private readonly string _jwtSecret;
 
         public UserService(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            RoleManager<ApplicationRole> roleManager
-            /*ILogger<UserService> logger,
-            string jwtSecret*/)
+            RoleManager<ApplicationRole> roleManager,
+            IOptions<JwtSettings> jwtOptions            /*ILogger<UserService> logger,
+                        string jwtSecret*/)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
+            _jwtSettings =jwtOptions.Value;
             //_logger = logger;
             //_jwtSecret = jwtSecret;
         }
 
-        // User Management
-        public async Task<Result<UserDto>> CreateUserAsync(UserDto dto)
+        public async Task<Result<AuthResponseDto>> CreateUserAsync(UserDto dto)
         {
             var user = new ApplicationUser
             {
@@ -42,10 +50,29 @@ namespace Khayati.Infrastructure.Identity.UserServices
 
             var result = await _userManager.CreateAsync(user, dto.Password);
 
-            var errors = !result.Succeeded ? result.Errors
-                .Select(e => new ValidationError { Code = e.Code, Description = e.Description })
-                .ToList() : [];
-            return result.Succeeded ? Result<UserDto>.SuccessResult(dto) : Result<UserDto>.WithErrors(errors);
+            if (!result.Succeeded)
+            {
+                var errors = result.Errors
+                    .Select(e => new ValidationError { Code = e.Code, Description = e.Description })
+                    .ToList();
+
+                return Result<AuthResponseDto>.WithErrors(errors);
+            }
+
+            // Optionally add claims or roles here
+            // await _userManager.AddToRoleAsync(user, "User");
+
+            var token = await GenerateJwtToken(user);
+
+            var response = new AuthResponseDto
+            {
+                UserId = user.Id,
+                Email = user.Email,
+                UserName = user.UserName,
+                Token = token
+            };
+
+            return Result<AuthResponseDto>.SuccessResult(response);
         }
 
         public async Task<Result<bool>> UpdateUserAsync(string userId, UserDto userDto)
@@ -85,6 +112,39 @@ namespace Khayati.Infrastructure.Identity.UserServices
         {
             throw new NotImplementedException();
         }
+
+
+
+
+
+        private async Task<string> GenerateJwtToken(ApplicationUser user)
+        {
+            var claims = new List<Claim>
+            {
+                new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+                new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim(ClaimTypes.Name, user.UserName)
+            };
+
+            // Add user roles (if applicable)
+            var roles = await _userManager.GetRolesAsync(user);
+            claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Key));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+            var token = new JwtSecurityToken(
+                issuer: _jwtSettings.Issuer,
+                audience: _jwtSettings.Audience,
+                claims: claims,
+                expires: DateTime.UtcNow.AddHours(2),
+                signingCredentials: creds
+            );
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
 
         //public async Task<string> GenerateJwtTokenAsync(ApplicationUser user)
         //{
