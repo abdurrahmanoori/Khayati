@@ -367,8 +367,8 @@ FodyWeavers.xsd
 /Khayati.Core/Domain/Entities/Customer.cs
 /Khayati.Api/Properties/launchSettings.json
 /Khayati.Infrastructure/Migrations/
-/Khayati.Infrastructure/Databases/mydatabase.db
-/Khayati.Infrastructure/Databases/mydatabase.db-shm
-/Khayati.Infrastructure/Databases/mydatabase.db-wal
-/frontend/src/app/pages/measurement/hooks/useCreateMeasurement.ts
-/Khayati.Infrastructure/Databases/mydatabase.db-shm
+/Khayati.Infrastructure/Databases/*.db
+/Khayati.Infrastructure/Databases/*.db-wal
+/Khayati.Infrastructure/Databases/*.db-shm
+
+
