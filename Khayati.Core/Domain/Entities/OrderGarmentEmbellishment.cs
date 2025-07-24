@@ -8,7 +8,6 @@ namespace Entities
     {
         [Key]
         public int Id { get; set; }
-        public int OrderGarmentId { get; set; }
         public int EmbellishmentId { get; set; }
         /// <summary>
         /// Optional free-form notes from the designer or client (e.g., "Use gold thread"). Provides clarity for custom jobs.
@@ -25,11 +24,12 @@ namespace Entities
         /// Name or ID of the worker/vendor who applied the embellishment. Useful for tracking accountability or quality control.
         /// </summary>
         public int? AppliedBy { get; set; }
+     
 
         [ForeignKey(nameof(EmbellishmentId))]
         public Embellishment? Embellishment { get; set; }
-        [ForeignKey(nameof(OrderGarmentId))]
-        public OrderGarment OrderGarment { get; set; }
+
+
 
         ///// <summary>
         ///// To capture how many instances of the embellishment are applied (e.g., 4 patches). Useful for costing and production planning.

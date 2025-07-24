@@ -45,7 +45,7 @@ namespace Khayati.Service
             return Result<CustomerResponseDto>.SuccessResult(_mapper.Map<CustomerResponseDto>(entity));
         }
 
-
+        
         public async Task<Result<List<CustomerResponseDto>>> GetCustomerList()
         {
             var list = await _unitOfWork.CustomerRepository.GetAll(x => !x.IsDeleted, includeProperties: "Measurements");
