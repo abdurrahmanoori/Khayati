@@ -6,7 +6,7 @@ using Khayati.Core.Enums;
 
 namespace Khayati.Core.DTO.Orders
 {
-    public class OrderResponseDto
+    public class OrderDto
     {
         public int? OrderId { get; set; }
         public int CustomerId { get; set; }

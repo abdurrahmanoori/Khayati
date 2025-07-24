@@ -21,13 +21,13 @@ namespace Khayati.Service
         }
 
 
-        public async Task<Result<OrderResponseDto>> AddOrderWithDetails(OrderResponseDto orderDto)
+        public async Task<Result<OrderDto>> AddOrderWithDetails(OrderDto orderDto)
         {
             var isDuplicate = await _unitOfWork.OrderRepository
                 .AnyAsync(x => x.CustomerId == orderDto.CustomerId && x.ExpectedCompletionDate == orderDto.ExpectedCompletionDate);
             if (isDuplicate)
             {
-                return Result<OrderResponseDto>.FailureResult(DeclareMessage.Duplicate.Code!, DeclareMessage.Duplicate.Description!);
+                return Result<OrderDto>.FailureResult(DeclareMessage.Duplicate.Code!, DeclareMessage.Duplicate.Description!);
             }
 
 
@@ -40,7 +40,7 @@ namespace Khayati.Service
             await _unitOfWork.OrderRepository.Add(order);
             await _unitOfWork.SaveChanges(default);
 
-            return Result<OrderResponseDto>.SuccessResult(_mapper.Map<OrderResponseDto>(order));
+            return Result<OrderDto>.SuccessResult(_mapper.Map<OrderDto>(order));
 
         }
 
@@ -95,17 +95,17 @@ namespace Khayati.Service
         }
 
 
-        public async Task<Result<IEnumerable<OrderResponseDto>>> GetOrders( )
+        public async Task<Result<IEnumerable<OrderDto>>> GetOrders( )
         {
             var orders = await _unitOfWork.OrderRepository.GetAll(includeProperties: "Customer,Payments,OrderGarments");
             if (orders.Any() == false)
             {
-                return Result<IEnumerable<OrderResponseDto>>.EmptyResult();
+                return Result<IEnumerable<OrderDto>>.EmptyResult();
             }
 
-            var ordersDto = _mapper.Map<IEnumerable<OrderResponseDto>>(orders);
+            var ordersDto = _mapper.Map<IEnumerable<OrderDto>>(orders);
 
-            return Result<IEnumerable<OrderResponseDto>>.SuccessResult(ordersDto);
+            return Result<IEnumerable<OrderDto>>.SuccessResult(ordersDto);
 
         }
 

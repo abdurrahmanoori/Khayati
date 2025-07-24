@@ -42,7 +42,7 @@ namespace Khayati.Core.Mapping
             CreateMap<Order, OrdersAddDto>().ReverseMap();
 
 
-            CreateMap<Order, OrderResponseDto>()
+            CreateMap<Order, OrderDto>()
                .ForMember(dest => dest.OrderStatus,
                           opt => opt.MapFrom(src => src.OrderStatus.ToString()))
                .ForMember(dest => dest.PaymentStatus,
