@@ -13,8 +13,7 @@ type Props = {
 const OrderPage: React.FC<Props> = ({className}) => {
   const [showModal, setShowModal] = useState(false)
   const [updateOrder, setUpdateOrder] = useState<Order>()
-  const {getOrderStatusText, getPaymentStatusText, getStatusBadgeClass, fetchOrders, handleDelete} =
-    useOrderHelper()
+  const {getStatusBadgeClass, fetchOrders, handleDelete} = useOrderHelper()
 
   const [orders, setOrders] = useState<any[]>([])
   const [Customers, setCustomers] = useState<Customer[]>([])

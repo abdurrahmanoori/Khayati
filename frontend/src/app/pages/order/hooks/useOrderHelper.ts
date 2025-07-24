@@ -83,6 +83,7 @@ export const useOrderHelper = () => {
     }
   }
   const handleDelete = (OrderId: number, setOrders: Function, orders: any[]) => {
+    console.log('OrderId: ', OrderId)
     Swal.fire({
       title: 'Delete',
       text: 'Are you sure you want to delete?',
@@ -94,6 +95,7 @@ export const useOrderHelper = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         const reponse = await axios.delete(`https://localhost:7016/api/orders/${OrderId}`)
+        console.log('Response of the Delete: ', reponse)
         if (reponse.status == 200) {
           const newOrders = orders.filter((o: any) => o.OrderId != OrderId)
           setOrders(newOrders)

@@ -43,7 +43,7 @@ namespace Khayati.Api.Controllers
         //public async Task<ActionResult<IEnumerable<OrdersResponseDto>>> GetAllOrders() =>
         //    HandleResultResponse(await _orderService.GetAllOrders());
 
-        [HttpDelete("id")]
+        [HttpDelete("{id}")]
         public async Task<ActionResult<bool>> Delete(int Id) => HandleResultResponse(await _orderService.DeleteOrder(Id));
 
         //[HttpPut("id")]
