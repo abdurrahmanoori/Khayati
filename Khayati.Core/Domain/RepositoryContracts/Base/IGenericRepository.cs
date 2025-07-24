@@ -8,6 +8,7 @@ namespace RepositoryContracts.Base
 
         Task<T?> GetFirstOrDefault(Expression<Func<T, bool>> filter, string? includeProperties = null, bool tracked = true);
         Task<T?> GetById(int Id);
+        Task<bool> AnyAsync(Expression<Func<T, bool>> filter);
         Task<IList<T>> GetAll(Expression<Func<T, bool>>? filter = null, string? includeProperties = null);
         IQueryable<T> GetAllQueryable(Expression<Func<T, bool>>? filter = null, string? includeProperties = null);
 

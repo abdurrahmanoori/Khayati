@@ -3,7 +3,7 @@
 namespace Khayati.Core.Common.Response
 {
 
-    public class Result 
+    public class Result
     {
         public long Id { get; set; }
 
@@ -67,9 +67,9 @@ namespace Khayati.Core.Common.Response
             {
                 Success = false,
                 Errors = new List<ValidationError>
-        {
-            new ValidationError { Code = code, Description = description }
-        },
+                {
+                    new ValidationError { Code = code, Description = description }
+                },
             };
         }
 
@@ -94,7 +94,7 @@ namespace Khayati.Core.Common.Response
     }
     public class ValidationError
     {
-        public override string ToString()
+        public override string ToString( )
         {
             return $"Code: {this.Code}, Property: {this.Property}, Description: {this.Description}";
         }

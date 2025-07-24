@@ -494,40 +494,9 @@ namespace Khayati.Infrastructure.Migrations
                     b.ToTable("OrderGarments");
                 });
 
-            modelBuilder.Entity("Entities.OrderGarmentEmbellishment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("AppliedBy")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<decimal?>("CostAtTimeOfOrder")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("CustomInstructions")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("EmbellishmentId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("OrderGarmentId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EmbellishmentId");
-
-                    b.HasIndex("OrderGarmentId");
-
-                    b.ToTable("OrderGarmentEmbellishments");
-                });
-
             modelBuilder.Entity("Entities.Payment", b =>
                 {
                     b.Property<int>("PaymentId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
                     b.Property<decimal>("Amount")
@@ -540,8 +509,6 @@ namespace Khayati.Infrastructure.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("PaymentId");
-
-                    b.HasIndex("OrderId");
 
                     b.ToTable("Payments");
                 });
@@ -771,6 +738,34 @@ namespace Khayati.Infrastructure.Migrations
                     b.HasKey("TranslationId");
 
                     b.ToTable("Translations");
+                });
+
+            modelBuilder.Entity("Khayati.Core.DTO.OrderGarmentEmbellishments.OrderGarmentEmbellishmentDto", b =>
+                {
+                    b.Property<int?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("AppliedBy")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal?>("CostAtTimeOfOrder")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CustomInstructions")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("EmbellishmentId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("OrderGarmentId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderGarmentId");
+
+                    b.ToTable("OrderGarmentEmbellishments");
                 });
 
             modelBuilder.Entity("Khayati.Infrastructure.Identity.Entity.ApplicationRole", b =>
@@ -1029,26 +1024,11 @@ namespace Khayati.Infrastructure.Migrations
                     b.Navigation("Order");
                 });
 
-            modelBuilder.Entity("Entities.OrderGarmentEmbellishment", b =>
-                {
-                    b.HasOne("Entities.Embellishment", "Embellishment")
-                        .WithMany()
-                        .HasForeignKey("EmbellishmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Entities.OrderGarment", null)
-                        .WithMany("OrderGarmentEmbellishments")
-                        .HasForeignKey("OrderGarmentId");
-
-                    b.Navigation("Embellishment");
-                });
-
             modelBuilder.Entity("Entities.Payment", b =>
                 {
                     b.HasOne("Entities.Order", "Order")
                         .WithMany("Payments")
-                        .HasForeignKey("OrderId")
+                        .HasForeignKey("PaymentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1075,6 +1055,13 @@ namespace Khayati.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Customer");
+                });
+
+            modelBuilder.Entity("Khayati.Core.DTO.OrderGarmentEmbellishments.OrderGarmentEmbellishmentDto", b =>
+                {
+                    b.HasOne("Entities.OrderGarment", null)
+                        .WithMany("OrderGarmentEmbellishments")
+                        .HasForeignKey("OrderGarmentId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>

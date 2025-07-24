@@ -1,10 +1,9 @@
-﻿using Entities.Data;
-using Entities;
-using Repositories.Base;
+﻿using Entities;
+using Entities.Data;
+using Khayati.Infrastructure.Repositories.Base;
 using RepositoryContracts;
-using Microsoft.EntityFrameworkCore;
 
-namespace Repositories
+namespace Khayati.Infrastructure.Repositories
 {
     public class CustomerRepository : GenericRepository<Customer>, ICustomerRepository
     {

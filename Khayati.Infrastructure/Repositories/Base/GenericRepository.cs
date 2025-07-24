@@ -1,14 +1,9 @@
-﻿using Entities.Data;
+﻿using System.Linq.Expressions;
+using Entities.Data;
 using Microsoft.EntityFrameworkCore;
 using RepositoryContracts.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Repositories.Base
+namespace Khayati.Infrastructure.Repositories.Base
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
@@ -131,6 +126,11 @@ namespace Repositories.Base
                 }
             }
             return  query;
+        }
+
+        public Task<bool> AnyAsync(Expression<Func<T, bool>> filter)
+        {
+            return dbSet.AnyAsync(filter);
         }
 
         //public Task RemoveRange(IEnumerable<T> entity)

@@ -23,7 +23,7 @@ namespace Khayati.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<OrderResponseDto>> Create(OrderResponseDto orderDto) =>
+        public async Task<ActionResult<OrderDto>> Create(OrderDto orderDto) =>
             HandleResultResponse(await _orderService.AddOrderWithDetails(orderDto));
 
         [HttpGet("/api/customers/{customerId}/orders")]
@@ -31,39 +31,8 @@ namespace Khayati.Api.Controllers
                    HandleResultResponse(await _orderService.GetOrdersByCustomerId(customerId));
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<OrderResponseDto>>> GetOrders( ) =>
+        public async Task<ActionResult<IEnumerable<OrderDto>>> GetOrders( ) =>
                    HandleResultResponse(await _orderService.GetOrders());
-        [HttpGet("mock-orders")]
-        public async Task<ActionResult<IEnumerable<OrderResponseDto>>> GetOrders1( )
-        {
-            var mockOrders = new List<OrderResponseDto>
-               {
-            new OrderResponseDto
-            {
-                OrderId = 101,
-                CustomerId = 501,
-                ExpectedCompletionDate = DateTime.Parse("2025-07-15"),
-                Cost = 120.00m,
-                TotalCost = 150.00m,
-                OrderDate = DateTime.Parse("2025-06-22T10:30:00"),
-                IsPaid = false,
-               
-                Payments = new List<PaymentDto>
-                {
-                    new PaymentDto
-                    {
-                        Amount = 50.00m,
-                        PaymentDate = DateTime.Parse("2025-06-22T11:00:00"),
-                        OrderId = 101
-                    }
-                }
-            }
-    };
-
-            return Ok(mockOrders);
-        }
-
-
 
 
         [HttpGet("total-cost{orderId}")]

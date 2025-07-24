@@ -7,7 +7,7 @@ namespace Khayati.ServiceContracts
     public interface IOrdersService
     {
 
-        Task<Result<OrderResponseDto>> AddOrderWithDetails(OrderResponseDto order);
+        Task<Result<OrderDto>> AddOrderWithDetails(OrderDto order);
 
         public Task<Result< decimal?>> CalculateTotalCost(int orderId);
 
@@ -19,7 +19,7 @@ namespace Khayati.ServiceContracts
         public Task<Result<IEnumerable<OrdersResponseDto>>> GetAllOrders();
         public Task<Result<bool>> DeleteOrder(int Id);
         Task<Result<IEnumerable<CustomerOrderResponseDto>>> GetOrdersByCustomerId(int customerId);
-        Task<Result<IEnumerable<OrderResponseDto>>> GetOrders( );
+        Task<Result<IEnumerable<OrderDto>>> GetOrders( );
         //public Task<decimal> CalculateTotalCost (Order order);
 
         //public Task<OrdersAddDto> AddOrders(OrdersAddDto addOrdersDto);

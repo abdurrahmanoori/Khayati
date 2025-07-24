@@ -28,7 +28,7 @@ namespace Khayati.Tests.Services
         public async Task AddOrderWithDetails_Should_Add_Order_And_Return_Success( )
         {
             // Arrange
-            var orderDto = new OrderResponseDto
+            var orderDto = new OrderDto
             {
                 CustomerId = 1,
                 OrderStatus = "Pending",
@@ -68,7 +68,7 @@ namespace Khayati.Tests.Services
         public async Task AddOrderWithDetails_Should_Calculate_PaymentStatus_When_Order_Is_Completed( )
         {
             // Arrange
-            var orderDto = new OrderResponseDto
+            var orderDto = new OrderDto
             {
                 CustomerId = 2,
                 OrderStatus = "Completed",

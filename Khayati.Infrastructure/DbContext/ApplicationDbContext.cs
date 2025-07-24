@@ -1,5 +1,6 @@
 ﻿using Khayati.Core.Domain.Entities;
 using Khayati.Core.Domain.UserServiceContracts;
+using Khayati.Core.DTO.OrderGarmentEmbellishments;
 using Khayati.Infrastructure.DatabaseSeeders;
 using Khayati.Infrastructure.Identity.Entity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -77,7 +78,7 @@ namespace Entities.Data
         public DbSet<Fabric> Fabrics { get; set; }
         public DbSet<Garment> Garments { get; set; }
         public DbSet<GarmentField> GarmentFields { get; set; }
-        public DbSet<OrderGarmentEmbellishment> OrderGarmentEmbellishments { get; set; }
+        public DbSet<OrderGarmentEmbellishmentDto> OrderGarmentEmbellishments { get; set; }
         public DbSet<OrderGarment> OrderGarments { get; set; }
     }
 

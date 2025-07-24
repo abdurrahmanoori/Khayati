@@ -24,8 +24,7 @@ namespace Entities
         /// Name or ID of the worker/vendor who applied the embellishment. Useful for tracking accountability or quality control.
         /// </summary>
         public int? AppliedBy { get; set; }
-     
-
+      
         [ForeignKey(nameof(EmbellishmentId))]
         public Embellishment? Embellishment { get; set; }
 

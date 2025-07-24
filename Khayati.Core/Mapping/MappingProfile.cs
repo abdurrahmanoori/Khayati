@@ -42,7 +42,7 @@ namespace Khayati.Core.Mapping
             CreateMap<Order, OrdersAddDto>().ReverseMap();
 
 
-            CreateMap<Order, OrderResponseDto>()
+            CreateMap<Order, OrderDto>()
                .ForMember(dest => dest.OrderStatus,
                           opt => opt.MapFrom(src => src.OrderStatus.ToString()))
                .ForMember(dest => dest.PaymentStatus,
@@ -58,7 +58,7 @@ namespace Khayati.Core.Mapping
                       opt => opt.MapFrom(src => ParseOrderPriority(src.OrderPriority)));
 
 
-            CreateMap<OrderGarmentEmbellishment, OrderGarmentEmbellishmentDto>().ReverseMap();
+            CreateMap<OrderGarmentEmbellishmentDto, OrderGarmentEmbellishmentDto>().ReverseMap();
 
             CreateMap<Relative, RelativeAddDto>().ReverseMap();
             CreateMap<Relative, RelativeResponseDto>().ReverseMap();

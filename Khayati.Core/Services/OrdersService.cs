@@ -21,8 +21,15 @@ namespace Khayati.Service
         }
 
 
-        public async Task<Result<OrderResponseDto>> AddOrderWithDetails(OrderResponseDto orderDto)
+        public async Task<Result<OrderDto>> AddOrderWithDetails(OrderDto orderDto)
         {
+            var isDuplicate = await _unitOfWork.OrderRepository
+                .AnyAsync(x => x.CustomerId == orderDto.CustomerId && x.ExpectedCompletionDate == orderDto.ExpectedCompletionDate);
+            if (isDuplicate)
+            {
+                return Result<OrderDto>.FailureResult(DeclareMessage.Duplicate.Code!, DeclareMessage.Duplicate.Description!);
+            }
+
 
             var order = _mapper.Map<Order>(orderDto);
             if (order.OrderStatus == OrderStatus.Completed && order.Payments?.Any() == true)
@@ -33,7 +40,7 @@ namespace Khayati.Service
             await _unitOfWork.OrderRepository.Add(order);
             await _unitOfWork.SaveChanges(default);
 
-            return Result<OrderResponseDto>.SuccessResult(orderDto);
+            return Result<OrderDto>.SuccessResult(_mapper.Map<OrderDto>(order));
 
         }
 
@@ -72,10 +79,11 @@ namespace Khayati.Service
 
         }
 
-        // Calculates the total cost of an order
         public async Task<Result<IEnumerable<CustomerOrderResponseDto>>> GetOrdersByCustomerId(int customerId)
         {
             var customerOrderList = await _unitOfWork.OrderRepository.GetOrderListByCustomerId(customerId);
+
+
             if (customerOrderList.Any() == false)
             {
                 return Result<IEnumerable<CustomerOrderResponseDto>>
@@ -86,23 +94,22 @@ namespace Khayati.Service
             return Result<IEnumerable<CustomerOrderResponseDto>>.SuccessResult(customerOrderList!);
         }
 
-        
-        public async Task<Result<IEnumerable<OrderResponseDto>>> GetOrders( )
+
+        public async Task<Result<IEnumerable<OrderDto>>> GetOrders( )
         {
-            var orders = await _unitOfWork.OrderRepository.GetAll(includeProperties:"Customer,Payments,OrderGarments");
+            var orders = await _unitOfWork.OrderRepository.GetAll(includeProperties: "Customer,Payments,OrderGarments");
             if (orders.Any() == false)
             {
-                return Result<IEnumerable<OrderResponseDto>>.EmptyResult();
+                return Result<IEnumerable<OrderDto>>.EmptyResult();
             }
 
-            var ordersDto = _mapper.Map<IEnumerable<OrderResponseDto>>(orders);
+            var ordersDto = _mapper.Map<IEnumerable<OrderDto>>(orders);
 
-            return Result<IEnumerable<OrderResponseDto>>.SuccessResult(ordersDto);
+            return Result<IEnumerable<OrderDto>>.SuccessResult(ordersDto);
 
         }
 
-        public async Task<Result<decimal?>>
-            CalculateTotalCost(int orderId)
+        public async Task<Result<decimal?>> CalculateTotalCost(int orderId)
         {
             var order = await _unitOfWork.OrderRepository.GetOrderWithDetailsAsync(orderId);
             if (order == null) throw new Exception("Order not found");
@@ -156,14 +163,22 @@ namespace Khayati.Service
             //return orderDesigns.Sum(d => d.CostAtTimeOfOrder);
         }
 
-        public Task<Result<IEnumerable<OrdersResponseDto>>> GetAllOrders()
+        public Task<Result<IEnumerable<OrdersResponseDto>>> GetAllOrders( )
         {
             throw new NotImplementedException();
         }
 
-        public Task<Result<bool>> DeleteOrder(int Id)
+        public async Task<Result<bool>> DeleteOrder(int Id)
         {
-            throw new NotImplementedException();
+            var order = await _unitOfWork.OrderRepository.GetFirstOrDefault(x=> x.OrderId == Id);
+            if (order == null) return Result<bool>.NotFoundResult(Id);
+            await _unitOfWork.OrderRepository.Remove(order);
+            await _unitOfWork.SaveChanges(default);
+            return Result<bool>.SuccessResult(true);
         }
+
+
+
+
     }
 }
