@@ -10,22 +10,5 @@
         public string? EmailAddress { get; set; }
         public string? NationalID { get; set; }
         public DateTime DateOfBirth { get; set; }
-
-        //public Customer ToCustomer()
-        //{
-        //    return new Customer
-        //    {
-        //        Name = Name,
-        //        Address = Address,
-        //        PhoneNumber = PhoneNumber,
-        //        //CustomerSince = CustomerSince,
-        //        DateOfBirth = DateOfBirth,
-        //        //CustomerType = CustomerType,
-        //        NationalID = NationalID,
-        //        EmailAddress = EmailAddress
-
-        //    };
-        //}
-
     }
 }
