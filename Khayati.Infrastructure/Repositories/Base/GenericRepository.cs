@@ -133,6 +133,11 @@ namespace Repositories.Base
             return  query;
         }
 
+        public Task<bool> AnyAsync(Expression<Func<T, bool>> filter)
+        {
+            return dbSet.AnyAsync(filter);
+        }
+
         //public Task RemoveRange(IEnumerable<T> entity)
         //{
         //    dbSet.RemoveRange(entity);
