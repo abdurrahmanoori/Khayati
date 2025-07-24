@@ -168,9 +168,13 @@ namespace Khayati.Service
             throw new NotImplementedException();
         }
 
-        public Task<Result<bool>> DeleteOrder(int Id)
+        public async Task<Result<bool>> DeleteOrder(int Id)
         {
-            throw new NotImplementedException();
+            var order = await _unitOfWork.OrderRepository.GetFirstOrDefault(x=> x.OrderId == Id);
+            if (order == null) return Result<bool>.NotFoundResult(Id);
+            await _unitOfWork.OrderRepository.Remove(order);
+            await _unitOfWork.SaveChanges(default);
+            return Result<bool>.SuccessResult(true);
         }
 
 

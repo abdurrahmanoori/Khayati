@@ -42,7 +42,7 @@ namespace Khayati.Api.Controllers
             {
                 if (response.Success && response.Response == null)
                 {
-                    return NotFound();
+                    return NotFound(response.Errors);
                 }
                 else if (!response.Success && response.Errors != null && response.Errors.Any(x => x.Code == DeclareMessage.Duplicate.Code))
                 {
@@ -59,7 +59,7 @@ namespace Khayati.Api.Controllers
 
                 else
                 {
-                    return NotFound();
+                    return NotFound(response);
                 }
             }
             catch (Exception ex)
