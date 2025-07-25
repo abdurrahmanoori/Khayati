@@ -12,6 +12,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
+using Microsoft.Extensions.Configuration;
 
 namespace Khayati.Infrastructure.Identity.UserServices
 {
@@ -21,6 +22,7 @@ namespace Khayati.Infrastructure.Identity.UserServices
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly RoleManager<ApplicationRole> _roleManager;
         private readonly JwtSettings _jwtSettings;
+        private readonly IConfiguration _configuration;
         //private readonly ILogger<UserService> _logger;
         //private readonly string _jwtSecret;
 
@@ -29,12 +31,15 @@ namespace Khayati.Infrastructure.Identity.UserServices
             SignInManager<ApplicationUser> signInManager,
             RoleManager<ApplicationRole> roleManager,
             IOptions<JwtSettings> jwtOptions            /*ILogger<UserService> logger,
-                        string jwtSecret*/)
+                        string jwtSecret*/
+                                          ,
+            IConfiguration configuration)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
-            _jwtSettings =jwtOptions.Value;
+            _jwtSettings = jwtOptions.Value;
+            _configuration = configuration;
             //_logger = logger;
             //_jwtSecret = jwtSecret;
         }
@@ -127,11 +132,12 @@ namespace Khayati.Infrastructure.Identity.UserServices
                 new Claim(ClaimTypes.Name, user.UserName)
             };
 
+            var jwtSetting = _configuration.GetSection("JwtSettings").Get<JwtSettings>();
             // Add user roles (if applicable)
             var roles = await _userManager.GetRolesAsync(user);
             claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Key));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSetting!.Key));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(

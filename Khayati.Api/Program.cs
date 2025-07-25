@@ -77,7 +77,7 @@ builder.Services.AddCors(options =>
             .AllowAnyMethod()
             .AllowAnyHeader());
 });
-
+var configuration = builder.Configuration;
 builder.Services.ConfigureApplicationService(builder.Configuration);
 builder.Services.ConfigureInfrastructureService(builder.Configuration);
 //builder.Services.ConfigurePresentionService();

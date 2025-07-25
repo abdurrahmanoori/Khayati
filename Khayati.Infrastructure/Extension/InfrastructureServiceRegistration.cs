@@ -1,6 +1,5 @@
 ﻿
 
-using System.Text;
 using Entities.Data;
 using Khayati.Core.Domain.UserServiceContracts;
 using Khayati.Infrastructure.Common.Options;
@@ -19,20 +18,22 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using RepositoryContracts.Base;
+using System;
+using System.Text;
 
 namespace Khayati.Infrastructure.Extension
 {
     public static class InfrastructureServiceRegistration
     {
-        public static IServiceCollection ConfigureInfrastructureService(this IServiceCollection services,IConfiguration configuration)
+        public static IServiceCollection ConfigureInfrastructureService(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<AuditInterceptor>();
             services.ConfigureOptions<DatabaseOptionsSetup>();
-            services.ConfigureOptions<JwtSettingsOptions>();
+            services.ConfigureOptions<JwtSettingsOtptionsSetup>();
 
             services.AddDbContext<ApplicationDbContext>((serviceProvider, options) =>
             {
-           
+
                 // Retrieves the directory path without the last segment(Khayati.Api).
                 var current = Directory.GetCurrentDirectory();
 
@@ -72,33 +73,42 @@ namespace Khayati.Infrastructure.Extension
                 .AddDefaultTokenProviders()
                 .AddUserStore<UserStore<ApplicationUser, ApplicationRole, ApplicationDbContext, int>>()
                 .AddRoleStore<RoleStore<ApplicationRole, ApplicationDbContext, int>>();
-            
 
 
 
 
-            services.Configure<JwtSettings>(configuration.GetSection("JwtSettings"));
+            //services.Configure<JwtSettings>(configuration.GetSection("JwtSettings"));
 
             var jwtSettings = configuration.GetSection("JwtSettings").Get<JwtSettings>();
 
+
+            //var provider = services.BuildServiceProvider(); // ⚠️ builds a temporary container
+
+            //var configValue = provider.GetRequiredService<IOptions<JwtSettingsOptions>>().Value;
+
+            //var databaseOptions = serviceProvider.GetService<IOptions<JwtSettingsOptions>>()!.Value;
+
             services.AddAuthentication(options =>
-                {
-                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                })
-                .AddJwtBearer(options =>
-                {
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuer = true,
-                        ValidateAudience = true,
-                        ValidateLifetime = true,
-                        ValidateIssuerSigningKey = true,
-                        ValidIssuer = jwtSettings.Issuer,
-                        ValidAudience = jwtSettings.Audience,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key))
-                    };
-                });
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+              .AddJwtBearer(options =>
+              {
+                  options.TokenValidationParameters = new TokenValidationParameters
+                  {
+                      ValidateIssuer = true,
+                      ValidateAudience = true,
+                      ValidateLifetime = true,
+                      ValidateIssuerSigningKey = true,
+                      // set these statically or read from config directly if no DI access
+                      ValidIssuer = jwtSettings!.Issuer,
+                      ValidAudience = jwtSettings.Audience,
+                      IssuerSigningKey = new SymmetricSecurityKey(
+                          Encoding.UTF8.GetBytes(jwtSettings.Key))
+                  };
+              });
+
 
             services.AddAuthorization();
 

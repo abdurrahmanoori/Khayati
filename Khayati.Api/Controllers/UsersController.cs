@@ -1,5 +1,6 @@
 ﻿using Khayati.Core.Domain.UserServiceContracts;
 using Khayati.Core.DTO;
+using Khayati.Infrastructure.Identity.IdentityDTO;
 using Khayati.Infrastructure.Identity.UserServices;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -18,7 +19,7 @@ namespace Khayati.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<UserDto>> createUser(UserDto userDto)=>
+        public async Task<ActionResult<AuthResponseDto>> createUser(UserDto userDto)=>
         HandleResultResponse(await _userService.CreateUserAsync(userDto));
         
     }

@@ -13,7 +13,7 @@ namespace Khayati.Core.Domain.UserServiceContracts
         Task<ApplicationUser> GetUserByIdAsync(string userId);
         Task<ApplicationUser> GetUserByEmailAsync(string email);
         Task<IEnumerable<ApplicationUser>> GetAllUsersAsync( );
-        public  Task<Result<AuthResponseDto>> CreateUserAsync(UserDto dto)
+        public Task<Result<AuthResponseDto>> CreateUserAsync(UserDto dto);
 
 
         // Authentication
