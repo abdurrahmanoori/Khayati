@@ -2,11 +2,11 @@
 using Khayati.Core.Domain.UserServiceContracts;
 using Khayati.Core.DTO.OrderGarmentEmbellishments;
 using Khayati.Infrastructure.DatabaseSeeders;
+using Khayati.Infrastructure.DatabaseSeeders.Identity;
 using Khayati.Infrastructure.Identity.Entity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
-using Khayati.Infrastructure.DatabaseSeeders.Identity;
 
 namespace Entities.Data
 {

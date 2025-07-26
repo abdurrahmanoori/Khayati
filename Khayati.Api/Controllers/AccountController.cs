@@ -23,9 +23,9 @@ namespace Khayati.Api.Controllers
         public async Task<ActionResult<CreateUserResponseDto>> CreateUser(CreateUserRequest createUserRequest) =>
         HandleResultResponse(await _userService.CreateUserAsync(createUserRequest));
 
-        //[HttpPost("login")]
-        //public async Task<ActionResult<AuthResponse>> LoginUser(AuthRequest authRequest) =>
-        //    HandleResultResponse(await _userService.LoginUser(authRequest));
+        [HttpPost("login")]
+        public async Task<ActionResult<AuthResponse>> LoginUser(AuthRequest authRequest) =>
+            HandleResultResponse(await _userService.Login(authRequest));
 
         [HttpGet]
         public async Task<ActionResult<ApplicationUser>> GetUserById(string? id)

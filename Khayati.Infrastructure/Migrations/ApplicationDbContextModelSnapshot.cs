@@ -798,21 +798,21 @@ namespace Khayati.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "0f7a8baf-05f8-415c-a7f1-8aef0764730b",
+                            ConcurrencyStamp = "4b10a1f1-40d6-4357-8a8a-cb6bbcd51758",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "2769eda0-16bb-40b5-bced-3e70b2eaf633",
+                            ConcurrencyStamp = "a40068b7-8ed0-468e-85ab-74678d63e9a8",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
                             Id = 3,
-                            ConcurrencyStamp = "0fcfa1a7-c1cc-4cb0-9768-70340c2aea40",
+                            ConcurrencyStamp = "51817e02-57a6-4ccb-83e8-b758d5af8172",
                             Name = "Employee",
                             NormalizedName = "EMPLOYEE"
                         });
@@ -837,6 +837,12 @@ namespace Khayati.Infrastructure.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("TEXT");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("INTEGER");
@@ -887,15 +893,15 @@ namespace Khayati.Infrastructure.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f4919130-ae66-44ff-bea5-e4dafc775e90",
+                            ConcurrencyStamp = "b9dcad22-8272-45b6-bd33-58f790647a68",
                             Email = "admin@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@EXAMPLE.COM",
                             NormalizedUserName = "ADMINUSER",
-                            PasswordHash = "AQAAAAIAAYagAAAAEAO0r4DioHya8j65zhNSdlSWmATDtfuWpOR0aQ/4jAxKDFLO1xfQcfw5pv0GJvomaA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEO6+LlILFVeNblse8B0//ZAnLlKZeCU0S9WtkGczuvQ02cgLvJ7e0VoOMcXRiTEOww==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "0b710b41-46b2-46d6-817e-648e4719fefc",
+                            SecurityStamp = "74e11dae-d335-42a3-a650-229beeda7692",
                             TwoFactorEnabled = false,
                             UserName = "adminuser"
                         },
@@ -903,15 +909,15 @@ namespace Khayati.Infrastructure.Migrations
                         {
                             Id = 2,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f5c6bb3f-8e32-43f1-915d-8e18d247f8d7",
+                            ConcurrencyStamp = "43b70ebc-5e2f-4efc-8fab-7ed2f52eef10",
                             Email = "administrator@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMINISTRATOR@EXAMPLE.COM",
                             NormalizedUserName = "ADMINISTRATORUSER",
-                            PasswordHash = "AQAAAAIAAYagAAAAEF7cYezidJMGSBRNHt57++qCOkdBEi2J9T2ObQsl+99pNPcaepcFSAjGxnopOMCGow==",
+                            PasswordHash = "AQAAAAIAAYagAAAAENK4JQvHzdzt86HqVzV83wTYkfGMQUqi05QDyhk3HkRB8b/Wye4vHxpoXzT+gpCvZg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "f6e963ec-8f23-45c4-a278-832d26eb3eec",
+                            SecurityStamp = "ac3e4dc1-d99a-467c-9f89-08d918b9c4e0",
                             TwoFactorEnabled = false,
                             UserName = "administratoruser"
                         },
@@ -919,14 +925,14 @@ namespace Khayati.Infrastructure.Migrations
                         {
                             Id = 3,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ff8971b8-b7d2-4d7d-80db-57f108c9e9d8",
+                            ConcurrencyStamp = "1903bd07-238d-4734-b73e-cf8628a3d19c",
                             Email = "employee@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "EMPLOYEE@EXAMPLE.COM",
                             NormalizedUserName = "EMPLOYEEUSER",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d6dfa3a6-9d19-4cde-a27a-104bdb6e0e95",
+                            SecurityStamp = "64edcc9e-071f-4d17-85b2-2db36789cf62",
                             TwoFactorEnabled = false,
                             UserName = "employeeuser"
                         });

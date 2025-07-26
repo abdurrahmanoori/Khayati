@@ -2,7 +2,6 @@
 using Khayati.Core.DTO;
 using Khayati.Infrastructure.Identity.Entity;
 using Khayati.Infrastructure.Identity.IdentityDTO;
-using Microsoft.AspNetCore.Identity;
 
 namespace Khayati.Core.Domain.UserServiceContracts
 {
@@ -14,6 +13,8 @@ namespace Khayati.Core.Domain.UserServiceContracts
         Task<ApplicationUser> GetUserByEmailAsync(string email);
         Task<IEnumerable<ApplicationUser>> GetAllUsersAsync( );
         public Task<Result<CreateUserResponseDto>> CreateUserAsync(CreateUserRequest request);
+        Task<Result<AuthResponse>> Login(AuthRequest authRequest);
+
 
 
         // Authentication

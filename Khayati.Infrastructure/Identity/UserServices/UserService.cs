@@ -11,6 +11,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace Khayati.Infrastructure.Identity.UserServices
 {
@@ -44,6 +45,7 @@ namespace Khayati.Infrastructure.Identity.UserServices
 
         public async Task<Result<CreateUserResponseDto>> CreateUserAsync(CreateUserRequest request)
         {
+
             var user = new ApplicationUser
             {
                 Email = request.Email,
@@ -51,7 +53,7 @@ namespace Khayati.Infrastructure.Identity.UserServices
                 EmailConfirmed = false,
                 FirstName = request.FirstName,
                 LastName = request.LastName,
-                
+
             };
 
             var result = await _userManager.CreateAsync(user, request.Password);
@@ -71,7 +73,7 @@ namespace Khayati.Infrastructure.Identity.UserServices
                 UserName = user.UserName,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                
+
             };
 
             return Result<CreateUserResponseDto>.SuccessResult(response);
@@ -104,7 +106,7 @@ namespace Khayati.Infrastructure.Identity.UserServices
 
         public async Task<ApplicationUser> GetUserByEmailAsync(string email) => await _userManager.FindByEmailAsync(email);
 
-        public async Task<IEnumerable<ApplicationUser>> GetAllUsersAsync() => await _userManager.Users.ToListAsync();
+        public async Task<IEnumerable<ApplicationUser>> GetAllUsersAsync( ) => await _userManager.Users.ToListAsync();
 
         // Authentication
         public async Task<bool> ValidateUserCredentialsAsync(string email, string password)
@@ -149,6 +151,29 @@ namespace Khayati.Infrastructure.Identity.UserServices
             );
 
             return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        public async Task<Result<AuthResponse>> Login(AuthRequest authRequest)
+        {
+            var user = await _userManager.FindByNameAsync(authRequest.UserName);
+            if (user is null)
+                return Result<AuthResponse>.FailureResult(DeclareMessage.NotFound.Code!, DeclareMessage.NotFound.Description!);
+            var isCorrect = await _userManager.CheckPasswordAsync(user, authRequest.Password);
+
+            var result = await _signInManager.CheckPasswordSignInAsync(user, authRequest.Password, false);
+            if (!result.Succeeded)
+                return Result<AuthResponse>.FailureResult("Invalid credentials", "User name or Password is incorrect!");
+
+            var token = await GenerateJwtToken(user);
+            var response = new AuthResponse
+            {
+                UserId = user.Id,
+                UserName = user.UserName,
+                Email = user.Email,
+                Token = token,
+            };
+
+            return Result<AuthResponse>.SuccessResult(response);
         }
 
 
