@@ -44,7 +44,7 @@ namespace Khayati.Infrastructure.Identity.UserServices
             //_jwtSecret = jwtSecret;
         }
 
-        public async Task<Result<AuthResponseDto>> CreateUserAsync(UserDto dto)
+        public async Task<Result<AuthResponseDto>> CreateUserAsync(AuthRequestDto dto)
         {
             var user = new ApplicationUser
             {
@@ -80,13 +80,13 @@ namespace Khayati.Infrastructure.Identity.UserServices
             return Result<AuthResponseDto>.SuccessResult(response);
         }
 
-        public async Task<Result<bool>> UpdateUserAsync(string userId, UserDto userDto)
+        public async Task<Result<bool>> UpdateUserAsync(string userId, AuthRequestDto authRequestDto)
         {
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null) return Result<bool>.WithError(new ValidationError { Description = "User not found" });
 
-            user.Email = userDto.Email;
-            user.UserName = userDto.UserName;
+            user.Email = authRequestDto.Email;
+            user.UserName = authRequestDto.UserName;
             IdentityResult result = await _userManager.UpdateAsync(user);
             var errors = !result.Succeeded ? result.Errors
     .Select(e => new ValidationError { Code = e.Code, Description = e.Description })

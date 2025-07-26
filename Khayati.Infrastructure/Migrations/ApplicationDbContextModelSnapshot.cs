@@ -72,7 +72,7 @@ namespace Khayati.Infrastructure.Migrations
 
                     b.HasKey("CustomerId");
 
-                    b.ToTable("Customers");
+                    b.ToTable("Customers", (string)null);
 
                     b.HasData(
                         new
@@ -163,7 +163,7 @@ namespace Khayati.Infrastructure.Migrations
 
                     b.HasIndex("EmbellishmentTypeId");
 
-                    b.ToTable("Embellishment");
+                    b.ToTable("Embellishment", (string)null);
 
                     b.HasData(
                         new
@@ -229,7 +229,7 @@ namespace Khayati.Infrastructure.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("EmbellishmentTypes");
+                    b.ToTable("EmbellishmentTypes", (string)null);
 
                     b.HasData(
                         new
@@ -394,7 +394,7 @@ namespace Khayati.Infrastructure.Migrations
 
                     b.HasIndex("GarmentId");
 
-                    b.ToTable("Measurements");
+                    b.ToTable("Measurements", (string)null);
                 });
 
             modelBuilder.Entity("Entities.Order", b =>
@@ -440,7 +440,7 @@ namespace Khayati.Infrastructure.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("Entities.OrderGarment", b =>
@@ -491,7 +491,7 @@ namespace Khayati.Infrastructure.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("OrderGarments");
+                    b.ToTable("OrderGarments", (string)null);
                 });
 
             modelBuilder.Entity("Entities.Payment", b =>
@@ -510,7 +510,7 @@ namespace Khayati.Infrastructure.Migrations
 
                     b.HasKey("PaymentId");
 
-                    b.ToTable("Payments");
+                    b.ToTable("Payments", (string)null);
                 });
 
             modelBuilder.Entity("Khayati.Core.Domain.Entities.Fabric", b =>
@@ -546,7 +546,7 @@ namespace Khayati.Infrastructure.Migrations
 
                     b.HasKey("FabricId");
 
-                    b.ToTable("Fabrics");
+                    b.ToTable("Fabrics", (string)null);
 
                     b.HasData(
                         new
@@ -596,7 +596,7 @@ namespace Khayati.Infrastructure.Migrations
 
                     b.HasKey("GarmentId");
 
-                    b.ToTable("Garments");
+                    b.ToTable("Garments", (string)null);
 
                     b.HasData(
                         new
@@ -647,7 +647,7 @@ namespace Khayati.Infrastructure.Migrations
 
                     b.HasIndex("GarmentId");
 
-                    b.ToTable("GarmentFields");
+                    b.ToTable("GarmentFields", (string)null);
                 });
 
             modelBuilder.Entity("Khayati.Core.Domain.Entities.Relative", b =>
@@ -707,7 +707,7 @@ namespace Khayati.Infrastructure.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("Relative");
+                    b.ToTable("Relative", (string)null);
                 });
 
             modelBuilder.Entity("Khayati.Core.Domain.Entities.Translation", b =>
@@ -737,7 +737,7 @@ namespace Khayati.Infrastructure.Migrations
 
                     b.HasKey("TranslationId");
 
-                    b.ToTable("Translations");
+                    b.ToTable("Translations", (string)null);
                 });
 
             modelBuilder.Entity("Khayati.Core.DTO.OrderGarmentEmbellishments.OrderGarmentEmbellishmentDto", b =>
@@ -765,7 +765,7 @@ namespace Khayati.Infrastructure.Migrations
 
                     b.HasIndex("OrderGarmentId");
 
-                    b.ToTable("OrderGarmentEmbellishments");
+                    b.ToTable("OrderGarmentEmbellishments", (string)null);
                 });
 
             modelBuilder.Entity("Khayati.Infrastructure.Identity.Entity.ApplicationRole", b =>
