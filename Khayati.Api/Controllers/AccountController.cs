@@ -5,6 +5,7 @@ using Khayati.Infrastructure.Identity.IdentityDTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.JsonWebTokens;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Khayati.Api.Controllers
 {
@@ -19,8 +20,12 @@ namespace Khayati.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<AuthResponseDto>> CreateUser(AuthRequestDto authRequestDto) =>
-        HandleResultResponse(await _userService.CreateUserAsync(authRequestDto));
+        public async Task<ActionResult<CreateUserResponseDto>> CreateUser(CreateUserRequest createUserRequest) =>
+        HandleResultResponse(await _userService.CreateUserAsync(createUserRequest));
+
+        //[HttpPost("login")]
+        //public async Task<ActionResult<AuthResponse>> LoginUser(AuthRequest authRequest) =>
+        //    HandleResultResponse(await _userService.LoginUser(authRequest));
 
         [HttpGet]
         public async Task<ActionResult<ApplicationUser>> GetUserById(string? id)
@@ -30,7 +35,7 @@ namespace Khayati.Api.Controllers
 
             return default;
         }
-        //[Authorize]
+        [Authorize]
         [HttpGet("me")]
         public IActionResult GetUserProfile()
         {

@@ -6,12 +6,10 @@ using Khayati.Core.DTO;
 using Khayati.Infrastructure.Identity.Entity;
 using Khayati.Infrastructure.Identity.IdentityDTO;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
-using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
 using Microsoft.Extensions.Configuration;
 
 namespace Khayati.Infrastructure.Identity.UserServices
@@ -44,16 +42,19 @@ namespace Khayati.Infrastructure.Identity.UserServices
             //_jwtSecret = jwtSecret;
         }
 
-        public async Task<Result<AuthResponseDto>> CreateUserAsync(AuthRequestDto dto)
+        public async Task<Result<CreateUserResponseDto>> CreateUserAsync(CreateUserRequest request)
         {
             var user = new ApplicationUser
             {
-                Email = dto.Email,
-                UserName = dto.UserName,
-                EmailConfirmed = false
+                Email = request.Email,
+                UserName = request.UserName,
+                EmailConfirmed = false,
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                
             };
 
-            var result = await _userManager.CreateAsync(user, dto.Password);
+            var result = await _userManager.CreateAsync(user, request.Password);
 
             if (!result.Succeeded)
             {
@@ -61,36 +62,35 @@ namespace Khayati.Infrastructure.Identity.UserServices
                     .Select(e => new ValidationError { Code = e.Code, Description = e.Description })
                     .ToList();
 
-                return Result<AuthResponseDto>.WithErrors(errors);
+                return Result<CreateUserResponseDto>.WithErrors(errors);
             }
-
-            // Optionally add claims or roles here
-            // await _userManager.AddToRoleAsync(user, "User");
-
-            var token = await GenerateJwtToken(user);
-
-            var response = new AuthResponseDto
+            var response = new CreateUserResponseDto
             {
                 UserId = user.Id,
                 Email = user.Email,
                 UserName = user.UserName,
-                Token = token
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                
             };
 
-            return Result<AuthResponseDto>.SuccessResult(response);
+            return Result<CreateUserResponseDto>.SuccessResult(response);
         }
 
-        public async Task<Result<bool>> UpdateUserAsync(string userId, AuthRequestDto authRequestDto)
+
+
+
+        public async Task<Result<bool>> UpdateUserAsync(string userId, CreateUserRequest createUserRequest)
         {
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null) return Result<bool>.WithError(new ValidationError { Description = "User not found" });
 
-            user.Email = authRequestDto.Email;
-            user.UserName = authRequestDto.UserName;
+            user.Email = createUserRequest.Email;
+            user.UserName = createUserRequest.UserName;
             IdentityResult result = await _userManager.UpdateAsync(user);
             var errors = !result.Succeeded ? result.Errors
-    .Select(e => new ValidationError { Code = e.Code, Description = e.Description })
-    .ToList() : [];
+            .Select(e => new ValidationError { Code = e.Code, Description = e.Description })
+            .ToList() : [];
             return result.Succeeded ? Result<bool>.SuccessResult(true) : Result<bool>.WithErrors(errors);
         }
 

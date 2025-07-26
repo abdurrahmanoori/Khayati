@@ -8,12 +8,12 @@ namespace Khayati.Core.Domain.UserServiceContracts
 {
     public interface IUserService
     {
-        // User ManagementTask<Result<AuthResponseDto>> CreateUserAsync(AuthRequestDto dto)        Task<Result<bool>> UpdateUserAsync(string userId, AuthRequestDto dto);
+        // User ManagementTask<Result<RegisterResponseDto>> CreateUserAsync(AuthRequestDto dto)        Task<Result<bool>> UpdateUserAsync(string userId, AuthRequestDto dto);
         Task<Result<bool>> DeleteUserAsync(string userId);
         Task<ApplicationUser> GetUserByIdAsync(string userId);
         Task<ApplicationUser> GetUserByEmailAsync(string email);
         Task<IEnumerable<ApplicationUser>> GetAllUsersAsync( );
-        public Task<Result<AuthResponseDto>> CreateUserAsync(AuthRequestDto dto);
+        public Task<Result<CreateUserResponseDto>> CreateUserAsync(CreateUserRequest request);
 
 
         // Authentication
