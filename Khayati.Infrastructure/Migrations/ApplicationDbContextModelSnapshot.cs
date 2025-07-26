@@ -72,7 +72,7 @@ namespace Khayati.Infrastructure.Migrations
 
                     b.HasKey("CustomerId");
 
-                    b.ToTable("Customers", (string)null);
+                    b.ToTable("Customers");
 
                     b.HasData(
                         new
@@ -163,7 +163,7 @@ namespace Khayati.Infrastructure.Migrations
 
                     b.HasIndex("EmbellishmentTypeId");
 
-                    b.ToTable("Embellishment", (string)null);
+                    b.ToTable("Embellishment");
 
                     b.HasData(
                         new
@@ -229,7 +229,7 @@ namespace Khayati.Infrastructure.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("EmbellishmentTypes", (string)null);
+                    b.ToTable("EmbellishmentTypes");
 
                     b.HasData(
                         new
@@ -394,7 +394,7 @@ namespace Khayati.Infrastructure.Migrations
 
                     b.HasIndex("GarmentId");
 
-                    b.ToTable("Measurements", (string)null);
+                    b.ToTable("Measurements");
                 });
 
             modelBuilder.Entity("Entities.Order", b =>
@@ -440,7 +440,7 @@ namespace Khayati.Infrastructure.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("Orders", (string)null);
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("Entities.OrderGarment", b =>
@@ -491,7 +491,7 @@ namespace Khayati.Infrastructure.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("OrderGarments", (string)null);
+                    b.ToTable("OrderGarments");
                 });
 
             modelBuilder.Entity("Entities.Payment", b =>
@@ -510,7 +510,7 @@ namespace Khayati.Infrastructure.Migrations
 
                     b.HasKey("PaymentId");
 
-                    b.ToTable("Payments", (string)null);
+                    b.ToTable("Payments");
                 });
 
             modelBuilder.Entity("Khayati.Core.Domain.Entities.Fabric", b =>
@@ -546,7 +546,7 @@ namespace Khayati.Infrastructure.Migrations
 
                     b.HasKey("FabricId");
 
-                    b.ToTable("Fabrics", (string)null);
+                    b.ToTable("Fabrics");
 
                     b.HasData(
                         new
@@ -596,7 +596,7 @@ namespace Khayati.Infrastructure.Migrations
 
                     b.HasKey("GarmentId");
 
-                    b.ToTable("Garments", (string)null);
+                    b.ToTable("Garments");
 
                     b.HasData(
                         new
@@ -647,7 +647,7 @@ namespace Khayati.Infrastructure.Migrations
 
                     b.HasIndex("GarmentId");
 
-                    b.ToTable("GarmentFields", (string)null);
+                    b.ToTable("GarmentFields");
                 });
 
             modelBuilder.Entity("Khayati.Core.Domain.Entities.Relative", b =>
@@ -707,7 +707,7 @@ namespace Khayati.Infrastructure.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("Relative", (string)null);
+                    b.ToTable("Relative");
                 });
 
             modelBuilder.Entity("Khayati.Core.Domain.Entities.Translation", b =>
@@ -737,7 +737,7 @@ namespace Khayati.Infrastructure.Migrations
 
                     b.HasKey("TranslationId");
 
-                    b.ToTable("Translations", (string)null);
+                    b.ToTable("Translations");
                 });
 
             modelBuilder.Entity("Khayati.Core.DTO.OrderGarmentEmbellishments.OrderGarmentEmbellishmentDto", b =>
@@ -765,7 +765,7 @@ namespace Khayati.Infrastructure.Migrations
 
                     b.HasIndex("OrderGarmentId");
 
-                    b.ToTable("OrderGarmentEmbellishments", (string)null);
+                    b.ToTable("OrderGarmentEmbellishments");
                 });
 
             modelBuilder.Entity("Khayati.Infrastructure.Identity.Entity.ApplicationRole", b =>
@@ -793,6 +793,29 @@ namespace Khayati.Infrastructure.Migrations
                         .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ConcurrencyStamp = "0f7a8baf-05f8-415c-a7f1-8aef0764730b",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ConcurrencyStamp = "2769eda0-16bb-40b5-bced-3e70b2eaf633",
+                            Name = "Administrator",
+                            NormalizedName = "ADMINISTRATOR"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ConcurrencyStamp = "0fcfa1a7-c1cc-4cb0-9768-70340c2aea40",
+                            Name = "Employee",
+                            NormalizedName = "EMPLOYEE"
+                        });
                 });
 
             modelBuilder.Entity("Khayati.Infrastructure.Identity.Entity.ApplicationUser", b =>
@@ -858,6 +881,55 @@ namespace Khayati.Infrastructure.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "f4919130-ae66-44ff-bea5-e4dafc775e90",
+                            Email = "admin@example.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN@EXAMPLE.COM",
+                            NormalizedUserName = "ADMINUSER",
+                            PasswordHash = "AQAAAAIAAYagAAAAEAO0r4DioHya8j65zhNSdlSWmATDtfuWpOR0aQ/4jAxKDFLO1xfQcfw5pv0GJvomaA==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "0b710b41-46b2-46d6-817e-648e4719fefc",
+                            TwoFactorEnabled = false,
+                            UserName = "adminuser"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "f5c6bb3f-8e32-43f1-915d-8e18d247f8d7",
+                            Email = "administrator@example.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMINISTRATOR@EXAMPLE.COM",
+                            NormalizedUserName = "ADMINISTRATORUSER",
+                            PasswordHash = "AQAAAAIAAYagAAAAEF7cYezidJMGSBRNHt57++qCOkdBEi2J9T2ObQsl+99pNPcaepcFSAjGxnopOMCGow==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "f6e963ec-8f23-45c4-a278-832d26eb3eec",
+                            TwoFactorEnabled = false,
+                            UserName = "administratoruser"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "ff8971b8-b7d2-4d7d-80db-57f108c9e9d8",
+                            Email = "employee@example.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "EMPLOYEE@EXAMPLE.COM",
+                            NormalizedUserName = "EMPLOYEEUSER",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "d6dfa3a6-9d19-4cde-a27a-104bdb6e0e95",
+                            TwoFactorEnabled = false,
+                            UserName = "employeeuser"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -938,6 +1010,23 @@ namespace Khayati.Infrastructure.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = 1,
+                            RoleId = 1
+                        },
+                        new
+                        {
+                            UserId = 2,
+                            RoleId = 2
+                        },
+                        new
+                        {
+                            UserId = 3,
+                            RoleId = 3
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>

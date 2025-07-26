@@ -19,7 +19,7 @@ namespace Khayati.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<AuthResponseDto>> CreateUser(AuthRequestDto authRequestDto)=>
+        public async Task<ActionResult<AuthResponseDto>> CreateUser(AuthRequestDto authRequestDto) =>
         HandleResultResponse(await _userService.CreateUserAsync(authRequestDto));
 
         [HttpGet]

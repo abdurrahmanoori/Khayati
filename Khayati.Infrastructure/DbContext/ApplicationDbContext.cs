@@ -6,6 +6,7 @@ using Khayati.Infrastructure.Identity.Entity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using Khayati.Infrastructure.DatabaseSeeders.Identity;
 
 namespace Entities.Data
 {
@@ -53,7 +54,10 @@ namespace Entities.Data
             Embellishmenteed.DataSeed(modelBuilder);
             FabricSeed.DataSeed(modelBuilder);
             GarmentSeed.DataSeed(modelBuilder);
-            //MeasurmentSeed.DataSeed(modelBuilder);
+            ApplicationUserSeed.DataSeed(modelBuilder);
+            ApplicationRoleSeed.DataSeed(modelBuilder);
+            UserRolesSeed.DataSeed(modelBuilder);
+            //MeasurementSeed.DataSeed(modelBuilder);
             #endregion
 
             #region Fluent Configuration

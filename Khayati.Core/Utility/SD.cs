@@ -6,10 +6,15 @@ namespace Khayati.Core.Utility
         public const string Admin = "Admin"; 
         public const string Customer = "Customer";
 
-        public const string Role_User_Indi = "Individual";
-        public const string Role_User_Comp = "Company";
+        public const string Role_User_Cust = "Customer";
         public const string Role_Admin = "Admin";
+        public const string Role_Administrator = "Administrator";
         public const string Role_Employee = "Employee";
+
+        //public const string Role_User_Comp = "Company";
+
+
+
 
         public const string StatusPending = "Pending";
         public const string StatusApproved = "Approved";
